@@ -1,0 +1,11 @@
+#pro16955
+
+restore [locate_data_file m2_o] m2_o
+restore [locate_data_file m2_t] m2_t
+
+bop m2_o m2_t
+
+bopsection result
+
+checkprops result -l 67.466
+checksection result

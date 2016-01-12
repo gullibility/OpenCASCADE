@@ -1,0 +1,6 @@
+restore [locate_data_file f7] b1
+restore [locate_data_file f3] b2
+
+bfuse result b1 b2
+
+checkprops result -s 172.169

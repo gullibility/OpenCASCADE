@@ -1,0 +1,26 @@
+puts "============"
+puts "OCC951"
+puts "============"
+puts ""
+######################################################
+##BRepAlgoAPI_Section and BRepAlgoAPI_Common fail on given shapes
+######################################################
+## (new topology)
+## (bopcommon)
+## (bopsection)
+######################################################
+
+restore [locate_data_file OCC951_1.brep] s1 
+restore [locate_data_file OCC951_2.brep] s2 
+
+checkshape s1
+checkshape s2
+
+bop s1 s2
+bopsection result
+
+checkprops result -l 39.8616 
+checkshape result 
+checksection result
+set 3dviewer 1
+

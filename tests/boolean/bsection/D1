@@ -1,0 +1,6 @@
+restore [locate_data_file a31] a
+restore [locate_data_file b31] b
+bsection result a b
+
+checkprops result -l 17041.4
+checksection result

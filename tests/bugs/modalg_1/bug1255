@@ -1,0 +1,22 @@
+puts "================"
+puts "OCC1255"
+puts "================"
+puts ""
+###############################################
+## Exception in command 'section'
+###############################################
+
+puts "TODO #OCC26815 ALL: Error : The length of result shape is"
+
+restore [locate_data_file OCC1255.brep] a 
+checkshape a
+
+plane p1 0 -36.8067 0 0 1 0
+mkface f1 p1
+
+bsection result a f1
+
+checkprops result -l 5840.24 
+checkshape result
+checksection result
+set 2dviewer 0

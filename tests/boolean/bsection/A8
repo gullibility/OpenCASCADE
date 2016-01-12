@@ -1,0 +1,6 @@
+restore [locate_data_file CIN001_a8.rle] a
+restore [locate_data_file b8] b
+bsection result a b
+
+checkprops result -l 43.3411
+checksection result

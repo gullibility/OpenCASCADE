@@ -1,0 +1,28 @@
+puts "TODO OCC25829 ALL: Error : The area of result shape is"
+puts "TODO OCC25829 ALL: Faulty shapes in variables faulty_1 to"
+
+puts "============"
+puts "OCC697"
+puts "============"
+puts ""
+######################################################
+# Fuse operation does not work
+######################################################
+## (new topology)
+## (bopfuse)
+######################################################
+
+restore [locate_data_file OCC697_2.brep] b2 
+restore [locate_data_file OCC697_3.brep] b3 
+
+checkshape b2
+checkshape b3
+
+bop b3 b2
+if { [catch {bopfuse result} catch_result] } {
+   puts "Faulty OCC697"
+}
+checkprops result -s 25357.5 
+checkshape result
+set 3dviewer 1
+
