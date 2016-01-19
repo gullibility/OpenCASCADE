@@ -4,13 +4,12 @@ set (CMAKE_SUPPRESS_REGENERATION TRUE)
 
 set (CMAKE_CONFIGURATION_TYPES Release Debug RelWithDebInfo CACHE INTERNAL "" FORCE)
 
-set(CMAKE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/opencascade/simvascular_opencascade")
 # macro: include patched file if it exists
 macro (OCCT_INCLUDE_CMAKE_FILE BEING_INCLUDED_FILE)
   if (BUILD_PATCH AND EXISTS "${BUILD_PATCH}/${BEING_INCLUDED_FILE}.cmake")
     include (${BUILD_PATCH}/${BEING_INCLUDED_FILE}.cmake)
   else()
-	  include (${CMAKE_SOURCE_DIR}/${BEING_INCLUDED_FILE}.cmake)
+	  include (${BEING_INCLUDED_FILE}.cmake)
   endif()
 endmacro()
 
@@ -264,6 +263,7 @@ if (NOT CAN_USE_VTK EQUAL -1)
 else()
   OCCT_CHECK_AND_UNSET (USE_VTK)
 endif()
+set(USE_VTK ON)
 
 # Rebuild *.yacc and *.lex files that are contained by TKMath toolkit
 list (FIND BUILD_TOOLKITS TKMath   CAN_REBUILD_PDC_FOR_TKMATH)
