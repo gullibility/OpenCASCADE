@@ -49,12 +49,12 @@ public:
   Standard_EXPORT IGESSelect_SignLevelNumber(const Standard_Boolean countmode);
   
   //! Returns the value (see above)
-  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SignLevelNumber,IFSelect_Signature)
+  DEFINE_STANDARD_RTTI(IGESSelect_SignLevelNumber,IFSelect_Signature)
 
 protected:
 

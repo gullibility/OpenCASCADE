@@ -44,31 +44,31 @@ public:
   //! Returns field ProjectionEnd
   inline Handle(StepRepr_ShapeAspect) ProjectionEnd () const
   {
-    return myProjectionEnd;
+    return projectionEnd;
   }
   
   //! Set field ProjectionEnd
   inline void SetProjectionEnd (const Handle(StepRepr_ShapeAspect) &theProjectionEnd)
   {
-    myProjectionEnd = theProjectionEnd;
+    projectionEnd = theProjectionEnd;
   }
   
   //! Returns field ProjectionLength
   inline Handle(StepBasic_LengthMeasureWithUnit) ProjectionLength()
   {
-    return myProjectionLength;
+    return projectionLength;
   }
   
   //! Set field ProjectionLength
   inline void SetProjectionLength(const Handle(StepBasic_LengthMeasureWithUnit)& theProjectionLength)
   {
-    myProjectionLength = theProjectionLength;
+    projectionLength = theProjectionLength;
   }
   
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_ProjectedZoneDefinition,StepDimTol_ToleranceZoneDefinition)
+  DEFINE_STANDARD_RTTI(StepDimTol_ProjectedZoneDefinition, StepDimTol_ToleranceZoneDefinition)
 
 private: 
-  Handle(StepRepr_ShapeAspect) myProjectionEnd;
-  Handle(StepBasic_LengthMeasureWithUnit) myProjectionLength;
+  Handle(StepRepr_ShapeAspect) projectionEnd;
+  Handle(StepBasic_LengthMeasureWithUnit) projectionLength;
 };
 #endif // _StepDimTol_ProjectionZoneDefinition_HeaderFile

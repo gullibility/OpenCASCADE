@@ -31,8 +31,6 @@
 #include <TColStd_Array1OfReal.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_InternalAlgo,MMgt_TShared)
-
 extern Standard_Integer nbPtIntersection;   // total P.I.
 extern Standard_Integer nbSegIntersection;  // total S.I
 extern Standard_Integer nbClassification;   // total classification

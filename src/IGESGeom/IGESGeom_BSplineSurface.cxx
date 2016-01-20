@@ -23,8 +23,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_BSplineSurface,IGESData_IGESEntity)
-
 IGESGeom_BSplineSurface::IGESGeom_BSplineSurface ()    {  }
 
 

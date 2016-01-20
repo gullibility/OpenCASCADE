@@ -54,7 +54,7 @@ public:
   Standard_EXPORT IGESSelect_SignStatus();
   
   //! Returns the value (see above)
-  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Performs the match rule (see above)
   Standard_EXPORT virtual Standard_Boolean Matches (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model, const TCollection_AsciiString& text, const Standard_Boolean exact) const Standard_OVERRIDE;
@@ -62,7 +62,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SignStatus,IFSelect_Signature)
+  DEFINE_STANDARD_RTTI(IGESSelect_SignStatus,IFSelect_Signature)
 
 protected:
 

@@ -23,8 +23,6 @@
 #include <TDF_DeltaOnModification.hxx>
 #include <TDF_Label.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_DeltaOnModificationOfIntPackedMap,TDF_DeltaOnModification)
-
 #ifdef OCCT_DEBUG
 #define MAXUP 1000
 #endif

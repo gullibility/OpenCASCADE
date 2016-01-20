@@ -39,7 +39,7 @@ struct Graphic3d_ZLayerSettings
   {}
 
   //! Returns true if theSetting is enabled.
-  Standard_Boolean IsSettingEnabled (const Graphic3d_ZLayerSetting theSetting) const
+  const Standard_Boolean IsSettingEnabled (const Graphic3d_ZLayerSetting theSetting) const
   {
     return (Flags & theSetting) == theSetting;
   }

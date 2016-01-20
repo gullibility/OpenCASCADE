@@ -41,49 +41,43 @@ public:
   Standard_EXPORT StepDimTol_GeometricTolerance();
   
   //! Initialize all fields (own and inherited) AP214
-  Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theName, 
-                            const Handle(TCollection_HAsciiString)& theDescription, 
-                            const Handle(StepBasic_MeasureWithUnit)& theMagnitude, 
-                            const Handle(StepRepr_ShapeAspect)& theTolerancedShapeAspect);
+  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& aName, const Handle(TCollection_HAsciiString)& aDescription, const Handle(StepBasic_MeasureWithUnit)& aMagnitude, const Handle(StepRepr_ShapeAspect)& aTolerancedShapeAspect);
 
     //! Initialize all fields (own and inherited) AP242
-  Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theName, 
-                            const Handle(TCollection_HAsciiString)& theDescription, 
-                            const Handle(StepBasic_MeasureWithUnit)& theMagnitude, 
-                            const StepDimTol_GeometricToleranceTarget& theTolerancedShapeAspect);
+  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& aName, const Handle(TCollection_HAsciiString)& aDescription, const Handle(StepBasic_MeasureWithUnit)& aMagnitude, const StepDimTol_GeometricToleranceTarget& aTolerancedShapeAspect);
   
   //! Returns field Name
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
   
   //! Set field Name
-  Standard_EXPORT void SetName (const Handle(TCollection_HAsciiString)& theName);
+  Standard_EXPORT void SetName (const Handle(TCollection_HAsciiString)& Name);
   
   //! Returns field Description
   Standard_EXPORT Handle(TCollection_HAsciiString) Description() const;
   
   //! Set field Description
-  Standard_EXPORT void SetDescription (const Handle(TCollection_HAsciiString)& theDescription);
+  Standard_EXPORT void SetDescription (const Handle(TCollection_HAsciiString)& Description);
   
   //! Returns field Magnitude
   Standard_EXPORT Handle(StepBasic_MeasureWithUnit) Magnitude() const;
   
   //! Set field Magnitude
-  Standard_EXPORT void SetMagnitude (const Handle(StepBasic_MeasureWithUnit)& theMagnitude);
+  Standard_EXPORT void SetMagnitude (const Handle(StepBasic_MeasureWithUnit)& Magnitude);
   
   //! Returns field TolerancedShapeAspect
   //! Note: in AP214(203) type of this attribute can be only StepRepr_ShapeAspect
   Standard_EXPORT StepDimTol_GeometricToleranceTarget TolerancedShapeAspect() const;
   
   //! Set field TolerancedShapeAspect AP214
-  Standard_EXPORT void SetTolerancedShapeAspect (const Handle(StepRepr_ShapeAspect)& theTolerancedShapeAspect);
+  Standard_EXPORT void SetTolerancedShapeAspect (const Handle(StepRepr_ShapeAspect)& TolerancedShapeAspect);
 
   //! Set field TolerancedShapeAspect AP242
-  Standard_EXPORT void SetTolerancedShapeAspect (const StepDimTol_GeometricToleranceTarget& theTolerancedShapeAspect);
+  Standard_EXPORT void SetTolerancedShapeAspect (const StepDimTol_GeometricToleranceTarget& TolerancedShapeAspect);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricTolerance,MMgt_TShared)
+  DEFINE_STANDARD_RTTI(StepDimTol_GeometricTolerance,MMgt_TShared)
 
 protected:
 
@@ -93,10 +87,10 @@ protected:
 private:
 
 
-  Handle(TCollection_HAsciiString) myName;
-  Handle(TCollection_HAsciiString) myDescription;
-  Handle(StepBasic_MeasureWithUnit) myMagnitude;
-  StepDimTol_GeometricToleranceTarget myTolerancedShapeAspect;
+  Handle(TCollection_HAsciiString) theName;
+  Handle(TCollection_HAsciiString) theDescription;
+  Handle(StepBasic_MeasureWithUnit) theMagnitude;
+  StepDimTol_GeometricToleranceTarget theTolerancedShapeAspect;
 
 
 };

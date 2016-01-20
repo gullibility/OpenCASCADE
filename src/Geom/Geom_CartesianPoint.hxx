@@ -62,32 +62,32 @@ public:
   Standard_EXPORT void SetZ (const Standard_Real Z);
   
   //! Returns the coordinates of <me>.
-  Standard_EXPORT void Coord (Standard_Real& X, Standard_Real& Y, Standard_Real& Z) const Standard_OVERRIDE;
+  Standard_EXPORT void Coord (Standard_Real& X, Standard_Real& Y, Standard_Real& Z) const;
   
 
   //! Returns a non transient cartesian point with
   //! the same coordinates as <me>.
-  Standard_EXPORT gp_Pnt Pnt() const Standard_OVERRIDE;
+  Standard_EXPORT gp_Pnt Pnt() const;
   
   //! Returns the X coordinate of <me>.
-  Standard_EXPORT Standard_Real X() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real X() const;
   
   //! Returns the Y coordinate of <me>.
-  Standard_EXPORT Standard_Real Y() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real Y() const;
   
   //! Returns the Z coordinate of <me>.
-  Standard_EXPORT Standard_Real Z() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real Z() const;
   
   //! Applies the transformation T to this point.
-  Standard_EXPORT void Transform (const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform (const gp_Trsf& T);
   
   //! Creates a new object which is a copy of this point.
-  Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geom_Geometry) Copy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Geom_CartesianPoint,Geom_Point)
+  DEFINE_STANDARD_RTTI(Geom_CartesianPoint,Geom_Point)
 
 protected:
 

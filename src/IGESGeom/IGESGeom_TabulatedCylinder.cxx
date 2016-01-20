@@ -23,8 +23,6 @@
 #include <IGESGeom_TabulatedCylinder.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_TabulatedCylinder,IGESData_IGESEntity)
-
 IGESGeom_TabulatedCylinder::IGESGeom_TabulatedCylinder ()    {  }
 
 

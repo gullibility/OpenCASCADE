@@ -192,13 +192,13 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
      && theCaps->contextStereo)
     {
       TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: QuadBuffer is unavailable!");
-      myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
+      myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_OTHER_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
     }
     if (aTryCore == 0
     && !theCaps->contextCompatible)
     {
       TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: core profile creation failed.");
-      myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PORTABILITY, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
+      myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_PORTABILITY_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
     }
 
     NSView* aView = (NSView* )myPlatformWindow->NativeHandle();
@@ -297,7 +297,7 @@ void OpenGl_Window::Init()
     ::glGetRenderbufferParameteriv (GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &myHeight);
     ::glBindRenderbuffer (GL_RENDERBUFFER, 0);
 
-    if (!aDefFbo->InitWithRB (myGlContext, myWidth, myHeight, GL_RGBA8, GL_DEPTH24_STENCIL8, aWinRBColor))
+    if (!aDefFbo->InitWithRB (myGlContext, myWidth, myHeight, aWinRBColor))
     {
       TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: default FBO creation failed");
       Aspect_GraphicDeviceDefinitionError::Raise (aMsg.ToCString());

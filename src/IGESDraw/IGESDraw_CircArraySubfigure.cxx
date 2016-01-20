@@ -25,8 +25,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_CircArraySubfigure,IGESData_IGESEntity)
-
 IGESDraw_CircArraySubfigure::IGESDraw_CircArraySubfigure ()    {  }
 
 

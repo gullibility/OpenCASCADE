@@ -23,8 +23,6 @@
 #include <TDataStd_ListIteratorOfListOfByte.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_BooleanListDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_BooleanListDriver
 //purpose  : Constructor

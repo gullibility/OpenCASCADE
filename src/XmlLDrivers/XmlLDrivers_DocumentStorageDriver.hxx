@@ -48,20 +48,18 @@ public:
   Standard_EXPORT virtual TCollection_ExtendedString SchemaName() const Standard_OVERRIDE;
   
   Standard_EXPORT virtual void Write (const Handle(CDM_Document)& theDocument, const TCollection_ExtendedString& theFileName) Standard_OVERRIDE;
-
-  Standard_EXPORT virtual void Write (const Handle(CDM_Document)& theDocument, Standard_OStream& theOStream) Standard_OVERRIDE;
   
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers (const Handle(CDM_MessageDriver)& theMsgDriver);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(XmlLDrivers_DocumentStorageDriver,PCDM_StorageDriver)
+  DEFINE_STANDARD_RTTI(XmlLDrivers_DocumentStorageDriver,PCDM_StorageDriver)
 
 protected:
 
   
-  Standard_EXPORT virtual Standard_Boolean WriteToDomDocument (const Handle(CDM_Document)& theDocument, XmlObjMgt_Element& thePDoc);
+  Standard_EXPORT virtual Standard_Boolean WriteToDomDocument (const Handle(CDM_Document)& theDocument, XmlObjMgt_Element& thePDoc, const TCollection_ExtendedString& theFileName);
   
   Standard_EXPORT virtual Standard_Integer MakeDocument (const Handle(CDM_Document)& theDocument, XmlObjMgt_Element& thePDoc);
   
@@ -78,7 +76,6 @@ private:
 
   XmlLDrivers_SequenceOfNamespaceDef mySeqOfNS;
   TCollection_ExtendedString myCopyright;
-  TCollection_ExtendedString myFileName;
 
 
 };

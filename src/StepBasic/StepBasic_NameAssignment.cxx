@@ -19,8 +19,6 @@
 #include <StepBasic_NameAssignment.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_NameAssignment,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_NameAssignment
 //purpose  : 

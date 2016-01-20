@@ -49,26 +49,26 @@ public:
   
   //! Lists the Entities shared by an IGESEntity, which must be
   //! an UndefinedEntity
-  Standard_EXPORT void OwnSharedCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, Interface_EntityIterator& iter) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnSharedCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, Interface_EntityIterator& iter) const;
   
   //! Returns a DirChecker, specific for each type of Entity
   //! Here, Returns an empty DirChecker (no constraint to check)
-  Standard_EXPORT IGESData_DirChecker DirChecker (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent) const Standard_OVERRIDE;
+  Standard_EXPORT IGESData_DirChecker DirChecker (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent) const;
   
   //! Performs Specific Semantic Check for each type of Entity
   //! Here, does nothing (no constraint to check)
-  Standard_EXPORT void OwnCheckCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const Interface_ShareTool& shares, Handle(Interface_Check)& ach) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnCheckCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const Interface_ShareTool& shares, Handle(Interface_Check)& ach) const;
   
   //! Specific creation of a new void entity (UndefinedEntity only)
-  Standard_EXPORT Standard_Boolean NewVoid (const Standard_Integer CN, Handle(Standard_Transient)& entto) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean NewVoid (const Standard_Integer CN, Handle(Standard_Transient)& entto) const;
   
   //! Copies parameters which are specific of each Type of Entity
-  Standard_EXPORT void OwnCopyCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& entfrom, const Handle(IGESData_IGESEntity)& entto, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnCopyCase (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& entfrom, const Handle(IGESData_IGESEntity)& entto, Interface_CopyTool& TC) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_DefaultGeneral,IGESData_GeneralModule)
+  DEFINE_STANDARD_RTTI(IGESData_DefaultGeneral,IGESData_GeneralModule)
 
 protected:
 

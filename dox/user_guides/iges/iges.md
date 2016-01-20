@@ -274,6 +274,11 @@ Default values:
 * read.iges.resource.name - IGES,  
 * read.iges.sequence - FromIGES. 
 
+<h4>read.scale.unit</h4>
+This parameter is obsolete (the parameter *xstep.cascade.unit*  should be used instead   when necessary). If it is set to 'M', the shape is scaled 0.001 times (as if it  were in   meters) after translation from IGES or STEP. 
+
+Default value is MM.
+
 <h4>xstep.cascade.unit</h4>
 This parameter defines units to which a shape should be  converted when translated   from IGES or STEP to CASCADE. Normally it is MM; only those applications that   work internally in units other than MM should use this parameter.
   
@@ -811,7 +816,7 @@ Translated objects depend on the write mode that you chose.  If you chose the Fa
 @subsection occt_iges_3_5 Tolerance  management
 @subsubsection occt_iges_3_5_1 Setting  resolution in an IGES file
 
-There are several  possibilities to set resolution in an IGES file. They are controlled by  write.precision.mode parameter; the dependence between the value of this  parameter and the set resolution is described in paragraph @ref occt_iges_3_3_2 "Setting the translation parameters". 
+There are several  possibilities to set resolution in an IGES file. They are controlled by  write.precision.mode parameter; the dependence between the value of this  parameter and the set resolution is described in paragraph <a href="#occt_iges_3_3_2">Setting the translation parameters</a>. 
 
 If the value of  parameter *write.precision.mode* is -1, 0 or 1, resolution is computed from  tolerances of sub-shapes inside the shape to be translated. In this  computation, only tolerances of *TopoDS_Edges* and *TopoDS_Vertices* participate  since they reflect the accuracy of the shape. *TopoDS_Faces* are ignored in  computations since their tolerances may have influence on resulting computed  resolution while IGES resolution mainly concerns points and curves but not  surfaces.  
 
@@ -844,7 +849,7 @@ Standard_Integer main()
 ~~~~~
 
 
-@section occt_iges_4 Using XSTEPDRAW
+@section occt_iges_4_ Using XSTEPDRAW
 
 XSTEPDRAW UL is intended  for creating executables for testing XSTEP interfaces interactively in the DRAW  environment. It provides an additional set of DRAW commands specific for the  data exchange tasks, which allow loading and writing data files and analysis of  resulting data structures and shapes.  
 
@@ -871,7 +876,7 @@ Command *xtrace* is  intended to view and change these parameters:
 * *Draw xtrace* - directs all messages to the standard output.  
 
 @subsection occt_iges_4_3 Reading IGES files
-For a description of  parameters used in reading an IGES file refer to @ref occt_iges_2_3_3 "Setting the translation parameters".  
+For a description of  parameters used in reading an IGES file refer to <a href="#occt_iges_2_3_3">Setting the translation parameters</a>.  
 
 These parameters are set  by command *param* :  
 
@@ -888,7 +893,7 @@ Loading is done by the command
 ~~~~~
 Draw> xload <file_name>
 ~~~~~
-Once the file is loaded, it is possible to investigate the  structure of the loaded data. To learn how to do it see @ref occt_iges_4_4 "Analyzing the  transferred".
+Once the file is loaded, it is possible to investigate the  structure of the loaded data. To learn how to do it see <a href="#occt_iges_4_4">Analyzing the  transferred</a>
  
 Reading of an IGES file is done by the command  
 ~~~~~
@@ -910,7 +915,7 @@ After the selected set of entities is loaded the user will  be asked how loaded 
 
 The second parameter of the *igesbrep* command defines  the name of the loaded shape. If several shapes are created, they will get  indexed names. For instance, if the last parameter is ‘s’, they will be <i>s_1,  ... s_N.</i> 
 
-<i>\<selection\></i> specifies the scope of selected entities  in the model, it is *xst-transferrable-roots* by default. An asterisk “*” can be  specified instead of *iges-visible-transf-roots*. For possible values of  *selection* refer to @ref occt_iges_2_3_4 "Selecting entities" section. 
+<i>\<selection\></i> specifies the scope of selected entities  in the model, it is *xst-transferrable-roots* by default. An asterisk “*” can be  specified instead of *iges-visible-transf-roots*. For possible values of  *selection* refer to <a href="#occt_iges_2_3_4">Selecting entities</a> section. 
 
 
 Instead of *igesbrep* it is possible to use commands:
@@ -1090,7 +1095,7 @@ When specifying *min* and *max* arguments this  command outputs shapes with name
 
 @subsection occt_iges_4_5 Writing an IGES file
 
-Refer to @ref occt_iges_3_3_2 "Setting the translation parameters" for a description of parameters used in reading an IGES file. The parameters are set by command *param*: 
+Refer to <a href="#occt_iges_3_3_2">Setting the translation parameters</a> for a description of parameters used in reading an IGES file. The parameters are set by command *param*: 
 
 | Description | Name | Values |
 | :-----------  | :---- | :----- |
@@ -1129,10 +1134,10 @@ Loading the file only memorizes, but does not translate the  data.
 
 @subsection occt_iges_5_2 Checking the loaded IGES file
 
-This step is not obligatory. See the description of @ref occt_iges_2_3_2 "Checking the IGES file" above. 
+This step is not obligatory. See the description of this  step <a href="#occt_iges_2_3_2"> above</a>. 
 
 @subsection occt_iges_5_3 Setting parameters for translation to XDE
-See the description of @ref occt_iges_2_3_3 "Setting translation parameters" above. 
+See the description of this step <a href="#occt_iges_2_3_3"> above</a>. 
 
 In  addition, the following parameters can be set for XDE translation of  attributes: 
 * For transferring colors: 

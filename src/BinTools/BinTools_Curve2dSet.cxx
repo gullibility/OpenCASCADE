@@ -298,6 +298,7 @@ static Standard_OStream& operator <<(Standard_OStream& OS, const Handle(Geom2d_O
 void BinTools_Curve2dSet::WriteCurve2d(const Handle(Geom2d_Curve)& C,
 					Standard_OStream& OS)
 {
+  Standard_SStream aMsg;
   Handle(Standard_Type) TheType = C->DynamicType();
   try {
     OCC_CATCH_SIGNALS
@@ -329,11 +330,11 @@ void BinTools_Curve2dSet::WriteCurve2d(const Handle(Geom2d_Curve)& C,
       OS << Handle(Geom2d_OffsetCurve)::DownCast(C);
     }
     else {
-      Standard_Failure::Raise("UNKNOWN CURVE2d TYPE");
+      aMsg << "UNKNOWN CURVE2d TYPE" << endl;
+      Standard_Failure::Raise(aMsg);
     }
   }
   catch(Standard_Failure) {
-    Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_Curve2dSet::WriteCurve2d(..)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;
@@ -593,6 +594,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS,
 Standard_IStream& BinTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS,
 						    Handle(Geom2d_Curve)& C)
 {
+  Standard_SStream aMsg;
   try {
     OCC_CATCH_SIGNALS
     const Standard_Byte ctype = (Standard_Byte) IS.get();
@@ -673,14 +675,14 @@ Standard_IStream& BinTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS,
     default:
       {
 	C = NULL;
-        Standard_Failure::Raise("UNKNOWN CURVE2d TYPE");
+	aMsg << "UNKNOWN CURVE2d TYPE" << endl;	
+        Standard_Failure::Raise(aMsg);
       }
       break;
     }
   }
   catch(Standard_Failure) {
     C = NULL;
-    Standard_SStream aMsg;
     aMsg <<"EXCEPTION in BinTools_Curve2dSet::ReadCurve2d(...)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;

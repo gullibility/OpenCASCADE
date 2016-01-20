@@ -33,8 +33,6 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataXtd_Point,TDF_Attribute)
-
 //=======================================================================
 //function : GetID
 //purpose  : 

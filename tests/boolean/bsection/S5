@@ -14,5 +14,4 @@ maxtolerance b
 
 bsection result a b
 
-checkprops result -l 710.721
-checksection result
+set length 710.721

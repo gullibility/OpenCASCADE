@@ -45,14 +45,14 @@ public:
   //! if <ContextShape> is  a  face, consequently checks
   //! SelfIntersect(),   Closed(),   Orientation()   and
   //! Closed2d until faulty is found
-  Standard_EXPORT void InContext (const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext (const TopoDS_Shape& ContextShape);
   
   //! checks that the  wire  is  not empty and "connex".
   //! Called by constructor
-  Standard_EXPORT void Minimum() Standard_OVERRIDE;
+  Standard_EXPORT void Minimum();
   
   //! Does nothing
-  Standard_EXPORT void Blind() Standard_OVERRIDE;
+  Standard_EXPORT void Blind();
   
   //! Checks if the  oriented  edges of the wire  give a
   //! closed  wire.   If the  wire   is closed,  returns
@@ -114,7 +114,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(BRepCheck_Wire,BRepCheck_Result)
+  DEFINE_STANDARD_RTTI(BRepCheck_Wire,BRepCheck_Result)
 
 protected:
 

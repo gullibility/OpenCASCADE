@@ -28,7 +28,6 @@
 #include <TObj_TXYZ.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlTObjDrivers_XYZDriver,XmlMDF_ADriver)
 IMPLEMENT_DOMSTRING (CoordX,             "X")
 IMPLEMENT_DOMSTRING (CoordY,             "Y")
 IMPLEMENT_DOMSTRING (CoordZ,             "Z")

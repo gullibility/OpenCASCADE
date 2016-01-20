@@ -53,12 +53,12 @@ public:
   //! n2 included. Remark that adequation with Entity's type and
   //! length of list has already been made at this stage
   //! Called by RootResult; calls ListedEntity (see below)
-  Standard_EXPORT void FillResult (const Standard_Integer n1, const Standard_Integer n2, const Handle(Standard_Transient)& ent, Interface_EntityIterator& result) const Standard_OVERRIDE;
+  Standard_EXPORT void FillResult (const Standard_Integer n1, const Standard_Integer n2, const Handle(Standard_Transient)& ent, Interface_EntityIterator& result) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectInList,IFSelect_SelectAnyList)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectInList,IFSelect_SelectAnyList)
 
 protected:
 

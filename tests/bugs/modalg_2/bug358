@@ -35,7 +35,6 @@ if { $tri == 12966 && $nod == 6896} {
     puts " OCC358  : Shady (bad shading)"
 }
 
-checkprops result -s 24861.2 
-checkshape result
+set square 24861.2
 set 2dviewer 0
 

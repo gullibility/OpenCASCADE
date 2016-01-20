@@ -19,8 +19,6 @@
 #include <StepElement_ElementDescriptor.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_ElementDescriptor,MMgt_TShared)
-
 //=======================================================================
 //function : StepElement_ElementDescriptor
 //purpose  : 

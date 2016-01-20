@@ -28,5 +28,4 @@ repeat 21 {
   incr i 10
 }
 
-checkprops result -l 2.49755e+06
-checksection result
+set length 2.49755e+06

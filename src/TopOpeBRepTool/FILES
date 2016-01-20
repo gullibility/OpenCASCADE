@@ -64,6 +64,7 @@ TopOpeBRepTool_PURGE.cxx
 TopOpeBRepTool_PURGE.hxx
 TopOpeBRepTool_PurgeInternalEdges.cxx
 TopOpeBRepTool_PurgeInternalEdges.hxx
+TopOpeBRepTool_PurgeInternalEdges.lxx
 TopOpeBRepTool_RegularizeS.cxx
 TopOpeBRepTool_RegularizeW.cxx
 TopOpeBRepTool_REGUS.cxx
@@ -74,6 +75,7 @@ TopOpeBRepTool_SC.cxx
 TopOpeBRepTool_SC.hxx
 TopOpeBRepTool_ShapeClassifier.cxx
 TopOpeBRepTool_ShapeClassifier.hxx
+TopOpeBRepTool_ShapeExplorer.cxx
 TopOpeBRepTool_ShapeExplorer.hxx
 TopOpeBRepTool_ShapeTool.cxx
 TopOpeBRepTool_ShapeTool.hxx

@@ -16,7 +16,6 @@ if [catch {tcopy result a } res] {
   puts "OCC298 OK: function TCOPY works properly"
 }
 
-checkprops result -s 8e+100 
-checkshape result
+set square 8e+100
 set 2dviewer 0
 

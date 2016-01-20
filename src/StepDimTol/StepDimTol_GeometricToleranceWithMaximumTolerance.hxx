@@ -44,18 +44,18 @@ public:
   //! Returns field MaximumUpperTolerance
   inline Handle(StepBasic_LengthMeasureWithUnit) MaximumUpperTolerance () const
   {
-    return myMaximumUpperTolerance;
+    return maximumUpperTolerance;
   }
   
   //! Set field MaximumUpperTolerance
   inline void SetMaximumUpperTolerance (const Handle(StepBasic_LengthMeasureWithUnit) &theMaximumUpperTolerance)
   {
-    myMaximumUpperTolerance = theMaximumUpperTolerance;
+    maximumUpperTolerance = theMaximumUpperTolerance;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithMaximumTolerance,StepDimTol_GeometricToleranceWithModifiers)
+  DEFINE_STANDARD_RTTI(StepDimTol_GeometricToleranceWithMaximumTolerance, StepDimTol_GeometricToleranceWithModifiers)
 
 private:
-  Handle(StepBasic_LengthMeasureWithUnit) myMaximumUpperTolerance;
+  Handle(StepBasic_LengthMeasureWithUnit) maximumUpperTolerance;
 };
 #endif // _StepDimTol_GeometricToleranceWithMaximumTolerance_HeaderFile

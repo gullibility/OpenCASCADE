@@ -17,7 +17,5 @@ vfit
 vsetdispmode 1
 vselect 289 135
 
-checkprops result -l 5.82393 
-checkshape result 
-checksection result
+set length 5.82393
 set only_screen 0

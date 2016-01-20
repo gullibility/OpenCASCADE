@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_DerivedShapeAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_DerivedShapeAspect,StepRepr_ShapeAspect)
-
 StepRepr_DerivedShapeAspect::StepRepr_DerivedShapeAspect  ()    {  }

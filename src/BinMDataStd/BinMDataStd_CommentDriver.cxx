@@ -21,8 +21,6 @@
 #include <TDataStd_Comment.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_CommentDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_CommentDriver
 //purpose  : Constructor

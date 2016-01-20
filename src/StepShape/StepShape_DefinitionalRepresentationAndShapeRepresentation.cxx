@@ -17,8 +17,6 @@
 #include <Standard_Type.hxx>
 #include <StepShape_DefinitionalRepresentationAndShapeRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_DefinitionalRepresentationAndShapeRepresentation,StepRepr_DefinitionalRepresentation)
-
 StepShape_DefinitionalRepresentationAndShapeRepresentation::StepShape_DefinitionalRepresentationAndShapeRepresentation () 
 {
 }

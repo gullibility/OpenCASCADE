@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectEntityNumber,IFSelect_SelectBase)
-
 IFSelect_SelectEntityNumber::IFSelect_SelectEntityNumber ()    {  }
 
     void  IFSelect_SelectEntityNumber::SetNumber

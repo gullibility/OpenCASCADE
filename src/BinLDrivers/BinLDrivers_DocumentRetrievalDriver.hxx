@@ -28,8 +28,6 @@
 #include <Standard_IStream.hxx>
 #include <Storage_Position.hxx>
 #include <Standard_Boolean.hxx>
-#include <Storage_Data.hxx>
-
 class BinMDF_ADriverTable;
 class CDM_MessageDriver;
 class TCollection_ExtendedString;
@@ -56,22 +54,23 @@ public:
   Standard_EXPORT BinLDrivers_DocumentRetrievalDriver();
   
   //! pure virtual method definition
+  Standard_EXPORT virtual TCollection_ExtendedString SchemaName() const Standard_OVERRIDE;
+  
+  //! pure virtual method definition
+  Standard_EXPORT virtual void Make (const Handle(PCDM_Document)& PD, const Handle(CDM_Document)& TD) Standard_OVERRIDE;
+  
+  //! pure virtual method definition
   Standard_EXPORT virtual Handle(CDM_Document) CreateDocument() Standard_OVERRIDE;
   
   //! retrieves the content of the file into a new Document.
   Standard_EXPORT virtual void Read (const TCollection_ExtendedString& theFileName, const Handle(CDM_Document)& theNewDocument, const Handle(CDM_Application)& theApplication) Standard_OVERRIDE;
-
-  Standard_EXPORT virtual void Read (Standard_IStream&               theIStream,
-                                     const Handle(Storage_Data)&     theStorageData,
-                                     const Handle(CDM_Document)&     theDoc,
-                                     const Handle(CDM_Application)&  theApplication) Standard_OVERRIDE;
   
   Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers (const Handle(CDM_MessageDriver)& theMsgDriver);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(BinLDrivers_DocumentRetrievalDriver,PCDM_RetrievalDriver)
+  DEFINE_STANDARD_RTTI(BinLDrivers_DocumentRetrievalDriver,PCDM_RetrievalDriver)
 
 protected:
 
@@ -79,6 +78,10 @@ protected:
   //! Read the tree from the stream <theIS> to <theLabel>
   Standard_EXPORT virtual Standard_Integer ReadSubTree (Standard_IStream& theIS, const TDF_Label& theData);
   
+  //! Read the  info  section  of  theFile into theData,
+  //! return a file  position  corresponding to the info
+  //! section end
+  Standard_EXPORT Storage_Position ReadInfoSection (const TCollection_AsciiString& theFile, Handle(Storage_HeaderData)& theData);
   
   //! define the procedure of reading a section to file.
   Standard_EXPORT virtual void ReadSection (BinLDrivers_DocumentSection& theSection, const Handle(CDM_Document)& theDoc, Standard_IStream& theIS);

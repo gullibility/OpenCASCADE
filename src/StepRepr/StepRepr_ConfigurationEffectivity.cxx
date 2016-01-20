@@ -22,8 +22,6 @@
 #include <StepRepr_ConfigurationEffectivity.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ConfigurationEffectivity,StepBasic_ProductDefinitionEffectivity)
-
 //=======================================================================
 //function : StepRepr_ConfigurationEffectivity
 //purpose  : 

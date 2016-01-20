@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepDimTol_PositionTolerance.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_PositionTolerance,StepDimTol_GeometricTolerance)
-
 //=======================================================================
 //function : StepDimTol_PositionTolerance
 //purpose  : 

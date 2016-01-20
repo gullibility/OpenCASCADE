@@ -39,7 +39,7 @@ public:
   void SetDisplaySharedVertices (const bool doDisplay);
 
   //! Get current display mode.
-  IVtk_DisplayMode GetDisplayMode() const;
+  const IVtk_DisplayMode GetDisplayMode() const;
 
 protected:
   //! Filter cells according to the given set of ids.

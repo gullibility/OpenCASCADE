@@ -10,4 +10,4 @@ btolx a
 bop a c
 bopcut result
 
-checkprops result -s 97948.8
+set square 97948.8

@@ -50,16 +50,16 @@ public:
   Standard_EXPORT IGESSelect_RebuildGroups();
   
   //! Specific action : Rebuilds the original groups
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Rebuild Groups"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_RebuildGroups,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_RebuildGroups,IGESSelect_ModelModifier)
 
 protected:
 

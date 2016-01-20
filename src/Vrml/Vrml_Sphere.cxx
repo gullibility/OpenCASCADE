@@ -31,14 +31,14 @@ Vrml_Sphere::Vrml_Sphere(const Standard_Real aRadius)
 
  Standard_OStream& Vrml_Sphere::Print(Standard_OStream& anOStream) const
 {
- anOStream  << "Sphere {\n";
+ anOStream  << "Sphere {" << endl;
 
  if ( Abs(myRadius - 1) > 0.0001 )
    {
-    anOStream  << "    radius\t";
-    anOStream << myRadius << "\n";
+    anOStream  << "    radius" << '\t';
+    anOStream << myRadius << endl;
    }
 
- anOStream  << "}\n";
+ anOStream  << '}' << endl;
  return anOStream;
 }

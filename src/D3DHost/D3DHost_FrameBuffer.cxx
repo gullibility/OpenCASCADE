@@ -22,8 +22,6 @@
 #include <Standard_ProgramError.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(D3DHost_FrameBuffer,OpenGl_FrameBuffer)
-
 // =======================================================================
 // function : D3DHost_FrameBuffer
 // purpose  :
@@ -94,12 +92,12 @@ Standard_Boolean D3DHost_FrameBuffer::Init (const Handle(OpenGl_Context)& theCtx
                                             const Standard_Integer        theSizeX,
                                             const Standard_Integer        theSizeY)
 {
-  Release (theCtx.operator->());
-
   myVPSizeX = theSizeX;
   myVPSizeY = theSizeY;
   const Standard_Integer aSizeX = theSizeX > 0 ? theSizeX : 2;
   const Standard_Integer aSizeY = theSizeY > 0 ? theSizeY : 2;
+
+  Release (theCtx.operator->());
 
   // Render target surface should be lockable on
   // Windows XP and non-lockable on Windows Vista or higher

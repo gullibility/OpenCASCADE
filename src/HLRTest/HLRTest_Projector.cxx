@@ -22,8 +22,6 @@
 #include <Standard_Stream.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_Projector,Draw_Drawable3D)
-
 //=======================================================================
 //function : HLRTest_Projector
 //purpose  : 

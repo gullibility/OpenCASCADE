@@ -99,16 +99,16 @@ public: //! @name methods to alter texture mapping properties
   Standard_EXPORT void UpdateAttributes();
 
   //! Sets the color.
-  Standard_EXPORT virtual void SetColor (const Quantity_Color& theColor) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetColor (const Quantity_Color& theColor);
 
   //! Removes settings for the color.
-  Standard_EXPORT virtual void UnsetColor() Standard_OVERRIDE;
+  Standard_EXPORT virtual void UnsetColor();
 
   //! Sets the material aspect.
-  Standard_EXPORT virtual void SetMaterial (const Graphic3d_MaterialAspect& theAspect) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetMaterial (const Graphic3d_MaterialAspect& theAspect);
 
   //! Removes settings for material aspect.
-  Standard_EXPORT virtual void UnsetMaterial() Standard_OVERRIDE;
+  Standard_EXPORT virtual void UnsetMaterial();
 
   //! Enables texture modulation
   Standard_EXPORT void EnableTextureModulate();
@@ -177,7 +177,7 @@ protected: //! @name overridden methods
   //! Compute presentation with texture mapping support.
   Standard_EXPORT virtual void Compute (const Handle(PrsMgr_PresentationManager3d)& thePrsMgr,
                                         const Handle(Prs3d_Presentation)&           thePrs,
-                                        const Standard_Integer                      theMode) Standard_OVERRIDE;
+                                        const Standard_Integer                      theMode);
 
   Standard_EXPORT void updateAttributes (const Handle(Prs3d_Presentation)& thePrs);
 
@@ -206,7 +206,7 @@ protected: //! @name texture mapping properties
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(AIS_TexturedShape,AIS_Shape)
+  DEFINE_STANDARD_RTTI (AIS_TexturedShape, AIS_Shape)
 
 };
 

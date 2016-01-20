@@ -36,7 +36,13 @@ class Contap_HContTool;
 class Adaptor3d_TopolTool;
 class Contap_ArcFunction;
 class Contap_ThePathPointOfTheSearch;
+class Contap_SequenceOfPathPointOfTheSearch;
+class Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch;
 class Contap_TheSegmentOfTheSearch;
+class Contap_SequenceOfSegmentOfTheSearch;
+class Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch;
+
+
 
 class Contap_TheSearch 
 {
@@ -45,44 +51,20 @@ public:
   DEFINE_STANDARD_ALLOC
 
   
-  //! Empty constructor.
   Standard_EXPORT Contap_TheSearch();
   
-  //! Algorithm to find the points and parts of curves of Domain
-  //! (domain of of restriction of a surface) which verify
-  //! F = 0.
-  //! TolBoundary defines if a curve is on Q.
-  //! TolTangency defines if a point is on Q.
   Standard_EXPORT void Perform (Contap_ArcFunction& F, const Handle(Adaptor3d_TopolTool)& Domain, const Standard_Real TolBoundary, const Standard_Real TolTangency, const Standard_Boolean RecheckOnRegularity = Standard_False);
   
-  //! Returns True if the calculus was successful.
     Standard_Boolean IsDone() const;
   
-  //! Returns true if all arc of the Arcs are solution (inside
-  //! the surface).
-  //! An exception is raised if IsDone returns False.
     Standard_Boolean AllArcSolution() const;
   
-  //! Returns the number of resulting points.
-  //! An exception is raised if IsDone returns False (NotDone).
     Standard_Integer NbPoints() const;
   
-  //! Returns the resulting point of range Index.
-  //! The exception NotDone is raised if IsDone() returns
-  //! False.
-  //! The exception OutOfRange is raised if
-  //! Index <= 0 or Index > NbPoints.
     const Contap_ThePathPointOfTheSearch& Point (const Standard_Integer Index) const;
   
-  //! Returns the number of the resulting segments.
-  //! An exception is raised if IsDone returns False (NotDone).
     Standard_Integer NbSegments() const;
   
-  //! Returns the resulting segment of range Index.
-  //! The exception NotDone is raised if IsDone() returns
-  //! False.
-  //! The exception OutOfRange is raised if
-  //! Index <= 0 or Index > NbPoints.
     const Contap_TheSegmentOfTheSearch& Segment (const Standard_Integer Index) const;
 
 
@@ -123,10 +105,22 @@ private:
 #define IntStart_ThePathPoint_hxx <Contap_ThePathPointOfTheSearch.hxx>
 #define IntStart_SequenceOfPathPoint Contap_SequenceOfPathPointOfTheSearch
 #define IntStart_SequenceOfPathPoint_hxx <Contap_SequenceOfPathPointOfTheSearch.hxx>
+#define IntStart_SequenceNodeOfSequenceOfPathPoint Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch
+#define IntStart_SequenceNodeOfSequenceOfPathPoint_hxx <Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch.hxx>
+#define IntStart_SequenceNodeOfSequenceOfPathPoint Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch
+#define IntStart_SequenceNodeOfSequenceOfPathPoint_hxx <Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch.hxx>
 #define IntStart_TheSegment Contap_TheSegmentOfTheSearch
 #define IntStart_TheSegment_hxx <Contap_TheSegmentOfTheSearch.hxx>
 #define IntStart_SequenceOfSegment Contap_SequenceOfSegmentOfTheSearch
 #define IntStart_SequenceOfSegment_hxx <Contap_SequenceOfSegmentOfTheSearch.hxx>
+#define IntStart_SequenceNodeOfSequenceOfSegment Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch
+#define IntStart_SequenceNodeOfSequenceOfSegment_hxx <Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch.hxx>
+#define IntStart_SequenceNodeOfSequenceOfSegment Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch
+#define IntStart_SequenceNodeOfSequenceOfSegment_hxx <Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch.hxx>
+#define Handle_IntStart_SequenceNodeOfSequenceOfPathPoint Handle(Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch)
+#define Handle_IntStart_SequenceNodeOfSequenceOfPathPoint Handle(Contap_SequenceNodeOfSequenceOfPathPointOfTheSearch)
+#define Handle_IntStart_SequenceNodeOfSequenceOfSegment Handle(Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch)
+#define Handle_IntStart_SequenceNodeOfSequenceOfSegment Handle(Contap_SequenceNodeOfSequenceOfSegmentOfTheSearch)
 #define IntStart_SearchOnBoundaries Contap_TheSearch
 #define IntStart_SearchOnBoundaries_hxx <Contap_TheSearch.hxx>
 
@@ -149,10 +143,22 @@ private:
 #undef IntStart_ThePathPoint_hxx
 #undef IntStart_SequenceOfPathPoint
 #undef IntStart_SequenceOfPathPoint_hxx
+#undef IntStart_SequenceNodeOfSequenceOfPathPoint
+#undef IntStart_SequenceNodeOfSequenceOfPathPoint_hxx
+#undef IntStart_SequenceNodeOfSequenceOfPathPoint
+#undef IntStart_SequenceNodeOfSequenceOfPathPoint_hxx
 #undef IntStart_TheSegment
 #undef IntStart_TheSegment_hxx
 #undef IntStart_SequenceOfSegment
 #undef IntStart_SequenceOfSegment_hxx
+#undef IntStart_SequenceNodeOfSequenceOfSegment
+#undef IntStart_SequenceNodeOfSequenceOfSegment_hxx
+#undef IntStart_SequenceNodeOfSequenceOfSegment
+#undef IntStart_SequenceNodeOfSequenceOfSegment_hxx
+#undef Handle_IntStart_SequenceNodeOfSequenceOfPathPoint
+#undef Handle_IntStart_SequenceNodeOfSequenceOfPathPoint
+#undef Handle_IntStart_SequenceNodeOfSequenceOfSegment
+#undef Handle_IntStart_SequenceNodeOfSequenceOfSegment
 #undef IntStart_SearchOnBoundaries
 #undef IntStart_SearchOnBoundaries_hxx
 

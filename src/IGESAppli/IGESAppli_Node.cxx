@@ -25,8 +25,6 @@
 #include <Interface_Macros.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_Node,IGESData_IGESEntity)
-
 IGESAppli_Node::IGESAppli_Node ()    {  }
 
 

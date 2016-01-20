@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_GeometricCurveSet.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_GeometricCurveSet,StepShape_GeometricSet)
-
 StepShape_GeometricCurveSet::StepShape_GeometricCurveSet ()  {}
 

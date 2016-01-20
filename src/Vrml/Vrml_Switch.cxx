@@ -31,12 +31,12 @@ Vrml_Switch::Vrml_Switch(const Standard_Integer aWhichChild)
 
  Standard_OStream& Vrml_Switch::Print(Standard_OStream& anOStream) const
 {
-  anOStream  << "Switch {\n";
+  anOStream  << "Switch {" << endl;
   if ( myWhichChild != -1 )
     {
-      anOStream  << "    whichChild\t";
-      anOStream << myWhichChild << "\n";
+      anOStream  << "    whichChild" << '\t';
+      anOStream << myWhichChild << endl;
     }
- anOStream  << "}\n";
+ anOStream  << '}' << endl;
  return anOStream;
 }

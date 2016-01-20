@@ -44,12 +44,12 @@ public:
   
   //! returns   the file  name  which  contains  application
   //! resources
-  Standard_EXPORT Standard_CString ResourcesName() Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString ResourcesName();
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(AppStdL_Application,TDocStd_Application)
+  DEFINE_STANDARD_RTTI(AppStdL_Application,TDocStd_Application)
 
 protected:
 

@@ -189,14 +189,14 @@ public:
                                             const gp_Pnt& thePoint);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const;
   
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const;
 
-  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits);
 
-  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits);
 
   //! Principle of horizontal text alignment settings:
   //! - divide circle into two halves according to attachment points
@@ -204,23 +204,18 @@ public:
   //! - if aTextPos is not between attach points but in this half -> Left or Right + positive flyout
   //! - if aTextPos is between reflections of attach points -> Center + negative flyout
   //! - if aTextPos is not between reflections of attach points -> Left or Right + negative flyout
-  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos);
 
-  Standard_EXPORT virtual const gp_Pnt GetTextPosition () const Standard_OVERRIDE;
+  Standard_EXPORT virtual const gp_Pnt GetTextPosition () const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(AIS_AngleDimension,AIS_Dimension)
+  DEFINE_STANDARD_RTTI (AIS_AngleDimension, AIS_Dimension)
 
 protected:
 
   //! Initialization of fields that is common to all constructors. 
   Standard_EXPORT void Init();
-
-  //! Gets plane normal for minimal angle.
-  //! Dimension computation is based on three attach points and plane normal.
-  //! Based on this normal angle arc, arrows and extensions are constructed.
-  gp_Dir GetNormalForMinAngle() const;
 
   //! @param theFirstAttach [in] the first attachment point.
   //! @param theSecondAttach [in] the second attachment point.
@@ -289,19 +284,19 @@ protected:
 
 protected:
 
-  Standard_EXPORT virtual void ComputePlane() Standard_OVERRIDE;
+  Standard_EXPORT virtual void ComputePlane();
 
   //! Checks if the plane includes three angle points to build dimension.
-  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const;
 
-  Standard_EXPORT virtual Standard_Real ComputeValue() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Real ComputeValue() const;
 
   Standard_EXPORT  virtual void Compute (const Handle(PrsMgr_PresentationManager3d)& thePM,
                                          const Handle(Prs3d_Presentation)& thePresentation,
-                                         const Standard_Integer theMode = 0) Standard_OVERRIDE;
+                                         const Standard_Integer theMode = 0);
 
   Standard_EXPORT virtual void ComputeFlyoutSelection (const Handle(SelectMgr_Selection)& theSelection,
-                                                       const Handle(SelectMgr_EntityOwner)& theOwner) Standard_OVERRIDE;
+                                                       const Handle(SelectMgr_EntityOwner)& theOwner);
 
 protected:
 

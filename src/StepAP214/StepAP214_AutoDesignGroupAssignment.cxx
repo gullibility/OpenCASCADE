@@ -17,8 +17,6 @@
 #include <StepAP214_AutoDesignGroupedItem.hxx>
 #include <StepBasic_Group.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignGroupAssignment,StepBasic_GroupAssignment)
-
 StepAP214_AutoDesignGroupAssignment::StepAP214_AutoDesignGroupAssignment ()  {}
 
 void StepAP214_AutoDesignGroupAssignment::Init(

@@ -21,8 +21,6 @@
 #include <IGESGeom_SurfaceOfRevolution.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_SurfaceOfRevolution,IGESData_IGESEntity)
-
 IGESGeom_SurfaceOfRevolution::IGESGeom_SurfaceOfRevolution ()    {  }
 
 

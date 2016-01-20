@@ -30,8 +30,6 @@
 #include <TopTools_MapIteratorOfMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(LocOpe_GluedShape,LocOpe_GeneratedShape)
-
 //=======================================================================
 //function : LocOpe_GluedShape
 //purpose  : 

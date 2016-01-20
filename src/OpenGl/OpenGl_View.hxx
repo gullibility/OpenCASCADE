@@ -129,12 +129,10 @@ public:
                                           const Aspect_RenderingContext theContext) Standard_OVERRIDE;
 
   //! Returns window associated with the view.
-  virtual Handle(Aspect_Window) Window() const Standard_OVERRIDE
-  { return myWindow->PlatformWindow(); }
+  virtual Handle(Aspect_Window) Window() const Standard_OVERRIDE { return myWindow->PlatformWindow(); }
 
   //! Returns True if the window associated to the view is defined.
-  virtual Standard_Boolean IsDefined() const Standard_OVERRIDE
-  { return !myWindow.IsNull(); }
+  virtual Standard_Boolean IsDefined() const { return !myWindow.IsNull(); }
 
   //! Handle changing size of the rendering window.
   Standard_EXPORT virtual void Resized() Standard_OVERRIDE;
@@ -149,7 +147,7 @@ public:
   Standard_EXPORT virtual void Invalidate() Standard_OVERRIDE;
 
   //! Return true if view content cache has been invalidated.
-  virtual Standard_Boolean IsInvalidated() Standard_OVERRIDE { return !myBackBufferRestored; }
+  virtual Standard_Boolean IsInvalidated() Standard_OVERRIDE { return myBackBufferRestored; }
 
   //! Displays z-buffer trihedron.
   Standard_EXPORT virtual void TriedronDisplay (const Aspect_TypeOfTriedronPosition thePosition = Aspect_TOTP_CENTER,
@@ -172,8 +170,7 @@ public:
   Standard_EXPORT virtual void TriedronEcho (const Aspect_TypeOfTriedronEcho theType = Aspect_TOTE_NONE) Standard_OVERRIDE;
 
   //! Returns data of a graduated trihedron
-  const Graphic3d_GraduatedTrihedron& GetGraduatedTrihedron() Standard_OVERRIDE
-  { return myGTrihedronData; }
+  const Graphic3d_GraduatedTrihedron& GetGraduatedTrihedron() { return myGTrihedronData; }
 
   //! Displays Graduated Trihedron.
   Standard_EXPORT virtual void GraduatedTrihedronDisplay (const Graphic3d_GraduatedTrihedron& theTrihedronData) Standard_OVERRIDE;
@@ -185,6 +182,13 @@ public:
   //! @param theMin [in] the minimum point of scene.
   //! @param theMax [in] the maximum point of scene.
   Standard_EXPORT virtual void GraduatedTrihedronMinMaxValues (const Graphic3d_Vec3 theMin, const Graphic3d_Vec3 theMax) Standard_OVERRIDE;
+
+  //! Reads depths of shown pixels of the given rectangle.
+  Standard_EXPORT virtual void ReadDepths (const Standard_Integer theX,
+                                           const Standard_Integer theY,
+                                           const Standard_Integer theWidth,
+                                           const Standard_Integer theHeight,
+                                           const Standard_Address theBuffer) const Standard_OVERRIDE;
 
   //! Dump active rendering buffer into specified memory buffer.
   Standard_EXPORT virtual Standard_Boolean BufferDump (Image_PixMap& theImage,
@@ -233,28 +237,28 @@ public:
                                                   const Graphic3d_ZLayerSettings& theSettings) Standard_OVERRIDE;
 
   //! Returns pointer to an assigned framebuffer object.
-  Standard_EXPORT virtual Handle(Standard_Transient) FBO() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Graphic3d_PtrFrameBuffer FBO() const Standard_OVERRIDE;
 
   //! Sets framebuffer object for offscreen rendering.
-  Standard_EXPORT virtual void SetFBO (const Handle(Standard_Transient)& theFbo) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetFBO (const Graphic3d_PtrFrameBuffer theFBO) Standard_OVERRIDE;
 
   //! Generate offscreen FBO in the graphic library.
   //! If not supported on hardware returns NULL.
-  Standard_EXPORT virtual Handle(Standard_Transient) FBOCreate (const Standard_Integer theWidth,
-                                                                const Standard_Integer theHeight) Standard_OVERRIDE;
+  Standard_EXPORT virtual Graphic3d_PtrFrameBuffer FBOCreate (const Standard_Integer theWidth,
+                                                              const Standard_Integer theHeight) Standard_OVERRIDE;
 
   //! Remove offscreen FBO from the graphic library
-  Standard_EXPORT virtual void FBORelease (Handle(Standard_Transient)& theFbo) Standard_OVERRIDE;
+  Standard_EXPORT virtual void FBORelease (Graphic3d_PtrFrameBuffer& theFBOPtr) Standard_OVERRIDE;
 
   //! Read offscreen FBO configuration.
-  Standard_EXPORT virtual void FBOGetDimensions (const Handle(Standard_Transient)& theFbo,
+  Standard_EXPORT virtual void FBOGetDimensions (const Graphic3d_PtrFrameBuffer theFBOPtr,
                                                  Standard_Integer& theWidth,
                                                  Standard_Integer& theHeight,
                                                  Standard_Integer& theWidthMax,
                                                  Standard_Integer& theHeightMax) Standard_OVERRIDE;
 
   //! Change offscreen FBO viewport.
-  Standard_EXPORT virtual void FBOChangeViewport (const Handle(Standard_Transient)& theFbo,
+  Standard_EXPORT virtual void FBOChangeViewport (Graphic3d_PtrFrameBuffer& theFBOPtr,
                                                   const Standard_Integer theWidth,
                                                   const Standard_Integer theHeight) Standard_OVERRIDE;
 
@@ -501,22 +505,18 @@ protected: //! @name Rendering of GL graphics (with prepared drawing buffer).
                                        const Standard_Boolean       theToDrawImmediate);
 
   //! Renders the graphical scene.
-  //! @param theProjection [in] the projection that is used for rendering.
   //! @param theReadDrawFbo [in] the framebuffer for rendering graphics.
   //! @param theToDrawImmediate [in] the flag indicates whether the rendering performs in immediate mode.
-  Standard_EXPORT virtual void renderScene (Graphic3d_Camera::Projection theProjection,
-                                            OpenGl_FrameBuffer*    theReadDrawFbo,
+  Standard_EXPORT virtual void renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
                                             const Standard_Boolean theToDrawImmediate);
 
   //! Draw background (gradient / image)
   Standard_EXPORT virtual void drawBackground (const Handle(OpenGl_Workspace)& theWorkspace);
 
   //! Render set of structures presented in the view.
-  //! @param theProjection [in] the projection that is used for rendering.
   //! @param theReadDrawFbo [in] the framebuffer for rendering graphics.
   //! @param theToDrawImmediate [in] the flag indicates whether the rendering performs in immediate mode.
-  Standard_EXPORT virtual void renderStructs (Graphic3d_Camera::Projection theProjection,
-                                              OpenGl_FrameBuffer*    theReadDrawFbo,
+  Standard_EXPORT virtual void renderStructs (OpenGl_FrameBuffer*    theReadDrawFbo,
                                               const Standard_Boolean theToDrawImmediate);
 
   //! Renders trihedron.
@@ -548,7 +548,7 @@ private:
   OpenGl_VertexBuffer* initBlitQuad (const Standard_Boolean theToFlip);
 
   //! Blend together views pair into stereo image.
-  void drawStereoPair (OpenGl_FrameBuffer* theDrawFbo);
+  void drawStereoPair();
 
 protected:
 
@@ -569,7 +569,7 @@ protected:
   OPENGL_ZCLIP                    myZClip;
   Graphic3d_SequenceOfHClipPlane  myClipPlanes;
   Handle(Graphic3d_Camera)        myCamera;
-  Handle(OpenGl_FrameBuffer)      myFBO;
+  OpenGl_FrameBuffer*             myFBO;
   Standard_Boolean                myUseGLLight;
   Standard_Boolean                myToShowTrihedron;
   Standard_Boolean                myToShowGradTrihedron;
@@ -602,8 +602,6 @@ protected: //! @name Rendering properties
 
   //! Two framebuffers (left and right views) store cached main presentation
   //! of the view (without presentation of immediate layers).
-  GLint                      myFboColorFormat;        //!< sized format for color attachments
-  GLint                      myFboDepthFormat;        //!< sized format for depth-stencil attachments
   Handle(OpenGl_FrameBuffer) myMainSceneFbos[2];
   Handle(OpenGl_FrameBuffer) myImmediateSceneFbos[2]; //!< Additional buffers for immediate layer in stereo mode.
   OpenGl_VertexBuffer        myFullScreenQuad;        //!< Vertices for full-screen quad rendering.
@@ -842,7 +840,7 @@ protected: //! @name methods related to ray-tracing
   //! Adds OpenGL groups to ray-traced scene geometry.
   Standard_Boolean addRaytraceGroups (const OpenGl_Structure*        theStructure,
                                       const OpenGl_RaytraceMaterial& theStructMat,
-                                      const Graphic3d_Mat4*          theTransform,
+                                      const Standard_ShortReal*      theTransform,
                                       const Handle(OpenGl_Context)&  theGlContext);
 
   //! Creates ray-tracing material properties.
@@ -929,8 +927,8 @@ protected: //! @name methods related to ray-tracing
   //! Releases OpenGL/GLSL shader programs.
   void releaseRaytraceResources (const Handle(OpenGl_Context)& theGlContext);
 
-  //! Updates auxiliary OpenGL frame buffers.
-  Standard_Boolean updateRaytraceBuffers (const Standard_Integer        theSizeX,
+  //! Resizes OpenGL frame buffers.
+  Standard_Boolean resizeRaytraceBuffers (const Standard_Integer        theSizeX,
                                           const Standard_Integer        theSizeY,
                                           const Handle(OpenGl_Context)& theGlContext);
 
@@ -960,14 +958,12 @@ protected: //! @name methods related to ray-tracing
                                        const OpenGl_Vec3*            theOrigins,
                                        const OpenGl_Vec3*            theDirects,
                                        const OpenGl_Mat4&            theUnviewMat,
-                                       Graphic3d_Camera::Projection  theProjection,
                                        OpenGl_FrameBuffer*           theReadDrawFbo,
                                        const Handle(OpenGl_Context)& theGlContext);
 
   //! Redraws the window using OpenGL/GLSL ray-tracing.
   Standard_Boolean raytrace (const Standard_Integer        theSizeX,
                              const Standard_Integer        theSizeY,
-                             Graphic3d_Camera::Projection  theProjection,
                              OpenGl_FrameBuffer*           theReadDrawFbo,
                              const Handle(OpenGl_Context)& theGlContext);
 
@@ -1034,12 +1030,11 @@ protected: //! @name fields related to ray-tracing
   Handle(OpenGl_TextureBufferArb) myRaytraceLightSrcTexture;
 
   //! 1st framebuffer (FBO) to perform adaptive FSAA.
-  Handle(OpenGl_FrameBuffer) myRaytraceFBO1[2];
+  Handle(OpenGl_FrameBuffer) myRaytraceFBO1;
   //! 2nd framebuffer (FBO) to perform adaptive FSAA.
-  Handle(OpenGl_FrameBuffer) myRaytraceFBO2[2];
+  Handle(OpenGl_FrameBuffer) myRaytraceFBO2;
   //! Framebuffer (FBO) for preliminary OpenGL output.
   Handle(OpenGl_FrameBuffer) myOpenGlFBO;
-  Handle(OpenGl_FrameBuffer) myOpenGlFBO2;
 
   //! Vertex buffer (VBO) for drawing dummy quad.
   OpenGl_VertexBuffer myRaytraceScreenQuad;
@@ -1077,7 +1072,7 @@ protected: //! @name fields related to ray-tracing
 public:
 
   DEFINE_STANDARD_ALLOC
-  DEFINE_STANDARD_RTTIEXT(OpenGl_View,Graphic3d_CView) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_View, Graphic3d_CView) // Type definition
 
   friend class OpenGl_GraphicDriver;
   friend class OpenGl_Workspace;

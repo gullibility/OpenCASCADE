@@ -12,7 +12,6 @@ checkshape S2
 
 bcommon result S2 S1
 
-checkprops result -s 314.301 
-checkshape result
+set square 314.301
 set 3dviewer 0
 

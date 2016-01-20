@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_CameraImage2dWithScale.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CameraImage2dWithScale,StepVisual_CameraImage)
-
 StepVisual_CameraImage2dWithScale::StepVisual_CameraImage2dWithScale ()   {  }

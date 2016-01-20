@@ -22,8 +22,6 @@
 #include <StepRepr_ShapeAspect.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithDatumReference,StepDimTol_GeometricTolerance)
-
 //=======================================================================
 //function : StepDimTol_GeometricToleranceWithDatumReference
 //purpose  : 
@@ -37,22 +35,22 @@ StepDimTol_GeometricToleranceWithDatumReference::StepDimTol_GeometricToleranceWi
 //purpose  : 
 //=======================================================================
 
-void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollection_HAsciiString) &theGeometricTolerance_Name,
-                                                            const Handle(TCollection_HAsciiString) &theGeometricTolerance_Description,
-                                                            const Handle(StepBasic_MeasureWithUnit) &theGeometricTolerance_Magnitude,
-                                                            const Handle(StepRepr_ShapeAspect) &theGeometricTolerance_TolerancedShapeAspect,
-                                                            const Handle(StepDimTol_HArray1OfDatumReference) &theDatumSystem)
+void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollection_HAsciiString) &aGeometricTolerance_Name,
+                                                            const Handle(TCollection_HAsciiString) &aGeometricTolerance_Description,
+                                                            const Handle(StepBasic_MeasureWithUnit) &aGeometricTolerance_Magnitude,
+                                                            const Handle(StepRepr_ShapeAspect) &aGeometricTolerance_TolerancedShapeAspect,
+                                                            const Handle(StepDimTol_HArray1OfDatumReference) &aDatumSystem)
 {
-  StepDimTol_GeometricTolerance::Init(theGeometricTolerance_Name,
-                                      theGeometricTolerance_Description,
-                                      theGeometricTolerance_Magnitude,
-                                      theGeometricTolerance_TolerancedShapeAspect);
+  StepDimTol_GeometricTolerance::Init(aGeometricTolerance_Name,
+                                      aGeometricTolerance_Description,
+                                      aGeometricTolerance_Magnitude,
+                                      aGeometricTolerance_TolerancedShapeAspect);
 
-  myDatumSystem = new StepDimTol_HArray1OfDatumSystemOrReference(theDatumSystem->Lower(), theDatumSystem->Upper());
+  theDatumSystem = new StepDimTol_HArray1OfDatumSystemOrReference(aDatumSystem->Lower(), aDatumSystem->Upper());
   StepDimTol_DatumSystemOrReference anAux;
-  for (Standard_Integer i = theDatumSystem->Lower(); i <= theDatumSystem->Upper(); i++) {
-    anAux.SetValue(theDatumSystem->Value(i));
-    myDatumSystem->SetValue(i, anAux);
+  for (Standard_Integer i = aDatumSystem->Lower(); i <= aDatumSystem->Upper(); i++) {
+    anAux.SetValue(aDatumSystem->Value(i));
+    theDatumSystem->SetValue(i, anAux);
   }
 }
 
@@ -61,18 +59,18 @@ void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollec
 //purpose  : 
 //=======================================================================
 
-void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollection_HAsciiString) &theGeometricTolerance_Name,
-                                                            const Handle(TCollection_HAsciiString) &theGeometricTolerance_Description,
-                                                            const Handle(StepBasic_MeasureWithUnit) &theGeometricTolerance_Magnitude,
-                                                            const StepDimTol_GeometricToleranceTarget &theGeometricTolerance_TolerancedShapeAspect,
-                                                            const Handle(StepDimTol_HArray1OfDatumSystemOrReference) &theDatumSystem)
+void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollection_HAsciiString) &aGeometricTolerance_Name,
+                                                            const Handle(TCollection_HAsciiString) &aGeometricTolerance_Description,
+                                                            const Handle(StepBasic_MeasureWithUnit) &aGeometricTolerance_Magnitude,
+                                                            const StepDimTol_GeometricToleranceTarget &aGeometricTolerance_TolerancedShapeAspect,
+                                                            const Handle(StepDimTol_HArray1OfDatumSystemOrReference) &aDatumSystem)
 {
-  StepDimTol_GeometricTolerance::Init(theGeometricTolerance_Name,
-                                      theGeometricTolerance_Description,
-                                      theGeometricTolerance_Magnitude,
-                                      theGeometricTolerance_TolerancedShapeAspect);
+  StepDimTol_GeometricTolerance::Init(aGeometricTolerance_Name,
+                                      aGeometricTolerance_Description,
+                                      aGeometricTolerance_Magnitude,
+                                      aGeometricTolerance_TolerancedShapeAspect);
 
-  myDatumSystem = theDatumSystem;
+  theDatumSystem = aDatumSystem;
 }
 
 //=======================================================================
@@ -83,9 +81,9 @@ void StepDimTol_GeometricToleranceWithDatumReference::Init (const Handle(TCollec
 Handle(StepDimTol_HArray1OfDatumReference) StepDimTol_GeometricToleranceWithDatumReference::DatumSystem () const
 {
   Handle(StepDimTol_HArray1OfDatumReference) aDatumSystem;
-  aDatumSystem = new StepDimTol_HArray1OfDatumReference(myDatumSystem->Lower(), myDatumSystem->Upper());
+  aDatumSystem = new StepDimTol_HArray1OfDatumReference(theDatumSystem->Lower(), theDatumSystem->Upper());
   for (Standard_Integer i = aDatumSystem->Lower(); i <= aDatumSystem->Upper(); i++) {
-    aDatumSystem->SetValue(i, myDatumSystem->Value(i).DatumReference());
+    aDatumSystem->SetValue(i, theDatumSystem->Value(i).DatumReference());
   }
   return aDatumSystem;
 }
@@ -97,7 +95,7 @@ Handle(StepDimTol_HArray1OfDatumReference) StepDimTol_GeometricToleranceWithDatu
 
 Handle(StepDimTol_HArray1OfDatumSystemOrReference) StepDimTol_GeometricToleranceWithDatumReference::DatumSystemAP242 () const
 {
-  return myDatumSystem;
+  return theDatumSystem;
 }
 
 //=======================================================================
@@ -105,13 +103,13 @@ Handle(StepDimTol_HArray1OfDatumSystemOrReference) StepDimTol_GeometricTolerance
 //purpose  : 
 //=======================================================================
 
-void StepDimTol_GeometricToleranceWithDatumReference::SetDatumSystem (const Handle(StepDimTol_HArray1OfDatumReference) &theDatumSystem)
+void StepDimTol_GeometricToleranceWithDatumReference::SetDatumSystem (const Handle(StepDimTol_HArray1OfDatumReference) &aDatumSystem)
 {
-  myDatumSystem = new StepDimTol_HArray1OfDatumSystemOrReference(theDatumSystem->Lower(), theDatumSystem->Upper());
+  theDatumSystem = new StepDimTol_HArray1OfDatumSystemOrReference(aDatumSystem->Lower(), aDatumSystem->Upper());
   StepDimTol_DatumSystemOrReference anAux;
-  for (Standard_Integer i = theDatumSystem->Lower(); i <= theDatumSystem->Upper(); i++) {
-    anAux.SetValue(theDatumSystem->Value(i));
-    myDatumSystem->SetValue(i, anAux);
+  for (Standard_Integer i = aDatumSystem->Lower(); i <= aDatumSystem->Upper(); i++) {
+    anAux.SetValue(aDatumSystem->Value(i));
+    theDatumSystem->SetValue(i, anAux);
   }
 }
 
@@ -120,7 +118,7 @@ void StepDimTol_GeometricToleranceWithDatumReference::SetDatumSystem (const Hand
 //purpose  : 
 //=======================================================================
 
-void StepDimTol_GeometricToleranceWithDatumReference::SetDatumSystem (const Handle(StepDimTol_HArray1OfDatumSystemOrReference) &theDatumSystem)
+void StepDimTol_GeometricToleranceWithDatumReference::SetDatumSystem (const Handle(StepDimTol_HArray1OfDatumSystemOrReference) &aDatumSystem)
 {
-  myDatumSystem = theDatumSystem;
+  theDatumSystem = aDatumSystem;
 }

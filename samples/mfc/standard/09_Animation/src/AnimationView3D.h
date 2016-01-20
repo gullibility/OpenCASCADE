@@ -126,9 +126,9 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 private:
-	Handle(V3d_View)     myView;
+	Handle_V3d_View     myView;
 public:
-	Handle(V3d_View)&    GetView() { return myView;};
+	Handle_V3d_View&    GetView() { return myView;};
 	void                DisplayTuneDialog();
 private:
   Standard_Integer     myXmin;

@@ -124,7 +124,7 @@ public:
   SelectMgr_TypeOfBVHUpdate BVHUpdateStatus() const;
 
   //! Returns status of selection
-  Standard_EXPORT SelectMgr_StateOfSelection GetSelectionState() const;
+  Standard_EXPORT const SelectMgr_StateOfSelection GetSelectionState() const;
 
   //! Sets status of selection
   Standard_EXPORT void SetSelectionState (const SelectMgr_StateOfSelection theState) const;
@@ -137,7 +137,7 @@ public:
   //! proper updates use SelectMgr_SelectionManager::SetSelectionSensitivity method.
   Standard_EXPORT void SetSensitivity (const Standard_Integer theNewSens);
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_Selection,MMgt_TShared)
+  DEFINE_STANDARD_RTTI (SelectMgr_Selection, MMgt_TShared)
 
 protected:
 

@@ -24,7 +24,6 @@
 #include <BOPAlgo_PBuilder.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
-#include <BOPAlgo_CellsBuilder.hxx>
 class BOPAlgo_PaveFiller;
 class BOPAlgo_Builder;
 class BOPAlgo_BOP;
@@ -53,8 +52,6 @@ public:
   
   Standard_EXPORT static BOPAlgo_Section& Section();
   
-  Standard_EXPORT static BOPAlgo_CellsBuilder& CellsBuilder();
-  
   Standard_EXPORT static BOPCol_ListOfShape& Shapes();
   
   Standard_EXPORT static BOPCol_ListOfShape& Tools();
@@ -70,10 +67,6 @@ public:
   Standard_EXPORT static void SetFuzzyValue (const Standard_Real theValue);
   
   Standard_EXPORT static Standard_Real FuzzyValue();
-
-  Standard_EXPORT static void SetNonDestructive(const Standard_Boolean theFlag);
-
-  Standard_EXPORT static Standard_Boolean NonDestructive();
 
 
 

@@ -5,5 +5,4 @@ restore [locate_data_file Plan.rle] b
 
 bsection result a b
 
-checkprops result -l 1686.21
-checksection result
+set length 1686.21

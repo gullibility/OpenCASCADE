@@ -24,16 +24,8 @@
 #include <Standard_ErrorHandler.hxx>
 #include <Standard_Failure.hxx>
 #include <TopoDS_Compound.hxx>
-#include <BRep_Builder.hxx>
-
-#include <BOPCol_IndexedMapOfShape.hxx>
-
-#include <BOPDS_ShapeInfo.hxx>
-#include <BOPDS_DS.hxx>
-
-#include <BOPTools_AlgoTools.hxx>
+#include <TopoDS_Shape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
-
 
 //=======================================================================
 //function : 
@@ -51,8 +43,7 @@ BOPAlgo_Builder::BOPAlgo_Builder()
   myShapesSD(100, myAllocator),
   mySplits(100, myAllocator),
   myOrigins(100, myAllocator),
-  myFuzzyValue(0.),
-  myNonDestructive(Standard_False)
+  myFuzzyValue(0.)
 {
 }
 //=======================================================================
@@ -72,8 +63,7 @@ BOPAlgo_Builder::BOPAlgo_Builder
   myShapesSD(100, myAllocator),
   mySplits(100, myAllocator),
   myOrigins(100, myAllocator),
-  myFuzzyValue(0.),
-  myNonDestructive(Standard_False)
+  myFuzzyValue(0.)
 {
 }
 //=======================================================================
@@ -202,22 +192,6 @@ Standard_Real BOPAlgo_Builder::FuzzyValue() const
   return myFuzzyValue;
 }
 //=======================================================================
-//function : SetNonDestructive
-//purpose  : 
-//=======================================================================
-void BOPAlgo_Builder::SetNonDestructive(const Standard_Boolean theFlag)
-{
-  myNonDestructive = theFlag;
-}
-//=======================================================================
-//function : NonDestructive
-//purpose  : 
-//=======================================================================
-Standard_Boolean BOPAlgo_Builder::NonDestructive() const
-{
-  return myNonDestructive;
-}
-//=======================================================================
 // function: CheckData
 // purpose: 
 //=======================================================================
@@ -285,7 +259,6 @@ void BOPAlgo_Builder::Perform()
   pPF->SetRunParallel(myRunParallel);
   pPF->SetProgressIndicator(myProgressIndicator);
   pPF->SetFuzzyValue(myFuzzyValue);
-  pPF->SetNonDestructive(myNonDestructive);
   //
   pPF->Perform();
   //
@@ -299,8 +272,6 @@ void BOPAlgo_Builder::Perform()
 void BOPAlgo_Builder::PerformWithFiller(const BOPAlgo_PaveFiller& theFiller)
 {
   myEntryPoint=0;
-  myNonDestructive = theFiller.NonDestructive();
-  myFuzzyValue = theFiller.FuzzyValue();
   PerformInternal(theFiller);
 }
 //=======================================================================
@@ -435,30 +406,17 @@ void BOPAlgo_Builder::PerformInternal1(const BOPAlgo_PaveFiller& theFiller)
   PostTreat();
   
 }
+//
+// myErrorStatus
+// 
+// 0  - Ok
+// 
 //=======================================================================
 //function : PostTreat
 //purpose  : 
 //=======================================================================
 void BOPAlgo_Builder::PostTreat()
 {
-  Standard_Integer i, aNbS;
-  TopAbs_ShapeEnum aType;
-  BOPCol_IndexedMapOfShape aMA;
-  if (myPaveFiller->NonDestructive()) {
-    // MapToAvoid
-    aNbS=myDS->NbSourceShapes();
-    for (i=0; i<aNbS; ++i) {
-      const BOPDS_ShapeInfo& aSI=myDS->ShapeInfo(i);
-      aType=aSI.ShapeType();
-      if (aType==TopAbs_VERTEX ||
-          aType==TopAbs_EDGE||
-          aType==TopAbs_FACE) {
-        const TopoDS_Shape& aS=aSI.Shape();
-        aMA.Add(aS);
-      }
-    }
-  }
-  //
-  BOPTools_AlgoTools::CorrectTolerances(myShape, aMA, 0.05, myRunParallel);
-  BOPTools_AlgoTools::CorrectShapeTolerances(myShape, aMA, myRunParallel);
+  BOPTools_AlgoTools::CorrectTolerances(myShape, 0.05, myRunParallel);
+  BOPTools_AlgoTools::CorrectShapeTolerances(myShape, myRunParallel);
 }

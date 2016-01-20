@@ -50,16 +50,16 @@ public:
   Standard_EXPORT IGESSelect_RebuildDrawings();
   
   //! Specific action : Rebuilds the original Drawings
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Rebuild Drawings"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_RebuildDrawings,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_RebuildDrawings,IGESSelect_ModelModifier)
 
 protected:
 

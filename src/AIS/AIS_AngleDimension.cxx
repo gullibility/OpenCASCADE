@@ -53,8 +53,6 @@
 #include <Geom_Plane.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_AngleDimension,AIS_Dimension)
-
 namespace
 {
   static const TCollection_ExtendedString THE_EMPTY_LABEL_STRING;
@@ -154,7 +152,7 @@ void AIS_AngleDimension::SetMeasuredGeometry (const TopoDS_Edge& theFirstEdge,
 
   if (myIsGeometryValid && !myIsPlaneCustom)
   {
-    myPlane = aComputedPlane;
+    ComputePlane();
   }
 
   SetToUpdate();
@@ -321,21 +319,6 @@ gp_Pnt AIS_AngleDimension::GetCenterOnArc (const gp_Pnt& theFirstAttach,
 }
 
 //=======================================================================
-//function : GetNormalForMinAngle
-//purpose  :
-//=======================================================================
-gp_Dir AIS_AngleDimension::GetNormalForMinAngle() const
-{
-  const gp_Dir& aNormal = myPlane.Axis().Direction();
-  gp_Dir aFirst (gp_Vec (myCenterPoint, myFirstPoint) );
-  gp_Dir aSecond (gp_Vec (myCenterPoint, mySecondPoint) );
-
-  return aFirst.AngleWithRef (aSecond, aNormal) < 0.0
-    ? aNormal.Reversed()
-    : aNormal;
-}
-
-//=======================================================================
 //function : DrawArc
 //purpose  : draws the arc between two attach points
 //=======================================================================
@@ -346,7 +329,14 @@ void AIS_AngleDimension::DrawArc (const Handle(Prs3d_Presentation)& thePresentat
                                   const Standard_Real theRadius,
                                   const Standard_Integer theMode)
 {
-  gp_Pln aPlane (myCenterPoint, GetNormalForMinAngle());
+  // construct plane where the circle and the arc are located
+  gce_MakePln aConstructPlane (theFirstAttach, theSecondAttach, theCenter);
+  if (!aConstructPlane.IsDone())
+  {
+    return;
+  }
+
+  gp_Pln aPlane = aConstructPlane.Value();
 
   // construct circle forming the arc
   gce_MakeCirc aConstructCircle (theCenter, aPlane, theRadius);
@@ -423,8 +413,15 @@ void AIS_AngleDimension::DrawArcWithText (const Handle(Prs3d_Presentation)& theP
                                           const Standard_Integer theMode,
                                           const Standard_Integer theLabelPosition)
 {
-  gp_Pln aPlane (myCenterPoint, GetNormalForMinAngle());
-  
+  // construct plane where the circle and the arc are located
+  gce_MakePln aConstructPlane (theFirstAttach, theSecondAttach, theCenter);
+  if (!aConstructPlane.IsDone())
+  {
+    return;
+  }
+
+  gp_Pln aPlane = aConstructPlane.Value();
+
   Standard_Real aRadius = theFirstAttach.Distance (myCenterPoint);
 
   // construct circle forming the arc
@@ -471,21 +468,14 @@ void AIS_AngleDimension::DrawArcWithText (const Handle(Prs3d_Presentation)& theP
   if (isLineBreak)
   {
     // compute gap for label as parameteric size of sector on circle segment
-    Standard_Real aSectorOfText = theTextWidth / aRadius;
-    Standard_Real aTextBegin = aParamMid - aSectorOfText * 0.5;
-    Standard_Real aTextEnd = aParamMid + aSectorOfText * 0.5;
-    gp_Pnt aTextPntBeg = ElCLib::Value (aTextBegin, aCircle);
-    gp_Pnt aTextPntEnd = ElCLib::Value (aTextEnd, aCircle);
+    Standard_Real aSectorOnCircle = theTextWidth / aRadius;
+  
+    gp_Pnt aTextPntBeg = ElCLib::Value (aParamMid - aSectorOnCircle * 0.5, aCircle);
+    gp_Pnt aTextPntEnd = ElCLib::Value (aParamMid + aSectorOnCircle * 0.5, aCircle);
 
     // Drawing arcs
-    if (aTextBegin > aParamBeg)
-    {
-      DrawArc (thePresentation, theFirstAttach, aTextPntBeg, theCenter, aRadius, theMode);
-    }
-    if (aTextEnd < aParamEnd)
-    {
-      DrawArc (thePresentation, aTextPntEnd, theSecondAttach, theCenter, aRadius, theMode);
-    }
+    DrawArc (thePresentation, theFirstAttach, aTextPntBeg, theCenter, aRadius, theMode);
+    DrawArc (thePresentation, theSecondAttach, aTextPntEnd, theCenter, aRadius, theMode);
   }
   else
   {
@@ -520,13 +510,11 @@ void AIS_AngleDimension::ComputePlane()
     return;
   }
 
-  // Compute working plane so that Y axis is codirectional
-  // with Y axis of text coordinate system (necessary for text alignment)
-  gp_Vec aFirstVec   = gp_Vec (myCenterPoint, myFirstPoint);
-  gp_Vec aSecondVec  = gp_Vec (myCenterPoint, mySecondPoint);
-  gp_Vec aDirectionN = aSecondVec ^ aFirstVec;
-  gp_Vec aDirectionY = aFirstVec + aSecondVec;
-  gp_Vec aDirectionX = aDirectionY ^ aDirectionN;
+  gp_Vec aFirstVec   = gp_Vec (myCenterPoint, myFirstPoint).Normalized();
+  gp_Vec aSecondVec  = gp_Vec (myCenterPoint, mySecondPoint).Normalized();
+  gp_Vec aDirectionN = aSecondVec.Crossed (aFirstVec).Normalized();
+  gp_Vec aDirectionY = (aFirstVec + aSecondVec).Normalized();
+  gp_Vec aDirectionX = aDirectionY.Crossed (aDirectionN).Normalized();
 
   myPlane = gp_Pln (gp_Ax3 (myCenterPoint, gp_Dir (aDirectionN), gp_Dir (aDirectionX)));
 }
@@ -581,7 +569,7 @@ Standard_Real AIS_AngleDimension::ComputeValue() const
   gp_Vec aVec1 (myCenterPoint, myFirstPoint);
   gp_Vec aVec2 (myCenterPoint, mySecondPoint);
 
-  Standard_Real anAngle = aVec1.AngleWithRef (aVec2, GetNormalForMinAngle());
+  Standard_Real anAngle = aVec2.AngleWithRef (aVec1, GetPlane().Axis().Direction());
 
   return anAngle > 0.0 ? anAngle : (2.0 * M_PI + anAngle);
 }
@@ -638,24 +626,24 @@ void AIS_AngleDimension::Compute (const Handle(PrsMgr_PresentationManager3d)& /*
   gp_Pnt aSecondAttach = myCenterPoint.Translated (gp_Vec(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
 
   //Arrows positions and directions
-  gp_Vec aWorkingPlaneDir (GetNormalForMinAngle());
+  gp_Vec aWPDir = gp_Vec (GetPlane().Axis().Direction());
 
-  gp_Dir aFirstExtensionDir  = aWorkingPlaneDir.Reversed() ^ gp_Vec (myCenterPoint, aFirstAttach);
-  gp_Dir aSecondExtensionDir = aWorkingPlaneDir            ^ gp_Vec (myCenterPoint, aSecondAttach);
+  gp_Dir aFirstExtensionDir  = aWPDir            ^ gp_Vec (myCenterPoint, aFirstAttach);
+  gp_Dir aSecondExtensionDir = aWPDir.Reversed() ^ gp_Vec (myCenterPoint, aSecondAttach);
 
   gp_Vec aFirstArrowVec  = gp_Vec (aFirstExtensionDir)  * anArrowLength;
   gp_Vec aSecondArrowVec = gp_Vec (aSecondExtensionDir) * anArrowLength;
+
+  gp_Pnt aFirstArrowBegin  (0.0, 0.0, 0.0);
+  gp_Pnt aFirstArrowEnd    (0.0, 0.0, 0.0);
+  gp_Pnt aSecondArrowBegin (0.0, 0.0, 0.0);
+  gp_Pnt aSecondArrowEnd   (0.0, 0.0, 0.0);
 
   if (isArrowsExternal)
   {
     aFirstArrowVec.Reverse();
     aSecondArrowVec.Reverse();
   }
-
-  gp_Pnt aFirstArrowBegin  (0.0, 0.0, 0.0);
-  gp_Pnt aFirstArrowEnd    (0.0, 0.0, 0.0);
-  gp_Pnt aSecondArrowBegin (0.0, 0.0, 0.0);
-  gp_Pnt aSecondArrowEnd   (0.0, 0.0, 0.0);
 
   aFirstArrowBegin  = aFirstAttach;
   aSecondArrowBegin = aSecondAttach;
@@ -852,12 +840,16 @@ Standard_Boolean AIS_AngleDimension::InitTwoEdgesAngle (gp_Pln& theComputedPlane
   gp_Lin aFirstLin  = aFirstLine->Lin();
   gp_Lin aSecondLin = aSecondLine->Lin();
 
-  Standard_Boolean isParallelLines = aFirstLin.Direction().IsParallel (aSecondLin.Direction(), Precision::Angular());
+  Standard_Boolean isParallelLines = Abs (aFirstLin.Angle (aSecondLin) - M_PI) <= Precision::Angular();
 
-  theComputedPlane = isParallelLines ? gp_Pln(gp::XOY())
-                                     : gp_Pln (aSecondLin.Location(), gp_Vec (aFirstLin.Direction()) ^ gp_Vec (aSecondLin.Direction()));
+  gp_Pnt aPoint  = aFirstLine->Value (0.0);
+  gp_Dir aNormal = isParallelLines
+                     ? gp_Vec (aSecondLin.Normal (aPoint).Direction()) ^ gp_Vec (aSecondLin.Direction())
+                     : gp_Vec (aFirstLin.Direction()) ^ gp_Vec (aSecondLin.Direction());
 
-  // Compute geometry for this plane and edges
+  theComputedPlane = gp_Pln (aPoint, aNormal);
+
+    // Compute geometry for this plane and edges
   Standard_Boolean isInfinite1,isInfinite2;
   gp_Pnt aFirstPoint1, aLastPoint1, aFirstPoint2, aLastPoint2;
 
@@ -870,32 +862,17 @@ Standard_Boolean AIS_AngleDimension::InitTwoEdgesAngle (gp_Pln& theComputedPlane
     return Standard_False;
   }
 
-  Standard_Boolean isSameLines = aFirstLin.Direction().IsEqual (aSecondLin.Direction(), Precision::Angular())
-                              && aFirstLin.Location().IsEqual (aSecondLin.Location(),Precision::Confusion());
-
-  // It can be the same gp_Lin geometry but the different begin and end parameters
-  Standard_Boolean isSameEdges =
-    (aFirstPoint1.IsEqual (aFirstPoint2, Precision::Confusion()) && aLastPoint1.IsEqual (aLastPoint2, Precision::Confusion()))
-    || (aFirstPoint1.IsEqual (aLastPoint2, Precision::Confusion()) && aLastPoint1.IsEqual (aFirstPoint2, Precision::Confusion()));
-
-  if (isParallelLines)
+  if (aFirstLin.Direction().IsParallel (aSecondLin.Direction(), Precision::Angular()))
   {
-    // Zero angle, it could not handle this geometry
-    if (isSameLines && isSameEdges)
+    myFirstPoint  = aFirstLin.Location();
+    mySecondPoint = ElCLib::Value (ElCLib::Parameter (aFirstLin, myFirstPoint), aSecondLin);
+
+    if (mySecondPoint.Distance (myFirstPoint) <= Precision::Confusion())
     {
-      return Standard_False;
+      mySecondPoint.Translate (gp_Vec (aSecondLin.Direction()) * Abs (GetFlyout()));
     }
 
-    // Handle the case of Pi angle
-    const Standard_Real aParam11 = ElCLib::Parameter (aFirstLin, aFirstPoint1);
-    const Standard_Real aParam12 = ElCLib::Parameter (aFirstLin, aLastPoint1);
-    const Standard_Real aParam21 = ElCLib::Parameter (aFirstLin, aFirstPoint2);
-    const Standard_Real aParam22 = ElCLib::Parameter (aFirstLin, aLastPoint2);
-    myCenterPoint = ElCLib::Value ( (Min (aParam11, aParam12) + Max (aParam21, aParam22)) * 0.5, aFirstLin);
-    myFirstPoint = myCenterPoint.Translated (gp_Vec (aFirstLin.Direction()) * Abs (GetFlyout()));
-    mySecondPoint = myCenterPoint.XYZ() + (aFirstLin.Direction().IsEqual (aSecondLin.Direction(), Precision::Angular())
-      ? aFirstLin.Direction().Reversed().XYZ() * Abs (GetFlyout())
-      : aSecondLin.Direction().XYZ() * Abs (GetFlyout()));
+    myCenterPoint.SetXYZ ((myFirstPoint.XYZ() + mySecondPoint.XYZ()) / 2.0);
   }
   else
   {

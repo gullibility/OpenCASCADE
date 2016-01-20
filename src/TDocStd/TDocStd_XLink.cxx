@@ -36,8 +36,6 @@
 #include <TDocStd_XLinkIterator.hxx>
 #include <TDocStd_XLinkRoot.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_XLink,TDF_Attribute)
-
 //=======================================================================
 //function : TDocStd_XLink
 //purpose  : 

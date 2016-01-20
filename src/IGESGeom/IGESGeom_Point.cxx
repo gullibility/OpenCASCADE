@@ -23,8 +23,6 @@
 #include <IGESGeom_Point.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_Point,IGESData_IGESEntity)
-
 IGESGeom_Point::IGESGeom_Point ()     {  }
 
 

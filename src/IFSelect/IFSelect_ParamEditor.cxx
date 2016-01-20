@@ -22,8 +22,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_ParamEditor,IFSelect_Editor)
-
 IFSelect_ParamEditor::IFSelect_ParamEditor
   (const Standard_Integer nbmax, const Standard_CString label)
 : IFSelect_Editor (nbmax) , thelabel (label)

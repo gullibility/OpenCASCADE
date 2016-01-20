@@ -43,8 +43,6 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Wire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepFill_ShapeLaw,BRepFill_SectionLaw)
-
 //=======================================================================
 //function : Create
 //purpose  : Process the case of Vertex by constructing a line

@@ -26,8 +26,6 @@
 #include <TopoDS_Wire.hxx>
 #include <TransferBRep_ShapeBinder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TransferBRep_ShapeBinder,TransferBRep_BinderOfShape)
-
 TransferBRep_ShapeBinder::TransferBRep_ShapeBinder ()    {  }
 
     TransferBRep_ShapeBinder::TransferBRep_ShapeBinder (const TopoDS_Shape& shape)

@@ -149,9 +149,8 @@ vfit
 # show section and sweep path
 ttranslate sec_1 0 0 H; trotate sec_1 0 0 0 0 0 1 a*180/pi; incmesh gg 0.01; vdisplay gg sec_1
 
-# check area
+# check square
 renamevar drill result
-checkprops result -s 3277.87 
-checkshape result
+set square 3277.87
 
 set only_screen 1

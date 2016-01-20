@@ -21,8 +21,6 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepAlgo_AsDes,MMgt_TShared)
-
 //=======================================================================
 //function : BRepAlgo_AsDes
 //purpose  : 

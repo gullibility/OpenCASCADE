@@ -34,8 +34,6 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Distance,DrawDim_Dimension)
-
 //=======================================================================
 //function : DrawDim_Distance
 //purpose  : 

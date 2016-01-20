@@ -8,4 +8,4 @@ bop a b
 bopfuse result
 
 
-checkprops result -s 759758
+set square 759758

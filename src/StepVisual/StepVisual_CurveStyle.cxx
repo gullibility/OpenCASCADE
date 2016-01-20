@@ -19,8 +19,6 @@
 #include <StepVisual_CurveStyleFontSelect.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CurveStyle,MMgt_TShared)
-
 StepVisual_CurveStyle::StepVisual_CurveStyle ()  {}
 
 void StepVisual_CurveStyle::Init(

@@ -15,6 +15,4 @@
 #include <IGESData_LineFontEntity.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_LineFontEntity,IGESData_IGESEntity)
-
 // LineTypeEntity ne sert qu'au controle de type (pour le directory part)

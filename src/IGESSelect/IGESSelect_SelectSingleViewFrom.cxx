@@ -23,8 +23,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_SelectSingleViewFrom,IFSelect_SelectDeduct)
-
 IGESSelect_SelectSingleViewFrom::IGESSelect_SelectSingleViewFrom ()    {  }
 
     Standard_Boolean  IGESSelect_SelectSingleViewFrom::HasUniqueResult () const

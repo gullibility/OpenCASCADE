@@ -16,8 +16,7 @@ bsave b ${NameFile}
 
 brestore ${NameFile} result
 
-checkprops result -s 6
-checkshape result
+set square 6
 
 checknbshapes result -vertex 8 -edge 12 -wire 6 -face 6 -shell 1 -solid 1 -compsolid 0 -compound 0 -shape 34
 file delete -force [glob -nocomplain ${NameFile}]

@@ -44,8 +44,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux,MMgt_TShared)
-
 //=======================================================================
 //function : ShapeFix_EdgeProjAux
 //purpose  : 

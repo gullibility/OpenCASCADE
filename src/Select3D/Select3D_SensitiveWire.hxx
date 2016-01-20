@@ -52,7 +52,7 @@ public:
   Standard_EXPORT const NCollection_Vector<Handle(Select3D_SensitiveEntity)>& GetEdges();
 
   //! Sets the owner for all entities in wire
-  Standard_EXPORT void Set (const Handle(SelectBasics_EntityOwner)& theOwnerId) Standard_OVERRIDE;
+  Standard_EXPORT void Set (const Handle(SelectBasics_EntityOwner)& theOwnerId);
 
   Standard_EXPORT Handle(Select3D_SensitiveEntity) GetLastDetected() const;
 
@@ -79,7 +79,7 @@ public:
   Standard_EXPORT virtual void Swap (const Standard_Integer theIdx1,
                                      const Standard_Integer theIdx2) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Select3D_SensitiveWire,Select3D_SensitiveSet)
+  DEFINE_STANDARD_RTTI(Select3D_SensitiveWire, Select3D_SensitiveSet)
 
 protected:
 

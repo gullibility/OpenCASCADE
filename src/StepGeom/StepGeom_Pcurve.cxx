@@ -18,8 +18,6 @@
 #include <StepRepr_DefinitionalRepresentation.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Pcurve,StepGeom_Curve)
-
 StepGeom_Pcurve::StepGeom_Pcurve ()  {}
 
 void StepGeom_Pcurve::Init(

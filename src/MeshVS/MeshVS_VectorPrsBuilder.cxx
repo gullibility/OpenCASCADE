@@ -47,8 +47,6 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_VectorPrsBuilder,MeshVS_PrsBuilder)
-
 //================================================================
 // Function : Constructor MeshVS_VectorPrsBuilder
 // Purpose  :

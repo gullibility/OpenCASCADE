@@ -41,12 +41,12 @@ public:
   
   Standard_EXPORT DrawDim_PlanarRadius(const TopoDS_Shape& circle);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DrawDim_PlanarRadius,DrawDim_PlanarDimension)
+  DEFINE_STANDARD_RTTI(DrawDim_PlanarRadius,DrawDim_PlanarDimension)
 
 protected:
 

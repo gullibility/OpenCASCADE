@@ -46,23 +46,23 @@ public:
   
   //! Specific filling of the list of Entities shared by an Entity
   //! <ent>, which is an UnknownEntity from StepData.
-  Standard_EXPORT void FillSharedCase (const Standard_Integer casenum, const Handle(Standard_Transient)& ent, Interface_EntityIterator& iter) const Standard_OVERRIDE;
+  Standard_EXPORT void FillSharedCase (const Standard_Integer casenum, const Handle(Standard_Transient)& ent, Interface_EntityIterator& iter) const;
   
   //! Specific Checking of an Entity <ent>
-  Standard_EXPORT void CheckCase (const Standard_Integer casenum, const Handle(Standard_Transient)& ent, const Interface_ShareTool& shares, Handle(Interface_Check)& ach) const Standard_OVERRIDE;
+  Standard_EXPORT void CheckCase (const Standard_Integer casenum, const Handle(Standard_Transient)& ent, const Interface_ShareTool& shares, Handle(Interface_Check)& ach) const;
   
   //! Specific creation of a new void entity
-  Standard_EXPORT Standard_Boolean NewVoid (const Standard_Integer CN, Handle(Standard_Transient)& entto) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean NewVoid (const Standard_Integer CN, Handle(Standard_Transient)& entto) const;
   
   //! Specific Copy ("Deep") from <entfrom> to <entto> (same type)
   //! by using a CopyTool which provides its working Map.
   //! Use method Transferred from TransferControl to work
-  Standard_EXPORT void CopyCase (const Standard_Integer casenum, const Handle(Standard_Transient)& entfrom, const Handle(Standard_Transient)& entto, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void CopyCase (const Standard_Integer casenum, const Handle(Standard_Transient)& entfrom, const Handle(Standard_Transient)& entto, Interface_CopyTool& TC) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepData_DefaultGeneral,StepData_GeneralModule)
+  DEFINE_STANDARD_RTTI(StepData_DefaultGeneral,StepData_GeneralModule)
 
 protected:
 

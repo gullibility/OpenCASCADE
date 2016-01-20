@@ -37,6 +37,5 @@ pipe t w f
 
 bcut result res_2 t
 
-checkprops result -s 865172 
-checkshape result
+set square 865172
 set 2dviewer 0

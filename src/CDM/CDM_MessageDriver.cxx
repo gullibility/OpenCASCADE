@@ -17,5 +17,3 @@
 
 #include <CDM_MessageDriver.hxx>
 #include <Standard_Type.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(CDM_MessageDriver,Standard_Transient)

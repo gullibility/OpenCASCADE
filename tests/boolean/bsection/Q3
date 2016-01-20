@@ -7,5 +7,4 @@ ttranslate c2 5 0 10
 
 bsection result c1 c2
 
-checkprops result -l 41.4159
-checksection result
+set length 41.4159

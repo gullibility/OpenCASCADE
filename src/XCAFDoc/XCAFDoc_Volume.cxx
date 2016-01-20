@@ -21,8 +21,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <XCAFDoc_Volume.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_Volume,TDF_Attribute)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

@@ -15,6 +15,4 @@
 
 #include <StepRepr_BetweenShapeAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_BetweenShapeAspect,StepRepr_ContinuosShapeAspect)
-
 StepRepr_BetweenShapeAspect::StepRepr_BetweenShapeAspect ()    {  }

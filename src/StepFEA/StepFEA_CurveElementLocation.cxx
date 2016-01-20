@@ -19,8 +19,6 @@
 #include <StepFEA_CurveElementLocation.hxx>
 #include <StepFEA_FeaParametricPoint.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementLocation,MMgt_TShared)
-
 //=======================================================================
 //function : StepFEA_CurveElementLocation
 //purpose  : 

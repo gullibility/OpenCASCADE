@@ -6,5 +6,4 @@ restore [locate_data_file cts20370-tool.rle] tool
 
 bsection result part tool
 
-checkprops result -l 1113.89
-checksection result
+set length 1113.89

@@ -23,8 +23,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_TagSourceDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDF_TagSourceDriver
 //purpose  : Constructor

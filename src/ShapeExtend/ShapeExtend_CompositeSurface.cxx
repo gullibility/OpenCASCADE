@@ -27,8 +27,6 @@
 #include <ShapeExtend_CompositeSurface.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_CompositeSurface,Geom_Surface)
-
 //=======================================================================
 //function : ShapeExtend_CompositeSurface
 //purpose  : 

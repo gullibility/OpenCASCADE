@@ -21,8 +21,6 @@
 #include <TDataStd_Real.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_RealDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_RealDriver
 //purpose  : Constructor

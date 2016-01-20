@@ -37,8 +37,6 @@
 #include <StdPrs_Point.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Point,AIS_InteractiveObject)
-
 //=======================================================================
 //function : AIS_Point
 //purpose  : 

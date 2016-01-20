@@ -21,8 +21,6 @@
 #include <gp_Trsf.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_CartesianPoint,Geom_Point)
-
 typedef Geom_CartesianPoint         CartesianPoint;
 typedef gp_Ax1  Ax1;
 typedef gp_Ax2  Ax2;

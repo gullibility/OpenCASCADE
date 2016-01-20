@@ -17,8 +17,6 @@
 #include <LDOMBasicString.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(LDOM_MemManager,MMgt_TShared)
-
 #define HASH_MASK 255
 #define MINIMAL_ROOM 3
 

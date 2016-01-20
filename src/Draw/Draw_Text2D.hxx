@@ -47,12 +47,12 @@ public:
   
   Standard_EXPORT void SetPnt2d (const gp_Pnt2d& p);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Text2D,Draw_Drawable2D)
+  DEFINE_STANDARD_RTTI(Draw_Text2D,Draw_Drawable2D)
 
 protected:
 

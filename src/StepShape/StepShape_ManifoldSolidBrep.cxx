@@ -18,8 +18,6 @@
 #include <StepShape_ManifoldSolidBrep.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ManifoldSolidBrep,StepShape_SolidModel)
-
 StepShape_ManifoldSolidBrep::StepShape_ManifoldSolidBrep ()  {}
 
 void StepShape_ManifoldSolidBrep::Init(

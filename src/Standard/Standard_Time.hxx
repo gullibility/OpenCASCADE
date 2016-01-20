@@ -21,8 +21,6 @@
 //    - IsEqual
 // ===============================================
 
-#ifndef __QNX__ // same as Standard_Size
-
 // ------------------------------------------------------------------
 // IsEqual : Returns Standard_True if two time values are equal
 // ------------------------------------------------------------------
@@ -31,7 +29,5 @@ inline Standard_Boolean IsEqual (const Standard_Time theOne,
 {
   return theOne == theTwo;
 }
-
-#endif
 
 #endif

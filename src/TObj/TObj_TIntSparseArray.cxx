@@ -23,8 +23,6 @@
 #include <TDF_DeltaOnModification.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_TIntSparseArray,TDF_Attribute)
-
 //=======================================================================
 //function : TObj_TIntSparseArray
 //purpose  : Empty constructor

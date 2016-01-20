@@ -53,15 +53,15 @@ public:
   
   //! Explores an entity : for a Group, gives its elements
   //! Else, takes the entity itself
-  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const;
   
   //! Returns a text defining the criterium : "Content of Group"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExploreLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectBypassGroup,IFSelect_SelectExplore)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectBypassGroup,IFSelect_SelectExplore)
 
 protected:
 

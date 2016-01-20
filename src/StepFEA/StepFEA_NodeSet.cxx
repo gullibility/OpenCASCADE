@@ -19,8 +19,6 @@
 #include <StepFEA_NodeSet.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_NodeSet,StepGeom_GeometricRepresentationItem)
-
 //=======================================================================
 //function : StepFEA_NodeSet
 //purpose  : 

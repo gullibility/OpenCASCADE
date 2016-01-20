@@ -28,8 +28,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_Name,TDF_Attribute)
-
 //=======================================================================
 //function : GetID
 //purpose  : 

@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_ProductDefinitionUsage.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ProductDefinitionUsage,StepBasic_ProductDefinitionRelationship)
-
 //=======================================================================
 //function : StepRepr_ProductDefinitionUsage
 //purpose  : 

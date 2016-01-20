@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_SystemFont,MMgt_TShared)
-
 Font_SystemFont::Font_SystemFont():
 MyFontName(),
 MyFontAspect(Font_FA_Undefined),

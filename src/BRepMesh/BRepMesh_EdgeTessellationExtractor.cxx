@@ -20,8 +20,6 @@
 #include <BRepMesh_ShapeTool.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_EdgeTessellationExtractor,BRepMesh_IEdgeTool)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

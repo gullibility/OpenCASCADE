@@ -90,17 +90,17 @@ public:
   //! this result is set as alternate input for the first item,
   //! which computes its result : this result is set as alternate
   //! input for the second item, etc...
-  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const Standard_OVERRIDE;
+  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const;
   
   //! Returns the Label
   //! Either it has been defined by SetLabel, or it will give
   //! "Suite of nn Selections"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSuite,IFSelect_SelectDeduct)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectSuite,IFSelect_SelectDeduct)
 
 protected:
 

@@ -19,8 +19,6 @@
 #include <TopAbs.hxx>
 #include <TopoDS_TEdge.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TEdge,TopoDS_TShape)
-
 //=======================================================================
 //function : ShapeType
 //purpose  : 

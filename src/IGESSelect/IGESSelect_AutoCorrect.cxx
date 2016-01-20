@@ -24,8 +24,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_AutoCorrect,IGESSelect_ModelModifier)
-
 IGESSelect_AutoCorrect::IGESSelect_AutoCorrect ()
     : IGESSelect_ModelModifier (Standard_False)    {  }
 

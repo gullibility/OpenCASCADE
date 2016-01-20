@@ -23,8 +23,6 @@
 #include <IGESSolid_ConeFrustum.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_ConeFrustum,IGESData_IGESEntity)
-
 IGESSolid_ConeFrustum::IGESSolid_ConeFrustum ()    {  }
 
 

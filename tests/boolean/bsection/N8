@@ -2,5 +2,4 @@ restore [locate_data_file CIN900_cts20hlk.rle] a
 restore [locate_data_file CIN900_cts20hll.rle] b
 bsection result a b
 
-checkprops result -l 119.639
-checksection result
+set length 119.639

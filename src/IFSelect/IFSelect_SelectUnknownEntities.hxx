@@ -44,15 +44,15 @@ public:
   
   //! Returns True for an Entity which is qualified as "Unknown",
   //! i.e. if <model> known <ent> (through its Number) as Unknown
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Returns a text defining the criterium : "Recognized Entities"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExtractLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectUnknownEntities,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectUnknownEntities,IFSelect_SelectExtract)
 
 protected:
 

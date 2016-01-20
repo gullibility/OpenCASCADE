@@ -39,15 +39,15 @@ public:
     TopoDS_TCompound();
   
   //! Returns COMPOUND.
-  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
+  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const;
   
   //! Returns an empty TCompound.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TCompound,TopoDS_TShape)
+  DEFINE_STANDARD_RTTI(TopoDS_TCompound,TopoDS_TShape)
 
 protected:
 

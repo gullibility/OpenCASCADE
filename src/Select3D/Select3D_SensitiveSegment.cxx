@@ -20,8 +20,6 @@
 #include <Precision.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveSegment,Select3D_SensitiveEntity)
-
 //=====================================================
 // Function : Create
 // Purpose  : Constructor

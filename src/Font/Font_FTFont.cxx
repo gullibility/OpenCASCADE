@@ -21,8 +21,6 @@
 #include <TCollection_HAsciiString.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_FTFont,Standard_Transient)
-
 // =======================================================================
 // function : Font_FTFont
 // purpose  :
@@ -264,9 +262,9 @@ float Font_FTFont::AdvanceY (const Standard_Utf32Char theUCharNext)
 // function : BoundingBox
 // purpose  :
 // =======================================================================
-Font_Rect Font_FTFont::BoundingBox (const NCollection_String&               theString,
-                                    const Graphic3d_HorizontalTextAlignment theAlignX,
-                                    const Graphic3d_VerticalTextAlignment   theAlignY)
+Font_FTFont::Rect Font_FTFont::BoundingBox (const NCollection_String&               theString,
+                                            const Graphic3d_HorizontalTextAlignment theAlignX,
+                                            const Graphic3d_VerticalTextAlignment   theAlignY)
 {
   Font_TextFormatter aFormatter;
   aFormatter.SetupAlignment (theAlignX, theAlignY);
@@ -275,7 +273,9 @@ Font_Rect Font_FTFont::BoundingBox (const NCollection_String&               theS
   aFormatter.Append (theString, *this);
   aFormatter.Format();
 
-  Font_Rect aBndBox;
+  Rect aBndBox;
+
   aFormatter.BndBox (aBndBox);
+
   return aBndBox;
 }

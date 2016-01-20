@@ -21,8 +21,6 @@
 #include <XmlMDataXtd_PlaneDriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataXtd_PlaneDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDataXtd_PlaneDriver
 //purpose  : Constructor

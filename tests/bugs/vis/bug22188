@@ -75,8 +75,7 @@ if { ${deflection_percent} > ${percent_max} } {
    puts "deflection: OK ${BugNumber}"
 }
 
-checkprops result -s 32416.7
-checkshape result
+set square 32416.7
 
 checknbshapes result -vertex 2 -edge 3 -wire 1 -face 1 -shell 1 -solid 1 -compsolid 0 -compound 0 -shape 9
 if { ${status} != 0 } {

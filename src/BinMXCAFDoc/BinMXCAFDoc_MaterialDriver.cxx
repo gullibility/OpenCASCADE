@@ -22,8 +22,6 @@
 #include <TDF_Attribute.hxx>
 #include <XCAFDoc_Material.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMXCAFDoc_MaterialDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

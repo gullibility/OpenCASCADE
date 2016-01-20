@@ -19,8 +19,6 @@
 #include <gp_Pnt2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Point,Geom2d_Geometry)
-
 typedef Geom2d_Point Point;
 
 Standard_Real Geom2d_Point::Distance (const Handle(Geom2d_Point)& Other) const {

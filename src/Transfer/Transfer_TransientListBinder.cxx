@@ -18,8 +18,6 @@
 #include <Standard_TypeMismatch.hxx>
 #include <Transfer_TransientListBinder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_TransientListBinder,Transfer_Binder)
-
 //#include  <TColStd.hxx>
 //=======================================================================
 //function : Constructor

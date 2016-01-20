@@ -17,6 +17,5 @@ renamevar c_2 e
 
 splitshape result f f e
 
-checkprops result -s 13.3392 
-checkshape result
+set square 13.3392
 set 2dviewer 0

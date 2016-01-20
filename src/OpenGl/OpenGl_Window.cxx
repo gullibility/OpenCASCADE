@@ -26,9 +26,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <Graphic3d_GraphicDriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Window,MMgt_TShared)
-
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   #include <EGL/egl.h>
 #endif
 
@@ -38,7 +36,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Window,MMgt_TShared)
 namespace
 {
 
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   //
 #elif defined(_WIN32)
 
@@ -174,7 +172,7 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
 
   Standard_Boolean isCoreProfile = Standard_False;
 
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   EGLDisplay anEglDisplay = (EGLDisplay )theDriver->getRawGlDisplay();
   EGLContext anEglContext = (EGLContext )theDriver->getRawGlContext();
   EGLConfig  anEglConfig  = (EGLConfig  )theDriver->getRawGlConfig();
@@ -246,9 +244,9 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
     TCollection_ExtendedString aMsg ("OpenGl_Window::CreateWindow: "
                                      "ChoosePixelFormat is unable to find stereo supported pixel format. "
                                      "Choosing similar non stereo format.");
-    myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
-                              GL_DEBUG_TYPE_OTHER,
-                              0, GL_DEBUG_SEVERITY_HIGH, aMsg);
+    myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
+                              GL_DEBUG_TYPE_OTHER_ARB,
+                              0, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
 
     aPixelFrmt.dwFlags &= ~PFD_STEREO;
     aPixelFrmtId = ChoosePixelFormat (aWindowDC, &aPixelFrmt);
@@ -413,7 +411,7 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
         && !theCaps->contextCompatible)
         {
           TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: core profile creation failed.");
-          myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PORTABILITY, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
+          myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_PORTABILITY_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
         }
       }
 
@@ -548,7 +546,7 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
       && !theCaps->contextCompatible)
       {
         TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: core profile creation failed.");
-        myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PORTABILITY, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
+        myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_PORTABILITY_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
       }
     }
     XSetErrorHandler(anOldHandler);
@@ -589,9 +587,9 @@ OpenGl_Window::OpenGl_Window (const Handle(OpenGl_GraphicDriver)& theDriver,
   if (!aList.IsEmpty())
   {
     TCollection_ExtendedString aMsg = TCollection_ExtendedString ("OpenGl_Window::CreateWindow: window Visual is incomplete: ") + aList;
-    myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
-                              GL_DEBUG_TYPE_OTHER,
-                              0, GL_DEBUG_SEVERITY_MEDIUM, aMsg);
+    myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
+                              GL_DEBUG_TYPE_OTHER_ARB,
+                              0, GL_DEBUG_SEVERITY_MEDIUM_ARB, aMsg);
   }
 
   myGlContext->Init ((Aspect_Drawable )aWindow, (Aspect_Display )aDisp, (Aspect_RenderingContext )aGContext, isCoreProfile);
@@ -617,7 +615,7 @@ OpenGl_Window::~OpenGl_Window()
   // release "GL" context if it is owned by window
   // Mesa implementation can fail to destroy GL context if it set for current thread.
   // It should be safer to unset thread GL context before its destruction.
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   if ((EGLSurface )myGlContext->myWindow != EGL_NO_SURFACE)
   {
     eglDestroySurface ((EGLDisplay )myGlContext->myDisplay,
@@ -679,7 +677,7 @@ Standard_Boolean OpenGl_Window::Activate()
 // =======================================================================
 void OpenGl_Window::Resize()
 {
-#if !defined(_WIN32) && !defined(HAVE_EGL) && !defined(__ANDROID__) && !defined(__QNX__)
+#if !defined(_WIN32) && !defined(HAVE_EGL) && !defined(__ANDROID__)
   Display* aDisp = (Display* )myGlContext->myDisplay;
   if (aDisp == NULL)
     return;
@@ -696,13 +694,54 @@ void OpenGl_Window::Resize()
   myWidth  = aWidth;
   myHeight = aHeight;
 
-#if !defined(_WIN32) && !defined(HAVE_EGL) && !defined(__ANDROID__) && !defined(__QNX__)
+#if !defined(_WIN32) && !defined(HAVE_EGL) && !defined(__ANDROID__)
   XResizeWindow (aDisp, myGlContext->myWindow, (unsigned int )myWidth, (unsigned int )myHeight);
   XSync (aDisp, False);
 #endif
 
   Init();
 }
+
+#endif // !__APPLE__
+
+// =======================================================================
+// function : ReadDepths
+// purpose  : TelReadDepths
+// =======================================================================
+void OpenGl_Window::ReadDepths (const Standard_Integer theX,     const Standard_Integer theY,
+                                const Standard_Integer theWidth, const Standard_Integer theHeight,
+                                float* theDepths)
+{
+  if (theDepths == NULL || !Activate())
+    return;
+
+  OpenGl_Mat4 aProjectMat;
+  Graphic3d_TransformUtils::Ortho2D (aProjectMat,
+    0.f, static_cast<GLfloat> (myWidth), 0.f, static_cast<GLfloat> (myHeight));
+
+  myGlContext->WorldViewState.Push();
+  myGlContext->ProjectionState.Push();
+
+  myGlContext->WorldViewState.SetIdentity();
+  myGlContext->ProjectionState.SetCurrent (aProjectMat);
+
+  myGlContext->ApplyProjectionMatrix();
+  myGlContext->ApplyWorldViewMatrix();
+
+#if !defined(GL_ES_VERSION_2_0)
+  glRasterPos2i (theX, theY);
+  myGlContext->DisableFeatures();
+  glReadPixels (theX, theY, theWidth, theHeight, GL_DEPTH_COMPONENT, GL_FLOAT, theDepths);
+  myGlContext->EnableFeatures();
+#endif
+
+  myGlContext->WorldViewState.Pop();
+  myGlContext->ProjectionState.Pop();
+
+  myGlContext->ApplyProjectionMatrix();
+}
+
+#if !defined(__APPLE__) || defined(MACOSX_USE_GLX)
 
 // =======================================================================
 // function : Init
@@ -713,7 +752,7 @@ void OpenGl_Window::Init()
   if (!Activate())
     return;
 
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   eglQuerySurface ((EGLDisplay )myGlContext->myDisplay, (EGLSurface )myGlContext->myWindow, EGL_WIDTH,  &myWidth);
   eglQuerySurface ((EGLDisplay )myGlContext->myDisplay, (EGLSurface )myGlContext->myWindow, EGL_HEIGHT, &myHeight);
 #elif defined(_WIN32)

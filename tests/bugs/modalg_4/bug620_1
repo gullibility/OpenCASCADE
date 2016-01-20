@@ -20,6 +20,5 @@ if [catch { bopcut result } catch_result] {
   puts "OCC620 OK: BOPCUT operation works OK"
 }
 
-checkprops result -s 314742. 
-checkshape result
+set square 314742.
 set 2dviewer 0

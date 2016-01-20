@@ -21,8 +21,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfByte.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_AspectMarker3d,Aspect_AspectMarker)
-
 // =======================================================================
 // function : Graphic3d_AspectMarker3d
 // purpose  :

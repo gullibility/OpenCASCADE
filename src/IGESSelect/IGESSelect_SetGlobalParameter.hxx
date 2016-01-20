@@ -65,16 +65,16 @@ public:
   //! Specific action : only <target> is used : the form of the new
   //! value is checked regarding the parameter number (given at
   //! creation time).
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Sets Global Parameter <numpar> to <new value>"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SetGlobalParameter,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_SetGlobalParameter,IGESSelect_ModelModifier)
 
 protected:
 

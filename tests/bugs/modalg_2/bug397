@@ -27,8 +27,7 @@ if { ${stat} != 1 } {
 
 vselect 220 170
 
-checkprops result -s 92.9029 
-checkshape result
+set square 92.9029
 set only_screen 1
 
 

@@ -18,8 +18,6 @@
 #include <IGESToBRep_ToolContainer.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESToBRep_AlgoContainer,MMgt_TShared)
-
 //=======================================================================
 //function : IGESToBRep_AlgoContainer
 //purpose  : 

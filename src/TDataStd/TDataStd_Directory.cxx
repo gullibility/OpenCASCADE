@@ -26,8 +26,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <TDF_TagSource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_Directory,TDF_Attribute)
-
 //=======================================================================
 //function : Find
 //purpose  : 

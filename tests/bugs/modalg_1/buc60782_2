@@ -31,7 +31,6 @@ if { [regexp {OK} $che ] != 1} {
 	puts "OK BUC60782: offset is created"
 	tpcompound result
     }
-    checkprops result -s 0 
-checkshape result
+    set square 0
     set 2dviewer 0
 }

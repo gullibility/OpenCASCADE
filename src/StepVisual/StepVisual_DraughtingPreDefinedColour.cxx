@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_DraughtingPreDefinedColour.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_DraughtingPreDefinedColour,StepVisual_PreDefinedColour)
-
 StepVisual_DraughtingPreDefinedColour::StepVisual_DraughtingPreDefinedColour ()  {}
 

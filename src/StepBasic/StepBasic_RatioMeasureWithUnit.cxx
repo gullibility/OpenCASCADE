@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_RatioMeasureWithUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_RatioMeasureWithUnit,StepBasic_MeasureWithUnit)
-
 StepBasic_RatioMeasureWithUnit::StepBasic_RatioMeasureWithUnit ()  {}
 

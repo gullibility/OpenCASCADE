@@ -17,7 +17,5 @@ puts "Info: it should be 12 edges"
 
 checknbshapes result -edge 12
 
-checkprops result -l 33.6353 
-checkshape result 
-checksection result
+set length 33.6353
 set 2dviewer 0

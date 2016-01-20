@@ -249,7 +249,7 @@ public:
 
   //! Geometry type defines type of shapes on which the dimension is to be built. 
   //! @return type of geometry on which the dimension will be built.
-  Standard_Integer GetGeometryType () const { return myGeometryType; }
+  Standard_EXPORT const Standard_Integer GetGeometryType () const;
 
   //! Sets user-defined plane where the 2D dimension presentation will be placed.
   //! Checks validity of this plane if geometry has been set already.
@@ -298,7 +298,7 @@ public:
   }
 
   //! @return the kind of interactive.
-  virtual AIS_KindOfInteractive Type() const Standard_OVERRIDE
+  virtual AIS_KindOfInteractive Type() const
   {
     return AIS_KOI_Dimension;
   }
@@ -306,7 +306,7 @@ public:
   //! Returns true if the class of objects accepts the display mode theMode.
   //! The interactive context can have a default mode of representation for
   //! the set of Interactive Objects. This mode may not be accepted by object.
-  virtual Standard_Boolean AcceptDisplayMode (const Standard_Integer theMode) const Standard_OVERRIDE
+  virtual Standard_Boolean AcceptDisplayMode (const Standard_Integer theMode) const
   {
     return theMode == ComputeMode_All;
   }
@@ -378,7 +378,7 @@ public:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(AIS_Dimension,AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTI(AIS_Dimension, AIS_InteractiveObject)
 
 protected:
 
@@ -580,7 +580,7 @@ protected: //! @name Behavior to implement
   //! @param theSelection [in] the selection structure to will with primitives.
   //! @param theMode [in] the selection mode.
   Standard_EXPORT virtual void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection,
-                                                 const Standard_Integer theMode) Standard_OVERRIDE;
+                                                 const Standard_Integer theMode);
 
 protected: //! @name Selection geometry
 

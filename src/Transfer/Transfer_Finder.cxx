@@ -21,8 +21,6 @@
 #include <TCollection_HAsciiString.hxx>
 #include <Transfer_Finder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_Finder,MMgt_TShared)
-
 void  Transfer_Finder::SetHashCode (const Standard_Integer code)
       {  thecode = code;  }
 

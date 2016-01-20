@@ -15,7 +15,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #include "GeomSources.h"
 
-#define EOL "\r\n"
+#ifdef WNT
+ #define EOL "\r\n"
+#else
+ #define EOL "\n"
+#endif
 
 #define WAIT_A_LITTLE WaitForInput(500)
 
@@ -1119,7 +1123,7 @@ void CGeometryDoc::OnCreateSol()
       TopoDS_Face aface = BRepBuilderAPI_MakeFace(GeomSol, Precision::Confusion());
       if (!BRepAlgo::IsValid(aface))
         MessageBoxW (AfxGetApp()->m_pMainWnd->m_hWnd, L"Error : The plate surface is not valid!", L"CasCade Error", MB_ICONERROR);
-      Handle(AIS_Shape) anAISShape=new AIS_Shape(aface);
+      Handle_AIS_Shape anAISShape=new AIS_Shape(aface);
       myAISContext->Display(anAISShape, Standard_False);
       Fit();
     }   
@@ -1211,7 +1215,7 @@ void CGeometryDoc::simplify(const TopoDS_Shape& aShape)
     "    TopLoc_Location aLocation;\n"
     "\n"
     "    // takes the triangulation of the face aFace\n"
-    "    Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aFace,aLocation);\n"
+    "    Handle_Poly_Triangulation aTr = BRep_Tool::Triangulation(aFace,aLocation);\n"
     "\n"
     "    if(!aTr.IsNull())\n"
     "    { \n"
@@ -1337,7 +1341,7 @@ void CGeometryDoc::simplify(const TopoDS_Shape& aShape)
     "  TopoDS_Face aFace;\n"
     "  B.MakeFace(aFace, aSurf, Precision::Confusion());\n"
     "  B.Add(aFace, aWire);\n"
-    "  Handle(ShapeFix_Shape) sfs = new ShapeFix_Shape(aFace);\n"
+    "  Handle_ShapeFix_Shape sfs = new ShapeFix_Shape(aFace);\n"
     "  sfs->Perform();\n"
     "  TopoDS_Shape aFixedFace = sfs->Shape();\n"
     "  if (aFixedFace.IsNull()) \n"
@@ -1364,7 +1368,7 @@ void CGeometryDoc::simplify(const TopoDS_Shape& aShape)
       TopLoc_Location aLocation;
 
       // takes the triangulation of the face aFace
-      Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aFace,aLocation);
+      Handle_Poly_Triangulation aTr = BRep_Tool::Triangulation(aFace,aLocation);
 
       if(!aTr.IsNull())
       { 
@@ -1492,14 +1496,14 @@ void CGeometryDoc::simplify(const TopoDS_Shape& aShape)
     TopoDS_Face aFace;
     B.MakeFace(aFace, aSurf, Precision::Confusion());
     B.Add(aFace, aWire);
-    Handle(ShapeFix_Shape) sfs = new ShapeFix_Shape(aFace);
+    Handle_ShapeFix_Shape sfs = new ShapeFix_Shape(aFace);
     sfs->Perform();
     TopoDS_Shape aFixedFace = sfs->Shape();
     if (aFixedFace.IsNull()) 
       return;
 
     // output surface, make it half transparent
-    Handle(AIS_InteractiveObject) aSurfIO = drawSurface(
+    Handle_AIS_InteractiveObject aSurfIO = drawSurface(
       aSurf, Quantity_NOC_LEMONCHIFFON3, Standard_False);
     aSurfIO->SetTransparency(0.5);
     myAISContext->Display(aSurfIO,Standard_False);
@@ -1517,8 +1521,8 @@ void CGeometryDoc::simplify(const TopoDS_Shape& aShape)
     drawShape(aFixedFace);
 }
 
-Handle(AIS_InteractiveObject) CGeometryDoc::drawSurface
-                                  (const Handle(Geom_Surface)& theSurface,
+Handle_AIS_InteractiveObject CGeometryDoc::drawSurface
+                                  (const Handle_Geom_Surface& theSurface,
                                    const Quantity_Color& theColor,
                                    const Standard_Boolean toDisplay)
 {
@@ -1529,7 +1533,7 @@ Handle(AIS_InteractiveObject) CGeometryDoc::drawSurface
   fixParam(v1);
   fixParam(v2);
 
-  Handle(AIS_Shape) aGraphicSurface = 
+  Handle_AIS_Shape aGraphicSurface = 
     new AIS_Shape(BRepBuilderAPI_MakeFace (theSurface, u1, u2, v1, v2, Precision::Confusion()));
 
   myAISContext->SetMaterial(aGraphicSurface, Graphic3d_NOM_PLASTIC, toDisplay);
@@ -1569,7 +1573,7 @@ Standard_Boolean CGeometryDoc::WaitForInput (unsigned long aMilliSeconds)
   return Standard_False;
 }
 
-Handle(AIS_Point) CGeometryDoc::drawPoint
+Handle_AIS_Point CGeometryDoc::drawPoint
                                   (const gp_Pnt& aPnt,
                                    const Quantity_Color& theColor,
                                    const Standard_Boolean toDisplay)
@@ -1586,12 +1590,12 @@ Handle(AIS_Point) CGeometryDoc::drawPoint
   return aGraphicPoint;
 }
 
-Handle(AIS_Shape) CGeometryDoc::drawShape
+Handle_AIS_Shape CGeometryDoc::drawShape
          (const TopoDS_Shape& theShape,
           const Graphic3d_NameOfMaterial theMaterial,
           const Standard_Boolean toDisplay)
 {
-  Handle(AIS_Shape) aGraphicShape = new AIS_Shape(theShape);
+  Handle_AIS_Shape aGraphicShape = new AIS_Shape(theShape);
 
   myAISContext->SetMaterial(aGraphicShape, theMaterial, toDisplay);
   if (toDisplay)

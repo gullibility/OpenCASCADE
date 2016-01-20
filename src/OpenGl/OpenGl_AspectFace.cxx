@@ -43,8 +43,7 @@ namespace
     {{ 1.0F, 1.0F, 1.0F, 1.0F }}, // diffuse color
     {{ 1.0F, 1.0F, 1.0F, 1.0F }}, // specular color
     {{ 1.0F, 1.0F, 1.0F, 1.0F }}, // emissive color
-    {{ 1.0F, 1.0F, 1.0F, 1.0F }}, // material color
-    Graphic3d_BSDF()
+    {{ 1.0F, 1.0F, 1.0F, 1.0F }}  // material color
   };
 
   static const TCollection_AsciiString THE_EMPTY_KEY;

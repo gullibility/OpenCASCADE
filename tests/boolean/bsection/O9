@@ -3,5 +3,4 @@ plane planz 0 0 0 0 0 1
 mkface fass planz -100 100 -100 100
 bsection result a fass
 
-checkprops result -l 25.708
-checksection result
+set length 25.708

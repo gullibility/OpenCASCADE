@@ -35,8 +35,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_AspectText3d,MMgt_TShared)
-
 //-Aliases
 //-Global data definitions
 //  -- la font utilisee

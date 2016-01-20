@@ -46,15 +46,15 @@ public:
   Standard_EXPORT Handle(IFSelect_EditForm) EditForm() const;
   
   //! Acts by applying an EditForm to entities, selected or all model
-  Standard_EXPORT void Perform (IFSelect_ContextModif& ctx, const Handle(Interface_InterfaceModel)& target, const Handle(Interface_Protocol)& protocol, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Perform (IFSelect_ContextModif& ctx, const Handle(Interface_InterfaceModel)& target, const Handle(Interface_Protocol)& protocol, Interface_CopyTool& TC) const;
   
   //! Returns Label as "Apply EditForm <+ label of EditForm>"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_ModifEditForm,IFSelect_Modifier)
+  DEFINE_STANDARD_RTTI(IFSelect_ModifEditForm,IFSelect_Modifier)
 
 protected:
 

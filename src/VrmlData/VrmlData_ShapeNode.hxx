@@ -69,25 +69,25 @@ class VrmlData_ShapeNode : public VrmlData_Node
    * is not created, but rather the given one is modified.
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                Clone           (const Handle(VrmlData_Node)& theOther)const Standard_OVERRIDE;
+                Clone           (const Handle(VrmlData_Node)& theOther)const;
 
   /**
    * Fill the Node internal data from the given input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                Read            (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                Read            (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node to output stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                Write           (const char * thePrefix) const Standard_OVERRIDE;
+                Write           (const char * thePrefix) const;
 
   /**
    * Check if the Shape Node is writeable.
    */
   Standard_EXPORT virtual Standard_Boolean
-                IsDefault       () const Standard_OVERRIDE;
+                IsDefault       () const;
 
  protected:
   // ---------- PROTECTED METHODS ----------
@@ -102,7 +102,7 @@ class VrmlData_ShapeNode : public VrmlData_Node
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_ShapeNode,VrmlData_Node)
+DEFINE_STANDARD_RTTI (VrmlData_ShapeNode, VrmlData_Node)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

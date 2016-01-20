@@ -56,7 +56,7 @@ public:
   //! CaseNum (this type)
   //! Warning : The methods CaseStep, StepType and Recognize,
   //! must be in phase (triplets CaseNum-StepType-Type of Object)
-  Standard_EXPORT Standard_Integer CaseNum (const Handle(Interface_FileReaderData)& data, const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer CaseNum (const Handle(Interface_FileReaderData)& data, const Standard_Integer num) const;
   
   //! Defines Case Numbers corresponding to the recognized Types
   //! Called by CaseNum (data,num) above for a Simple Type Entity
@@ -99,7 +99,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean ComplexType (const Standard_Integer CN, TColStd_SequenceOfAsciiString& types) const;
   
   //! General Read Function, calls ReadStep
-  Standard_EXPORT void Read (const Standard_Integer CN, const Handle(Interface_FileReaderData)& data, const Standard_Integer num, Handle(Interface_Check)& ach, const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+  Standard_EXPORT void Read (const Standard_Integer CN, const Handle(Interface_FileReaderData)& data, const Standard_Integer num, Handle(Interface_Check)& ach, const Handle(Standard_Transient)& ent) const;
   
   //! Specific Read Function. Works with StepReaderData
   Standard_EXPORT virtual void ReadStep (const Standard_Integer CN, const Handle(StepData_StepReaderData)& data, const Standard_Integer num, Handle(Interface_Check)& ach, const Handle(Standard_Transient)& ent) const = 0;
@@ -110,7 +110,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepData_ReadWriteModule,Interface_ReaderModule)
+  DEFINE_STANDARD_RTTI(StepData_ReadWriteModule,Interface_ReaderModule)
 
 protected:
 

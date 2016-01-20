@@ -17,8 +17,6 @@
 #include <StepShape_PolyLoop.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_PolyLoop,StepShape_Loop)
-
 StepShape_PolyLoop::StepShape_PolyLoop ()  {}
 
 void StepShape_PolyLoop::Init(

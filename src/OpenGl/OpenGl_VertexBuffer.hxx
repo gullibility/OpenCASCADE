@@ -77,7 +77,7 @@ public:
   Standard_EXPORT virtual bool Create (const Handle(OpenGl_Context)& theGlCtx);
 
   //! Destroy object - will release GPU memory if any.
-  Standard_EXPORT virtual void Release (OpenGl_Context* theGlCtx) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Release (OpenGl_Context* theGlCtx);
 
   //! Bind this VBO.
   Standard_EXPORT virtual void Bind (const Handle(OpenGl_Context)& theGlCtx) const;
@@ -327,7 +327,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_VertexBuffer,OpenGl_Resource) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_VertexBuffer, OpenGl_Resource) // Type definition
 
 };
 

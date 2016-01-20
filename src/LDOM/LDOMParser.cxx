@@ -24,7 +24,6 @@
 #include <LDOM_BasicText.hxx>
 #include <LDOM_CharReference.hxx>
 #include <TCollection_ExtendedString.hxx>
-#include <OSD_OpenFile.hxx>
 
 #include <fcntl.h>
 #ifdef _MSC_VER
@@ -54,14 +53,13 @@ static
 inline
 #endif
         LDOM_XmlReader::RecordType ReadRecord (LDOM_XmlReader&  aReader,
-                                               Standard_IStream& theIStream,
                                                LDOM_OSStream&   aData)
 {
 #ifdef LDOM_PARSER_TRACE
   static aCounter = 0;
   ++ aCounter;
 #endif
-  const LDOM_XmlReader::RecordType aType = aReader.ReadRecord (theIStream, aData);
+  const LDOM_XmlReader::RecordType aType = aReader.ReadRecord (aData);
 #ifdef LDOM_PARSER_TRACE
   static FILE * ff = NULL;
   TCollection_AsciiString aTraceFileName;
@@ -119,10 +117,10 @@ Standard_Boolean LDOMParser::parse (istream& anInput)
 
   // Create the Reader instance
   if (myReader) delete myReader;
-  myReader = new LDOM_XmlReader (myDocument, myError);
+  myReader = new LDOM_XmlReader (anInput, myDocument, myError);
 
   // Parse
-  return ParseDocument (anInput);
+  return ParseDocument();
 }
 
 //=======================================================================
@@ -132,18 +130,30 @@ Standard_Boolean LDOMParser::parse (istream& anInput)
 
 Standard_Boolean LDOMParser::parse (const char * const aFileName)
 {
-  std::ifstream aFileStream;
-  OSD_OpenStream (aFileStream, aFileName, std::ios::in);
+  // Open the DOM Document
+  myDocument = new LDOM_MemManager (20000);
+  myError.Clear ();
 
-  if (aFileStream.good())
-  {
-    return parse (aFileStream);
-  }
-  else
-  {
+  // Open the file
+#ifdef _WIN32
+  TCollection_ExtendedString aFileNameW(aFileName, Standard_True);
+  int aFile = _wopen ((const wchar_t*) aFileNameW.ToExtString(), O_RDONLY);
+#else
+  int aFile = open (aFileName, O_RDONLY);
+#endif
+  if (aFile < 0) {
     myError = "Fatal XML error: Cannot open XML file";
     return Standard_True;
   }
+
+  // Create the Reader instance
+  if (myReader) delete myReader;
+  myReader = new LDOM_XmlReader (aFile, myDocument, myError);
+
+  // Parse
+  Standard_Boolean isError = ParseDocument();
+  close (aFile);
+  return isError;
 }
 
 //=======================================================================
@@ -151,14 +161,14 @@ Standard_Boolean LDOMParser::parse (const char * const aFileName)
 //purpose  : parse the whole document (abstracted from the XML source)
 //=======================================================================
 
-Standard_Boolean LDOMParser::ParseDocument (istream& theIStream)
+Standard_Boolean LDOMParser::ParseDocument ()
 {
   Standard_Boolean      isError   = Standard_False;
   Standard_Boolean      isElement = Standard_False;
   Standard_Boolean      isDoctype = Standard_False;
 
   for(;;) {
-    LDOM_XmlReader::RecordType aType = ReadRecord (*myReader, theIStream, myCurrentData);
+    LDOM_XmlReader::RecordType aType = ReadRecord (*myReader, myCurrentData);
     switch (aType) {
     case LDOM_XmlReader::XML_HEADER:
       if (isDoctype || isElement) {
@@ -201,7 +211,7 @@ Standard_Boolean LDOMParser::ParseDocument (istream& theIStream)
           myError = "User abort at startElement()";
           break;
         }
-        isError = ParseElement (theIStream);
+        isError = ParseElement ();
         if (isError) break;
         continue;
       }
@@ -231,7 +241,7 @@ Standard_Boolean LDOMParser::ParseDocument (istream& theIStream)
 //purpose  : parse one element, given the type of its XML presentation
 //=======================================================================
 
-Standard_Boolean LDOMParser::ParseElement (Standard_IStream& theIStream)
+Standard_Boolean LDOMParser::ParseElement ()
 {
   Standard_Boolean  isError = Standard_False;
   const LDOM_BasicElement * aParent = &myReader->GetElement();
@@ -240,7 +250,7 @@ Standard_Boolean LDOMParser::ParseElement (Standard_IStream& theIStream)
     LDOM_Node::NodeType aLocType;
     LDOMBasicString     aTextValue;
     char *aTextStr;
-    LDOM_XmlReader::RecordType aType = ReadRecord (* myReader, theIStream, myCurrentData);
+    LDOM_XmlReader::RecordType aType = ReadRecord (* myReader, myCurrentData);
     switch (aType) {
     case LDOM_XmlReader::XML_UNKNOWN:
       isError = Standard_True;
@@ -265,7 +275,7 @@ Standard_Boolean LDOMParser::ParseElement (Standard_IStream& theIStream)
         myError = "User abort at startElement()";
         break;
       }
-      isError = ParseElement (theIStream);
+      isError = ParseElement ();
       break;
     case LDOM_XmlReader::XML_END_ELEMENT:
       {

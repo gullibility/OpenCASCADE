@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Interpol,Law_BSpFunc)
-
 #ifdef OCCT_DEBUG
 #ifdef DRAW
 

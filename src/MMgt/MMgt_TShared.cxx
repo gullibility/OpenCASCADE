@@ -17,8 +17,6 @@
 #include <Standard_OutOfMemory.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MMgt_TShared,Standard_Transient)
-
 //=======================================================================
 //function : Delete
 //purpose  : 

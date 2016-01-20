@@ -21,8 +21,6 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Box,Draw_Drawable3D)
-
 //=======================================================================
 //function : Draw_Box
 //purpose  : 

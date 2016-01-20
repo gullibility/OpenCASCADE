@@ -21,8 +21,6 @@
 #include <Units_ShiftedToken.hxx>
 #include <Units_Token.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_ShiftedToken,Units_Token)
-
 //=======================================================================
 //function : Units_ShiftedToken
 //purpose  : 

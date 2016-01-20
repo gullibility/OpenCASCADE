@@ -2,9 +2,9 @@ puts "============"
 puts "OCC6334"
 puts "============"
 puts ""
-#####################################################################
+######################################################
 # Invalid result of MakeCylindricalHole when input solid is REVERSED
-#####################################################################
+######################################################
 
 set BugNumber OCC6334
 
@@ -14,7 +14,13 @@ box b 100 100 100
 subshape b f 1
 offsetshape t b 10 b_1
 
-checkshape t
+decho off
+set che_t [checkshape t]
+decho on
+
+if {[regexp {Faulty} $che_t]} {
+    puts "Faulty ${BugNumber} : checkshape is wrong for t"
+}
 
 set bnd_t [bounding t]
 set ori [lindex [dtyp t] 2]
@@ -32,8 +38,7 @@ set bnd_h [bounding h]
 
 renamevar h result
 
-checkprops result -s 117509 
-checkshape result
+set square 117509
 
 checknbshapes result -vertex 30 -edge 51 -wire 27 -face 24 -shell 1 -solid 1 -compsolid 0 -compound 1 -shape 135
 

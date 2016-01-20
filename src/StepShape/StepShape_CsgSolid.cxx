@@ -17,8 +17,6 @@
 #include <StepShape_CsgSolid.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_CsgSolid,StepShape_SolidModel)
-
 StepShape_CsgSolid::StepShape_CsgSolid ()  {}
 
 void StepShape_CsgSolid::Init(

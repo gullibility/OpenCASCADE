@@ -18,7 +18,6 @@
 #include <TObj_HiddenPartition.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_HiddenPartition,TObj_Partition)
 IMPLEMENT_TOBJOCAF_PERSISTENCE(TObj_HiddenPartition)
   
 //=======================================================================

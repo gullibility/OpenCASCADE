@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepFEA_GeometricNode.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_GeometricNode,StepFEA_NodeRepresentation)
-
 //=======================================================================
 //function : StepFEA_GeometricNode
 //purpose  : 

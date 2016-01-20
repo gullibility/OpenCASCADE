@@ -26,20 +26,17 @@
 #include <Storage_BaseDriver.hxx>
 #include <Storage_Data.hxx>
 #include <Storage_HeaderData.hxx>
+#include <Storage_Schema.hxx>
 #include <Storage_TypeData.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter,Standard_Transient)
-
 #define FILE_FORMAT "FILE_FORMAT: "
 
 static TCollection_ExtendedString TryXmlDriverType
                                 (const TCollection_AsciiString& theFileName);
-
-static TCollection_ExtendedString TryXmlDriverType (Standard_IStream& theIStream);
 
 //=======================================================================
 //function : Open
@@ -129,9 +126,9 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat
     
     Open(*theFileDriver,aFileName,Storage_VSRead);
     theFileIsOpen=Standard_True;
-    Storage_HeaderData hd;
-    hd.Read (*theFileDriver);
-    const TColStd_SequenceOfAsciiString &refUserInfo = hd.UserInfo();
+    Handle(Storage_Schema) s = new Storage_Schema;
+    Handle(Storage_HeaderData) hd = s->ReadHeaderSection(*theFileDriver);
+    const TColStd_SequenceOfAsciiString &refUserInfo = hd->UserInfo();
     Standard_Boolean found=Standard_False;
     for (Standard_Integer i =1; !found && i<=  refUserInfo.Length() ; i++) {
       if(refUserInfo(i).Search(FILE_FORMAT) != -1) {
@@ -140,12 +137,7 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat
                                              Standard_True);
       }
     }
-    if (!found)
-    {
-      Storage_TypeData td;
-      td.Read (*theFileDriver);
-      theFormat = td.Types()->Value(1);
-    }
+    if(!found) theFormat=s->ReadTypeSection(*theFileDriver)->Types()->Value(1);
   }
   catch (Standard_Failure) {}
 
@@ -155,41 +147,6 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat
   delete theFileDriver;
 
   return theFormat;
-}
-
-//=======================================================================
-//function : FileFormat
-//purpose  : 
-//=======================================================================
-
-TCollection_ExtendedString PCDM_ReadWriter::FileFormat (Standard_IStream& theIStream, Handle(Storage_Data)& theData)
-{
-  TCollection_ExtendedString aFormat;
-
-  Storage_BaseDriver* aFileDriver;
-  if (PCDM::FileDriverType (theIStream, aFileDriver) == PCDM_TOFD_Unknown)
-  {
-    return ::TryXmlDriverType (theIStream);
-  }
-  
-  // the stream starts with a magic number, FileDriverType has read
-  // them already but returned the stream pos to initial state,
-  // thus we should read them before reading of info section
-  aFileDriver->ReadMagicNumber(theIStream);
-
-  aFileDriver->ReadCompleteInfo (theIStream, theData);
-
-  for (Standard_Integer i = 1; i <= theData->HeaderData()->UserInfo().Length(); i++)
-  {
-    const TCollection_AsciiString& aLine = theData->HeaderData()->UserInfo().Value(i);
-
-    if(aLine.Search (FILE_FORMAT) != -1)
-    {
-      aFormat = TCollection_ExtendedString (aLine.Token(" ",2).ToCString(), Standard_True);
-    }
-  }
-
-  return aFormat;
 }
 
 //=======================================================================
@@ -213,41 +170,5 @@ static TCollection_ExtendedString TryXmlDriverType
     if (anElement.getTagName().equals (LDOMString(aDocumentElementName)))
       theFormat = anElement.getAttribute ("format");
   }
-  return theFormat;
-}
-
-//=======================================================================
-//function : ::TryXmlDriverType
-//purpose  : called from FileFormat()
-//=======================================================================
-
-static TCollection_ExtendedString TryXmlDriverType (Standard_IStream& theIStream)
-{
-  TCollection_ExtendedString theFormat;
-  PCDM_DOMHeaderParser       aParser;
-  const char                 * aDocumentElementName = "document";
-  aParser.SetStartElementName (Standard_CString(aDocumentElementName));
-
-  if (theIStream.good())
-  {
-    streampos aDocumentPos = theIStream.tellg();
-
-    // Parse the file; if there is no error or an error appears before retrieval
-    // of the DocumentElement, the XML format cannot be defined
-    if (aParser.parse (theIStream))
-    {
-      LDOM_Element anElement = aParser.GetElement();
-      if (anElement.getTagName().equals (LDOMString(aDocumentElementName)))
-        theFormat = anElement.getAttribute ("format");
-    }
-
-    if (!theIStream.good())
-    {
-      theIStream.clear();
-    }
-
-    theIStream.seekg(aDocumentPos);
-  }
-
   return theFormat;
 }

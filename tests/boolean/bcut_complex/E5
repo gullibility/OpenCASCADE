@@ -6,4 +6,4 @@ restore [locate_data_file ger60040-tool.rle] tool
 
 bcut result part tool
 
-checkprops result -s 17653.8
+set square 17653.8

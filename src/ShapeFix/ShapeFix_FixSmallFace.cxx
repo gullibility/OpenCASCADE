@@ -60,8 +60,6 @@
 #include <TopTools_Array1OfShape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_FixSmallFace,ShapeFix_Root)
-
 //#include <GeomLProp_SLProps.hxx>
 //#include <TColStd_Array2OfReal.hxx>
 //#include <TColStd_Array1OfReal.hxx>

@@ -19,8 +19,6 @@
 #include <TopOpeBRepDS_define.hxx>
 #include <TopOpeBRepDS_Marker.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Marker,MMgt_TShared)
-
 //#include <TopExp.hxx>
 //#include <TopTools_IndexedMapOfShape.hxx>
 TopOpeBRepDS_Marker::TopOpeBRepDS_Marker()

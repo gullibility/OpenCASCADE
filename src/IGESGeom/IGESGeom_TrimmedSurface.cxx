@@ -23,8 +23,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_TrimmedSurface,IGESData_IGESEntity)
-
 IGESGeom_TrimmedSurface::IGESGeom_TrimmedSurface ()    {  }
 
 

@@ -14,4 +14,4 @@ bop rr_1 p1
 boptuc result
 
 
-checkprops result -s empty
+set square empty

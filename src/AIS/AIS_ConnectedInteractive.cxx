@@ -44,8 +44,6 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_OrientedShapeMapHasher.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_ConnectedInteractive,AIS_InteractiveObject)
-
 //=======================================================================
 //function : AIS_ConnectedInteractive
 //purpose  : 

@@ -25,22 +25,15 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <sys/stat.h>
+//const OSD_WhoAmI Iam = OSD_WDirectoryIterator;
+OSD_DirectoryIterator::OSD_DirectoryIterator() {
 
-OSD_DirectoryIterator::OSD_DirectoryIterator() 
-: myFlag(0),
-  myDescr(0),
-  myEntry(0),
-  myInit(0)
-{
+ myDescr = NULL ;
 }
 
 OSD_DirectoryIterator::OSD_DirectoryIterator(const OSD_Path& where,
-                                             const TCollection_AsciiString& Mask)
-: myFlag(0),
-  myDescr(0),
-  myEntry(0),
-  myInit(0)
-{
+                                             const TCollection_AsciiString& Mask){
+ myDescr = NULL ;
  Initialize(where, Mask) ;
 }
 

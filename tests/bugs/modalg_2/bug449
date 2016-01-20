@@ -15,6 +15,5 @@ checkshape b2
 
 bcut result b1 b2
 
-checkprops result -s 43401.5 
-checkshape result
+set square 43401.5
 set 2dviewer 0

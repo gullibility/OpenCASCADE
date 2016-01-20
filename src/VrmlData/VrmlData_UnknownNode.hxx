@@ -47,7 +47,7 @@ class VrmlData_UnknownNode : public VrmlData_Node
    * Read the unknown node, till the last closing brace of it.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Read            (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                        Read            (VrmlData_InBuffer& theBuffer);
 
   /**
    * Query the title of the unknown node.
@@ -60,7 +60,7 @@ class VrmlData_UnknownNode : public VrmlData_Node
    * Check if the Node is non-writeable -- always returns true.
    */
   Standard_EXPORT virtual Standard_Boolean
-                        IsDefault       () const Standard_OVERRIDE;
+                        IsDefault       () const;
 
  private:
   // ---------- PRIVATE FIELDS ----------
@@ -69,7 +69,7 @@ class VrmlData_UnknownNode : public VrmlData_Node
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_UnknownNode,VrmlData_Node)
+DEFINE_STANDARD_RTTI (VrmlData_UnknownNode, VrmlData_Node)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

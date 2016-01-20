@@ -63,7 +63,7 @@ public:
   Standard_EXPORT IntPatch_WLine(const Handle(IntSurf_LineOn2S)& Line, const Standard_Boolean Tang);
   
   //! Adds a vertex in the list.
-  virtual void AddVertex (const IntPatch_Point& Pnt) Standard_OVERRIDE;
+    void AddVertex (const IntPatch_Point& Pnt);
   
   //! Set the Point of index <Index> in the LineOn2S
   Standard_EXPORT void SetPoint (const Standard_Integer Index, const IntPatch_Point& Pnt);
@@ -79,10 +79,10 @@ public:
     void SetLastPoint (const Standard_Integer IndLast);
   
   //! Returns the number of intersection points.
-  virtual Standard_Integer NbPnts() const Standard_OVERRIDE;
+    Standard_Integer NbPnts() const;
   
   //! Returns the intersection point of range Index.
-  virtual const IntSurf_PntOn2S& Point (const Standard_Integer Index) const Standard_OVERRIDE;
+    const IntSurf_PntOn2S& Point (const Standard_Integer Index) const;
   
   //! Returns True if the line has a known First point.
   //! This point is given by the method FirstPoint().
@@ -108,11 +108,10 @@ public:
   //! of vertices.
     const IntPatch_Point& LastPoint (Standard_Integer& Indlast) const;
   
-  //! Returns number of vertices (IntPatch_Point) of the line
-  virtual Standard_Integer NbVertex() const Standard_OVERRIDE;
+    Standard_Integer NbVertex() const;
   
   //! Returns the vertex of range Index on the line.
-  virtual const IntPatch_Point& Vertex (const Standard_Integer Index) const Standard_OVERRIDE;
+    const IntPatch_Point& Vertex (const Standard_Integer Index) const;
   
   //! Set the parameters of all the vertex on the line.
   //! if a vertex is already in the line,
@@ -120,8 +119,7 @@ public:
   //! else a new point in the line is inserted.
   Standard_EXPORT void ComputeVertexParameters (const Standard_Real Tol, const Standard_Boolean hasBeenAdded = Standard_False);
   
-  //! Returns set of intersection points
-  Standard_EXPORT virtual Handle(IntSurf_LineOn2S) Curve() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(IntSurf_LineOn2S) Curve() const;
   
   Standard_EXPORT Standard_Boolean IsOutSurf1Box (const gp_Pnt2d& P1);
   
@@ -151,8 +149,7 @@ public:
   
   Standard_EXPORT const Handle(Adaptor2d_HCurve2d)& GetArcOnS2() const;
   
-  //! Removes vertices from the line (i.e. cleans svtx member)
-  virtual void ClearVertexes() Standard_OVERRIDE;
+  Standard_EXPORT void ClearVertexes();
   
   Standard_EXPORT void RemoveVertex (const Standard_Integer theIndex);
   
@@ -167,7 +164,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_WLine,IntPatch_PointLine)
+  DEFINE_STANDARD_RTTI(IntPatch_WLine,IntPatch_PointLine)
 
 protected:
 

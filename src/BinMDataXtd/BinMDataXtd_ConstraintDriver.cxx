@@ -24,8 +24,6 @@
 #include <TDF_Attribute.hxx>
 #include <TNaming_NamedShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataXtd_ConstraintDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataXtd_ConstraintDriver
 //purpose  : Constructor

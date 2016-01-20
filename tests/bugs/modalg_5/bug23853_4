@@ -12,7 +12,6 @@ restore [locate_data_file bug23853_pipe.brep] s2
 bop s1 s2
 bopcommon result
 
-checkprops result -s 3947.09 
-checkshape result
+set square 3947.09
 set 2dviewer 0
 

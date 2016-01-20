@@ -45,7 +45,7 @@ class TObj_TObject : public TDF_Attribute
   static Standard_EXPORT const Standard_GUID& GetID();
   
   //! Returns the ID of TObj_TObject attribute.
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
 
  public:
   //! Method for create TObj_TObject object
@@ -68,26 +68,26 @@ class TObj_TObject : public TDF_Attribute
     
   //! Returns an new empty TObj_TObject attribute. It is used by the
   //! copy algorithm.
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
   //! Restores the backuped contents from <theWith> into this one. It is used 
   //! when aborting a transaction.
-  Standard_EXPORT void Restore(const Handle(TDF_Attribute)& theWith) Standard_OVERRIDE;
+  Standard_EXPORT void Restore(const Handle(TDF_Attribute)& theWith);
   
   //! This method is used when copying an attribute from a source structure
   //! into a target structure.
   Standard_EXPORT void Paste(const Handle(TDF_Attribute)& theInto,
-                             const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                             const Handle(TDF_RelocationTable)& theRT) const;
   
   //! Tell TObj_Object to die,
   //! i.e. (myElem->IsAlive() == false) after that
-  Standard_EXPORT void BeforeForget() Standard_OVERRIDE;
+  Standard_EXPORT void BeforeForget();
   
   //! Tell TObj_Object to rise from the dead,
   //! i.e. (myElem->IsAlive() == true) after that
   Standard_EXPORT Standard_Boolean AfterUndo
                               (const Handle(TDF_AttributeDelta)& anAttDelta,
-                               const Standard_Boolean forceIt) Standard_OVERRIDE;
+                               const Standard_Boolean forceIt);
   
  private:
   //! Fields
@@ -95,7 +95,7 @@ class TObj_TObject : public TDF_Attribute
   
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_TObject,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TObj_TObject, TDF_Attribute)
 };
 
 //! Define handle class for TObj_TObject

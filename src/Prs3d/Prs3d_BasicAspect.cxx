@@ -14,5 +14,3 @@
 
 #include <Prs3d_BasicAspect.hxx>
 #include <Standard_Type.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(Prs3d_BasicAspect,MMgt_TShared)

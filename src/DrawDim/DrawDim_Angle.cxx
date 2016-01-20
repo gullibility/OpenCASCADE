@@ -35,8 +35,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Angle,DrawDim_Dimension)
-
 //=======================================================================
 //function : DrawDim_Angle
 //purpose  : 

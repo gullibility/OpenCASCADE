@@ -27,8 +27,6 @@
 #include <OSD_Chronometer.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_DrawablePolyEdgeTool,Draw_Drawable3D)
-
 #define PntX1 ((Standard_Real*)Coordinates)[0]
 #define PntY1 ((Standard_Real*)Coordinates)[1]
 #define PntZ1 ((Standard_Real*)Coordinates)[2]

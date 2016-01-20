@@ -16,8 +16,6 @@
 #include <StepVisual_CurveStyle.hxx>
 #include <StepVisual_SurfaceStyleBoundary.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleBoundary,MMgt_TShared)
-
 StepVisual_SurfaceStyleBoundary::StepVisual_SurfaceStyleBoundary ()  {}
 
 void StepVisual_SurfaceStyleBoundary::Init(

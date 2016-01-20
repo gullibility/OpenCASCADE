@@ -22,8 +22,6 @@
 #include <IGESBasic_SubfigureDef.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_SingularSubfigure,IGESData_IGESEntity)
-
 IGESBasic_SingularSubfigure::IGESBasic_SingularSubfigure ()    {  }
 
 

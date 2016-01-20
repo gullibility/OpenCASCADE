@@ -34,7 +34,11 @@ const TexturesExt_Presentation::PSampleFuncType TexturesExt_Presentation::Sample
   &TexturesExt_Presentation::sampleKitchen
 };
 
-#define EOL "\r\n"
+#ifdef WNT
+ #define EOL "\r\n"
+#else
+ #define EOL "\n"
+#endif
 
 #define ZVIEW_SIZE 100
 
@@ -69,7 +73,7 @@ void TexturesExt_Presentation::Init()
 {
   // initialize v3d_view so it displays TexturesExt well
   getViewer()->InitActiveViews();
-  Handle(V3d_View) aView = getViewer()->ActiveView();
+  Handle_V3d_View aView = getViewer()->ActiveView();
   aView->SetSurfaceDetail(V3d_TEX_ALL);
   aView->SetSize(ZVIEW_SIZE);
 
@@ -81,7 +85,7 @@ void TexturesExt_Presentation::Init()
     "  // aShape = ..." EOL
     "" EOL
     "  // create a textured presentation object for aShape" EOL
-    "  Handle(AIS_TexturedShape) aTShape = new AIS_TexturedShape(aShape);" EOL
+    "  Handle_AIS_TexturedShape aTShape = new AIS_TexturedShape(aShape);" EOL
     "" EOL
     "  TCollection_AsciiString aTFileName;" EOL
     "" EOL
@@ -127,7 +131,7 @@ void TexturesExt_Presentation::Init()
 // a predefined texture from Graphic3d_NameOfTexture2D with number = this value
 // is loaded.
 //================================================================
-Handle(AIS_TexturedShape) TexturesExt_Presentation::Texturize(const TopoDS_Shape& aShape,
+Handle_AIS_TexturedShape TexturesExt_Presentation::Texturize(const TopoDS_Shape& aShape,
                                                         TCollection_AsciiString aTFileName,
                                                         Standard_Real toScaleU,
                                                         Standard_Real toScaleV,
@@ -137,12 +141,12 @@ Handle(AIS_TexturedShape) TexturesExt_Presentation::Texturize(const TopoDS_Shape
                                                         Standard_Real originV)
 {
   // create a textured presentation object for aShape
-  Handle(AIS_TexturedShape) aTShape = new AIS_TexturedShape(aShape);
+  Handle_AIS_TexturedShape aTShape = new AIS_TexturedShape(aShape);
   TCollection_AsciiString TFileName;
   // load texture from file if it is not an integer value
   // integer value indicates a number of texture in predefined TexturesExt enumeration
   CString initfile(((OCC_App*) AfxGetApp())->GetInitDataDir());
-  initfile += "..\\..\\..\\04_Viewer3d\\Data\\";
+  initfile += "\\..\\..\\..\\samples\\mfc\\standard\\04_Viewer3d\\Data\\";
   if (!aTFileName.IsIntegerValue())
   {
 	initfile += aTFileName.ToCString();
@@ -172,7 +176,7 @@ Standard_Boolean TexturesExt_Presentation::loadShape(TopoDS_Shape& aShape,
 {
   // create a TopoDS_Shape -> read from a brep file
   CString initfile(((OCC_App*) AfxGetApp())->GetInitDataDir());
-  initfile += "..\\..\\..\\04_Viewer3d\\Data\\";
+  initfile += "\\..\\..\\..\\samples\\mfc\\standard\\04_Viewer3d\\Data\\";
   initfile += aFileName.ToCString();
 
   std::filebuf aFileBuf;
@@ -204,12 +208,12 @@ Standard_Boolean TexturesExt_Presentation::loadShape(TopoDS_Shape& aShape,
 //================================================================
 void TexturesExt_Presentation::lightsOnOff(Standard_Boolean isOn)
 {
-  static Handle(V3d_Light) aLight1 = new V3d_DirectionalLight(getViewer(), V3d_XnegYposZneg);
-  static Handle(V3d_Light) aLight2 = new V3d_DirectionalLight(getViewer(), V3d_XnegYnegZpos);
-  static Handle(V3d_Light) aLight3 = new V3d_DirectionalLight(getViewer(), V3d_XposYnegZpos);
-  static Handle(V3d_Light) aLight4 = new V3d_DirectionalLight(getViewer(), V3d_XnegYnegZneg);
-  static Handle(V3d_Light) aLight5 = new V3d_DirectionalLight(getViewer(), V3d_XnegYposZpos);
-  static Handle(V3d_Light) aLight6 = new V3d_DirectionalLight(getViewer(), V3d_XposYposZpos);
+  static Handle_V3d_Light aLight1 = new V3d_DirectionalLight(getViewer(), V3d_XnegYposZneg);
+  static Handle_V3d_Light aLight2 = new V3d_DirectionalLight(getViewer(), V3d_XnegYnegZpos);
+  static Handle_V3d_Light aLight3 = new V3d_DirectionalLight(getViewer(), V3d_XposYnegZpos);
+  static Handle_V3d_Light aLight4 = new V3d_DirectionalLight(getViewer(), V3d_XnegYnegZneg);
+  static Handle_V3d_Light aLight5 = new V3d_DirectionalLight(getViewer(), V3d_XnegYposZpos);
+  static Handle_V3d_Light aLight6 = new V3d_DirectionalLight(getViewer(), V3d_XposYposZpos);
 
   if (isOn)
   {
@@ -254,16 +258,16 @@ aShape = Transformer.Shape();
   TopExp::MapShapes(aShape, TopAbs_FACE, aFaces);
 
   // display original shape in shaded display mode
-  Handle(AIS_Shape) aShapeIO = drawShape(aShape, Graphic3d_NOM_BRASS, Standard_False);
+  Handle_AIS_Shape aShapeIO = drawShape(aShape, Graphic3d_NOM_BRASS, Standard_False);
   getAISContext()->SetDisplayMode(aShapeIO, AIS_Shaded, Standard_False);
   // Set increased polygon offset for the main shape to avoid depth collision with textured faces
   aShapeIO->SetPolygonOffsets(Aspect_POM_Fill, 1.5, 0.5);
   DISP(aShapeIO);
 
-  Handle(AIS_TexturedShape) aTFace1 = Texturize(aFaces(16), "carrelage1.gif", 1, 1, 3, 2);
+  Handle_AIS_TexturedShape aTFace1 = Texturize(aFaces(16), "carrelage1.gif", 1, 1, 3, 2);
   DISP(aTFace1);
 
-  Handle(AIS_TexturedShape) aTFace2 = Texturize(aFaces(21), "carrelage1.gif", 1, 1, 3, 2);
+  Handle_AIS_TexturedShape aTFace2 = Texturize(aFaces(21), "carrelage1.gif", 1, 1, 3, 2);
   DISP(aTFace2);
 
   getViewer()->Update();
@@ -285,7 +289,7 @@ void TexturesExt_Presentation::sampleTerrain()
   TopExp::MapShapes(aShape, TopAbs_FACE, aFaces);
 
 //  TopLoc_Location aLoc;
-//  Handle(Geom_Surface) aSur = BRep_Tool::Surface(TopoDS::Face(aFaces(1)), aLoc);
+//  Handle_Geom_Surface aSur = BRep_Tool::Surface(TopoDS::Face(aFaces(1)), aLoc);
 //  Standard_Real u1,u2,v1,v2;
 //  aSur->Bounds(u1,u2,v1,v2);
 //  gp_Pnt aPnt = aSur->Value(u1, v1);

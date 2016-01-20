@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_AdvancedBrepShapeRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_AdvancedBrepShapeRepresentation,StepShape_ShapeRepresentation)
-
 StepShape_AdvancedBrepShapeRepresentation::StepShape_AdvancedBrepShapeRepresentation ()  {}
 

@@ -24,8 +24,6 @@
 #include <TDF_ListIteratorOfLabelList.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_ReferenceListDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_ReferenceListDriver
 //purpose  : Constructor

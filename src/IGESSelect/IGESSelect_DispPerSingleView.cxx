@@ -24,8 +24,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_DispPerSingleView,IFSelect_Dispatch)
-
 IGESSelect_DispPerSingleView::IGESSelect_DispPerSingleView ()
       {  thesorter = new IGESSelect_ViewSorter;  }
 

@@ -29,7 +29,6 @@
 #include <XmlObjMgt_Persistent.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataStd_RealArrayDriver,XmlMDF_ADriver)
 IMPLEMENT_DOMSTRING (FirstIndexString, "first")
 IMPLEMENT_DOMSTRING (LastIndexString, "last")
 IMPLEMENT_DOMSTRING (IsDeltaOn,       "delta")

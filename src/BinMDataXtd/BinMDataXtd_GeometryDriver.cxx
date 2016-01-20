@@ -22,8 +22,6 @@
 #include <TDataXtd_Geometry.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataXtd_GeometryDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataXtd_GeometryDriver
 //purpose  : Constructor

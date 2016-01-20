@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_CompositeShapeAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_CompositeShapeAspect,StepRepr_ShapeAspect)
-
 StepRepr_CompositeShapeAspect::StepRepr_CompositeShapeAspect ()    {  }

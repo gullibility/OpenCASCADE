@@ -22,8 +22,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMXCAFDoc_VolumeDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMXCAFDoc_VolumeDriver
 //purpose  : Constructor

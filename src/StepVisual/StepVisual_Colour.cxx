@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_Colour.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_Colour,MMgt_TShared)
-
 StepVisual_Colour::StepVisual_Colour ()  {}
 

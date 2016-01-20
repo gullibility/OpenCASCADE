@@ -20,8 +20,6 @@
 #include <TDF_Label.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_TXYZ,TDF_Attribute)
-
 //=======================================================================
 //function : TObj_TXYZ
 //purpose  : 

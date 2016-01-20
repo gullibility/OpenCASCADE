@@ -12,16 +12,5 @@
 # commercial license or contractual agreement.
 
 set Draw_GEOMETRY 1
-
-if {[array names ::env OCCT_RESOURCE_PATH] != "" && "$::env(OCCT_RESOURCE_PATH)" != "" && [file exists $::env(OCCT_RESOURCE_PATH)/DrawResources/CURVES.tcl]} {
-  source $env(OCCT_RESOURCE_PATH)/DrawResources/CURVES.tcl
-} else {
-  source $env(CASROOT)/src/DrawResources/CURVES.tcl
-}
-
-if {[array names ::env OCCT_RESOURCE_PATH] != "" && "$::env(OCCT_RESOURCE_PATH)" != "" && [file exists $::env(OCCT_RESOURCE_PATH)/DrawResources/SURFACES.tcl]} {
-  source $env(OCCT_RESOURCE_PATH)/DrawResources/SURFACES.tcl
-} else {
-  source $env(CASROOT)/src/DrawResources/SURFACES.tcl
-}
-
+source $env(CASROOT)/src/DrawResources/CURVES.tcl
+source $env(CASROOT)/src/DrawResources/SURFACES.tcl

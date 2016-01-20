@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepFEA_FeaRepresentationItem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaRepresentationItem,StepRepr_RepresentationItem)
-
 //=======================================================================
 //function : StepFEA_FeaRepresentationItem
 //purpose  : 

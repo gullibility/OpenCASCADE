@@ -66,7 +66,7 @@ Standard_Integer bfillds(Draw_Interpretor& di,
   }
   //
   char buf[32];
-  Standard_Boolean bRunParallel, bNonDestructive, bShowTime;
+  Standard_Boolean bRunParallel, bShowTime;
   Standard_Integer i, aNbS, iErr;
   Standard_Real aTol;
   BOPCol_ListIteratorOfListOfShape aIt;
@@ -81,8 +81,7 @@ Standard_Integer bfillds(Draw_Interpretor& di,
   bShowTime = Standard_False;
   //
   bRunParallel=BOPTest_Objects::RunParallel();
-  bNonDestructive = BOPTest_Objects::NonDestructive();
-  aTol = BOPTest_Objects::FuzzyValue();
+  aTol=BOPTest_Objects::FuzzyValue();
   //
   for (i=1; i<n; ++i) {
     if (!strcmp(a[i], "-t")) {
@@ -108,7 +107,6 @@ Standard_Integer bfillds(Draw_Interpretor& di,
   //
   aPF.SetArguments(aLC);
   aPF.SetRunParallel(bRunParallel);
-  aPF.SetNonDestructive(bNonDestructive);
   aPF.SetFuzzyValue(aTol);
   //
   OSD_Timer aTimer;

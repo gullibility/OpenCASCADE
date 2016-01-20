@@ -28,6 +28,7 @@
 
 
 #include <BSplCLib.hxx>
+#include <BSplSLib.hxx>
 #include <Geom_BezierCurve.hxx>
 #include <Geom_BezierSurface.hxx>
 #include <Geom_Curve.hxx>
@@ -45,8 +46,6 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BezierSurface,Geom_BoundedSurface)
 
 //=======================================================================
 //function : Rational
@@ -363,6 +362,11 @@ static void DeleteRatPoleRow
 
 Geom_BezierSurface::Geom_BezierSurface 
 (const TColgp_Array2OfPnt& SurfacePoles):
+ ucacheparameter(0.),
+ vcacheparameter(0.),
+ ucachespanlenght(1.),
+ vcachespanlenght(1.),
+ validcache(0),
  maxderivinvok(Standard_False)
 {
   Standard_Integer NbUPoles = SurfacePoles.ColLength();
@@ -393,6 +397,11 @@ Geom_BezierSurface::Geom_BezierSurface
 Geom_BezierSurface::Geom_BezierSurface 
   (const TColgp_Array2OfPnt&   SurfacePoles,
    const TColStd_Array2OfReal& PoleWeights  ):
+ ucacheparameter(0.),
+ vcacheparameter(0.),
+ ucachespanlenght(1.),
+ vcachespanlenght(1.),
+ validcache(0),
  maxderivinvok(Standard_False)
 {
   Standard_Integer NbUPoles = SurfacePoles.ColLength();
@@ -463,13 +472,20 @@ Geom_BezierSurface::Geom_BezierSurface
 
 Geom_BezierSurface::Geom_BezierSurface
   (const Handle(TColgp_HArray2OfPnt)&   SurfacePoles,
+   const Handle(TColgp_HArray2OfPnt)&   SurfaceCoefs,
    const Handle(TColStd_HArray2OfReal)& PoleWeights,
+   const Handle(TColStd_HArray2OfReal)& CoefWeights,
    const Standard_Boolean               IsURational,
    const Standard_Boolean               IsVRational)
 :maxderivinvok(Standard_False)
 {
   urational = IsURational;
   vrational = IsVRational;
+  ucachespanlenght = 1.;
+  vcachespanlenght = 1.;
+  validcache = 1;
+  ucacheparameter =0.; 
+  vcacheparameter = 0.;
   Standard_Integer NbUPoles = SurfacePoles->ColLength();
   Standard_Integer NbVPoles = SurfacePoles->RowLength();
 
@@ -477,9 +493,17 @@ Geom_BezierSurface::Geom_BezierSurface
 					1,NbVPoles) ;
   poles->ChangeArray2() = SurfacePoles->Array2();
 
+  coeffs   = new TColgp_HArray2OfPnt   (1,SurfaceCoefs->ColLength(),
+					1,SurfaceCoefs->RowLength()) ;
+  coeffs->ChangeArray2() = SurfaceCoefs->Array2();
+
   if ( urational || vrational) {
     weights  = new TColStd_HArray2OfReal (1,NbUPoles,1,NbVPoles);
     weights->ChangeArray2() = PoleWeights->Array2();
+    
+    wcoeffs  = new TColStd_HArray2OfReal (1,SurfaceCoefs->ColLength(),
+					  1,SurfaceCoefs->RowLength()) ;
+    wcoeffs->ChangeArray2() = CoefWeights->Array2();
   }
 }
 
@@ -530,6 +554,10 @@ void Geom_BezierSurface::ExchangeUV ()
   Standard_Boolean temp = urational;
   urational = vrational;
   vrational = temp;
+  coeffs  = new TColgp_HArray2OfPnt   (LC, UC, LR, UR);
+  wcoeffs = new TColStd_HArray2OfReal (LC, UC, LR, UR);
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -652,6 +680,11 @@ void Geom_BezierSurface::InsertPoleColAfter
   }
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -690,8 +723,14 @@ void Geom_BezierSurface::InsertPoleColAfter
 
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());
 
   Rational(weights->Array2(), urational, vrational);
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -757,6 +796,12 @@ void Geom_BezierSurface::InsertPoleRowAfter (const Standard_Integer UIndex,
   }
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -795,8 +840,14 @@ void Geom_BezierSurface::InsertPoleRowAfter
 
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());	
 
   Rational(weights->Array2(), urational, vrational);
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -856,6 +907,11 @@ void Geom_BezierSurface::RemovePoleCol (const Standard_Integer VIndex)
   }
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());
+  UpdateCoefficients(); 
 }
 
 //=======================================================================
@@ -892,6 +948,11 @@ void Geom_BezierSurface::RemovePoleRow (const Standard_Integer UIndex)
   }
   poles   = npoles;
   weights = nweights;
+  coeffs  = new TColgp_HArray2OfPnt(1,poles->ColLength(),
+				    1,poles->RowLength());
+  wcoeffs = new TColStd_HArray2OfReal(1,poles->ColLength(),
+				      1,poles->RowLength());
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -909,46 +970,11 @@ void Geom_BezierSurface::Segment
   Handle(TColgp_HArray2OfPnt)  Coefs;
   Handle(TColStd_HArray2OfReal) WCoefs;
   
-  Standard_Integer aMinDegree = UDegree() <= VDegree() ? UDegree() : VDegree();
-  Standard_Integer aMaxDegree = UDegree() >  VDegree() ? UDegree() : VDegree();
-  Coefs = new TColgp_HArray2OfPnt(1, aMaxDegree + 1, 1, aMinDegree + 1);
-  if (rat)
-    WCoefs = new TColStd_HArray2OfReal(1, aMaxDegree + 1, 1, aMinDegree + 1);
-
-  TColStd_Array1OfReal biduflatknots(BSplCLib::FlatBezierKnots(UDegree()), 1, 2 * (UDegree() + 1));
-  TColStd_Array1OfReal bidvflatknots(BSplCLib::FlatBezierKnots(VDegree()), 1, 2 * (VDegree() + 1));
-
-  Standard_Real uparameter_11 = 0.5;
-  Standard_Real uspanlenght_11 = 0.5;
-  Standard_Real vparameter_11 = 0.5;
-  Standard_Real vspanlenght_11 = 0.5;
-
-  if (urational || vrational) {
-    BSplSLib::BuildCache(uparameter_11, vparameter_11,
-      uspanlenght_11, vspanlenght_11, 0, 0,
-      UDegree(), VDegree(), 0, 0,
-      biduflatknots, bidvflatknots,
-      poles->Array2(),
-      &weights->Array2(),
-      Coefs->ChangeArray2(),
-      &WCoefs->ChangeArray2());
-  }
-  else {
-    BSplSLib::BuildCache(uparameter_11, vparameter_11,
-      uspanlenght_11, vspanlenght_11, 0, 0,
-      UDegree(), VDegree(), 0, 0,
-      biduflatknots, bidvflatknots,
-      poles->Array2(),
-      BSplSLib::NoWeights(),
-      Coefs->ChangeArray2(),
-      BSplSLib::NoWeights());
-  }
+  if (validcache == 0) UpdateCoefficients(0., 0.);
 
   // Attention si udeg <= vdeg u et v sont intervertis 
   // dans les coeffs, il faut donc tout transposer.
   if(UDegree() <= VDegree()) {
-    Handle(TColgp_HArray2OfPnt)  coeffs = Coefs;
-    Handle(TColStd_HArray2OfReal) wcoeffs = WCoefs;
     Standard_Integer ii, jj;
     Coefs = new  (TColgp_HArray2OfPnt)(1,UDegree()+1,1,VDegree()+1);
     if (rat) {
@@ -960,6 +986,10 @@ void Geom_BezierSurface::Segment
 	if (rat)  WCoefs->SetValue(ii, jj, wcoeffs->Value(jj,ii));
       }
   }
+  else {
+   Coefs = coeffs;
+   if (rat)  {WCoefs =  wcoeffs;}
+ }
 
 // Trim dans la base cannonique et Update des Poles et Coeffs
 
@@ -984,6 +1014,7 @@ void Geom_BezierSurface::Segment
     PLib::CoefficientsPoles (Coefs->Array2(), PLib::NoWeights2(),
 			                       poles->ChangeArray2(), PLib::NoWeights2());
   }
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1003,6 +1034,7 @@ void Geom_BezierSurface::SetPole
       VIndex > Poles.RowLength() )    Standard_OutOfRange::Raise();
   
   Poles (UIndex, VIndex) = P;
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1079,6 +1111,8 @@ void Geom_BezierSurface::SetPoleCol (const Standard_Integer      VIndex,
   for (Standard_Integer I = CPoles.Lower(); I <= CPoles.Upper(); I++) {
     Poles (I, VIndex) = CPoles (I);
   }
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1100,6 +1134,7 @@ void Geom_BezierSurface::SetPoleRow (const Standard_Integer    UIndex,
   for (Standard_Integer I = CPoles.Lower(); I <= CPoles.Upper(); I++) {
     Poles (UIndex, I) = CPoles (I);
   }
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1146,12 +1181,16 @@ void Geom_BezierSurface::SetWeight (const Standard_Integer UIndex,
   Standard_Boolean wasrat = (urational||vrational);
   if (!wasrat) {
     // a weight of 1. does not turn to rational
-    if (Abs(Weight - 1.) <= gp::Resolution())
+    if (Abs(Weight - 1.) <= gp::Resolution()) {
+      UpdateCoefficients(); //Pour l'appel via SetPole 
       return;
-
+    }
+    
     // set weights of 1.
     weights = new TColStd_HArray2OfReal (1, poles->ColLength(),
 					 1, poles->RowLength(), 1.);
+    wcoeffs = new TColStd_HArray2OfReal (1, poles->ColLength(),
+					 1, poles->RowLength());
   }
 
   TColStd_Array2OfReal & Weights = weights->ChangeArray2();
@@ -1169,8 +1208,14 @@ void Geom_BezierSurface::SetWeight (const Standard_Integer UIndex,
   }
 
  // is it turning into non rational
-  if (wasrat && !(urational || vrational))
-    weights.Nullify();
+  if (wasrat) {
+    if (!(urational || vrational)) {
+      weights.Nullify();
+      wcoeffs.Nullify();
+    }
+  }
+
+  UpdateCoefficients(); //Dans tous cas :Attention a SetPoleCol !
 }
 
 //=======================================================================
@@ -1189,6 +1234,8 @@ void Geom_BezierSurface::SetWeightCol
     // set weights of 1.
     weights = new TColStd_HArray2OfReal (1, poles->ColLength(),
 					 1, poles->RowLength(), 1.);
+    wcoeffs = new TColStd_HArray2OfReal (1, poles->ColLength(),
+					 1, poles->RowLength());
   }
 
   TColStd_Array2OfReal & Weights = weights->ChangeArray2();
@@ -1210,8 +1257,14 @@ void Geom_BezierSurface::SetWeightCol
  Rational(Weights, urational, vrational);
 
  // is it turning into non rational
- if (wasrat && !(urational || vrational))
-   weights.Nullify();
+  if (wasrat) {
+    if (!(urational || vrational)) {
+      weights.Nullify();
+      wcoeffs.Nullify();
+    }
+  }
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1230,6 +1283,8 @@ void Geom_BezierSurface::SetWeightRow
     // set weights of 1.
     weights = new TColStd_HArray2OfReal (1, poles->ColLength(),
 					 1, poles->RowLength(), 1.);
+    wcoeffs = new TColStd_HArray2OfReal (1, poles->ColLength(),
+					 1, poles->RowLength());
   }
 
   TColStd_Array2OfReal & Weights = weights->ChangeArray2();
@@ -1254,8 +1309,14 @@ void Geom_BezierSurface::SetWeightRow
   Rational(Weights, urational, vrational);
 
  // is it turning into non rational
-  if (wasrat && !(urational || vrational))
-    weights.Nullify();
+  if (wasrat) {
+    if (!(urational || vrational)) {
+      weights.Nullify();
+      wcoeffs.Nullify();
+    }
+  }
+
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1291,6 +1352,7 @@ void Geom_BezierSurface::UReverse ()
       }
     }
   }
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1337,6 +1399,7 @@ void Geom_BezierSurface::VReverse ()
       }
     }
   }
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1385,30 +1448,60 @@ void Geom_BezierSurface::D0 (const Standard_Real U,
 			     const Standard_Real V,
 			           gp_Pnt&       P ) const
 {
-  Standard_Real array_u[2];
-  Standard_Real array_v[2];
-  Standard_Integer mult_u[2];
-  Standard_Integer mult_v[2];
-  TColStd_Array1OfReal biduknots(array_u[0], 1, 2); biduknots(1) = 0.; biduknots(2) = 1.;
-  TColStd_Array1OfInteger bidumults(mult_u[0], 1, 2); bidumults.Init(UDegree() + 1);
-  TColStd_Array1OfReal bidvknots(array_v[0], 1, 2); bidvknots(1) = 0.; bidvknots(2) = 1.;
-  TColStd_Array1OfInteger bidvmults(mult_v[0], 1, 2); bidvmults.Init(VDegree() + 1);
-  if (urational || vrational) {
-    BSplSLib::D0(U, V, 1, 1, poles->Array2(),
-      &weights->Array2(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P);
+
+  if (validcache == 1) {
+    //
+    // XAB : cet algorithme devient instable pour les hauts degres
+    // RBD : Beaucoup moins maintenant avec le calcul d'un nouveau cache
+    //       sur [-1,1].
+    //
+    Standard_Real uparameter_11 = (2*ucacheparameter + ucachespanlenght)/2,
+                  uspanlenght_11 = ucachespanlenght/2,
+                  vparameter_11 = (2*vcacheparameter + vcachespanlenght)/2,
+                  vspanlenght_11 = vcachespanlenght/2 ;
+    if (urational || vrational) { 
+      BSplSLib::CacheD0(U, V, UDegree(), VDegree(), 
+			uparameter_11, vparameter_11,
+			uspanlenght_11, vspanlenght_11,
+			coeffs->Array2(),
+			&wcoeffs->Array2(),
+			P);
+    }
+    else { 
+      BSplSLib::CacheD0(U, V, UDegree(), VDegree(), 
+			uparameter_11, vparameter_11,
+			uspanlenght_11, vspanlenght_11,
+			coeffs->Array2(),
+			BSplSLib::NoWeights(),
+			P);
+    }
   }
   else {
-
-    BSplSLib::D0(U, V, 1, 1, poles->Array2(),
-      BSplSLib::NoWeights(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P);
+    Standard_Real array_u[2] ;
+    Standard_Real array_v[2] ;
+    Standard_Integer mult_u[2] ;
+    Standard_Integer mult_v[2] ;
+    TColStd_Array1OfReal biduknots(array_u[0],1,2); biduknots(1) = 0.; biduknots(2) = 1.;
+    TColStd_Array1OfInteger bidumults(mult_u[0],1,2); bidumults.Init(UDegree() + 1);
+    TColStd_Array1OfReal bidvknots(array_v[0],1,2); bidvknots(1) = 0.; bidvknots(2) = 1.;
+    TColStd_Array1OfInteger bidvmults(mult_v[0],1,2); bidvmults.Init(VDegree() + 1);
+    if (urational || vrational) { 
+        BSplSLib::D0(U, V, 1,1,poles->Array2(),
+		     &weights->Array2(),
+		     biduknots,bidvknots,&bidumults,&bidvmults,
+		     UDegree(),VDegree(),
+		     urational,vrational,Standard_False,Standard_False,
+		     P) ;
+    }
+    else {
+      
+      BSplSLib::D0(U, V, 1,1,poles->Array2(),
+		   BSplSLib::NoWeights(),
+		   biduknots,bidvknots,&bidumults,&bidvmults,
+		   UDegree(),VDegree(),
+		   urational,vrational,Standard_False,Standard_False,
+		   P) ;
+    }
   }
 }
 
@@ -1424,29 +1517,59 @@ void Geom_BezierSurface::D1
          gp_Vec&       D1U,
          gp_Vec&       D1V ) const
 {
-  Standard_Real array_u[2];
-  Standard_Real array_v[2];
-  Standard_Integer mult_u[2];
-  Standard_Integer mult_v[2];
-  TColStd_Array1OfReal biduknots(array_u[0], 1, 2); biduknots(1) = 0.; biduknots(2) = 1.;
-  TColStd_Array1OfInteger bidumults(mult_u[0], 1, 2); bidumults.Init(UDegree() + 1);
-  TColStd_Array1OfReal bidvknots(array_v[0], 1, 2); bidvknots(1) = 0.; bidvknots(2) = 1.;
-  TColStd_Array1OfInteger bidvmults(mult_v[0], 1, 2); bidvmults.Init(VDegree() + 1);
-  if (urational || vrational) {
-    BSplSLib::D1(U, V, 1, 1, poles->Array2(),
-      &weights->Array2(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P, D1U, D1V);
+
+  if (validcache == 1) {
+    //
+    // XAB : cet algorithme devient instable pour les hauts degres
+    // RBD : Beaucoup moins maintenant avec le calcul d'un nouveau cache
+    //       sur [-1,1].
+    //
+    Standard_Real uparameter_11 = (2*ucacheparameter + ucachespanlenght)/2,
+                  uspanlenght_11 = ucachespanlenght/2,
+                  vparameter_11 = (2*vcacheparameter + vcachespanlenght)/2,
+                  vspanlenght_11 = vcachespanlenght/2 ;
+   if (urational || vrational) { 
+     BSplSLib::CacheD1(U, V, UDegree(), VDegree(), 
+		       uparameter_11, vparameter_11,
+		       uspanlenght_11, vspanlenght_11,
+		       coeffs->Array2(),
+		       &wcoeffs->Array2(), 
+		       P, D1U, D1V);
+   }
+   else { 
+     BSplSLib::CacheD1(U, V, UDegree(), VDegree(), 
+		       uparameter_11, vparameter_11,
+		       uspanlenght_11, vspanlenght_11,
+		       coeffs->Array2(),
+		       BSplSLib::NoWeights(), 
+		       P, D1U, D1V);
+   }
   }
   else {
-    BSplSLib::D1(U, V, 1, 1, poles->Array2(),
-      BSplSLib::NoWeights(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P, D1U, D1V);
+    Standard_Real array_u[2] ;
+    Standard_Real array_v[2] ;
+    Standard_Integer mult_u[2] ;
+    Standard_Integer mult_v[2] ;
+    TColStd_Array1OfReal biduknots(array_u[0],1,2); biduknots(1) = 0.; biduknots(2) = 1.;
+    TColStd_Array1OfInteger bidumults(mult_u[0],1,2); bidumults.Init(UDegree() + 1);
+    TColStd_Array1OfReal bidvknots(array_v[0],1,2); bidvknots(1) = 0.; bidvknots(2) = 1.;
+    TColStd_Array1OfInteger bidvmults(mult_v[0],1,2); bidvmults.Init(VDegree() + 1);
+    if (urational || vrational) { 
+      BSplSLib::D1(U, V, 1,1,poles->Array2(),
+		   &weights->Array2(),
+		   biduknots,bidvknots,&bidumults,&bidvmults,
+		   UDegree(),VDegree(),
+		   urational,vrational,Standard_False,Standard_False,
+		   P,D1U, D1V) ;
+    }
+    else {
+      BSplSLib::D1(U, V, 1,1,poles->Array2(),
+		   BSplSLib::NoWeights(),
+		   biduknots,bidvknots,&bidumults,&bidvmults,
+		   UDegree(),VDegree(),
+		   urational,vrational,Standard_False,Standard_False,
+		   P,D1U, D1V) ;
+    }
   }
 }
 
@@ -1462,31 +1585,63 @@ void Geom_BezierSurface::D2
          gp_Vec&       D1U, gp_Vec& D1V, 
          gp_Vec&       D2U, gp_Vec& D2V, gp_Vec& D2UV ) const
 {
-  Standard_Real array_u[2];
-  Standard_Real array_v[2];
-  Standard_Integer mult_u[2];
-  Standard_Integer mult_v[2];
-  TColStd_Array1OfReal biduknots(array_u[0], 1, 2); biduknots(1) = 0.; biduknots(2) = 1.;
-  TColStd_Array1OfInteger bidumults(mult_u[0], 1, 2); bidumults.Init(UDegree() + 1);
-  TColStd_Array1OfReal bidvknots(array_v[0], 1, 2); bidvknots(1) = 0.; bidvknots(2) = 1.;
-  TColStd_Array1OfInteger bidvmults(mult_v[0], 1, 2); bidvmults.Init(VDegree() + 1);
-  if (urational || vrational) {
-    //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
-    BSplSLib::D2(U, V, 1, 1, poles->Array2(),
-      &weights->Array2(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P, D1U, D1V, D2U, D2V, D2UV);
+
+  if (validcache == 1) {
+    //
+    // XAB : cet algorithme devient instable pour les hauts degres
+    // RBD : Beaucoup moins maintenant avec le calcul d'un nouveau cache
+    //       sur [-1,1].
+    //
+    Standard_Real uparameter_11 = (2*ucacheparameter + ucachespanlenght)/2,
+                  uspanlenght_11 = ucachespanlenght/2,
+                  vparameter_11 = (2*vcacheparameter + vcachespanlenght)/2,
+                  vspanlenght_11 = vcachespanlenght/2 ;
+    if (urational || vrational) { 
+      //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
+      BSplSLib::CacheD2(U, V, UDegree(), VDegree(), 
+			uparameter_11, vparameter_11,
+			uspanlenght_11, vspanlenght_11,
+			coeffs->Array2(),
+			&wcoeffs->Array2(), 
+			P, D1U, D1V, D2U, D2UV , D2V);
+    }
+    else { 
+      //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
+      BSplSLib::CacheD2(U, V, UDegree(), VDegree(), 
+			uparameter_11, vparameter_11,
+			uspanlenght_11, vspanlenght_11,
+			coeffs->Array2(),
+			BSplSLib::NoWeights(), 
+			P, D1U, D1V, D2U, D2UV , D2V);
+    }
   }
   else {
-    //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
-    BSplSLib::D2(U, V, 1, 1, poles->Array2(),
-      BSplSLib::NoWeights(),
-      biduknots, bidvknots, &bidumults, &bidvmults,
-      UDegree(), VDegree(),
-      urational, vrational, Standard_False, Standard_False,
-      P, D1U, D1V, D2U, D2V, D2UV);
+    Standard_Real array_u[2] ;
+    Standard_Real array_v[2] ;
+    Standard_Integer mult_u[2] ;
+    Standard_Integer mult_v[2] ;
+    TColStd_Array1OfReal biduknots(array_u[0],1,2); biduknots(1) = 0.; biduknots(2) = 1.;
+    TColStd_Array1OfInteger bidumults(mult_u[0],1,2); bidumults.Init(UDegree() + 1);
+    TColStd_Array1OfReal bidvknots(array_v[0],1,2); bidvknots(1) = 0.; bidvknots(2) = 1.;
+    TColStd_Array1OfInteger bidvmults(mult_v[0],1,2); bidvmults.Init(VDegree() + 1);
+    if (urational || vrational) { 
+      //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
+      BSplSLib::D2(U, V, 1,1,poles->Array2(),
+		   &weights->Array2(),
+		   biduknots,bidvknots,&bidumults,&bidvmults,
+		   UDegree(),VDegree(),
+		   urational,vrational,Standard_False,Standard_False,
+		   P,D1U, D1V, D2U, D2V , D2UV) ;
+    }
+    else {
+      //-- ATTENTION a l'ORDRE d'appel ds BSPLSLIB 
+      BSplSLib::D2(U, V, 1,1,poles->Array2(),
+		   BSplSLib::NoWeights(),
+		   biduknots,bidvknots,&bidumults,&bidvmults,
+		   UDegree(),VDegree(),
+		   urational,vrational,Standard_False,Standard_False,
+		   P,D1U, D1V, D2U, D2V, D2UV ) ;
+    }
   }
 }
 
@@ -1791,6 +1946,7 @@ void Geom_BezierSurface::Transform (const gp_Trsf& T)
       Poles (I, J).Transform (T);
     }
   }
+  UpdateCoefficients();
 }
 
 //=======================================================================
@@ -1916,7 +2072,7 @@ void Geom_BezierSurface::Resolution(const Standard_Real  Tolerance3D,
 Handle(Geom_Geometry) Geom_BezierSurface::Copy() const
 {
   Handle(Geom_BezierSurface) S = new Geom_BezierSurface
-    (poles, weights, urational, vrational);
+    (poles, coeffs, weights, wcoeffs, urational, vrational);
   return S;
 }
 
@@ -1929,11 +2085,70 @@ void Geom_BezierSurface::Init
   (const Handle(TColgp_HArray2OfPnt)&   Poles, 
    const Handle(TColStd_HArray2OfReal)& Weights)
 {
+  Standard_Integer NbUPoles = Poles->ColLength();
+  Standard_Integer NbVPoles = Poles->RowLength();
+
+  Standard_Integer maxcls = Max(NbUPoles, NbVPoles);
+  Standard_Integer mincls = Min(NbUPoles, NbVPoles);
+
   // set fields
-  poles = Poles;
-  if (urational || vrational)
+  poles   = Poles;
+  coeffs  = new TColgp_HArray2OfPnt  (1,maxcls,1,mincls);
+
+  if (urational || vrational) {
     weights = Weights;
-  else
+    wcoeffs = new TColStd_HArray2OfReal (1,maxcls,1,mincls);
+  }
+  else {
     weights.Nullify();
+    wcoeffs.Nullify();
+  }
+
+  UpdateCoefficients();
+}
+
+
+//=======================================================================
+//function : UpdateCoefficients
+//purpose  : 
+//=======================================================================
+
+void  Geom_BezierSurface::UpdateCoefficients(const Standard_Real ,
+					     const Standard_Real )
+{
+  maxderivinvok = Standard_False;
+  ucacheparameter = 0.;
+  TColStd_Array1OfReal biduflatknots(BSplCLib::FlatBezierKnots(UDegree()), 
+                                     1, 2*(UDegree()+1));
+  vcacheparameter = 0.;
+  TColStd_Array1OfReal bidvflatknots(BSplCLib::FlatBezierKnots(VDegree()), 
+                                     1, 2*(VDegree()+1));
+
+  Standard_Real uparameter_11 = (2*ucacheparameter + ucachespanlenght)/2,
+                uspanlenght_11 = ucachespanlenght/2,
+                vparameter_11 = (2*vcacheparameter + vcachespanlenght)/2,
+                vspanlenght_11 = vcachespanlenght/2 ;
+
+  if ( urational || vrational ) {
+    BSplSLib::BuildCache(uparameter_11,vparameter_11,
+			 uspanlenght_11,vspanlenght_11,0,0,
+			 UDegree(),VDegree(),0,0,
+			 biduflatknots,bidvflatknots,
+			 poles->Array2(),
+			 &weights->Array2(),
+			 coeffs->ChangeArray2(),
+			 &wcoeffs->ChangeArray2());
+  }
+  else {
+    BSplSLib::BuildCache(uparameter_11,vparameter_11,
+			 uspanlenght_11,vspanlenght_11,0,0,
+			 UDegree(),VDegree(),0,0,
+			 biduflatknots,bidvflatknots,
+			 poles->Array2(),
+			 BSplSLib::NoWeights(),
+			 coeffs->ChangeArray2(),
+			 BSplSLib::NoWeights());
+  }
+  validcache = 1;
 }
 

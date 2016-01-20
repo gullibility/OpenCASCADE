@@ -80,8 +80,6 @@
 #include <TopTools_SequenceOfShape.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(BRepFill_PipeShell,MMgt_TShared)
-
 //Specification Guide
 #ifdef DRAW
 #include <Draw.hxx>

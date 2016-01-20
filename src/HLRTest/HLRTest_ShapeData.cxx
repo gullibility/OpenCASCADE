@@ -19,8 +19,6 @@
 #include <HLRTest_ShapeData.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_ShapeData,MMgt_TShared)
-
 //=======================================================================
 //function : HLRTest_ShapeData
 //purpose  : 

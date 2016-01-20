@@ -23,8 +23,6 @@
 #include <TDF_DeltaOnForget.hxx>
 #include <TDF_Label.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_DeltaOnForget,TDF_AttributeDelta)
-
 //=======================================================================
 //function : TDF_DeltaOnForget
 //purpose  : 

@@ -40,12 +40,12 @@ public:
   //! more types of entity.
   Standard_EXPORT SelectMgr_AndFilter();
   
-  Standard_EXPORT Standard_Boolean IsOk (const Handle(SelectMgr_EntityOwner)& anobj) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsOk (const Handle(SelectMgr_EntityOwner)& anobj) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_AndFilter,SelectMgr_CompositionFilter)
+  DEFINE_STANDARD_RTTI(SelectMgr_AndFilter,SelectMgr_CompositionFilter)
 
 protected:
 

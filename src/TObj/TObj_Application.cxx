@@ -26,8 +26,6 @@
 #include <stdio.h>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_Application,TDocStd_Application)
-
 //=======================================================================
 //function : GetInstance
 //purpose  :

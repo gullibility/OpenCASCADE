@@ -84,23 +84,38 @@ public:
   //! Returns error number if 'Failed' is TRUE.
   Standard_EXPORT Standard_Integer Error() const;
 
+
+
+
+protected:
+
+
+
+
+
 private:
+
+
+
   OSD_Directory TheIterator;
   Standard_Integer myFlag;
   TCollection_AsciiString myMask;
   TCollection_AsciiString myPlace;
-  OSD_Error myError;
-
-  // platform-specific fields
-#ifdef _WIN32
-  Standard_Address myHandle;
-  Standard_Address myData;
-  Standard_Boolean myFirstCall;
-#else
   Standard_Address myDescr;
   Standard_Address myEntry;
   Standard_Integer myInit;
-#endif
+  OSD_Error myError;
+  Standard_Address myHandle;
+  Standard_Address myData;
+  Standard_Boolean myFirstCall;
+
+
 };
+
+
+
+
+
+
 
 #endif // _OSD_DirectoryIterator_HeaderFile

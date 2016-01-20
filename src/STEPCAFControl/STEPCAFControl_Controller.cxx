@@ -20,8 +20,6 @@
 #include <STEPCAFControl_Controller.hxx>
 #include <XSAlgo.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(STEPCAFControl_Controller,STEPControl_Controller)
-
 //=======================================================================
 //function : STEPCAFControl_Controller
 //purpose  : 

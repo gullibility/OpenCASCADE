@@ -19,8 +19,6 @@
 #include <Standard_NumericError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_RectangularGrid,Aspect_Grid)
-
 Aspect_RectangularGrid::Aspect_RectangularGrid(
                                const Quantity_Length aXStep,
                                const Quantity_Length aYStep,

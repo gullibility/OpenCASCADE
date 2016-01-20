@@ -148,10 +148,7 @@ void AIS_InteractiveContext::CloseLocalContext(const Standard_Integer Index,
    }
    else if(debugmode)
      cout<<"a No Current Local Context WasClosed"<<endl;
-
-   // restore activated selections of current local context
-   myLocalContexts (myCurLocalIndex)->RestoreActivatedModes();
-
+   
    if(debugmode) cout<<"Index Of CurrentLocalContext:"<<myCurLocalIndex<<endl;
    
  }

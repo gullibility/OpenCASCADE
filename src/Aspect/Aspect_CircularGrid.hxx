@@ -53,7 +53,7 @@ public:
   Standard_EXPORT void SetGridValues (const Quantity_Length XOrigin, const Quantity_Length YOrigin, const Quantity_Length RadiusStep, const Standard_Integer DivisionNumber, const Quantity_PlaneAngle RotationAngle);
   
   //! returns the point of the grid the closest to the point X,Y
-  Standard_EXPORT void Compute (const Quantity_Length X, const Quantity_Length Y, Quantity_Length& gridX, Quantity_Length& gridY) const Standard_OVERRIDE;
+  Standard_EXPORT void Compute (const Quantity_Length X, const Quantity_Length Y, Quantity_Length& gridX, Quantity_Length& gridY) const;
   
   //! returns the x step of the grid.
   Standard_EXPORT Quantity_Length RadiusStep() const;
@@ -66,7 +66,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Aspect_CircularGrid,Aspect_Grid)
+  DEFINE_STANDARD_RTTI(Aspect_CircularGrid,Aspect_Grid)
 
 protected:
 

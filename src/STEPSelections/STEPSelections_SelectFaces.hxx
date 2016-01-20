@@ -43,15 +43,15 @@ public:
   
   //! Explores an entity, to take its faces
   //! Works recursively
-  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const;
   
   //! Returns a text defining the criterium : "Faces"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExploreLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(STEPSelections_SelectFaces,IFSelect_SelectExplore)
+  DEFINE_STANDARD_RTTI(STEPSelections_SelectFaces,IFSelect_SelectExplore)
 
 protected:
 

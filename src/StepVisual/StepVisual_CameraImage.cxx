@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_CameraImage.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CameraImage,StepRepr_MappedItem)
-
 StepVisual_CameraImage::StepVisual_CameraImage ()  {}
 

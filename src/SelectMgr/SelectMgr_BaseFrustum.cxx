@@ -15,8 +15,6 @@
 
 #include <SelectMgr_BaseFrustum.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_BaseFrustum,Standard_Transient)
-
 //=======================================================================
 // function : SelectMgr_SelectingVolume
 // purpose  : Creates new selecting volume with pixel toletance set to 2,
@@ -220,10 +218,6 @@ Standard_Real SelectMgr_BaseFrustum::DistToGeometryCenter (const gp_Pnt& /*theCO
   return DBL_MAX;
 }
 
-//=======================================================================
-// function : DetectedPoint
-// purpose  :
-//=======================================================================
 gp_Pnt SelectMgr_BaseFrustum::DetectedPoint (const Standard_Real /*theDepth*/) const
 {
   return gp_Pnt (RealLast(), RealLast(), RealLast());

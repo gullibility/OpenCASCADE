@@ -25,8 +25,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_View,IGESData_ViewKindEntity)
-
 IGESDraw_View::IGESDraw_View ()    {  }
 
 

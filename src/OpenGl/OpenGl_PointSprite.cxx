@@ -20,8 +20,6 @@
 #include <Image_PixMap.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_PointSprite,OpenGl_Texture)
-
 // =======================================================================
 // function : OpenGl_PointSprite
 // purpose  :

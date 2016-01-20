@@ -33,8 +33,6 @@
 #include <TopLoc_Location.hxx>
 #include <TopoDS_Solid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DNaming_BoxDriver,TFunction_Driver)
-
 //=======================================================================
 //function : DNaming_BoxDriver
 //purpose  : Constructor
@@ -46,14 +44,14 @@ DNaming_BoxDriver::DNaming_BoxDriver()
 //function : Validate
 //purpose  : Validates labels of a function in <log>.
 //=======================================================================
-void DNaming_BoxDriver::Validate(Handle(TFunction_Logbook)&) const
+void DNaming_BoxDriver::Validate(TFunction_Logbook&) const
 {}
 
 //=======================================================================
 //function : MustExecute
 //purpose  : Analyse in <log> if the loaded function must be executed
 //=======================================================================
-Standard_Boolean DNaming_BoxDriver::MustExecute(const Handle(TFunction_Logbook)&) const
+Standard_Boolean DNaming_BoxDriver::MustExecute(const TFunction_Logbook&) const
 {
   return Standard_True;
 }
@@ -62,7 +60,7 @@ Standard_Boolean DNaming_BoxDriver::MustExecute(const Handle(TFunction_Logbook)&
 //function : Execute
 //purpose  : Execute the function and push in <log> the impacted labels
 //=======================================================================
-Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) const
+Standard_Integer DNaming_BoxDriver::Execute(TFunction_Logbook& theLog) const
 {
   Handle(TFunction_Function) aFunction;
   Label().FindAttribute(TFunction_Function::GetID(),aFunction);
@@ -105,7 +103,7 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
   if(!aLocation.IsIdentity())
     TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
 
-  theLog->SetValid(RESPOSITION(aFunction), Standard_True);  
+  theLog.SetValid(RESPOSITION(aFunction), Standard_True);  
 
   aFunction->SetFailure(DONE);
   return 0;

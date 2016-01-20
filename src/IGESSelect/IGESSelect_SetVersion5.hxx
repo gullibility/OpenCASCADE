@@ -48,16 +48,16 @@ public:
   //! Specific action : only <target> is used : IGES Version (coded)
   //! is upgraded to 5.1 if it is older, and it this case the new
   //! global parameter 25 (LastChangeDate) is set to current time
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Update IGES Version to 5.1"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SetVersion5,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_SetVersion5,IGESSelect_ModelModifier)
 
 protected:
 

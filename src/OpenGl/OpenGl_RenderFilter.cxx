@@ -16,5 +16,3 @@
 #include <OpenGl_RenderFilter.hxx>
 
 
-
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_RenderFilter,Standard_Transient)

@@ -16,8 +16,5 @@ if { [regexp {OK} $che] != 1 } {
     mkoffset result a 1 1
     renamevar result_1 result
 }
-
-checkprops result -l 271.473 
-checkshape result
-checksection result
+set length 271.473
 set 2dviewer 0

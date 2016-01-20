@@ -22,6 +22,5 @@ if { ${MaxFaceTolerance} > ${max_tolerance} || ${MaxEdgeTolerance} > ${max_toler
     puts "OCC1243 - OK"
 }
 
-checkprops result -s 3.06024e+06 
-checkshape result
+set square 3.06024e+06
 set 2dviewer 0

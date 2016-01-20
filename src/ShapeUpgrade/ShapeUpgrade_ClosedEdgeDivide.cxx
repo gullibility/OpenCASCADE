@@ -29,8 +29,6 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_ClosedEdgeDivide,ShapeUpgrade_EdgeDivide)
-
 //=======================================================================
 //function : ShapeUpgrade_ClosedEdgeDivide
 //purpose  : 

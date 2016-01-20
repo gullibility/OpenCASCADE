@@ -21,8 +21,6 @@
 #include <TDataStd_Integer.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_IntegerDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_IntegerDriver
 //purpose  : Constructor

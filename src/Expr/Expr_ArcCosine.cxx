@@ -33,8 +33,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_ArcCosine,Expr_UnaryExpression)
-
 Expr_ArcCosine::Expr_ArcCosine (const Handle(Expr_GeneralExpression)& exp)
 {
   CreateOperand(exp);

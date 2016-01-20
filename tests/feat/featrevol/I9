@@ -15,4 +15,4 @@ featrevol bb pp pp 1.5 1.5 1 0 0 1 1 1
 addslide revol pp_4 bb_3
 featperform revol result
 
-checkprops result -s 54
+set square 54

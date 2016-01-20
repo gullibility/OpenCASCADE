@@ -30,7 +30,7 @@ typedef unsigned long Drawable;
 
 // Definition de la class Base_Window (Definie dans Draw_Window.cxx)
 //===================================
-struct Base_Window;
+class Base_Window;
 
 // Definition de la classe Segment
 //================================

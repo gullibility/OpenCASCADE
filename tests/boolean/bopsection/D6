@@ -10,5 +10,4 @@ bop o t
 #pkv f
 bopsection result
 
-checkprops result -l 144.712
-checksection result
+set length 144.712

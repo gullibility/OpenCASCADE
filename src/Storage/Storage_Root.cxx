@@ -19,29 +19,23 @@
 #include <Storage_Schema.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_Root,MMgt_TShared)
-
-Storage_Root::Storage_Root()
-  : myRef (0) {}
-
-Storage_Root::Storage_Root (const TCollection_AsciiString&    theName,
-                            const Handle(Standard_Persistent)& theObject)
-  : myName   (theName)
-  , myObject (theObject)
-  , myRef    (0)
-{}
-
-Storage_Root::Storage_Root (const TCollection_AsciiString& theName,
-                            const Standard_Integer         theRef,
-                            const TCollection_AsciiString& theType)
-  : myName (theName)
-  , myType (theType)
-  , myRef  (theRef)
-{}
-
-void Storage_Root::SetName (const TCollection_AsciiString& theName) 
+Storage_Root::Storage_Root() : myRef(0)
 {
-  myName = theName;
+}
+
+Storage_Root::Storage_Root(const TCollection_AsciiString& aName,const Handle(Standard_Persistent)& anObject) : myRef(0)
+{
+  myName   = aName;
+  myObject = anObject;
+  
+  if (!anObject.IsNull()) {
+    myType   = anObject->DynamicType()->Name();
+  }
+}
+
+void Storage_Root::SetName(const TCollection_AsciiString& aName) 
+{
+  myName   = aName;
 }
 
 TCollection_AsciiString Storage_Root::Name() const
@@ -52,6 +46,10 @@ TCollection_AsciiString Storage_Root::Name() const
 void Storage_Root::SetObject(const Handle(Standard_Persistent)& anObject) 
 {
   myObject = anObject;
+
+  if (!anObject.IsNull()) {
+    myType   = anObject->DynamicType()->Name();
+  }
 }
 
 Handle(Standard_Persistent) Storage_Root::Object() const

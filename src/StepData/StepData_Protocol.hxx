@@ -55,10 +55,10 @@ public:
   
   //! Gives the count of Protocols used as Resource (can be zero)
   //! Here, No resource
-  Standard_EXPORT Standard_Integer NbResources() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer NbResources() const;
   
   //! Returns a Resource, given a rank. Here, none
-  Standard_EXPORT Handle(Interface_Protocol) Resource (const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Interface_Protocol) Resource (const Standard_Integer num) const;
   
   //! Returns a unique positive number for any recognized entity
   //! Redefined to work by calling both TypeNumber and, for a
@@ -67,7 +67,7 @@ public:
   
   //! Returns a Case Number, specific of each recognized Type
   //! Here, only Unknown Entity is recognized
-  Standard_EXPORT Standard_Integer TypeNumber (const Handle(Standard_Type)& atype) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer TypeNumber (const Handle(Standard_Type)& atype) const;
   
   //! Returns the Schema Name attached to each class of Protocol
   //! To be redefined by each sub-class
@@ -76,17 +76,17 @@ public:
   Standard_EXPORT virtual Standard_CString SchemaName() const;
   
   //! Creates an empty Model for Step Norm
-  Standard_EXPORT Handle(Interface_InterfaceModel) NewModel() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Interface_InterfaceModel) NewModel() const;
   
   //! Returns True if <model> is a Model of Step Norm
-  Standard_EXPORT Standard_Boolean IsSuitableModel (const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsSuitableModel (const Handle(Interface_InterfaceModel)& model) const;
   
   //! Creates a new Unknown Entity for Step (UndefinedEntity)
-  Standard_EXPORT Handle(Standard_Transient) UnknownEntity() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Standard_Transient) UnknownEntity() const;
   
   //! Returns True if <ent> is an Unknown Entity for the Norm, i.e.
   //! Type UndefinedEntity, status Unknown
-  Standard_EXPORT Standard_Boolean IsUnknownEntity (const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsUnknownEntity (const Handle(Standard_Transient)& ent) const;
   
   //! Returns a unique positive CaseNumber for types described by
   //! an EDescr (late binding)
@@ -138,7 +138,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepData_Protocol,Interface_Protocol)
+  DEFINE_STANDARD_RTTI(StepData_Protocol,Interface_Protocol)
 
 protected:
 

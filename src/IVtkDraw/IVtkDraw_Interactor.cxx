@@ -101,6 +101,14 @@ IVtkDraw_Interactor::~IVtkDraw_Interactor()
 }
 
 //===========================================================
+// Function : Copy constructor
+// Purpose  :
+//===========================================================
+IVtkDraw_Interactor::IVtkDraw_Interactor (const IVtkDraw_Interactor& )
+{
+}
+
+//===========================================================
 // Function : SetShapePicker
 // Purpose  :
 //===========================================================

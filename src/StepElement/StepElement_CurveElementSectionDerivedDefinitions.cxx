@@ -20,8 +20,6 @@
 #include <StepElement_MeasureOrUnspecifiedValue.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_CurveElementSectionDerivedDefinitions,StepElement_CurveElementSectionDefinition)
-
 //=======================================================================
 //function : StepElement_CurveElementSectionDerivedDefinitions
 //purpose  : 

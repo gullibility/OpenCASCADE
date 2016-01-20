@@ -20,8 +20,6 @@
 #include <StepRepr_RepresentationItem.hxx>
 #include <StepRepr_ReprItemAndMeasureWithUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ReprItemAndMeasureWithUnit,StepRepr_RepresentationItem)
-
 //=======================================================================
 //function : StepRepr_ReprItemAndMeasureWithUnit
 //purpose  : 

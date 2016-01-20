@@ -20,8 +20,6 @@
 #include <TopOpeBRepDS_Kind.hxx>
 #include <TopOpeBRepDS_Transition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_EdgeVertexInterference,TopOpeBRepDS_ShapeShapeInterference)
-
 //=======================================================================
 //function : TopOpeBRepDS_EdgeVertexInterference
 //purpose  : 
@@ -90,7 +88,7 @@ Standard_OStream& TopOpeBRepDS_EdgeVertexInterference::Dump
   (Standard_OStream& OS) const
 {
 #ifdef OCCT_DEBUG
-  OS<<"EVI ";
+  OS<<"EVI"<<" ";
   TopOpeBRepDS_ShapeShapeInterference::Dump(OS);
   OS<<" "<<myParam<<" ";
 #endif

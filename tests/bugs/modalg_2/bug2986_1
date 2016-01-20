@@ -25,7 +25,6 @@ checkshape rcut1
 
 bfuse result rcut1 ff
 
-checkprops result -s 1579.81 
-checkshape result
+set square 1579.81
 set 3dviewer 1
 

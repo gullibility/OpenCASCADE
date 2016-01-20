@@ -20,7 +20,6 @@ if { [catch {bfuse result b1 b2} catch_result] } {
     puts "Faulty : an exception was caught"
 }
 
-checkprops result -s 8879.41 
-checkshape result
+set square 8879.41
 set 2dviewer 0
 

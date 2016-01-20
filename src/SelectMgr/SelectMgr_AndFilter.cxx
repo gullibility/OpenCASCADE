@@ -19,8 +19,6 @@
 #include <SelectMgr_ListIteratorOfListOfFilter.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_AndFilter,SelectMgr_CompositionFilter)
-
 SelectMgr_AndFilter::SelectMgr_AndFilter()
 {
 }

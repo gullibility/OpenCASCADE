@@ -31,8 +31,6 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Solid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataXtd_Shape,TDF_Attribute)
-
 //=======================================================================
 //function : Find
 //purpose  : 

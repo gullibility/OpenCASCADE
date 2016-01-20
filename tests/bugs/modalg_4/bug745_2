@@ -22,6 +22,5 @@ mat
 puts "OCC745 OK"
 
 renamevar pl result
-checkprops result -s 5844.55 
-checkshape result
+set square 5844.55
 set 2dviewer 0

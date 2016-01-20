@@ -19,8 +19,6 @@
 #include <StepBasic_AreaUnit.hxx>
 #include <StepBasic_ConversionBasedUnitAndAreaUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndAreaUnit,StepBasic_ConversionBasedUnit)
-
 StepBasic_ConversionBasedUnitAndAreaUnit::StepBasic_ConversionBasedUnitAndAreaUnit()
 {
 }

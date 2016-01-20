@@ -7,5 +7,4 @@ restore [locate_data_file buc60462b.brep] b
 
 bsection result a b
 
-checkprops result -l 282.421
-checksection result
+set length 282.421

@@ -56,7 +56,6 @@ static  Storage_Error IsGoodFileType(istream* anIStream) ;
   Storage_Error EndWriteInfoSection() ;
   Storage_Error BeginReadInfoSection() ;
   void ReadInfo(Standard_Integer& nbObj,TCollection_AsciiString& dbVersion,TCollection_AsciiString& date,TCollection_AsciiString& schemaName,TCollection_AsciiString& schemaVersion,TCollection_ExtendedString& appName,TCollection_AsciiString& appVersion,TCollection_ExtendedString& objectType,TColStd_SequenceOfAsciiString& userInfo) ;
-  void ReadCompleteInfo (Standard_IStream& theIStream, Handle(Storage_Data)& theData);
   Storage_Error EndReadInfoSection() ;
   Storage_Error BeginWriteCommentSection() ;
   void WriteComment(const TColStd_SequenceOfExtendedString& userComments) ;
@@ -211,7 +210,7 @@ private:
 
  // Methods PRIVATE
  // 
-static Standard_CString MagicNumber() ;
+static const Standard_CString MagicNumber() ;
 
 
  // Fields PRIVATE

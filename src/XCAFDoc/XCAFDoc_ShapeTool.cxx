@@ -51,8 +51,6 @@
 #include <XCAFDoc_ShapeMapTool.hxx>
 #include <XCAFDoc_ShapeTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_ShapeTool,TDF_Attribute)
-
 static Standard_Boolean theAutoNaming = Standard_True;
 
 // attribute methods //////////////////////////////////////////////////
@@ -1223,44 +1221,20 @@ static void DumpAssembly(Standard_OStream& theDumpLog,
 			 const Standard_Integer level,
 			 const Standard_Boolean deep)
 {
-  TopoDS_Shape S;
-  XCAFDoc_ShapeTool::GetShape(L, S);
-  if(S.IsNull())
-    return;
   for (Standard_Integer i=0; i<level; i++)
     theDumpLog<<"\t";
   
   TCollection_AsciiString Entry;
   TDF_Tool::Entry(L, Entry);
-  
-  if(XCAFDoc_ShapeTool::IsAssembly(L))
-  {
-    theDumpLog<<"ASSEMBLY ";
-  }
-  else if (XCAFDoc_ShapeTool::IsSimpleShape(L))
-  {
-    if(L.Father().Father().Father().IsRoot())
-      theDumpLog<<"PART ";
-  }
-  else
-  {
-    theDumpLog<<"INSTANCE ";
-  }
-  TopAbs::Print(S.ShapeType(), theDumpLog);
 
-  theDumpLog<<" "<<Entry;
-  if(XCAFDoc_ShapeTool::IsReference(L))
-  {
-    Handle(TDataStd_TreeNode) aRef;
-    L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
-    TDF_Tool::Entry(aRef->Father()->Label(), Entry);
-    theDumpLog<<" (refers to "<<Entry<<")";
-  }
+  theDumpLog<<"ASSEMBLY "<<Entry;
   Handle(TDataStd_Name) Name;
   if (L.FindAttribute(TDataStd_Name::GetID(), Name))
-    theDumpLog<<" \""<<Name->Get()<<"\" ";
+    theDumpLog<<" "<<Name->Get();
   
   if (deep) {
+    TopoDS_Shape S;
+    XCAFDoc_ShapeTool::GetShape(L, S);
     theDumpLog<<"("<<*(void**)&S.TShape();
     if (! S.Location().IsIdentity())
       theDumpLog<<", "<< *(void**)&S.Location();
@@ -1269,12 +1243,18 @@ static void DumpAssembly(Standard_OStream& theDumpLog,
   theDumpLog<<endl;
   
   Handle(TDataStd_TreeNode) Node;
-  TDF_ChildIterator NodeIterator(L);
+  TDF_ChildIDIterator NodeIterator(L, XCAFDoc::ShapeRefGUID());
   for (; NodeIterator.More(); NodeIterator.Next()) {
-    DumpAssembly(theDumpLog, NodeIterator.Value(), level+1, deep);
+    Node = Handle(TDataStd_TreeNode)::DownCast(NodeIterator.Value());
+    if (Node->HasFather()) {
+      if (Node->Father()->Label().HasChild())
+	DumpAssembly(theDumpLog, Node->Father()->Label(), level+1, deep);
+      else {
+	XCAFDoc_ShapeTool::DumpShape(theDumpLog, Node->Father()->Label(), level+1, deep);
+	  theDumpLog<<endl;
+	}
+    }
   }
-  if(level == 0)
-    theDumpLog<<endl;
 }
 
 //=======================================================================
@@ -1316,35 +1296,16 @@ void XCAFDoc_ShapeTool::DumpShape(Standard_OStream& theDumpLog, const TDF_Label&
   for (Standard_Integer i=0; i<level; i++)
     theDumpLog<<"\t";
   
-  if(XCAFDoc_ShapeTool::IsAssembly(L))
-  {
-    theDumpLog<<"ASSEMBLY ";
-  }
-  else if (XCAFDoc_ShapeTool::IsSimpleShape(L))
-  {
-    if(L.Father().Father().Father().IsRoot())
-      theDumpLog<<"PART ";
-  }
-  else
-  {
-    theDumpLog<<"INSTANCE ";
-  }  
-  TopAbs::Print(S.ShapeType(), theDumpLog);
+  if (S.ShapeType() == TopAbs_COMPOUND) theDumpLog<<"ASSEMBLY";
+  else TopAbs::Print(S.ShapeType(), theDumpLog);
   
   TCollection_AsciiString Entry;
   TDF_Tool::Entry(L, Entry);
   theDumpLog<<"  "<<Entry;
-  if(XCAFDoc_ShapeTool::IsReference(L))
-  {
-    Handle(TDataStd_TreeNode) aRef;
-    L.FindAttribute(XCAFDoc::ShapeRefGUID(), aRef);
-    TDF_Tool::Entry(aRef->Father()->Label(), Entry);
-    theDumpLog<<" (refers to "<<Entry<<")";
-  }
   //cout<<endl;
   Handle(TDataStd_Name) Name;
   if (L.FindAttribute(TDataStd_Name::GetID(),Name)) 
-    theDumpLog<<" \""<<Name->Get()<<"\" ";
+    theDumpLog<<" "<<Name->Get();
   
   if (deep) {
     theDumpLog<<"("<<*(void**)&S.TShape();
@@ -1834,108 +1795,4 @@ Standard_Boolean XCAFDoc_ShapeTool::FindSHUO (const TDF_LabelSequence& theLabels
     break;
   }
   return ( !theSHUOAttr.IsNull() );
-}
-
-//=======================================================================
-//function : Expand
-//purpose  : 
-//=======================================================================
-
-Standard_Boolean XCAFDoc_ShapeTool::Expand (const TDF_Label& Shape)
-{
-  if(Shape.IsNull())
-    return Standard_False;
-
-  TopoDS_Shape aShape = GetShape(Shape);
-  if(!aShape.IsNull() && aShape.ShapeType() == TopAbs_COMPOUND && !IsAssembly(Shape))
-  {
-    //set assembly attribute
-    TDataStd_UAttribute::Set ( Shape, XCAFDoc::AssemblyGUID() );
-
-    TopoDS_Iterator anIter(aShape);
-    for(; anIter.More(); anIter.Next())
-    {
-      TopoDS_Shape aChildShape = anIter.Value();
-      TDF_Label aChild = FindShape(aChildShape, Standard_True);
-      
-      TDF_TagSource aTag;
-      Handle(TDataStd_Name) anAttr;
-      //make part for child
-      TDF_Label aPart = aTag.NewChild(Label());
-      //make child (if color isn't set or if it is compound)
-      if(aChild.IsNull())
-      {
-        TopLoc_Location nulloc;
-        aChild = aTag.NewChild(Shape);
-        SetShape(aChild, aChildShape);
-        SetShape(aPart, aChildShape.Located(nulloc));
-      }
-      else
-      {
-        //get name
-        aChild.FindAttribute(TDataStd_Name::GetID(), anAttr);
-        TopLoc_Location nulloc;
-        SetShape(aPart, aChildShape.Located(nulloc));
-
-      }
-      //set name to part
-      if(!anAttr.IsNull())
-      {
-        TDataStd_Name::Set(aPart, anAttr->Get());
-      }
-      else
-      {
-        Standard_SStream Stream;
-        TopAbs::Print(aChildShape.ShapeType(), Stream);
-        TCollection_AsciiString aName (Stream.str().c_str());
-        TDataStd_Name::Set(aPart, TCollection_ExtendedString(aName));
-      }
-
-      MakeReference(aChild, aPart, aChildShape.Location());
-      
-      makeSubShape(aPart, aChildShape);
-    }
-    return Standard_True;
-  }
-  return Standard_False;
-}
-
-//=======================================================================
-//function : makeSubShape
-//purpose  : 
-//=======================================================================
-
-void XCAFDoc_ShapeTool::makeSubShape (const TDF_Label& Part, const TopoDS_Shape& Shape)
-{
-  TDF_TagSource aTag;
-  TopoDS_Iterator anIter(Shape);
-  for(; anIter.More(); anIter.Next())
-  {
-    TopoDS_Shape aChildShape = anIter.Value();
-    TDF_Label aChildLabel = FindShape(aChildShape,Standard_True);
-    if(!aChildLabel.IsNull())
-    { 
-      //get name
-      Handle(TDataStd_Name) anAttr;
-      aChildLabel.FindAttribute(TDataStd_Name::GetID(), anAttr);
-      TopLoc_Location nulloc;
-      //make subshape
-      TDF_Label aSubLabel = aTag.NewChild(Part);
-      SetShape(aSubLabel, aChildShape.Located(nulloc));
-      //set name to sub shape
-      if(!anAttr.IsNull())
-      {
-        TDataStd_Name::Set(aSubLabel, anAttr->Get());
-      }
-      else
-      {
-        Standard_SStream Stream;
-        TopAbs::Print(aChildShape.ShapeType(), Stream);
-        TCollection_AsciiString aName (Stream.str().c_str());
-        TDataStd_Name::Set(aSubLabel, TCollection_ExtendedString(aName));
-      }
-      MakeReference(aChildLabel, aSubLabel, aChildShape.Location());
-    }
-    makeSubShape(Part, aChildShape);
-  }
 }

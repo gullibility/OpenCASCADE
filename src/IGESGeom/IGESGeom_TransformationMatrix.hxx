@@ -65,12 +65,12 @@ public:
   
   //! returns the transformation matrix
   //! 4th row elements of GTrsf will always be 0, 0, 0, 1 (not defined)
-  Standard_EXPORT gp_GTrsf Value() const Standard_OVERRIDE;
+  Standard_EXPORT gp_GTrsf Value() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESGeom_TransformationMatrix,IGESData_TransfEntity)
+  DEFINE_STANDARD_RTTI(IGESGeom_TransformationMatrix,IGESData_TransfEntity)
 
 protected:
 

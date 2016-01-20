@@ -72,6 +72,5 @@ checkshape -top result
 ##########  puts "OCC693 OK "
 ##########}
 
-checkprops result -s 33196 
-checkshape result
+set square 33196
 set 2dviewer 0

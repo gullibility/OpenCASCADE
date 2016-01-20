@@ -14,4 +14,4 @@ bop rr_1 p1
 bopcut result
 
 
-checkprops result -s 664
+set square 664

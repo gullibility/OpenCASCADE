@@ -25,8 +25,6 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_ReadWriteModule,Interface_ReaderModule)
-
 Standard_Integer  IGESData_ReadWriteModule::CaseNum
   (const Handle(Interface_FileReaderData)& data,
    const Standard_Integer num) const 

@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_ExternalRefFile,IGESData_IGESEntity)
-
 IGESBasic_ExternalRefFile::IGESBasic_ExternalRefFile ()    {  }
 
 

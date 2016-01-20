@@ -20,8 +20,6 @@
 #include <StepShape_AngularLocation.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_AngularLocation,StepShape_DimensionalLocation)
-
 //=======================================================================
 //function : StepShape_AngularLocation
 //purpose  : 

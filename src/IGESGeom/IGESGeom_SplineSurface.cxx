@@ -21,8 +21,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_SplineSurface,IGESData_IGESEntity)
-
 IGESGeom_SplineSurface::IGESGeom_SplineSurface ()    {  }
 
 

@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectReal,StepData_SelectMember)
-
 //  Definitions : cf Field
 #define KindReal 5
 

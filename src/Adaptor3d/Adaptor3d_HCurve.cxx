@@ -22,5 +22,3 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_HCurve,MMgt_TShared)

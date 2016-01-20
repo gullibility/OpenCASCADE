@@ -45,7 +45,6 @@
 #include <V3d_Viewer.hxx>
 #include <ViewerTest_DoubleMapOfInteractiveAndName.hxx>
 #include <ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName.hxx>
-#include <OpenGl_Group.hxx>
 
 extern Standard_Boolean VDisplayAISObject (const TCollection_AsciiString& theName,
                                            const Handle(AIS_InteractiveObject)& theAISObj,
@@ -63,7 +62,7 @@ class VUserDrawObj : public AIS_InteractiveObject
 {
 public:
     // CASCADE RTTI
-    DEFINE_STANDARD_RTTI_INLINE(VUserDrawObj,AIS_InteractiveObject);
+    DEFINE_STANDARD_RTTI(VUserDrawObj, AIS_InteractiveObject);
 
     VUserDrawObj()
     {
@@ -105,10 +104,10 @@ private:
     // Virtual methods implementation
     void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                   const Handle(Prs3d_Presentation)& thePresentation,
-                  const Standard_Integer theMode) Standard_OVERRIDE;
+                  const Standard_Integer theMode);
 
     void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection,
-                           const Standard_Integer theMode) Standard_OVERRIDE;
+                           const Standard_Integer theMode);
 
     // Called by VUserDrawElement
     void Render(const Handle(OpenGl_Workspace)& theWorkspace) const;

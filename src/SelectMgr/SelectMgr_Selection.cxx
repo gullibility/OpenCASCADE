@@ -19,8 +19,6 @@
 #include <SelectBasics_EntityOwner.hxx>
 #include <SelectMgr_Selection.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_Selection,MMgt_TShared)
-
 //==================================================
 // Function: SelectMgr_Selection
 // Purpose :
@@ -124,7 +122,7 @@ Handle(SelectMgr_SensitiveEntity)& SelectMgr_Selection::GetEntityById (const Sta
 // function: GetSelectionState
 // purpose : Returns status of selection
 //==================================================
-SelectMgr_StateOfSelection SelectMgr_Selection::GetSelectionState() const
+const SelectMgr_StateOfSelection SelectMgr_Selection::GetSelectionState() const
 {
   return mySelectionState;
 }

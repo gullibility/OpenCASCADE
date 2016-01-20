@@ -6,4 +6,4 @@ restore [locate_data_file m2_t] m2_t
 bop m2_o m2_t
 bopcut result
 
-checkprops result -s 266.995
+set square 266.995

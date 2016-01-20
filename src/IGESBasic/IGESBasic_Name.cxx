@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_Name,IGESData_NameEntity)
-
 IGESBasic_Name::IGESBasic_Name ()    {  }
 
 

@@ -11,7 +11,6 @@ Font_FTLibrary.cxx
 Font_FTLibrary.hxx
 Font_NameOfFont.hxx
 Font_NListOfSystemFont.hxx
-Font_Rect.hxx
 Font_SystemFont.cxx
 Font_SystemFont.hxx
 Font_NameOfFont.hxx

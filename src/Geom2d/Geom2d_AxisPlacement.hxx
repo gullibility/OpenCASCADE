@@ -96,15 +96,15 @@ public:
   Standard_EXPORT gp_Pnt2d Location() const;
   
   //! Applies the transformation T to this axis.
-  Standard_EXPORT void Transform (const gp_Trsf2d& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform (const gp_Trsf2d& T);
   
   //! Creates a new object which is a copy of this axis.
-  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Geom2d_Geometry) Copy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_AxisPlacement,Geom2d_Geometry)
+  DEFINE_STANDARD_RTTI(Geom2d_AxisPlacement,Geom2d_Geometry)
 
 protected:
 

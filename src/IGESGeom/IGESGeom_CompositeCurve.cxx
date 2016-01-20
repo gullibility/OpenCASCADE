@@ -22,8 +22,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_CompositeCurve,IGESData_IGESEntity)
-
 IGESGeom_CompositeCurve::IGESGeom_CompositeCurve ()    {  }
 
 

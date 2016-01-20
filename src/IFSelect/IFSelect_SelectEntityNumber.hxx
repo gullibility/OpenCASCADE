@@ -52,15 +52,15 @@ public:
   
   //! Returns the list of selected entities : the Entity having the
   //! specified Number (this result assures naturally uniqueness)
-  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const Standard_OVERRIDE;
+  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const;
   
   //! Returns a text defining the criterium : "Entity Number ..."
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectEntityNumber,IFSelect_SelectBase)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectEntityNumber,IFSelect_SelectBase)
 
 protected:
 

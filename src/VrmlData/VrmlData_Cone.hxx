@@ -95,7 +95,7 @@ class VrmlData_Cone : public VrmlData_Geometry
    * Query the primitive topology. This method returns a Null shape if there
    * is an internal error during the primitive creation (zero radius, etc.)
    */
-  Standard_EXPORT virtual const Handle(TopoDS_TShape)&  TShape () Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(TopoDS_TShape)&  TShape ();
 
   /**
    * Create a copy of this node.
@@ -103,19 +103,19 @@ class VrmlData_Cone : public VrmlData_Geometry
    * is not created, but rather the given one is modified.
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                        Clone   (const Handle(VrmlData_Node)& theOther) const Standard_OVERRIDE;
+                        Clone   (const Handle(VrmlData_Node)& theOther) const;
 
   /**
    * Fill the Node internal data from the given input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Read    (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                        Read    (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node to output stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Write   (const char * thePrefix) const Standard_OVERRIDE;
+                        Write   (const char * thePrefix) const;
 
 
  protected:
@@ -134,7 +134,7 @@ class VrmlData_Cone : public VrmlData_Geometry
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_Cone,VrmlData_Geometry)
+DEFINE_STANDARD_RTTI (VrmlData_Cone, VrmlData_Geometry)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

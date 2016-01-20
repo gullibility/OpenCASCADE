@@ -10,4 +10,4 @@ add b fso
 bop a fso
 bopcut result 
 
-checkprops result -s 254359
+set square 254359

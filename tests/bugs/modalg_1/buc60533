@@ -66,8 +66,5 @@ copy r_1 result
 #  An exception was caught Standard_ConstructionError: 
 #  ** Exception ** Standard_ConstructionError: 
  
-
-checkprops result -s 1.5003e+007
-checkshape result
+set square 1.59518e+07
 set 2dviewer 0
-

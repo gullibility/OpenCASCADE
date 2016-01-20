@@ -27,8 +27,7 @@ extrema airfl rhomb
 
 if { [isdraw ext_1] } {
    mkedge result ext_1
-   checkprops result -l 5.14563
-   checksection result
+   set length 5.14563
 } else {
    puts "${BugNumber}: invalid result"
 }

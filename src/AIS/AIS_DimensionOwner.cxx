@@ -24,8 +24,6 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_DimensionOwner,SelectMgr_EntityOwner)
-
 namespace
 {
   //=======================================================================

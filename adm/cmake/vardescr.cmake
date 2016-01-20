@@ -1,7 +1,7 @@
 # variable description
 
 # 
-set (BUILD_PATCH_DESCR 
+set (APPLY_OCCT_PATCH_DIR_DESCR 
 "Points to the directory recognized as a 'patch' for OCCT. If specified,
 the files from this directory take precedence over the corresponding native
 OCCT sources. This way you are able to introduce patches to Open CASCADE
@@ -13,19 +13,19 @@ set (BUILD_LIBRARY_TYPE_DESCR
 are linked dynamically and loaded at runtime. 'Static' libraries
 are archives of object files for use when linking other targets")
 
-set (BUILD_YACCLEX_DESCR 
+set (REBUILD_PLATFORM_DEPENDENT_CODE_DESCR 
 "Enables Flex/Bison lexical analyzers. OCCT source files relating to STEP reader and
 ExprIntrp functionality are generated automatically with Flex/Bison. Checking this options
 leads to automatic search of Flex/Bison binaries and regeneration of the mentioned files")
 
-set (BUILD_WITH_DEBUG_DESCR
+set (OCCT_ALGO_EXTENDED_OUTPUT_DESCR
 "Enables extended messages of many OCCT algorithms, usually printed to cout. 
 These include messages on internal errors and special cases encountered, timing etc")
 
 # install variables
 set (INSTALL_DIR_DESCR 
-"The place where built OCCT libraries, headers, test cases (INSTALL_TEST_CASES variable),
-samples (INSTALL_SAMPLES_DESCR variable) and certain 3rdparties (INSTALL_GL2PS, INSTALL_TBB and
+"The place where built OCCT libraries, headers, test cases (INSTALL_OCCT_TEST_CASES variable),
+samples (INSTALL_OCCT_SAMPLES_DESCR variable) and certain 3rdparties (INSTALL_GL2PS, INSTALL_TBB and
 other similar variables) will be placed during the installation process (building INSTALL project)")
 
 macro (INSTALL_MESSAGE INSTALL_TARGET_VARIABLE INSTALL_TARGET_STRING)
@@ -34,8 +34,8 @@ set (${INSTALL_TARGET_VARIABLE}_DESCR
 project) into the installation directory (INSTALL_DIR variable)")
 endmacro()
 
-INSTALL_MESSAGE (INSTALL_SAMPLES          "OCCT samples")
-INSTALL_MESSAGE (INSTALL_TEST_CASES       "non-regression OCCT test scripts")
+INSTALL_MESSAGE (INSTALL_OCCT_SAMPLES     "OCCT samples")
+INSTALL_MESSAGE (INSTALL_OCCT_TEST_CASES  "non-regression OCCT test scripts")
 INSTALL_MESSAGE (INSTALL_DOC_OcctOverview "OCCT overview documentation (HTML format)")
 INSTALL_MESSAGE (INSTALL_FREEIMAGE        "FreeImage binaries")
 INSTALL_MESSAGE (INSTALL_FREEIMAGEPLUS    "FreeImagePlus binaries")
@@ -43,8 +43,7 @@ INSTALL_MESSAGE (INSTALL_FREETYPE         "FreeType binaries")
 INSTALL_MESSAGE (INSTALL_GL2PS            "GL2PS binaries")
 INSTALL_MESSAGE (INSTALL_TBB              "TBB binaries")
 INSTALL_MESSAGE (INSTALL_TCL              "TCL binaries")
-INSTALL_MESSAGE (INSTALL_TK               "TK binaries")
-#INSTALL_MESSAGE (INSTALL_VTK              "VTK binaries ")
+INSTALL_MESSAGE (INSTALL_VTK              "VTK binaries ")
 
 # build variables
 macro (BUILD_MODULE_MESSAGE BUILD_MODULE_TARGET_VARIABLE BUILD_MODULE_TARGET_STRING)
@@ -106,8 +105,6 @@ visualization. OCCT comes with a bridge between CAD data representation and
 VTK by means of its dedicated VIS component (VTK Integration Services).")
 
 set (USE_GLX_DESCR "Indicates whether X11 OpenGl on OSX is used or not")
-
-set (USE_D3D_DESCR "Indicates whether optional Direct3D wrapper in OCCT visualization module should be build or not")
 
 macro (BUILD_MODULE MODULE_NAME)
   set (BUILD_MODULE_${MODULE_NAME} ON CACHE BOOL "${BUILD_MODULE_${MODULE_NAME}_DESCR}")

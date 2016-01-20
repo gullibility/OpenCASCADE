@@ -25,8 +25,6 @@
 #include <TDF_Tool.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(BinTObjDrivers_IntSparseArrayDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinTObjDrivers_IntSparseArrayDriver
 //purpose  : constructor

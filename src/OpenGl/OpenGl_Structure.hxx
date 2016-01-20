@@ -70,36 +70,36 @@ public:
   Standard_EXPORT virtual void OnVisibilityChanged() Standard_OVERRIDE;
 
   //! Clear graphic data
-  Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
+  Standard_EXPORT virtual void Clear();
 
   //! Connect other structure to this one
-  Standard_EXPORT virtual void Connect    (Graphic3d_CStructure& theStructure) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Connect    (Graphic3d_CStructure& theStructure);
 
   //! Disconnect other structure to this one
-  Standard_EXPORT virtual void Disconnect (Graphic3d_CStructure& theStructure) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Disconnect (Graphic3d_CStructure& theStructure);
 
   //! Synchronize structure aspects
-  Standard_EXPORT virtual void UpdateAspects() Standard_OVERRIDE;
+  Standard_EXPORT virtual void UpdateAspects();
 
   //! Synchronize structure transformation
-  Standard_EXPORT virtual void UpdateTransformation() Standard_OVERRIDE;
+  Standard_EXPORT virtual void UpdateTransformation();
 
   //! Highlight entire structure with color
   Standard_EXPORT virtual void HighlightWithColor (const Graphic3d_Vec3&  theColor,
-                                                   const Standard_Boolean theToCreate) Standard_OVERRIDE;
+                                                   const Standard_Boolean theToCreate);
 
   //! Highlight structure using boundary box
   Standard_EXPORT virtual void HighlightWithBndBox (const Handle(Graphic3d_Structure)& theStruct,
-                                                    const Standard_Boolean             theToCreate) Standard_OVERRIDE;
+                                                    const Standard_Boolean             theToCreate);
 
   //! Create shadow link to this structure
-  Standard_EXPORT virtual Handle(Graphic3d_CStructure) ShadowLink (const Handle(Graphic3d_StructureManager)& theManager) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Graphic3d_CStructure) ShadowLink (const Handle(Graphic3d_StructureManager)& theManager) const;
 
   //! Create new group within this structure
-  Standard_EXPORT virtual Handle(Graphic3d_Group) NewGroup (const Handle(Graphic3d_Structure)& theStruct) Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(Graphic3d_Group) NewGroup (const Handle(Graphic3d_Structure)& theStruct);
 
   //! Remove group from this structure
-  Standard_EXPORT virtual void RemoveGroup (const Handle(Graphic3d_Group)& theGroup) Standard_OVERRIDE;
+  Standard_EXPORT virtual void RemoveGroup (const Handle(Graphic3d_Group)& theGroup);
 
 public:
 
@@ -130,13 +130,7 @@ public:
   Standard_EXPORT void Clear (const Handle(OpenGl_Context)& theGlCtx);
 
   //! Renders groups of structure without applying any attributes (i.e. transform, material etc).
-  //! @param theWorkspace current workspace
-  //! @param theHasClosed flag will be set to TRUE if structure contains at least one group of closed primitives
-  virtual void renderGeometry (const Handle(OpenGl_Workspace)& theWorkspace,
-                               bool&                           theHasClosed) const;
-
-  //! Renders groups of closed primitives without applying any attributes (i.e. transform, material etc).
-  virtual void renderClosedGeometry (const Handle(OpenGl_Workspace)& theWorkspace) const;
+  virtual void RenderGeometry  (const Handle(OpenGl_Workspace)& theWorkspace) const;
 
   //! Renders the structure.
   virtual void Render  (const Handle(OpenGl_Workspace)& theWorkspace) const;
@@ -163,15 +157,13 @@ public:
   Standard_Boolean IsCulled() const { return myIsCulled; }
 
   //! Checks if the structure should be included into BVH tree or not.
-  Standard_Boolean IsAlwaysRendered() const
+  const Standard_Boolean IsAlwaysRendered() const
   {
     return IsInfinite
         || IsForHighlight
         || IsMutable
         || Is2dText
-        || (TransformPersistence.Flags & Graphic3d_TMF_2d)           != 0
-        || (TransformPersistence.Flags & Graphic3d_TMF_PanPers)      != 0
-        || (TransformPersistence.Flags & Graphic3d_TMF_TriedronPers) != 0;
+        || TransformPersistence.Flags != 0;
   }
 
   //! This method releases GL resources without actual elements destruction.
@@ -187,6 +179,9 @@ public:
 
   //! Returns OpenGL face aspect.
   const OpenGl_AspectFace* AspectFace() const { return myAspectFace; }
+
+  //! Returns OpenGL transformation matrix.
+  const OpenGl_Matrix* Transformation() const { return myTransformation; }
 
   //! Returns structure modification state (for ray-tracing).
   Standard_Size ModificationState() const { return myModificationState; }
@@ -206,6 +201,7 @@ protected:
 
 protected:
 
+  OpenGl_Matrix*             myTransformation;
   OpenGl_AspectLine*         myAspectLine;
   OpenGl_AspectFace*         myAspectFace;
   OpenGl_AspectMarker*       myAspectMarker;
@@ -225,7 +221,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Structure,Graphic3d_CStructure) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_Structure, Graphic3d_CStructure) // Type definition
 
 };
 

@@ -19,8 +19,7 @@ extrema ct st
 
 if { [isdraw ext_1] } {
    mkedge result ext_1
-   checkprops result -l 1.00005e-07
-   checksection result
+   set length 1.00005e-07
 } else {
    puts "Error: invalid result"
 }

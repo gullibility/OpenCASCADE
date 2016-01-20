@@ -36,10 +36,10 @@ OSD_Process::OSD_Process(){
 }
 
 
-Standard_Integer OSD_Process::Spawn (const TCollection_AsciiString& cmd,
+void OSD_Process::Spawn (const TCollection_AsciiString& cmd,
 			 const Standard_Boolean /*ShowWindow*/)
 {
- return system(cmd.ToCString());
+ system(cmd.ToCString());
 }
 
 
@@ -84,6 +84,12 @@ tm));
 Standard_Integer OSD_Process::ProcessId(){
  return (getpid());
 }
+
+
+Standard_Integer OSD_Process::UserId(){
+ return (getuid());
+}
+
 
 TCollection_AsciiString OSD_Process::UserName(){
  struct passwd *infos;
@@ -206,13 +212,11 @@ OSD_Process :: OSD_Process () {
 
 }  // end constructor
 
-
-Standard_Integer OSD_Process::Spawn (const TCollection_AsciiString& cmd,
+void OSD_Process :: Spawn ( const TCollection_AsciiString& cmd ,
 			    const Standard_Boolean ShowWindow /* = Standard_True */) {
 
  STARTUPINFO         si;
  PROCESS_INFORMATION pi;
- DWORD aRes = 0;
 
  ZeroMemory (  &si, sizeof ( STARTUPINFO )  );
 
@@ -231,22 +235,20 @@ Standard_Integer OSD_Process::Spawn (const TCollection_AsciiString& cmd,
  if (!CreateProcess (
       NULL, (char *)cmd.ToCString (), NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi
                     )
- ) {
+ )
 
   _osd_wnt_set_error ( myError, OSD_WProcess );
-  aRes = myError.Error();
- }
+
  else {
  
   CloseHandle ( pi.hThread );
 
   WaitForSingleObject ( pi.hProcess, INFINITE );
-  GetExitCodeProcess (pi.hProcess, &aRes);
+
   CloseHandle ( pi.hProcess );
  
  }  // end else
 
- return aRes;
 }  // end OSD_Process :: Spawn
 
 void OSD_Process :: TerminalType ( TCollection_AsciiString& Name ) {
@@ -269,6 +271,32 @@ Quantity_Date OSD_Process :: SystemDate () {
  return retVal;
 
 }  // end OSD_Process :: SystemDate
+
+Standard_Integer OSD_Process :: UserId () {
+
+ PSID         retVal        = NULL;
+ HANDLE       hProcessToken = INVALID_HANDLE_VALUE;
+ PTOKEN_OWNER pTKowner      = NULL;
+
+ if (  !OpenProcessToken (
+         GetCurrentProcess (),
+         TOKEN_QUERY, &hProcessToken
+        ) ||
+        (  pTKowner = ( PTOKEN_OWNER )GetTokenInformationEx (
+                                       hProcessToken, TokenOwner
+                                      )
+        ) == NULL ||
+        (  retVal   = CopySidEx ( pTKowner -> Owner )  ) == NULL
+ )
+
+  _osd_wnt_set_error ( myError, OSD_WProcess );
+
+ if ( hProcessToken != INVALID_HANDLE_VALUE ) CloseHandle ( hProcessToken );
+ if ( pTKowner      != NULL                 ) FreeTokenInformation ( pTKowner );
+
+ return ( Standard_Integer )retVal;
+
+}  // end OSD_Process :: UserId
 
 TCollection_AsciiString OSD_Process :: UserName () 
 {

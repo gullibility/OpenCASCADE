@@ -84,18 +84,18 @@ public:
   //! Level List which contains this value
   //! Attaches all these entities to value given by NewNumber, or
   //! the first value of the Level List
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which begins by
   //! "Changes Level Lists containing <old>", or
   //! "Changes all Level Lists in D.E.", and ends by
   //! " to Number <new>"  or  " to Number = first value in List"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_ChangeLevelList,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_ChangeLevelList,IGESSelect_ModelModifier)
 
 protected:
 

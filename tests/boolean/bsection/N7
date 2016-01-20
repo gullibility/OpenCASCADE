@@ -17,5 +17,4 @@ puts "OK Section:$dist"
 incr i
 }
 
-checkprops result -l 4.36836e+07
-checksection result
+set length 4.36836e+07

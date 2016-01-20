@@ -15,8 +15,8 @@
 #ifndef _Standard_Real_HeaderFile
 #define _Standard_Real_HeaderFile
 
-#include <cmath>
 #include <float.h>
+#include <math.h>
 #include <Standard_values.h>
 #include <Standard_math.hxx>
 #include <Standard_TypeDef.hxx>
@@ -294,12 +294,8 @@ inline Standard_Real     Sinh(const Standard_Real Value)
 //-------------------------------------------------------------------
 // ASinh : Returns the hyperbolic arc sine of a real
 //-------------------------------------------------------------------
-inline Standard_Real     ASinh(const Standard_Real Value)
-#if __QNX__
-{ return std::asinh(Value); }
-#else
+inline Standard_Real     ASinh(const Standard_Real Value) 
 { return asinh(Value); }
-#endif
 
 //-------------------------------------------------------------------
 // Square : Returns a real to the power 2

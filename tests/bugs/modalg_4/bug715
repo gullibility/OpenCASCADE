@@ -24,7 +24,5 @@ if {$length != 3} {
     puts "OCC715 OK"
 }
 
-checkprops result -l 100. 
-checkshape result 
-checksection result
+set length 100.
 set 2dviewer 0

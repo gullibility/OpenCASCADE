@@ -25,8 +25,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_Flow,IGESData_IGESEntity)
-
 IGESAppli_Flow::IGESAppli_Flow ()    {  }
 
 

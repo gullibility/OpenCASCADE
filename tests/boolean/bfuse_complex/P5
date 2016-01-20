@@ -10,4 +10,4 @@ updatetolerance t 1
 
 bfuse result s t
 
-checkprops result -s 23108.1
+set square 23108.1

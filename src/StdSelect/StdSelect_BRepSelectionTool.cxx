@@ -323,31 +323,40 @@ void StdSelect_BRepSelectionTool
 // Function: GetPointsFromPolygon
 // Purpose :
 //==================================================
-static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon (const TopoDS_Edge& theEdge)
+static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon (const TopoDS_Edge& theEdge,
+                                                         const Standard_Real theDeflection)
 {
   Handle(TColgp_HArray1OfPnt) aResultPoints;
+
+  Standard_Real fi, la;
+  Handle(Geom_Curve) CC3d = BRep_Tool::Curve (theEdge, fi, la);
 
   TopLoc_Location aLocation;
   Handle(Poly_Polygon3D) aPolygon = BRep_Tool::Polygon3D (theEdge, aLocation);
   if (!aPolygon.IsNull())
   {
-    const TColgp_Array1OfPnt& aNodes = aPolygon->Nodes();
-    aResultPoints = new TColgp_HArray1OfPnt (1, aNodes.Length());
-    if (aLocation.IsIdentity())
+    Standard_Boolean isOK = aPolygon->Deflection() <= theDeflection;
+    isOK = isOK || (CC3d.IsNull());
+    if (isOK)
     {
-      for (Standard_Integer aNodeId (aNodes.Lower()), aPntId (1); aNodeId <= aNodes.Upper(); ++aNodeId, ++aPntId)
+      const TColgp_Array1OfPnt& aNodes = aPolygon->Nodes();
+      aResultPoints = new TColgp_HArray1OfPnt (1, aNodes.Length());
+      if (aLocation.IsIdentity())
       {
-        aResultPoints->SetValue (aPntId, aNodes.Value (aNodeId));
+        for (Standard_Integer aNodeId (aNodes.Lower()), aPntId (1); aNodeId <= aNodes.Upper(); ++aNodeId, ++aPntId)
+        {
+          aResultPoints->SetValue (aPntId, aNodes.Value (aNodeId));
+        }
       }
-    }
-    else
-    {
-      for (Standard_Integer aNodeId (aNodes.Lower()), aPntId (1); aNodeId <= aNodes.Upper(); ++aNodeId, ++aPntId)
+      else
       {
-        aResultPoints->SetValue (aPntId, aNodes.Value (aNodeId).Transformed (aLocation));
+        for (Standard_Integer aNodeId (aNodes.Lower()), aPntId (1); aNodeId <= aNodes.Upper(); ++aNodeId, ++aPntId)
+        {
+          aResultPoints->SetValue (aPntId, aNodes.Value (aNodeId).Transformed (aLocation));
+        }
       }
+      return aResultPoints;
     }
-    return aResultPoints;
   }
 
   Handle(Poly_Triangulation) aTriangulation;
@@ -355,26 +364,31 @@ static Handle(TColgp_HArray1OfPnt) GetPointsFromPolygon (const TopoDS_Edge& theE
   BRep_Tool::PolygonOnTriangulation (theEdge, anHIndices, aTriangulation, aLocation);
   if (!anHIndices.IsNull())
   {
-    const TColStd_Array1OfInteger& anIndices = anHIndices->Nodes();
-    const TColgp_Array1OfPnt& aNodes = aTriangulation->Nodes();
-
-    aResultPoints = new TColgp_HArray1OfPnt (1, anIndices.Length());
-
-    if (aLocation.IsIdentity())
+    Standard_Boolean isOK = anHIndices->Deflection() <= theDeflection;
+    isOK = isOK || (CC3d.IsNull());
+    if (isOK)
     {
-      for (Standard_Integer anIndex (anIndices.Lower()), aPntId (1); anIndex <= anIndices.Upper(); ++anIndex, ++aPntId)
+      const TColStd_Array1OfInteger& anIndices = anHIndices->Nodes();
+      const TColgp_Array1OfPnt& aNodes = aTriangulation->Nodes();
+
+      aResultPoints = new TColgp_HArray1OfPnt (1, anIndices.Length());
+
+      if (aLocation.IsIdentity())
       {
-        aResultPoints->SetValue (aPntId, aNodes (anIndices (anIndex)));
+        for (Standard_Integer anIndex (anIndices.Lower()), aPntId (1); anIndex <= anIndices.Upper(); ++anIndex, ++aPntId)
+        {
+          aResultPoints->SetValue (aPntId, aNodes (anIndices (anIndex)));
+        }
       }
-    }
-    else
-    {
-      for (Standard_Integer anIndex (anIndices.Lower()), aPntId (1); anIndex <= anIndices.Upper(); ++anIndex, ++aPntId)
+      else
       {
-        aResultPoints->SetValue (aPntId, aNodes (anIndices (anIndex)).Transformed (aLocation));
+        for (Standard_Integer anIndex (anIndices.Lower()), aPntId (1); anIndex <= anIndices.Upper(); ++anIndex, ++aPntId)
+        {
+          aResultPoints->SetValue (aPntId, aNodes (anIndices (anIndex)).Transformed (aLocation));
+        }
       }
+      return aResultPoints;
     }
-    return aResultPoints;
   }
   return aResultPoints;
 }
@@ -460,7 +474,7 @@ void StdSelect_BRepSelectionTool
   }
 
   // try to get points from existing polygons
-  Handle(TColgp_HArray1OfPnt) aPoints = GetPointsFromPolygon (anEdge);
+  Handle(TColgp_HArray1OfPnt) aPoints = GetPointsFromPolygon (anEdge, theDeflection);
   if (!aPoints.IsNull() && aPoints->Length() > 0)
   {
     theSensitive = new Select3D_SensitiveCurve (theOwner, aPoints);

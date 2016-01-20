@@ -58,8 +58,6 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_Surface,MMgt_TShared)
-
 //S4135
 //S4135
 //=======================================================================

@@ -15,5 +15,4 @@ btolx b
 bop a b
 bopsection result
 
-checkprops result -l 128.364
-checksection result
+set length 128.364

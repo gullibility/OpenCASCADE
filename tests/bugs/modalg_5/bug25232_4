@@ -22,8 +22,7 @@ mkface fsph sph
 mkvolume result fcyl fcon1 fcon2 fp fsph
 # 7 solids created
 
-checkprops result -s 6725.11 
-checkshape result
+set square 6725.11
 
 checknbshapes result -vertex 12 -edge 26 -wire 14 -face 14 -shell 7 -solid 7 -compsolid 0 -compound 1 -shape 81
 set 2dviewer 1

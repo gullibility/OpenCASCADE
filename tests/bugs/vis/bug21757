@@ -17,8 +17,7 @@ incmesh result 0.4
 vdisplay result
 vfit
 
-checkprops result -s 65069.2 
-checkshape result
+set square 65069.2
 set only_screen 0
 
  

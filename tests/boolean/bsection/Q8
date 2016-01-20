@@ -6,5 +6,4 @@ restore [locate_data_file CTO904_cts20549b.rle] b
 
 bsection result a b
 
-checkprops result -l 381.332
-checksection result
+set length 381.332

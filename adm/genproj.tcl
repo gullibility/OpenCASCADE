@@ -1109,19 +1109,12 @@ proc osutils:csfList { theOS theCsfLibsMap theCsfFrmsMap } {
       set aFrmsMap(CSF_TclLibs)    "Tcl"
       set aFrmsMap(CSF_TclTkLibs)  "Tk"
     } else {
-      if { "$theOS" == "qnx" } {
-        # CSF_ThreadLibs - pthread API is part og libc on QNX
-        set aLibsMap(CSF_OpenGlLibs) "EGL GLESv2"
-        set aLibsMap(CSF_TclLibs)    "tcl8.6"
-        set aLibsMap(CSF_TclTkLibs)  "tk8.6"
-      } else {
-        set aLibsMap(CSF_ThreadLibs) "pthread rt"
-        set aLibsMap(CSF_OpenGlLibs) "GL"
-        set aLibsMap(CSF_TclLibs)    "tcl8.6"
-        set aLibsMap(CSF_TclTkLibs)  "X11 tk8.6"
-        set aLibsMap(CSF_XwLibs)     "X11 Xext Xmu Xi"
-        set aLibsMap(CSF_MotifLibs)  "X11"
-      }
+      set aLibsMap(CSF_ThreadLibs) "pthread rt"
+      set aLibsMap(CSF_OpenGlLibs) "GL"
+      set aLibsMap(CSF_TclLibs)    "tcl8.6"
+      set aLibsMap(CSF_TclTkLibs)  "X11 tk8.6"
+      set aLibsMap(CSF_XwLibs)     "X11 Xext Xmu Xi"
+      set aLibsMap(CSF_MotifLibs)  "X11"
     }
 
     # optional 3rd-parties
@@ -2012,6 +2005,7 @@ proc osutils:cbpx { theOutDir theToolKit } {
     lappend anIncPaths "../../../inc"
 
     # extra macros
+    lappend aTKDefines "CSFDB"
     if { "$aWokStation" == "wnt" } {
       lappend aTKDefines "_CRT_SECURE_NO_DEPRECATE"
     } else {
@@ -2061,13 +2055,13 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
   # Release target configuration
   puts $aFile "\t\t\t<Target title=\"Release\">"
   if { "$theIsExe" == "true" } {
-    puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/bin/${theProjName}\" prefix_auto=\"0\" extension_auto=\"0\" />"
+    puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/bin/${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     puts $aFile "\t\t\t\t<Option type=\"1\" />"
   } else {
     if { "$aWokStation" == "wnt" } {
       puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/lib/${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     } else {
-      puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/lib/lib${theProjName}.so\" prefix_auto=\"0\" extension_auto=\"0\" />"
+      puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/lib/lib${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     }
     puts $aFile "\t\t\t\t<Option type=\"3\" />"
   }
@@ -2077,8 +2071,8 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
   } else {
     puts $aFile "\t\t\t\t<Option compiler=\"gcc\" />"
   }
-  puts $aFile "\t\t\t\t<Option createDefFile=\"0\" />"
-  puts $aFile "\t\t\t\t<Option createStaticLib=\"0\" />"
+  puts $aFile "\t\t\t\t<Option createDefFile=\"1\" />"
+  puts $aFile "\t\t\t\t<Option createStaticLib=\"1\" />"
 
   # compiler options per TARGET (including defines)
   puts $aFile "\t\t\t\t<Compiler>"
@@ -2092,20 +2086,15 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
   } else {
     puts $aFile "\t\t\t\t\t<Add option=\"-O2\" />"
     puts $aFile "\t\t\t\t\t<Add option=\"-std=c++0x\" />"
-    if { "$aWokStation" != "qnx" } {
-      puts $aFile "\t\t\t\t\t<Add option=\"-mmmx\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-msse\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-msse2\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-mfpmath=sse\" />"
-    }
+    puts $aFile "\t\t\t\t\t<Add option=\"-mmmx\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-msse\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-msse2\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-mfpmath=sse\" />"
   }
   foreach aMacro $theDefines {
     puts $aFile "\t\t\t\t\t<Add option=\"-D${aMacro}\" />"
   }
   puts $aFile "\t\t\t\t\t<Add option=\"-DNDEBUG\" />"
-  if { "$aWokStation" == "qnx" } {
-    puts $aFile "\t\t\t\t\t<Add option=\"-D_QNX_SOURCE\" />"
-  }
   puts $aFile "\t\t\t\t\t<Add option=\"-DNo_Exception\" />"
 
   puts $aFile "\t\t\t\t</Compiler>"
@@ -2123,13 +2112,13 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
   # Debug target configuration
   puts $aFile "\t\t\t<Target title=\"Debug\">"
   if { "$theIsExe" == "true" } {
-    puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/bind/${theProjName}\" prefix_auto=\"0\" extension_auto=\"0\" />"
+    puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/bind/${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     puts $aFile "\t\t\t\t<Option type=\"1\" />"
   } else {
     if { "$aWokStation" == "wnt" } {
       puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/libd/${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     } else {
-      puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/libd/lib${theProjName}.so\" prefix_auto=\"0\" extension_auto=\"0\" />"
+      puts $aFile "\t\t\t\t<Option output=\"../../../${aWokStation}/cbp/libd/lib${theProjName}\" prefix_auto=\"1\" extension_auto=\"1\" />"
     }
     puts $aFile "\t\t\t\t<Option type=\"3\" />"
   }
@@ -2139,8 +2128,8 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
   } else {
     puts $aFile "\t\t\t\t<Option compiler=\"gcc\" />"
   }
-  puts $aFile "\t\t\t\t<Option createDefFile=\"0\" />"
-  puts $aFile "\t\t\t\t<Option createStaticLib=\"0\" />"
+  puts $aFile "\t\t\t\t<Option createDefFile=\"1\" />"
+  puts $aFile "\t\t\t\t<Option createStaticLib=\"1\" />"
 
   # compiler options per TARGET (including defines)
   puts $aFile "\t\t\t\t<Compiler>"
@@ -2156,20 +2145,15 @@ proc osutils:cbp { theOutDir theProjName theSrcFiles theLibsList theFrameworks t
     puts $aFile "\t\t\t\t\t<Add option=\"-O0\" />"
     puts $aFile "\t\t\t\t\t<Add option=\"-std=c++0x\" />"
     puts $aFile "\t\t\t\t\t<Add option=\"-g\" />"
-    if { "$aWokStation" != "qnx" } {
-      puts $aFile "\t\t\t\t\t<Add option=\"-mmmx\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-msse\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-msse2\" />"
-      puts $aFile "\t\t\t\t\t<Add option=\"-mfpmath=sse\" />"
-    }
+    puts $aFile "\t\t\t\t\t<Add option=\"-mmmx\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-msse\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-msse2\" />"
+    puts $aFile "\t\t\t\t\t<Add option=\"-mfpmath=sse\" />"
   }
   foreach aMacro $theDefines {
     puts $aFile "\t\t\t\t\t<Add option=\"-D${aMacro}\" />"
   }
   puts $aFile "\t\t\t\t\t<Add option=\"-D_DEBUG\" />"
-  if { "$aWokStation" == "qnx" } {
-    puts $aFile "\t\t\t\t\t<Add option=\"-D_QNX_SOURCE\" />"
-  }
   puts $aFile "\t\t\t\t\t<Add option=\"-DDEB\" />"
   puts $aFile "\t\t\t\t</Compiler>"
 
@@ -2293,6 +2277,7 @@ proc osutils:tkinfo { theRelativePath theToolKit theUsedLib theFrameworks theInc
   }
 
   # extra macros
+  lappend aTKDefines "CSFDB"
   if { "$aWokStation" == "wnt" } {
     lappend aTKDefines "_CRT_SECURE_NO_DEPRECATE"
   } else {
@@ -2558,7 +2543,7 @@ proc osutils:xcdtk { theOutDir theToolKit theGuidsMap theIsStatic thePlatform {t
   set anExecExtension "\t\t\t\tEXECUTABLE_EXTENSION = dylib;"
   set anExecPrefix "\t\t\t\tEXECUTABLE_PREFIX = lib;"
   set aWrapperExtension "\t\t\t\tWRAPPER_EXTENSION = dylib;"
-  set aTKDefines [list "OCC_CONVERT_SIGNALS"]
+  set aTKDefines [list "CSFDB" "OCC_CONVERT_SIGNALS"]
 
   if { "$theTargetType" == "executable" } {
     set aPBXBuildPhase "CopyFiles"

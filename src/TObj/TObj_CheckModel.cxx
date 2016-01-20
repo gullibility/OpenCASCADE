@@ -23,8 +23,6 @@
 #include <Message_Messenger.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_CheckModel,Message_Algorithm)
-
 //=======================================================================
 //function : Perform
 //purpose  : 

@@ -22,8 +22,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <XCAFDoc_GraphNode.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_GraphNode,TDF_Attribute)
-
 //     class  methods working on the node:
 //     ===================================
 //=======================================================================

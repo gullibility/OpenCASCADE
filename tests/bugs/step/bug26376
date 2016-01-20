@@ -9,8 +9,7 @@ puts ""
 stepread [locate_data_file bug26376_valve-test-meters.step] a *
 tpcompound result
 
-checkprops result -s 150249 
-checkshape result
+set square 150249
 
 set nbshapes_expected "
 Number of shapes in shape

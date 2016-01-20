@@ -41,12 +41,12 @@ public:
   
   Standard_EXPORT HLRTest_DrawableEdgeTool(const Handle(HLRBRep_Algo)& Alg, const Standard_Boolean Visible, const Standard_Boolean IsoLine, const Standard_Boolean Rg1Line, const Standard_Boolean RgNLine, const Standard_Integer ViewId);
   
-  Standard_EXPORT void DrawOn (Draw_Display& D) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& D) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(HLRTest_DrawableEdgeTool,Draw_Drawable3D)
 
 protected:
 

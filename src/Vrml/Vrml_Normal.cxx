@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <Vrml_Normal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_Normal,MMgt_TShared)
-
 Vrml_Normal::Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector)
 {
  myVector = aVector;
@@ -45,14 +43,14 @@ Standard_OStream& Vrml_Normal::Print(Standard_OStream& anOStream) const
 {
  Standard_Integer i;
 
- anOStream  << "Normal {\n";
+ anOStream  << "Normal {" << endl;
  i = myVector->Lower();
  if ( myVector->Length() == 1 && 
      Abs(myVector->Value(i).X() - 0) < 0.0001 && 
      Abs(myVector->Value(i).Y() - 0) < 0.0001 && 
      Abs(myVector->Value(i).Z() - 1) < 0.0001 )
    {
-    anOStream  << "}\n";
+    anOStream  << '}' << endl;
     return anOStream;
    }
  else 
@@ -60,13 +58,13 @@ Standard_OStream& Vrml_Normal::Print(Standard_OStream& anOStream) const
   anOStream  << "    vector [\n\t";
    for ( i = myVector->Lower(); i <= myVector->Upper(); i++ )
      {
-	 anOStream << myVector->Value(i).X() << " " << myVector->Value(i).Y() << " " << myVector->Value(i).Z();
+	 anOStream << myVector->Value(i).X() << ' ' << myVector->Value(i).Y() << ' ' << myVector->Value(i).Z();
       if ( i < myVector->Length() )
-	 anOStream  << ",\n\t";
+	 anOStream  << ',' << endl << '\t';
      }
-    anOStream << " ]\n";
+    anOStream << " ]" << endl;
   }  
-  anOStream  << "}\n";
+  anOStream  << '}' << endl;
 
  return anOStream;
 }

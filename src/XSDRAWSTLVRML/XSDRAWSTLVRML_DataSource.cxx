@@ -23,8 +23,6 @@
 #include <TColStd_DataMapOfIntegerReal.hxx>
 #include <XSDRAWSTLVRML_DataSource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTLVRML_DataSource,MeshVS_DataSource)
-
 //================================================================
 // Function : Constructor
 // Purpose  :

@@ -168,7 +168,10 @@ public:
   //! Removes the non-default settings for width set in SetWidth.
   Standard_EXPORT void UnsetWidth() Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(AIS_Trihedron,AIS_InteractiveObject)
+
+
+
+  DEFINE_STANDARD_RTTI(AIS_Trihedron,AIS_InteractiveObject)
 
 protected:
 
@@ -182,11 +185,9 @@ private:
   
   Standard_EXPORT void Compute (const Handle(Prs3d_Projector)& aProjector, const Handle(Prs3d_Presentation)& aPresentation) Standard_OVERRIDE;
   
-  Standard_EXPORT void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode) Standard_OVERRIDE;
+  Standard_EXPORT void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode);
   
   Standard_EXPORT void LoadSubObjects();
-
-protected:
 
   Handle(Geom_Axis2Placement) myComponent;
   Handle(AIS_InteractiveObject) myShapes[7];
@@ -195,6 +196,8 @@ protected:
   Quantity_NameOfColor myOwnTextColor;
   Standard_Boolean myHasOwnArrowColor;
   Quantity_NameOfColor myOwnArrowColor;
+
+
 };
 
 

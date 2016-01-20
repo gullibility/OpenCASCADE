@@ -15,8 +15,6 @@
 
 #include <IVtk_IShapePickerAlgo.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IVtk_IShapePickerAlgo,IVtk_Interface)
-
 // Handle implementation
 
 

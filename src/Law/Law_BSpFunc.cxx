@@ -26,8 +26,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_BSpFunc,Law_Function)
-
 #define PosTol Precision::PConfusion()/2
 
 //=======================================================================

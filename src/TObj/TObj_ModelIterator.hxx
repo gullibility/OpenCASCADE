@@ -43,13 +43,13 @@ class TObj_ModelIterator : public TObj_ObjectIterator
   
   //! Returns True if iteration is not finished and method Value()
   //! will give the object
-  virtual Standard_EXPORT Standard_Boolean More() const Standard_OVERRIDE;
+  virtual Standard_EXPORT Standard_Boolean More() const;
   
   //! Iterates to the next object
-  virtual Standard_EXPORT void Next () Standard_OVERRIDE;
+  virtual Standard_EXPORT void Next ();
   
   //! Returns current object (or MainObj of Model if iteration has finished)
-  virtual Standard_EXPORT Handle(TObj_Object) Value () const Standard_OVERRIDE;
+  virtual Standard_EXPORT Handle(TObj_Object) Value () const;
   
  protected:
   /**
@@ -68,7 +68,7 @@ class TObj_ModelIterator : public TObj_ObjectIterator
     
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_ModelIterator,TObj_ObjectIterator)
+  DEFINE_STANDARD_RTTI(TObj_ModelIterator, TObj_ObjectIterator)
 };
 
 //! Define handle class for TObj_ObjectIterator

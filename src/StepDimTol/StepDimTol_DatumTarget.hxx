@@ -39,22 +39,18 @@ public:
   Standard_EXPORT StepDimTol_DatumTarget();
   
   //! Initialize all fields (own and inherited)
-  Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theShapeAspect_Name, 
-                            const Handle(TCollection_HAsciiString)& theShapeAspect_Description, 
-                            const Handle(StepRepr_ProductDefinitionShape)& theShapeAspect_OfShape, 
-                            const StepData_Logical                  theShapeAspect_ProductDefinitional, 
-                            const Handle(TCollection_HAsciiString)& theTargetId);
+  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& aShapeAspect_Name, const Handle(TCollection_HAsciiString)& aShapeAspect_Description, const Handle(StepRepr_ProductDefinitionShape)& aShapeAspect_OfShape, const StepData_Logical aShapeAspect_ProductDefinitional, const Handle(TCollection_HAsciiString)& aTargetId);
   
   //! Returns field TargetId
   Standard_EXPORT Handle(TCollection_HAsciiString) TargetId() const;
   
   //! Set field TargetId
-  Standard_EXPORT void SetTargetId (const Handle(TCollection_HAsciiString)& theTargetId);
+  Standard_EXPORT void SetTargetId (const Handle(TCollection_HAsciiString)& TargetId);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumTarget,StepRepr_ShapeAspect)
+  DEFINE_STANDARD_RTTI(StepDimTol_DatumTarget,StepRepr_ShapeAspect)
 
 protected:
 
@@ -64,7 +60,7 @@ protected:
 private:
 
 
-  Handle(TCollection_HAsciiString) myTargetId;
+  Handle(TCollection_HAsciiString) theTargetId;
 
 
 };

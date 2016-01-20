@@ -15,8 +15,6 @@
 
 #include <StepRepr_ParallelOffset.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ParallelOffset,StepRepr_DerivedShapeAspect)
-
 StepRepr_ParallelOffset::StepRepr_ParallelOffset ()    {  }
 
 //=======================================================================

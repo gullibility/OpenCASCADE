@@ -23,8 +23,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_BoundedSurface,IGESData_IGESEntity)
-
 IGESGeom_BoundedSurface::IGESGeom_BoundedSurface ()    {  }
 
 

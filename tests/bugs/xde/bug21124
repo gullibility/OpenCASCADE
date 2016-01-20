@@ -25,6 +25,5 @@ if [catch { igesbrep $filepath a *} catch_result] {
   }
 }
 renamevar a_91_3 result
-checkprops result -s 74027 
-checkshape result
+set square 74027
 set 2dviewer 0

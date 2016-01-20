@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_ParametricRepresentationContext.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ParametricRepresentationContext,StepRepr_RepresentationContext)
-
 StepRepr_ParametricRepresentationContext::StepRepr_ParametricRepresentationContext ()  {}
 

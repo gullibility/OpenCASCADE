@@ -301,7 +301,6 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge& aE1,
     //
     if (aCT==GeomAbs_BezierCurve ||
         aCT==GeomAbs_BSplineCurve||
-        aCT==GeomAbs_OffsetCurve ||
         aCT==GeomAbs_OtherCurve) {
       
       if(!i){
@@ -370,7 +369,6 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge& aE,
 
     if (aCT==GeomAbs_BezierCurve ||
         aCT==GeomAbs_BSplineCurve||
-        aCT==GeomAbs_OffsetCurve ||
         aCT==GeomAbs_OtherCurve) {
       
       if(!i){

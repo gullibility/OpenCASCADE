@@ -56,7 +56,7 @@ public:
   
   //! this is defined only to tell C++ not to complain
   //! about inheriting a pure virtual method.
-  Standard_EXPORT virtual void DrawOn (Draw_Display& dis) const Standard_OVERRIDE = 0;
+  Standard_EXPORT virtual void DrawOn (Draw_Display& dis) const = 0;
   
     void SetDiscretisation (const Standard_Integer Discret);
   
@@ -73,7 +73,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Drawable,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(DrawTrSurf_Drawable,Draw_Drawable3D)
 
 protected:
 

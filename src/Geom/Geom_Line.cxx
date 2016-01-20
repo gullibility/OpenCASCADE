@@ -29,8 +29,6 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Line,Geom_Curve)
-
 //=======================================================================
 //function : Copy
 //purpose  : 

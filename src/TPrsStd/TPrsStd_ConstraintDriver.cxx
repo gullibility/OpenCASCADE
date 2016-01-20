@@ -25,8 +25,6 @@
 #include <TPrsStd_ConstraintDriver.hxx>
 #include <TPrsStd_ConstraintTools.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TPrsStd_ConstraintDriver,TPrsStd_Driver)
-
 //=======================================================================
 //function :
 //purpose  : 

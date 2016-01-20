@@ -17,8 +17,6 @@
 #include <StepData_EnumTool.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_SimpleDatumReferenceModifierMember,StepData_SelectInt)
-
 static StepData_EnumTool tool
   (".ANY_CROSS_SECTION.",
    ".ANY_LONGITUDINAL_SECTION.",

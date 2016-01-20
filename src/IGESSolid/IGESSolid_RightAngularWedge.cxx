@@ -23,8 +23,6 @@
 #include <IGESSolid_RightAngularWedge.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_RightAngularWedge,IGESData_IGESEntity)
-
 IGESSolid_RightAngularWedge::IGESSolid_RightAngularWedge ()    {  }
 
 

@@ -24,8 +24,6 @@
 #include <TDataXtd_Point.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataXtd_PointDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataXtd_PointDriver
 //purpose  : 

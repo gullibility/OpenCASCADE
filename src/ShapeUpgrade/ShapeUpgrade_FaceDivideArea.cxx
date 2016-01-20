@@ -26,8 +26,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_FaceDivideArea,ShapeUpgrade_FaceDivide)
-
 //=======================================================================
 //function : ShapeUpgrade_FaceDivideArea
 //purpose  : 

@@ -45,7 +45,7 @@ public:
   Standard_EXPORT void Value (const Standard_Real V);
   
   //! Does nothhing,
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -60,7 +60,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Number,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(Draw_Number,Draw_Drawable3D)
 
 protected:
 

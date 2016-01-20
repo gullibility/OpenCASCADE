@@ -57,6 +57,5 @@ checkmaxtol result -ref 2279.641703013865
 checknbshapes result -shell 1
 checkfreebounds result 5
 
-checkprops result -s 1.80934e+009
-checkshape result
+set square 1.22542e+09
 set 2dviewer 0

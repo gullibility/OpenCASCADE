@@ -24,8 +24,6 @@
 #include <XmlMNaming_NamedShapeDriver.hxx>
 #include <XmlObjMgt_Element.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlDrivers_DocumentStorageDriver,XmlLDrivers_DocumentStorageDriver)
-
 //=======================================================================
 //function : XmlDrivers_DocumentStorageDriver
 //purpose  : Constructor

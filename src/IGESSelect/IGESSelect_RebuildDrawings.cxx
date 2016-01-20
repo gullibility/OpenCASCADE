@@ -35,8 +35,6 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_RebuildDrawings,IGESSelect_ModelModifier)
-
 #define PourDrawing 404
 
 

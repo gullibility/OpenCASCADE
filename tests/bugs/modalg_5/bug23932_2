@@ -22,6 +22,4 @@ mkface b2 s2t
 bop b1 b2
 bopsection result
 
-checkprops result -l 330.903 
-checkshape result 
-checksection result
+set length 330.903

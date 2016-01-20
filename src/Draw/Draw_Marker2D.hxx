@@ -49,7 +49,7 @@ public:
   //! myPos field
   Standard_EXPORT gp_Pnt2d& ChangePos();
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   //! Returs always false
   Standard_EXPORT virtual Standard_Boolean PickReject (const Standard_Real X, const Standard_Real Y, const Standard_Real Prec) const Standard_OVERRIDE;
@@ -57,7 +57,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Marker2D,Draw_Drawable2D)
+  DEFINE_STANDARD_RTTI(Draw_Marker2D,Draw_Drawable2D)
 
 protected:
 

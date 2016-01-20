@@ -13,6 +13,7 @@
 
 #include <AndroidQt_Window.h>
 
+IMPLEMENT_STANDARD_HANDLE (AndroidQt_Window, Aspect_Window)
 IMPLEMENT_STANDARD_RTTIEXT(AndroidQt_Window, Aspect_Window)
 
 // =======================================================================

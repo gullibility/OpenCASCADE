@@ -24,8 +24,6 @@
 #include <StepRepr_RepresentationContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_Curve3dElementRepresentation,StepFEA_ElementRepresentation)
-
 //=======================================================================
 //function : StepFEA_Curve3dElementRepresentation
 //purpose  : 

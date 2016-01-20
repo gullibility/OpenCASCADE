@@ -15,8 +15,6 @@
 
 #include <Font_TextFormatter.hxx>
 
-#include <Font_FTFont.hxx>
-
 namespace
 {
   typedef NCollection_Vec2<Standard_ShortReal> Vec2f;
@@ -43,6 +41,16 @@ namespace
     {
       theCorners.ChangeValue (theCharLower).y() += theMoveVec;
     }
+  }
+
+  //! Apply floor to vector components.
+  //! @param  theVec - vector to change (by reference!)
+  //! @return modified vector
+  inline Vec2f& floor (Vec2f& theVec)
+  {
+    theVec.x() = std::floor (theVec.x());
+    theVec.y() = std::floor (theVec.y());
+    return theVec;
   }
 
 }

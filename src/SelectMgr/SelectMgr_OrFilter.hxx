@@ -40,7 +40,7 @@ public:
   //! Constructs an empty or selection filter.
   Standard_EXPORT SelectMgr_OrFilter();
   
-  Standard_EXPORT Standard_Boolean IsOk (const Handle(SelectMgr_EntityOwner)& anobj) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsOk (const Handle(SelectMgr_EntityOwner)& anobj) const;
   
   //! Disable selection of specified objects.
   Standard_EXPORT void SetDisabledObjects (const Handle(Graphic3d_NMapOfTransient)& theObjects);
@@ -48,7 +48,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_OrFilter,SelectMgr_CompositionFilter)
+  DEFINE_STANDARD_RTTI(SelectMgr_OrFilter,SelectMgr_CompositionFilter)
 
 protected:
 

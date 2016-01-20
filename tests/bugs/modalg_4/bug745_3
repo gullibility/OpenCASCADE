@@ -24,7 +24,6 @@ smallview -2D-
 mat
 #result
 
-checkprops result -s 8357.41 
-checkshape result
+set square 8357.41
 set 2dviewer 0
 

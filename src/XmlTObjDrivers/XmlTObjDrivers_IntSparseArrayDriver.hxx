@@ -30,26 +30,26 @@ class XmlTObjDrivers_IntSparseArrayDriver : public XmlMDF_ADriver
                          (const Handle(CDM_MessageDriver)& theMessageDriver);
   // constructor
 
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   // Creates a new attribute
 
   Standard_EXPORT Standard_Boolean Paste
                          (const XmlObjMgt_Persistent&  theSource,
                           const Handle(TDF_Attribute)& theTarget,
-                          XmlObjMgt_RRelocationTable&  theRelocTable) const Standard_OVERRIDE;
+                          XmlObjMgt_RRelocationTable&  theRelocTable) const;
   // Translate the contents of <theSource> and put it
   // into <theTarget>
 
   Standard_EXPORT void Paste
                          (const Handle(TDF_Attribute)& theSource,
                           XmlObjMgt_Persistent&        theTarget,
-                          XmlObjMgt_SRelocationTable&  theRelocTable) const Standard_OVERRIDE;
+                          XmlObjMgt_SRelocationTable&  theRelocTable) const;
   // Translate the contents of <aSource> and put it
   // into <aTarget>
 
  public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(XmlTObjDrivers_IntSparseArrayDriver,XmlMDF_ADriver)
+  DEFINE_STANDARD_RTTI(XmlTObjDrivers_IntSparseArrayDriver, XmlMDF_ADriver)
 };
 
 // Define handle class

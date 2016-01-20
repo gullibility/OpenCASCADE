@@ -42,8 +42,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeCustom_DirectModification,ShapeCustom_Modification)
-
 //=======================================================================
 //function : ShapeCustom_DirectModification
 //purpose  : 

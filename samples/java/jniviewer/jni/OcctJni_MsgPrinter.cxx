@@ -18,6 +18,7 @@
 
 #include <android/log.h>
 
+IMPLEMENT_STANDARD_HANDLE (OcctJni_MsgPrinter, Message_Printer)
 IMPLEMENT_STANDARD_RTTIEXT(OcctJni_MsgPrinter, Message_Printer)
 
 // =======================================================================

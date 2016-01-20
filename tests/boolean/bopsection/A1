@@ -18,5 +18,4 @@ prism priz f 1 0 0
 bop priz cyl
 bopsection result
 
-checkprops result -l 14.2832
-checksection result
+set length 14.2832

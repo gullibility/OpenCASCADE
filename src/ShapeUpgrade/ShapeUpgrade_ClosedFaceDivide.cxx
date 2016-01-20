@@ -40,8 +40,6 @@
 #include <TopoDS_Iterator.hxx>
 #include <TopoDS_Wire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_ClosedFaceDivide,ShapeUpgrade_FaceDivide)
-
 //=======================================================================
 //function : ShapeUpgrade_ClosedFaceDivide
 //purpose  : 

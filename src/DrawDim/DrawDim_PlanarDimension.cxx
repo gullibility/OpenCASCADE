@@ -21,8 +21,6 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Face.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarDimension,DrawDim_Dimension)
-
 //=======================================================================
 //function : SetPlane
 //purpose  : 

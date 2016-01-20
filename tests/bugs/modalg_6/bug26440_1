@@ -10,8 +10,7 @@ restore [locate_data_file bug26440_plate.brep] sh1
 
 thickshell result sh1 160
 
-checkprops result -s 2.40831e+07 
-checkshape result
+set square 2.40831e+07
 
 set nbshapes_expected "
 Number of shapes in shape

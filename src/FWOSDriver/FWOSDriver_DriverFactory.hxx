@@ -36,12 +36,12 @@ public:
   
   Standard_EXPORT FWOSDriver_DriverFactory();
   
-  Standard_EXPORT Handle(CDF_MetaDataDriver) Build() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(CDF_MetaDataDriver) Build() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(FWOSDriver_DriverFactory,CDF_MetaDataDriverFactory)
+  DEFINE_STANDARD_RTTI(FWOSDriver_DriverFactory,CDF_MetaDataDriverFactory)
 
 protected:
 

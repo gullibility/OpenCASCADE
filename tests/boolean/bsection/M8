@@ -46,5 +46,4 @@ while {$i <= 105} {
   incr i 5
 }
 
-checkprops result -l 624193
-checksection result
+set length 624193

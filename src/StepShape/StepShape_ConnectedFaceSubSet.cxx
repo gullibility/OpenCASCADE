@@ -20,8 +20,6 @@
 #include <StepShape_ConnectedFaceSubSet.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ConnectedFaceSubSet,StepShape_ConnectedFaceSet)
-
 //=======================================================================
 //function : StepShape_ConnectedFaceSubSet
 //purpose  : 

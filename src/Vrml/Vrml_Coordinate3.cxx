@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <Vrml_Coordinate3.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_Coordinate3,MMgt_TShared)
-
 Vrml_Coordinate3::Vrml_Coordinate3(const Handle(TColgp_HArray1OfVec)& aPoint)
 {
  myPoint = aPoint;
@@ -45,28 +43,28 @@ Standard_OStream& Vrml_Coordinate3::Print(Standard_OStream& anOStream) const
 {
  Standard_Integer i;
  
- anOStream  << "Coordinate3 {\n";
+ anOStream  << "Coordinate3 {" << endl;
  
  i = myPoint->Lower();
  if (  myPoint->Length() == 1 && Abs(myPoint->Value(i).X() - 0) < 0.0001 
                               && Abs(myPoint->Value(i).Y() - 0) < 0.0001 
                               && Abs(myPoint->Value(i).Z() - 0) < 0.0001 )
    {
-    anOStream << "}\n";
+    anOStream << '}' << endl;
     return anOStream;
    }
  else
    {
-    anOStream  << "    point [\n\t";
+    anOStream  << "    point [" << endl << '\t';
     for ( i = myPoint->Lower(); i <= myPoint->Upper(); i++ )
 	{
 	 anOStream << myPoint->Value(i).X() << ' ' << myPoint->Value(i).Y() << ' ' << myPoint->Value(i).Z();
 	 if ( i < myPoint->Length() )
-	    anOStream  << ",\n\t";
+	    anOStream  << ',' << endl << '\t';
         }
-    anOStream  << " ]\n";
+    anOStream  << " ]" << endl;
    }
- anOStream << "}\n";
+ anOStream << '}' << endl;
 
  return anOStream;
 }

@@ -17,8 +17,6 @@
 #include <StepAP214_AutoDesignGeneralOrgItem.hxx>
 #include <StepBasic_Approval.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignApprovalAssignment,StepBasic_ApprovalAssignment)
-
 StepAP214_AutoDesignApprovalAssignment::StepAP214_AutoDesignApprovalAssignment ()  {}
 
 void StepAP214_AutoDesignApprovalAssignment::Init(

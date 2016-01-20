@@ -15,8 +15,6 @@
 
 #include <StepDimTol_NonUniformZoneDefinition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_NonUniformZoneDefinition,StepDimTol_ToleranceZoneDefinition)
-
 //=======================================================================
 //function : StepDimTol_NonUniformZoneDefinition
 //purpose  : 

@@ -4,4 +4,4 @@ pcone b2 2 1 8
 bop b1 b2
 bopcommon result
 
-checkprops result -s 91.693
+set square 91.693

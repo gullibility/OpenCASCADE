@@ -35,8 +35,6 @@
 #include <Standard_Type.hxx>
 #include <TColgp_Array2OfVec.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Darboux,GeomFill_TrihedronLaw)
-
 //=======================================================================
 //function : FDeriv
 //purpose  : computes (F/|F|)'

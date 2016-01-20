@@ -54,33 +54,28 @@ public: //! @name mesher API
   Standard_EXPORT BRepMesh_IncrementalMesh(
     const TopoDS_Shape&    theShape,
     const Standard_Real    theLinDeflection,
-    const Standard_Boolean isRelative = Standard_False,
+    const Standard_Boolean isRelative       = Standard_False,
     const Standard_Real    theAngDeflection = 0.5,
-    const Standard_Boolean isInParallel = Standard_False,
-    const Standard_Boolean adaptiveMin = Standard_False);  
-
-  //! Constructor.
-  //! Automatically calls method Perform.
-  //! @param theShape shape to be meshed.
-  //! @param theParameters - parameters of meshing
-  Standard_EXPORT BRepMesh_IncrementalMesh (const TopoDS_Shape& theShape,
-                                            const BRepMesh_FastDiscret::Parameters& theParameters);
+    const Standard_Boolean isInParallel     = Standard_False);
 
   //! Performs meshing ot the shape.
-  Standard_EXPORT virtual void Perform() Standard_OVERRIDE;
+  Standard_EXPORT virtual void Perform();
   
 public: //! @name accessing to parameters.
 
-  //! Returns meshing parameters
-  inline const BRepMesh_FastDiscret::Parameters& Parameters() const
+  //! Enables using relative deflection.
+  //! @param isRelative if TRUE deflection used for discretization of 
+  //! each edge will be <theLinDeflection> * <size of edge>. Deflection 
+  //! used for the faces will be the maximum deflection of their edges.
+  inline void SetRelative(const Standard_Boolean isRelative)
   {
-    return myParameters;
+    myRelative = isRelative;
   }
-
-  //! Returns modifiable meshing parameters
-  inline BRepMesh_FastDiscret::Parameters& ChangeParameters()
+  
+  //! Returns relative deflection flag.
+  inline Standard_Boolean IsRelative() const
   {
-    return myParameters;
+    return myRelative;
   }
   
   //! Returns modified flag.
@@ -95,6 +90,55 @@ public: //! @name accessing to parameters.
     return myStatus;
   }
   
+  //! Request algorithm to launch in multiple threads to improve performance.
+  inline void SetParallel(const Standard_Boolean isInParallel)
+  {
+    myInParallel = isInParallel;
+  }
+  
+  //! Returns the multi-threading usage flag.
+  inline Standard_Boolean IsParallel() const
+  {
+    return myInParallel;
+  }
+
+  //! Sets min size parameter.
+  inline void SetMinSize(const Standard_Real theMinSize)
+  {
+    myMinSize = Max(theMinSize, Precision::Confusion());
+  }
+
+  //! Returns min size parameter.
+  inline Standard_Real GetMinSize() const
+  {
+    return myMinSize;
+  }
+
+  //! Enables/disables internal vertices mode (enabled by default).
+  inline void SetInternalVerticesMode(const Standard_Boolean isEnabled)
+  {
+    myInternalVerticesMode = isEnabled;
+  }
+  
+  //! Returns flag indicating is internal vertices mode enabled/disabled.
+  inline Standard_Boolean IsInternalVerticesMode() const
+  {
+    return myInternalVerticesMode;
+  }
+
+  //! Enables/disables control of deflection of mesh from real surface 
+  //! (enabled by default).
+  inline void SetControlSurfaceDeflection(const Standard_Boolean isEnabled)
+  {
+    myIsControlSurfaceDeflection = isEnabled;
+  }
+
+  //! Returns flag indicating is adaptive reconfiguration 
+  //! of mesh enabled/disabled.
+  inline Standard_Boolean IsControlSurfaceDeflection() const
+  {
+    return myIsControlSurfaceDeflection;
+  }
 
 public: //! @name plugin API
 
@@ -117,11 +161,11 @@ public: //! @name plugin API
   //! Discret() static method (thus applied only to Mesh Factories).
   Standard_EXPORT static void SetParallelDefault(const Standard_Boolean isInParallel);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_IncrementalMesh,BRepMesh_DiscretRoot)
+  DEFINE_STANDARD_RTTI(BRepMesh_IncrementalMesh, BRepMesh_DiscretRoot)
 
 protected:
 
-  Standard_EXPORT virtual void init() Standard_OVERRIDE;
+  Standard_EXPORT virtual void init();
 
 private:
 
@@ -177,16 +221,18 @@ private:
 
 protected:
 
+  Standard_Boolean                            myRelative;
+  Standard_Boolean                            myInParallel;
   BRepMesh::DMapOfEdgeListOfTriangulationBool myEdges;
   Handle(BRepMesh_FastDiscret)                myMesh;
-  TopTools_DataMapOfShapeReal                 myEdgeDeflection;
-  NCollection_Vector<TopoDS_Face>             myFaces;
-
-  BRepMesh_FastDiscret::Parameters myParameters;
-
-  Standard_Real                               myMaxShapeSize;
   Standard_Boolean                            myModified;
+  TopTools_DataMapOfShapeReal                 myEdgeDeflection;
+  Standard_Real                               myMaxShapeSize;
   Standard_Integer                            myStatus;
+  NCollection_Vector<TopoDS_Face>             myFaces;
+  Standard_Real                               myMinSize;
+  Standard_Boolean                            myInternalVerticesMode;
+  Standard_Boolean                            myIsControlSurfaceDeflection;
 };
 
 DEFINE_STANDARD_HANDLE(BRepMesh_IncrementalMesh,BRepMesh_DiscretRoot)

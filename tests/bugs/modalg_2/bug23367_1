@@ -13,8 +13,6 @@ fit
 
 middlepath result b b_3 b_4
 
-checkprops result -l 100. 
-checkshape result 
-checksection result
+set length 100.
 
 set 2dviewer 1

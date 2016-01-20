@@ -6,4 +6,4 @@ bcut rab a b
 
 bcut result rab c
 
-checkprops result -s 272.503
+set square 272.503

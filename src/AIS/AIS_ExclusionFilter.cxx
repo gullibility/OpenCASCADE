@@ -23,8 +23,6 @@
 #include <TColStd_ListIteratorOfListOfInteger.hxx>
 #include <TColStd_ListOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_ExclusionFilter,SelectMgr_Filter)
-
 //=======================================================================
 //function : AIS_ExclusionFilter
 //purpose  : Constructors

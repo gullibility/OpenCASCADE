@@ -21,7 +21,6 @@
 #include <StepRepr_HArray1OfShapeAspect.hxx>
 #include <StepDimTol_ToleranceZone.hxx>
 #include <StepDimTol_ToleranceZoneDefinition.hxx>
-#include <StepRepr_ShapeAspect.hxx>
 
 //=======================================================================
 //function : RWStepDimTol_RWToleranceZoneDefinition

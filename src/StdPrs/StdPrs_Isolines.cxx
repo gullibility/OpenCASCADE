@@ -55,7 +55,6 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColgp_SequenceOfPnt2d.hxx>
 #include <Standard_ErrorHandler.hxx>
-#include <Geom_Surface.hxx>
 
 typedef NCollection_Sequence<Handle(TColgp_HSequenceOfPnt)> Prs3d_NSequenceOfSequenceOfPnt;
 

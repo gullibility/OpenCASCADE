@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_FreeFormatEntity,IGESData_UndefinedEntity)
-
 //  Donne un acces simple a la constitution d une UndefinedEntity :
 //  Methodes de UndefinedContent, + Type & Form, + AddEntities (little gadget)
 IGESData_FreeFormatEntity::IGESData_FreeFormatEntity ()    {  }

@@ -21,8 +21,6 @@
 #include <StepRepr_QuantifiedAssemblyComponentUsage.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_QuantifiedAssemblyComponentUsage,StepRepr_AssemblyComponentUsage)
-
 //=======================================================================
 //function : StepRepr_QuantifiedAssemblyComponentUsage
 //purpose  : 

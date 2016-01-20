@@ -19,8 +19,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectUnion,IFSelect_SelectCombine)
-
 IFSelect_SelectUnion::IFSelect_SelectUnion ()    {  }
 
 

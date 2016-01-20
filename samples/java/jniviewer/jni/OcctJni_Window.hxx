@@ -27,39 +27,36 @@ public:
   : myWidth (theWidth), myHeight(theHeight) {}
 
   //! Returns native Window handle
-  virtual Aspect_Drawable NativeHandle() const Standard_OVERRIDE { return 0; }
+  virtual Aspect_Drawable NativeHandle() const { return 0; }
 
   //! Returns parent of native Window handle
-  virtual Aspect_Drawable NativeParentHandle() const Standard_OVERRIDE { return 0; }
-
-  //! Returns nothing on Android
-  virtual Aspect_FBConfig NativeFBConfig() const Standard_OVERRIDE { return 0; }
+  virtual Aspect_Drawable NativeParentHandle() const { return 0; }
 
   virtual void Destroy() {}
 
   //! Opens the window <me>
-  virtual void Map() const Standard_OVERRIDE {}
+  virtual void Map() const {}
 
   //! Closes the window <me>
-  virtual void Unmap() const Standard_OVERRIDE {}
+  virtual void Unmap() const {}
 
   //! Applies the resizing to the window <me>
-  virtual Aspect_TypeOfResize DoResize() const Standard_OVERRIDE { return Aspect_TOR_UNKNOWN; }
+  virtual Aspect_TypeOfResize DoResize() const { return Aspect_TOR_UNKNOWN; }
 
   //! Apply the mapping change to the window <me>
-  virtual Standard_Boolean DoMapping() const Standard_OVERRIDE { return Standard_True; }
+  virtual Standard_Boolean DoMapping() const { return Standard_True; }
 
   //! Returns True if the window <me> is opened
-  virtual Standard_Boolean IsMapped() const Standard_OVERRIDE { return Standard_True; }
+  virtual Standard_Boolean IsMapped() const { return Standard_True; }
 
   //! Returns The Window RATIO equal to the physical WIDTH/HEIGHT dimensions
-  virtual Quantity_Ratio Ratio() const Standard_OVERRIDE { return 1.0; }
+  virtual Quantity_Ratio Ratio() const { return 1.0; }
 
   //! Returns The Window POSITION in PIXEL
   virtual void Position (Standard_Integer& theX1,
                          Standard_Integer& theY1,
                          Standard_Integer& theX2,
-                         Standard_Integer& theY2) const Standard_OVERRIDE
+                         Standard_Integer& theY2) const
   {
     theX1 = 0;
     theX2 = myWidth;
@@ -68,10 +65,10 @@ public:
   }
 
   //! Set The Window POSITION in PIXEL
-  void SetPosition (const Standard_Integer theX1,
-                    const Standard_Integer theY1,
-                    const Standard_Integer theX2,
-                    const Standard_Integer theY2)
+  virtual void SetPosition (const Standard_Integer theX1,
+                            const Standard_Integer theY1,
+                            const Standard_Integer theX2,
+                            const Standard_Integer theY2)
   {
     myWidth  = theX2 - theX1;
     myHeight = theY2 - theY1;
@@ -79,15 +76,15 @@ public:
 
   //! Returns The Window SIZE in PIXEL
   virtual void Size (Standard_Integer& theWidth,
-                     Standard_Integer& theHeight) const Standard_OVERRIDE
+                     Standard_Integer& theHeight) const
   {
     theWidth  = myWidth;
     theHeight = myHeight;
   }
 
   //! Set The Window SIZE in PIXEL
-  void SetSize (const Standard_Integer theWidth,
-                const Standard_Integer theHeight)
+  virtual void SetSize (const Standard_Integer theWidth,
+                        const Standard_Integer theHeight)
   {
     myWidth  = theWidth;
     myHeight = theHeight;
@@ -100,7 +97,7 @@ private:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OcctJni_Window,Aspect_Window)
+  DEFINE_STANDARD_RTTI(OcctJni_Window)
 
 };
 

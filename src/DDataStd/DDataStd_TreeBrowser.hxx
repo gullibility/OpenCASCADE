@@ -43,7 +43,7 @@ public:
   
   Standard_EXPORT DDataStd_TreeBrowser(const TDF_Label& root);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
   
@@ -68,7 +68,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DDataStd_TreeBrowser,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(DDataStd_TreeBrowser,Draw_Drawable3D)
 
 protected:
 

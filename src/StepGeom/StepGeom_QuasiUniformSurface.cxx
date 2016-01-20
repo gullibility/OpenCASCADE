@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_QuasiUniformSurface.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_QuasiUniformSurface,StepGeom_BSplineSurface)
-
 StepGeom_QuasiUniformSurface::StepGeom_QuasiUniformSurface ()  {}
 

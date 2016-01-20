@@ -21,8 +21,6 @@
 #include <OSD_Timer.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Chronometer,Draw_Drawable3D)
-
 //=======================================================================
 //function : Draw_Chronometer
 //purpose  : 

@@ -49,11 +49,11 @@ public:
   
   //! Returns the Effective (Dynamic) Type of the Result
   //! (Standard_Transient if no Result is defined)
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Standard_Type) ResultType() const;
   
   //! Returns the Effective Name of (Dynamic) Type of the Result
   //! (void) if no result is defined
-  Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString ResultTypeName() const;
   
   //! Defines the Result
   Standard_EXPORT void SetResult (const Handle(Standard_Transient)& res);
@@ -74,7 +74,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_SimpleBinderOfTransient,Transfer_Binder)
+  DEFINE_STANDARD_RTTI(Transfer_SimpleBinderOfTransient,Transfer_Binder)
 
 protected:
 

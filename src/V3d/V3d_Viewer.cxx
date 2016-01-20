@@ -32,8 +32,6 @@
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_Viewer,MMgt_TShared)
-
 // ========================================================================
 // function : V3d_Viewer
 // purpose  :
@@ -535,22 +533,4 @@ Standard_ExtString V3d_Viewer::NextName() const
 void V3d_Viewer::IncrCount()
 {
   myNextCount++;
-}
-
-//=======================================================================
-//function : DefaultRenderingParams
-//purpose  :
-//=======================================================================
-const Graphic3d_RenderingParams& V3d_Viewer::DefaultRenderingParams() const
-{
-  return myDefaultRenderingParams;
-}
-
-//=======================================================================
-//function : SetDefaultRenderingParams
-//purpose  :
-//=======================================================================
-void V3d_Viewer::SetDefaultRenderingParams (const Graphic3d_RenderingParams& theParams)
-{
-  myDefaultRenderingParams = theParams;
 }

@@ -154,7 +154,7 @@ Storage_Error FSD_File::Close()
 //purpose  : ------------------ PROTECTED
 //=======================================================================
 
-Standard_CString FSD_File::MagicNumber()
+const Standard_CString FSD_File::MagicNumber()
 {
   return MAGICNUMBER;
 }
@@ -747,16 +747,6 @@ void FSD_File::ReadInfo(Standard_Integer& nbObj,
     userInfo.Append(line);
     line.Clear();
   }
-}
-
-//=======================================================================
-//function : ReadCompleteInfo
-//purpose  : 
-//           
-//=======================================================================
-void FSD_File::ReadCompleteInfo( Standard_IStream& /*theIStream*/, Handle(Storage_Data)& /*theData*/)
-{
-
 }
 
 //=======================================================================

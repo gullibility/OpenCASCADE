@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_SeamCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_SeamCurve,StepGeom_SurfaceCurve)
-
 StepGeom_SeamCurve::StepGeom_SeamCurve ()  {}
 

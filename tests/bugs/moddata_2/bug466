@@ -9,5 +9,5 @@ checkshape res
 
 nurbsconvert result res
 
-checkprops result -s 693.577
+set square 693.577
 set 2dviewer 0

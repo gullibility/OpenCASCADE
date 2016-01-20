@@ -16,8 +16,6 @@
 #include <StepRepr_RepresentationContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_RepresentationContext,MMgt_TShared)
-
 StepRepr_RepresentationContext::StepRepr_RepresentationContext ()  {}
 
 void StepRepr_RepresentationContext::Init(

@@ -16,4 +16,4 @@ btolx tool
 
 bfuse result b tool
 
-checkprops result -s 26012
+set square 26012

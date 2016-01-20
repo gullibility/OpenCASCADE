@@ -24,8 +24,6 @@
 #include <TDataStd_Directory.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_DirectoryDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_DirectoryDriver
 //purpose  : 

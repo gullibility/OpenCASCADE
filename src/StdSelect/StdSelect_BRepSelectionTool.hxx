@@ -28,7 +28,6 @@
 #include <Standard_Integer.hxx>
 #include <Select3D_SensitiveEntity.hxx>
 #include <Select3D_EntitySequence.hxx>
-#include <StdSelect_BRepOwner.hxx>
 class TopoDS_Shape;
 class SelectMgr_SelectableObject;
 class StdSelect_BRepOwner;

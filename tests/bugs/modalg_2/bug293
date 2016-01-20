@@ -65,6 +65,5 @@ compound result1 result2 result3 result4 result5 result6 result7 result8  result
 vdisplay result
 vfit
 
-checkprops result -s 9.80214e+06 
-checkshape result
+set square 9.80214e+06
 set only_screen 1

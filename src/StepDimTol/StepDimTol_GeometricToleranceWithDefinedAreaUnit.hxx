@@ -41,48 +41,42 @@ public:
   Standard_EXPORT StepDimTol_GeometricToleranceWithDefinedAreaUnit();
   
   //! Initialize all fields (own and inherited)
-  Standard_EXPORT   void Init(const Handle(TCollection_HAsciiString)& theName, 
-                              const Handle(TCollection_HAsciiString)& theDescription, 
-                              const Handle(StepBasic_MeasureWithUnit)& theMagnitude, 
-                              const StepDimTol_GeometricToleranceTarget& theTolerancedShapeAspect, 
-                              const Handle(StepBasic_LengthMeasureWithUnit)& theUnitSize, 
-                              const StepDimTol_AreaUnitType theAreaType, const Standard_Boolean theHasSecondUnitSize, 
-                              const Handle(StepBasic_LengthMeasureWithUnit)& theSecondUnitSize) ;
+  Standard_EXPORT   void Init (const Handle(TCollection_HAsciiString)& theName, const Handle(TCollection_HAsciiString)& theDescription, const Handle(StepBasic_MeasureWithUnit)& theMagnitude, const StepDimTol_GeometricToleranceTarget& theTolerancedShapeAspect, const Handle(StepBasic_LengthMeasureWithUnit)& theUnitSize, const StepDimTol_AreaUnitType theAreaType, const Standard_Boolean hasSecondUnitSize, const Handle(StepBasic_LengthMeasureWithUnit)& theSecondUnitSize) ;
   
   //! Returns field AreaType
   inline StepDimTol_AreaUnitType AreaType () const
   {
-    return myAreaType;
+    return areaType;
   }
 
   //! Set field AreaType
   inline void SetAreaType (const StepDimTol_AreaUnitType theAreaType)
   {
-    myAreaType = theAreaType;
+    areaType = theAreaType;
   }
 
   //! Returns field SecondUnitSize
   inline Handle(StepBasic_LengthMeasureWithUnit) SecondUnitSize () const
   {
-    return mySecondUnitSize;
+    return secondUnitSize;
   }
 
   //! Set field SecondUnitSize
   inline void SetSecondUnitSize (const Handle(StepBasic_LengthMeasureWithUnit) &theSecondUnitSize)
   {
-    mySecondUnitSize = theSecondUnitSize;
+    secondUnitSize = theSecondUnitSize;
   }
 
   //! Indicates if SecondUnitSize field exist
   inline Standard_Boolean HasSecondUnitSize () const
   {
-    return mySecondUnitSize.IsNull();
+    return secondUnitSize.IsNull();
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithDefinedAreaUnit,StepDimTol_GeometricToleranceWithDefinedUnit)
+  DEFINE_STANDARD_RTTI(StepDimTol_GeometricToleranceWithDefinedAreaUnit, StepDimTol_GeometricToleranceWithDefinedUnit)
 
 private: 
-  StepDimTol_AreaUnitType myAreaType;
-  Handle(StepBasic_LengthMeasureWithUnit) mySecondUnitSize;
+  StepDimTol_AreaUnitType areaType;
+  Handle(StepBasic_LengthMeasureWithUnit) secondUnitSize;
 };
 #endif // _StepDimTol_GeometricToleranceWithDefinedAreaUnit_HeaderFile

@@ -36,15 +36,13 @@
 #include <TColStd_SequenceOfExtendedString.hxx>
 
 #include <locale.h>
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_StorageDriver,PCDM_Writer)
-
 #define STORAGE_VERSION "STORAGE_VERSION:"
 
 
 
 void PCDM_StorageDriver::Write(const Handle(CDM_Document)& aDocument, const TCollection_ExtendedString&  aFileName) 
 {
-  Handle(Storage_Schema) theSchema = new Storage_Schema;
+  Handle(Storage_Schema) theSchema=PCDM::Schema(SchemaName(),aDocument->Application());
 
   TColStd_SequenceOfExtendedString theExtensions;
   aDocument->Extensions(theExtensions);
@@ -105,15 +103,6 @@ void PCDM_StorageDriver::Write(const Handle(CDM_Document)& aDocument, const TCol
     PCDM_DriverError::Raise(theData->ErrorStatusExtension().ToCString());
 }
 
-
-//=======================================================================
-//function : Write
-//purpose  : 
-//=======================================================================
-void PCDM_StorageDriver::Write (const Handle(CDM_Document)& /*aDocument*/, Standard_OStream& /*theOStream*/) 
-{
-  
-}
 //void PCDM_StorageDriver::LoadExtensions(const Handle(Storage_Schema)& aSchema, const TColStd_SequenceOfExtendedString& Extensions) {}
 void PCDM_StorageDriver::LoadExtensions(const Handle(Storage_Schema)& , const TColStd_SequenceOfExtendedString& ) {}
 

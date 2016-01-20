@@ -41,19 +41,19 @@ public:
   //! Returns field Name
   inline Handle(TCollection_HAsciiString) Name()
   {
-    return myName;
+    return name;
   }
   
   //! Set field Name
   inline void SetName(const Handle(TCollection_HAsciiString) &theName)
   {
-    myName = theName;
+    name = theName;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm,MMgt_TShared)
+  DEFINE_STANDARD_RTTI(StepDimTol_ToleranceZoneForm, MMgt_TShared)
   
 private:
-  Handle(TCollection_HAsciiString) myName;
+  Handle(TCollection_HAsciiString) name;
 
 };
 #endif // _StepDimTol_ToleranceZoneForm_HeaderFile

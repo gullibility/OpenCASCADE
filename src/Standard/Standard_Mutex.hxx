@@ -20,11 +20,11 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_ErrorHandlerCallback.hxx>
 
-#if defined(_WIN32)
+#if (defined(_WIN32) || defined(__WIN32__))
   #include <windows.h>
 #else
   #include <pthread.h>
-  ///#include <sys/errno.h>
+  #include <sys/errno.h>
   #include <unistd.h>
   #include <time.h>
 #endif

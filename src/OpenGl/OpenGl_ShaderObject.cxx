@@ -21,8 +21,6 @@
 #include <TCollection_AsciiString.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderObject,OpenGl_Resource)
-
 // =======================================================================
 // function : OpenGl_ShaderObject
 // purpose  : Creates uninitialized shader object

@@ -59,6 +59,11 @@ public:
   //! Resizes the window.
   Standard_EXPORT virtual void Resize();
 
+  //! Reads depth component for current scene into specified buffer.
+  void ReadDepths (const Standard_Integer theX,     const Standard_Integer theY,
+                   const Standard_Integer theWidth, const Standard_Integer theHeight,
+                   float* theDepths);
+
   Handle(Aspect_Window) PlatformWindow() { return myPlatformWindow; }
 
   Standard_Integer Width()  const { return myWidth; }
@@ -94,7 +99,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Window,MMgt_TShared) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_Window, MMgt_TShared) // Type definition
   DEFINE_STANDARD_ALLOC
 
 };

@@ -10,5 +10,4 @@ copy c2_1 c2
 bop c1 c2
 bopsection result
 
-checkprops result -l 24.3614
-checksection result
+set length 24.3614

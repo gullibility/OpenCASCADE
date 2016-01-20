@@ -18,7 +18,6 @@
 #include <BOPAlgo_PaveFiller.hxx>
 #include <BOPAlgo_Section.hxx>
 #include <BOPTest_Objects.hxx>
-#include <BOPAlgo_CellsBuilder.hxx>
 #include <NCollection_BaseAllocator.hxx>
 
 static Handle(NCollection_BaseAllocator)& Allocator1();
@@ -50,8 +49,7 @@ class BOPTest_Session {
     //
     myBuilder=myBuilderDefault;
     myRunParallel=Standard_False;
-    myNonDestructive = Standard_False;
-    myFuzzyValue = 0.;
+    myFuzzyValue=0.;
   };
   //
   // Clear
@@ -115,14 +113,6 @@ class BOPTest_Session {
     return myFuzzyValue;
   };
   //
-  void SetNonDestructive(const Standard_Boolean theFlag) {
-    myNonDestructive = theFlag;
-  };
-  //
-  Standard_Boolean NonDestructive()const {
-    return myNonDestructive;
-  };
-  //
 protected:
   //
   BOPTest_Session(const BOPTest_Session&);
@@ -137,7 +127,6 @@ protected:
   BOPCol_ListOfShape myShapes;
   BOPCol_ListOfShape myTools;
   Standard_Boolean myRunParallel;
-  Standard_Boolean myNonDestructive;
   Standard_Real myFuzzyValue;
 };
 //
@@ -235,15 +224,6 @@ BOPAlgo_Section& BOPTest_Objects::Section()
   return sSection;
 }
 //=======================================================================
-//function : CellsBuilder
-//purpose  : 
-//=======================================================================
-BOPAlgo_CellsBuilder& BOPTest_Objects::CellsBuilder()
-{
-  static BOPAlgo_CellsBuilder sCBuilder(Allocator1());
-  return sCBuilder;
-}
-//=======================================================================
 //function : Shapes
 //purpose  : 
 //=======================================================================
@@ -290,22 +270,6 @@ void BOPTest_Objects::SetFuzzyValue(const Standard_Real aValue)
 Standard_Real BOPTest_Objects::FuzzyValue()
 {
   return GetSession().FuzzyValue();
-}
-//=======================================================================
-//function : SetNonDestructive
-//purpose  : 
-//=======================================================================
-void BOPTest_Objects::SetNonDestructive(const Standard_Boolean theFlag)
-{
-  GetSession().SetNonDestructive(theFlag);
-}
-//=======================================================================
-//function : NonDestructive
-//purpose  : 
-//=======================================================================
-Standard_Boolean BOPTest_Objects::NonDestructive()
-{
-  return GetSession().NonDestructive();
 }
 //=======================================================================
 //function : Allocator1

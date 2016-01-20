@@ -272,7 +272,7 @@ public:
     return myFOVy;
   }
 
-  //! Estimate Z-min and Z-max planes of projection volume to match the
+  //! Change Z-min and Z-max planes of projection volume to match the
   //! displayed objects. The methods ensures that view volume will
   //! be close by depth range to the displayed objects. Fitting assumes that
   //! for orthogonal projection the view volume contains the displayed objects
@@ -284,19 +284,8 @@ public:
   //!   Program error exception is thrown if negative or zero value is passed.
   //! @param theMinMax [in] applicative min max boundaries.
   //! @param theScaleFactor [in] real graphical boundaries (not accounting infinite flag).
-  Standard_EXPORT bool ZFitAll (const Standard_Real theScaleFactor,
-                                const Bnd_Box&      theMinMax,
-                                const Bnd_Box&      theGraphicBB,
-                                Standard_Real&      theZNear,
-                                Standard_Real&      theZFar) const;
 
-  //! Change Z-min and Z-max planes of projection volume to match the displayed objects.
-  void ZFitAll (const Standard_Real theScaleFactor, const Bnd_Box& theMinMax, const Bnd_Box& theGraphicBB)
-  {
-    Standard_Real aZNear = 0.0, aZFar = 1.0;
-    ZFitAll (theScaleFactor, theMinMax, theGraphicBB, aZNear, aZFar);
-    SetZRange (aZNear, aZFar);
-  }
+  Standard_EXPORT void ZFitAll (const Standard_Real theScaleFactor, const Bnd_Box& theMinMax, const Bnd_Box& theGraphicBB);
 
   //! Change the Near and Far Z-clipping plane positions.
   //! For orthographic projection, theZNear, theZFar can be negative or positive.
@@ -637,7 +626,7 @@ private:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Camera,Standard_Transient);
+  DEFINE_STANDARD_RTTI(Graphic3d_Camera, Standard_Transient);
 };
 
 DEFINE_STANDARD_HANDLE (Graphic3d_Camera, Standard_Transient)

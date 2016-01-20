@@ -21,8 +21,6 @@
 #include <Prs3d_Projector.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Prs3d_Projector,MMgt_TShared)
-
 Prs3d_Projector::Prs3d_Projector (const HLRAlgo_Projector& HLPr): MyProjector(HLPr)
 {}
 

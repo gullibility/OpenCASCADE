@@ -30,6 +30,7 @@
 #include <Graphic3d_GraduatedTrihedron.hxx>
 #include <Graphic3d_MapOfStructure.hxx>
 #include <Graphic3d_NMapOfTransient.hxx>
+#include <Graphic3d_PtrFrameBuffer.hxx>
 #include <Graphic3d_RenderingParams.hxx>
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
 #include <Graphic3d_SequenceOfStructure.hxx>
@@ -295,6 +296,13 @@ public:
   //! @param theMax [in] the maximum point of scene.
   virtual void GraduatedTrihedronMinMaxValues (const Graphic3d_Vec3 theMin, const Graphic3d_Vec3 theMax) = 0;
 
+  //! Reads depths of shown pixels of the given rectangle.
+  virtual void ReadDepths (const Standard_Integer theX,
+                           const Standard_Integer theY,
+                           const Standard_Integer theWidth,
+                           const Standard_Integer theHeight,
+                           const Standard_Address theBuffer) const = 0;
+
   //! Dump active rendering buffer into specified memory buffer.
   virtual Standard_Boolean BufferDump (Image_PixMap& theImage, const Graphic3d_BufferType& theBufferType) = 0;
 
@@ -348,28 +356,28 @@ public:
                                   const Graphic3d_ZLayerSettings& theSettings) = 0;
 
   //! Returns pointer to an assigned framebuffer object.
-  virtual Handle(Standard_Transient) FBO() const = 0;
+  virtual Graphic3d_PtrFrameBuffer FBO() const = 0;
 
   //! Sets framebuffer object for offscreen rendering.
-  virtual void SetFBO (const Handle(Standard_Transient)& theFbo) = 0;
+  virtual void SetFBO (const Graphic3d_PtrFrameBuffer theFBO) = 0;
 
   //! Generate offscreen FBO in the graphic library.
   //! If not supported on hardware returns NULL.
-  virtual Handle(Standard_Transient) FBOCreate (const Standard_Integer theWidth,
-                                                const Standard_Integer theHeight) = 0;
+  virtual Graphic3d_PtrFrameBuffer FBOCreate (const Standard_Integer theWidth,
+                                              const Standard_Integer theHeight) = 0;
 
   //! Remove offscreen FBO from the graphic library
-  virtual void FBORelease (Handle(Standard_Transient)& theFbo) = 0;
+  virtual void FBORelease (Graphic3d_PtrFrameBuffer& theFBOPtr) = 0;
 
   //! Read offscreen FBO configuration.
-  virtual void FBOGetDimensions (const Handle(Standard_Transient)& theFbo,
+  virtual void FBOGetDimensions (const Graphic3d_PtrFrameBuffer theFBOPtr,
                                  Standard_Integer& theWidth,
                                  Standard_Integer& theHeight,
                                  Standard_Integer& theWidthMax,
                                  Standard_Integer& theHeightMax) = 0;
 
   //! Change offscreen FBO viewport.
-  virtual void FBOChangeViewport (const Handle(Standard_Transient)& theFbo,
+  virtual void FBOChangeViewport (Graphic3d_PtrFrameBuffer& theFBOPtr,
                                   const Standard_Integer theWidth,
                                   const Standard_Integer theHeight) = 0;
 
@@ -570,7 +578,7 @@ protected:
 
 private:
 
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_CView,Graphic3d_DataStructureManager)
+  DEFINE_STANDARD_RTTI (Graphic3d_CView, Graphic3d_DataStructureManager)
 };
 
 #endif // _Graphic3d_CView_HeaderFile

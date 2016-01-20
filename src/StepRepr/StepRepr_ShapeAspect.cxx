@@ -17,8 +17,6 @@
 #include <StepRepr_ShapeAspect.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ShapeAspect,MMgt_TShared)
-
 StepRepr_ShapeAspect::StepRepr_ShapeAspect ()  {}
 
 void StepRepr_ShapeAspect::Init(

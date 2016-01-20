@@ -18,8 +18,6 @@
 #include <StepVisual_TextLiteral.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_TextLiteral,StepGeom_GeometricRepresentationItem)
-
 StepVisual_TextLiteral::StepVisual_TextLiteral ()  {}
 
 void StepVisual_TextLiteral::Init(

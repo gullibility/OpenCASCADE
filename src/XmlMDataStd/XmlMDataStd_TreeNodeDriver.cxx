@@ -23,7 +23,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataStd_TreeNodeDriver,XmlMDF_ADriver)
 IMPLEMENT_DOMSTRING (TreeIdString,   "treeid")
 IMPLEMENT_DOMSTRING (ChildrenString, "children")
 

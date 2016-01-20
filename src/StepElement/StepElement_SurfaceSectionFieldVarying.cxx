@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepElement_SurfaceSectionFieldVarying.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSectionFieldVarying,StepElement_SurfaceSectionField)
-
 //=======================================================================
 //function : StepElement_SurfaceSectionFieldVarying
 //purpose  : 

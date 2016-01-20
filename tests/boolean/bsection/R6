@@ -57,5 +57,4 @@ if { $Jtime < $Ktime || $Jtime < $Ltime || $Jtime < $Mtime} {
 
 compound resab rescd resef resgh result
 
-checkprops result -l 1.41538e+07
-checksection result
+set length 1.41538e+07

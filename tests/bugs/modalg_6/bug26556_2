@@ -1,4 +1,3 @@
-puts "REQUIRED All: ERROR. Degenerated normal on input data."
 puts "========"
 puts "OCC26556"
 puts "========"
@@ -10,5 +9,10 @@ puts ""
 restore [locate_data_file OCC26556-004_extract_2015-01-C37_0240_res.brep] sh
 offsetparameter 1e-7 p i
 offsetload sh 400
+decho off
+set bug_info [offsetperform r]
+decho on
 
-offsetperform r
+if {$bug_info != "ERROR. Degenerated normal on input data."} {
+  puts "ERROR: OCC26556 is reproduced. Error message is absent."
+}

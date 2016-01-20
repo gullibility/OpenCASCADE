@@ -43,7 +43,7 @@ public:
   Standard_EXPORT IGESDraw_SpecificModule();
   
   //! Specific Dump (own parameters) for IGESDraw
-  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const;
   
   //! Performs non-ambiguous Corrections on Entities which support
   //! them (Planar)
@@ -52,7 +52,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESDraw_SpecificModule,IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTI(IGESDraw_SpecificModule,IGESData_SpecificModule)
 
 protected:
 

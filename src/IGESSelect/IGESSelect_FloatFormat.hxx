@@ -84,16 +84,16 @@ public:
   
   //! Sets the Floatting Formats of IGESWriter to the recorded
   //! parameters
-  Standard_EXPORT void Perform (IFSelect_ContextWrite& ctx, IGESData_IGESWriter& writer) const Standard_OVERRIDE;
+  Standard_EXPORT void Perform (IFSelect_ContextWrite& ctx, IGESData_IGESWriter& writer) const;
   
   //! Returns specific Label : for instance,
   //! "Float Format [ZeroSuppress] %E [, in range R1-R2 %f]"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_FloatFormat,IGESSelect_FileModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_FloatFormat,IGESSelect_FileModifier)
 
 protected:
 

@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_FaceOuterBound.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_FaceOuterBound,StepShape_FaceBound)
-
 StepShape_FaceOuterBound::StepShape_FaceOuterBound ()  {}
 

@@ -15,8 +15,6 @@
 
 #include <StepDimTol_ToleranceZoneForm.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm,MMgt_TShared)
-
 //=======================================================================
 //function : StepDimTol_ToleranceZoneForm
 //purpose  : 
@@ -33,5 +31,5 @@ void StepDimTol_ToleranceZoneForm::Init(
   const Handle(TCollection_HAsciiString)& theName)
 {
   // --- classe own fields ---
-  myName = theName;
+  name = theName;
 }

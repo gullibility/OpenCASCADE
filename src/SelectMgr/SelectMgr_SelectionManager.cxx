@@ -28,8 +28,6 @@
 #include <TColStd_ListOfInteger.hxx>
 #include <TColStd_MapIteratorOfMapOfTransient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SelectionManager,MMgt_TShared)
-
 static Standard_Integer FindIndex (const SelectMgr_SequenceOfSelector& theSelectorsSeq,
                                    const Handle(SelectMgr_ViewerSelector)& theSelector)
 {
@@ -691,7 +689,6 @@ void SelectMgr_SelectionManager::RecomputeSelection (const Handle(SelectMgr_Sele
   for(theObject->Init(); theObject->More(); theObject->Next())
   {
     const Handle(SelectMgr_Selection)& aSelection = theObject->CurrentSelection();
-    aSelection->UpdateStatus (SelectMgr_TOU_Full);
     Standard_Integer aSelMode = aSelection->Mode();
 
     for (TColStd_MapIteratorOfMapOfTransient aSelectorIter (mySelectors); aSelectorIter.More(); aSelectorIter.Next())
@@ -702,10 +699,10 @@ void SelectMgr_SelectionManager::RecomputeSelection (const Handle(SelectMgr_Sele
           ClearSelectionStructures (theObject, aSelMode, aCurSelector);
           theObject->RecomputePrimitives(aSelMode);
           RestoreSelectionStructures (theObject, aSelMode, aCurSelector);
-          aSelection->UpdateStatus (SelectMgr_TOU_None);
-          aSelection->UpdateBVHStatus (SelectMgr_TBU_None);
       }
     }
+    aSelection->UpdateStatus (SelectMgr_TOU_None);
+    aSelection->UpdateBVHStatus (SelectMgr_TBU_None);
   }
 }
 

@@ -19,6 +19,5 @@ vsetdispmode 1
 vdisplay result
 vfit
 
-checkprops result -s 619.595 
-checkshape result
+set square 619.595
 set 3dviewer 1

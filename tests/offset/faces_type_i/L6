@@ -11,4 +11,4 @@ prism s w 0 0 10
 
 OFFSETSHAPE -1 {s_4 s_5} $calcul $type
 
-checkprops result -v 272.867
+set volume 272.867

@@ -25,8 +25,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StdSelect_FaceFilter,SelectMgr_Filter)
-
 /*#include <.hxx>
 #include <.hxx>
 #include <.hxx>

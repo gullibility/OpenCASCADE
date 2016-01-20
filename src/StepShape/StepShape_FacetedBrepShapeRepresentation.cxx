@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_FacetedBrepShapeRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_FacetedBrepShapeRepresentation,StepShape_ShapeRepresentation)
-
 StepShape_FacetedBrepShapeRepresentation::StepShape_FacetedBrepShapeRepresentation ()  {}
 

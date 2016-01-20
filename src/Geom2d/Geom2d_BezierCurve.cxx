@@ -28,6 +28,7 @@
 #define No_Standard_DimensionError
 
 
+#include <BSplCLib.hxx>
 #include <Geom2d_BezierCurve.hxx>
 #include <Geom2d_Geometry.hxx>
 #include <gp.hxx>
@@ -43,8 +44,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_Array1OfReal.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_BezierCurve,Geom2d_BoundedCurve)
 
 //=======================================================================
 //function : Rational
@@ -68,7 +67,8 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& W)
 //=======================================================================
 
 Geom2d_BezierCurve::Geom2d_BezierCurve
- (const TColgp_Array1OfPnt2d& Poles)
+ (const TColgp_Array1OfPnt2d& Poles):
+ validcache(0), parametercache(0.), spanlenghtcache(1.)
 {
   //  copy the poles
   
@@ -89,8 +89,9 @@ Geom2d_BezierCurve::Geom2d_BezierCurve
 //=======================================================================
 
 Geom2d_BezierCurve::Geom2d_BezierCurve
-(const TColgp_Array1OfPnt2d&  Poles,
- const TColStd_Array1OfReal& Weights)
+(const TColgp_Array1OfPnt2d&  Poles, 
+ const TColStd_Array1OfReal& Weights):
+ validcache(0), parametercache(0.), spanlenghtcache(1.)
 
 {
   // copy the poles
@@ -345,6 +346,8 @@ void Geom2d_BezierCurve::Reverse ()
       cweights(nbpoles-i+1) = w;
     }
   }
+  
+  UpdateCoefficients();
 }
 
 
@@ -373,21 +376,18 @@ void Geom2d_BezierCurve::Segment
 //   WARNING : when calling trimming be carefull that the cache
 //   is computed regarding 0.0e0 and not 1.0e0 
 //
-  TColStd_Array1OfReal bidflatknots(BSplCLib::FlatBezierKnots(Degree()), 1, 2 * (Degree() + 1));
-  TColgp_Array1OfPnt2d coeffs(1, poles->Size());
+
   if (IsRational()) {
-    TColStd_Array1OfReal wcoeffs(1, poles->Size());
-    BSplCLib::BuildCache(0.0, 1.0, 0, Degree(), bidflatknots,
-        poles->Array1(), &weights->Array1(), coeffs, &wcoeffs);
-    PLib::Trimming(U1, U2, coeffs, &wcoeffs);
-    PLib::CoefficientsPoles(coeffs, &wcoeffs, poles->ChangeArray1(), &weights->ChangeArray1());
+    PLib::Trimming(U1,U2,coeffs->ChangeArray1(),&wcoeffs->ChangeArray1());
+    PLib::CoefficientsPoles(coeffs->Array1(),&wcoeffs->Array1(),
+			    poles->ChangeArray1(),&weights->ChangeArray1());
   }
   else {
-    BSplCLib::BuildCache(0.0, 1.0, 0, Degree(), bidflatknots,
-        poles->Array1(), BSplCLib::NoWeights(), coeffs, BSplCLib::NoWeights());
-    PLib::Trimming(U1, U2, coeffs, PLib::NoWeights());
-    PLib::CoefficientsPoles(coeffs, PLib::NoWeights(), poles->ChangeArray1(), PLib::NoWeights());
+    PLib::Trimming(U1,U2,coeffs->ChangeArray1(), PLib::NoWeights());
+    PLib::CoefficientsPoles(coeffs->Array1(), PLib::NoWeights(),
+			                      poles->ChangeArray1(), PLib::NoWeights());
   }
+  UpdateCoefficients();
 }
 
 
@@ -409,6 +409,8 @@ void Geom2d_BezierCurve::SetPole
   if (Index == 1 || Index == cpoles.Length()) {
     closed = (cpoles(1).Distance(cpoles(NbPoles())) <= gp::Resolution());
   }
+  
+  UpdateCoefficients();
 }
 
 
@@ -454,6 +456,7 @@ void Geom2d_BezierCurve::SetWeight
     
     // set weights of 1.
     weights = new TColStd_HArray1OfReal(1,nbpoles);
+    wcoeffs = new TColStd_HArray1OfReal(1,nbpoles);
     weights->Init(1.);
   }
   
@@ -461,8 +464,14 @@ void Geom2d_BezierCurve::SetWeight
   cweights(Index) = Weight;
   
   // is it turning into non rational
-  if (wasrat && !Rational(cweights))
-    weights.Nullify();
+  if (wasrat) {
+    if (!Rational(cweights)) {
+      weights.Nullify();
+      wcoeffs.Nullify();
+    }
+  }
+  
+  UpdateCoefficients();
 }
 
 
@@ -539,7 +548,16 @@ Standard_Integer Geom2d_BezierCurve::Degree () const
 
 void Geom2d_BezierCurve::D0 (const Standard_Real U, gp_Pnt2d& P ) const
 {
-  BSplCLib::D0(U, Poles(), Weights(), P);
+//  Idee lumineuse sacrifiee sur l autel des performances.
+//
+//  if(!CoefficientsOK(U)) 
+//    ((Geom2d_BezierCurve*)(void*)this)->UpdateCoefficients(U);
+  if (IsRational())
+    BSplCLib::CacheD0(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(),&wcoeffs->Array1(),P);
+  else 
+    BSplCLib::CacheD0(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(), BSplCLib::NoWeights(), P);
 }
 
 //=======================================================================
@@ -551,7 +569,16 @@ void Geom2d_BezierCurve::D1(const Standard_Real U,
 			    gp_Pnt2d& P, 
 			    gp_Vec2d& V1) const
 {
-  BSplCLib::D1(U, Poles(), Weights(), P, V1);
+//  Idee lumineuse sacrifiee sur l autel des performances.
+//
+//  if(!CoefficientsOK(U)) 
+//    ((Geom2d_BezierCurve*)(void*)this)->UpdateCoefficients(U);
+  if (IsRational())
+    BSplCLib::CacheD1(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(),&wcoeffs->Array1(),P,V1);
+  else 
+    BSplCLib::CacheD1(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(), BSplCLib::NoWeights(), P,V1);
 }
 
 //=======================================================================
@@ -564,7 +591,16 @@ void Geom2d_BezierCurve::D2 (const Standard_Real U,
 			     gp_Vec2d& V1,
 			     gp_Vec2d& V2) const
 {
-  BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
+//  Idee lumineuse sacrifiee sur l autel des performances.
+//
+//  if(!CoefficientsOK(U)) 
+//    ((Geom2d_BezierCurve*)(void*)this)->UpdateCoefficients(U);
+  if (IsRational())
+    BSplCLib::CacheD2(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(),&wcoeffs->Array1(),P,V1,V2);
+  else 
+    BSplCLib::CacheD2(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(), BSplCLib::NoWeights(), P,V1,V2);
 }
 
 //=======================================================================
@@ -578,7 +614,16 @@ void Geom2d_BezierCurve::D3 (const Standard_Real U,
 			     gp_Vec2d& V2,
 			     gp_Vec2d& V3) const
 {
-  BSplCLib::D3(U, Poles(), Weights(), P, V1, V2, V3);
+//  Idee lumineuse sacrifiee sur l autel des performances.
+//
+//  if(!CoefficientsOK(U)) 
+//    ((Geom2d_BezierCurve*)(void*)this)->UpdateCoefficients(U);
+  if (IsRational())
+    BSplCLib::CacheD3(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(),&wcoeffs->Array1(),P,V1,V2,V3);
+  else 
+    BSplCLib::CacheD3(U,Degree(),parametercache,spanlenghtcache,
+		      coeffs->Array1(), BSplCLib::NoWeights(), P,V1,V2,V3);
 }
 
 //=======================================================================
@@ -739,6 +784,8 @@ void Geom2d_BezierCurve::Transform (const gp_Trsf2d& T)
   
   for (Standard_Integer i = 1; i <= nbpoles; i++) 
     cpoles (i).Transform(T);
+  
+  UpdateCoefficients();
 }
 
 
@@ -815,10 +862,60 @@ void Geom2d_BezierCurve::Init
   rational = !Weights.IsNull();
   
   // set fields
-  poles = Poles;
-  if (rational)
+  poles   = Poles;
+  coeffs  = new TColgp_HArray1OfPnt2d  (1,nbpoles);
+  
+  if (rational) {
     weights = Weights;
-  else
+    wcoeffs = new TColStd_HArray1OfReal (1, nbpoles, 0.0);
+  }
+  else {
     weights.Nullify();
+    wcoeffs.Nullify();
+  }
+  
+  UpdateCoefficients();
+}
+
+
+//=======================================================================
+//function : CoefficientsOK
+//purpose  : 
+//=======================================================================
+
+//Standard_Boolean Geom2d_BezierCurve::CoefficientsOK(const Standard_Real U)const
+Standard_Boolean Geom2d_BezierCurve::CoefficientsOK(const Standard_Real )const
+{
+  return (validcache) ;
+			
+}
+
+
+//=======================================================================
+//function : UpdateCoefficients
+//purpose  : 
+//=======================================================================
+
+//void Geom2d_BezierCurve::UpdateCoefficients(const Standard_Real U)
+void Geom2d_BezierCurve::UpdateCoefficients(const Standard_Real )
+{
+  maxderivinvok = 0;
+  parametercache = 0.;
+//  
+//  Idee lumineuse sacrifiee sur l autel des performances.
+//  if (U >= 1.) parametercache = 1.;
+  TColStd_Array1OfReal bidflatknots(BSplCLib::FlatBezierKnots(Degree()),
+				    1, 2*(Degree()+1));
+  if (IsRational())
+    BSplCLib::BuildCache(parametercache,spanlenghtcache,0,Degree(),
+			 bidflatknots,poles->Array1(),&weights->Array1(),
+			 coeffs->ChangeArray1(),&wcoeffs->ChangeArray1());
+  else
+    BSplCLib::BuildCache(parametercache,spanlenghtcache,0,Degree(),
+			 bidflatknots,poles->Array1(),
+			 BSplCLib::NoWeights(),
+			 coeffs->ChangeArray1(),
+			 BSplCLib::NoWeights());
+  validcache = 1;
 }
 

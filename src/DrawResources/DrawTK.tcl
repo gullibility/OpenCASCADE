@@ -29,12 +29,7 @@ if { [info exists tk_library] } {
 
 #fills menu "Load" with submenus
 proc fillloadmenu {} {
-  set drawplugpath "$::env(CASROOT)/src/DrawResources/DrawPlugin"
-  if {[array names ::env OCCT_RESOURCE_PATH] != "" && "$::env(OCCT_RESOURCE_PATH)" != "" && [file exists $::env(OCCT_RESOURCE_PATH)/DrawResources/DrawPlugin]} {
-    set drawplugpath "$::env(OCCT_RESOURCE_PATH)/DrawResources/DrawPlugin"
-  }
-
-  set chan [open [file nativename $drawplugpath]]
+  set chan [open [file nativename $::env(CASROOT)/src/DrawResources/DrawPlugin]]
   while {[gets $chan line] >= 0} {
     if {[lindex [split $line ""] 0] != "!"} {
       if {[lindex [split $line ""] 0] == ""} {continue}
@@ -235,14 +230,8 @@ proc vsource {} {
 proc vsamples {} {
   #create list {{category} {title} {filename}}
   set alistofthree ""
-
-  set samplespath "$::env(CASROOT)/samples/tcl/"
-  if { [array names ::env OCCT_SHARE_PATH] != "" && "$::env(OCCT_SHARE_PATH)" != "" && [file exists $::env(OCCT_SHARE_PATH)/samples/tcl/]} {
-    set samplespath "$::env(OCCT_SHARE_PATH)/samples/tcl/"
-  }
-
-  foreach fname [glob -path "${samplespath}" *.tcl] {
-
+  foreach fname [file nativename  [glob -path $::env(CASROOT)/samples/tcl/ *]] {
+   if {[lindex [split $fname "."] end] != "tcl"} {continue}
     set chan [open $fname]
     set istitlefound 0
     while {[gets $chan line] >= 0} {
@@ -405,13 +394,7 @@ proc about {} {
   set screenheight [expr {int([winfo screenheight .]*0.5-200)}]
   set screenwidth [expr {int([winfo screenwidth .]*0.5-200)}]
   wm geometry .about 400x200+$screenwidth+$screenheight
-
-  set logopath "$::env(CASROOT)/src/DrawResources/OCC_logo.png"
-  if {[array names ::env OCCT_RESOURCE_PATH] != "" && "$::env(OCCT_RESOURCE_PATH)" != "" && [file exists $::env(OCCT_RESOURCE_PATH)/DrawResources/OCC_logo.png]} {
-    set logopath "$::env(OCCT_RESOURCE_PATH)/DrawResources/OCC_logo.png"
-  }
-
-  image create photo occlogo -file $logopath -format png
+  image create photo occlogo -file $::env(CASROOT)/src/DrawResources/OCC_logo.png -format png
   frame .about.logo -bg red
   frame .about.links -bg blue
   frame .about.copyright
@@ -462,17 +445,13 @@ proc _launchBrowser {url} {
 # Else opens a site with this guide
 ################################################################
 proc openuserguide {} {
-  if { [array names ::env OCCT_SHARE_PATH] != "" && "$::env(OCCT_SHARE_PATH)" != "" && [file exists $::env(OCCT_SHARE_PATH)/doc/pdf/user_guides/occt_test_harness.pdf]} {
-    _launchBrowser $::env(OCCT_SHARE_PATH)/doc/pdf/user_guides/occt_test_harness.pdf
-  } elseif {  [array names ::env OCCT_SHARE_PATH] != "" && "$::env(OCCT_SHARE_PATH)" != "" && [file exists $::env(OCCT_SHARE_PATH)/doc/overview/html/occt_user_guides__test_harness.html]} {
-    _launchBrowser $::env(OCCT_SHARE_PATH)/doc/overview/html/occt_user_guides__test_harness.html
-  } elseif [file exists $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf] {
-    _launchBrowser $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf
+  if [file exists $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf] {
+  _launchBrowser $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf
   } elseif [file exists $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html] {
-    _launchBrowser $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html
+      _launchBrowser $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html
   } else {
-    launchBrowser {http://dev.opencascade.org/doc/overview/html/occt_user_guides__test_harness.html}
-  }
+      _launchBrowser {http://dev.opencascade.org/doc/overview/html/occt_user_guides__test_harness.html}
+    }
 }
 
 #Search through commands and display the result

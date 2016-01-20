@@ -19,8 +19,6 @@
 #include <IGESDimen_DimensionTolerance.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_DimensionTolerance,IGESData_IGESEntity)
-
 IGESDimen_DimensionTolerance::IGESDimen_DimensionTolerance ()    {  }
 
 

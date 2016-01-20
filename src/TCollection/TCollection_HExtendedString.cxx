@@ -26,8 +26,6 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TCollection_HExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TCollection_HExtendedString,MMgt_TShared)
-
 // ----------------------------------------------------------------------------
 // Create
 // ----------------------------------------------------------------------------
@@ -253,6 +251,14 @@ Handle(TCollection_HExtendedString) TCollection_HExtendedString::Token
          (const Standard_ExtString separators,const Standard_Integer whichone) const
 {
    return new TCollection_HExtendedString(myString.Token(separators,whichone));
+}
+
+// ----------------------------------------------------------------------------
+// ToExtString
+// ----------------------------------------------------------------------------
+const Standard_ExtString TCollection_HExtendedString::ToExtString() const
+{ 
+   return (myString.ToExtString());
 }
 
 // ----------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 puts "TODO OCC11111 ALL: Error :  is WRONG because number of "
+puts "TODO OCC11111 ALL: Error : The square of result shape is"
 puts "============"
 puts "OCC10160"
 puts "============"
@@ -39,8 +40,7 @@ puts "CPU_user_time=${CPU_user_time}"
 set CPU_user_time [expr ${CPU_user_time} / ${NbTests}]
 puts "CPU_user_time=${CPU_user_time}"
 
-checkprops result -s 2.36194e+07 
-checkshape result
+set square 2.36194e+07
 
 # Analysis of "nbshapes res"
 checknbshapes result -vertex 24 -edge 34 -wire 20 -face 19 -shell 4 -solid 4 -compsolid 0 -compound 1 -shape 106

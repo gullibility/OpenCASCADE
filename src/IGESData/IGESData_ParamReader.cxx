@@ -172,7 +172,7 @@ Interface_ParamType IGESData_ParamReader::ParamType
 //purpose  : 
 //=======================================================================
 
-Standard_CString IGESData_ParamReader::ParamValue
+const Standard_CString IGESData_ParamReader::ParamValue
   (const Standard_Integer num) const
 {
   return theparams->Value(num+thebase).CValue();

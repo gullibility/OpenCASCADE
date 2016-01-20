@@ -17,7 +17,12 @@ bsection result a b
 # result should be single open edge with length 0.125
 checknbshapes result -vertex 2 -edge 1
 checkmaxtol result -ref 0.0001
-checkprops result -l 0.125
+
+if { [regexp {Mass\s*:\s*([0-9.e+-]*)} [lprops result] dummy length] } {
+  checkreal "Length of the section" $length 0.125 0.0001 0.1
+} else {
+  puts "Error: cannot get length of result!"
+}
 
 # make snapshot
 vinit Driver1/Viewer1/View1

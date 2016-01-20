@@ -23,16 +23,11 @@ void Standard_Transient::Delete() const
   delete this;
 }
 
-const Handle(Standard_Type)& Standard_Transient::get_type_descriptor ()
-{
-  return opencascade::type_instance<Standard_Transient>::get();
-}
-
 //
 //
 const Handle(Standard_Type)& Standard_Transient::DynamicType() const
 {
-  return get_type_descriptor();
+  return opencascade::type_instance<Standard_Transient>::get();
 }
 
 //

@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <Vrml_TextureCoordinate2.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_TextureCoordinate2,MMgt_TShared)
-
 Vrml_TextureCoordinate2::Vrml_TextureCoordinate2()
 {
   gp_Vec2d tmpVec(0,0);
@@ -41,21 +39,21 @@ Vrml_TextureCoordinate2::Vrml_TextureCoordinate2(const Handle(TColgp_HArray1OfVe
  Standard_OStream& Vrml_TextureCoordinate2::Print(Standard_OStream& anOStream) const
 {
  Standard_Integer i;
- anOStream  << "TextureCoordinate2 {\n";
+ anOStream  << "TextureCoordinate2 {" << endl;
 
  if ( myPoint->Length() != 1 || Abs(myPoint->Value(myPoint->Lower()).X() - 0) > 0.0001 || 
                                 Abs(myPoint->Value(myPoint->Lower()).Y() - 0) > 0.0001 )
   { 
-   anOStream  << "    point [\n\t";
+   anOStream  << "    point [" << endl << '\t';
     for ( i = myPoint->Lower(); i <= myPoint->Upper(); i++ )
 	{
-	 anOStream << myPoint->Value(i).X() << " " << myPoint->Value(i).Y();
+	 anOStream << myPoint->Value(i).X() << ' ' << myPoint->Value(i).Y();
 
          if ( i < myPoint->Length() )
-	    anOStream  << ",\n\t";
+	    anOStream  << ',' << endl << '\t';
 	}
-    anOStream  << " ]\n";
+    anOStream  << " ]" << endl;
   }
-  anOStream  << "}\n";
+  anOStream  << '}' << endl;
  return anOStream;
 }

@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_PlaneAngleUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PlaneAngleUnit,StepBasic_NamedUnit)
-
 StepBasic_PlaneAngleUnit::StepBasic_PlaneAngleUnit ()  {}
 

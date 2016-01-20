@@ -20,8 +20,6 @@
 #include <StepAP203_CcDesignContract.hxx>
 #include <StepBasic_Contract.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP203_CcDesignContract,StepBasic_ContractAssignment)
-
 //=======================================================================
 //function : StepAP203_CcDesignContract
 //purpose  : 

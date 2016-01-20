@@ -24,8 +24,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_GreaterThanOrEqual,Expr_SingleRelation)
-
 Expr_GreaterThanOrEqual::Expr_GreaterThanOrEqual (const Handle(Expr_GeneralExpression)& exp1, const Handle(Expr_GeneralExpression)& exp2)
 {
   SetFirstMember(exp1);

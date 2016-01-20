@@ -10,5 +10,4 @@ add b fso
 bop a fso
 bopsection result
 
-checkprops result -l 1244.52
-checksection result
+set length 1244.52

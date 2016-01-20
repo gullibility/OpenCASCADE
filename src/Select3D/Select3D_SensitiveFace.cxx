@@ -26,8 +26,6 @@
 #include <Precision.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveFace,Select3D_SensitiveEntity)
-
 //==================================================
 // Function: Hide this constructor to the next version...
 // Purpose : simply avoid interfering with the version update

@@ -38,8 +38,6 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTopoBRep_OutLiner,MMgt_TShared)
-
 //=======================================================================
 //function : OutLiner
 //purpose  : 

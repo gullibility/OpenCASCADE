@@ -208,10 +208,10 @@ class BOPAlgo_VFI : public BOPAlgo_Algo {
   }
   //
   virtual void Perform() {
-    Standard_Real aT1, aT2, dummy;
+    Standard_Real aT1, aT2;
     //
     BOPAlgo_Algo::UserBreak();
-    myFlag = myContext->ComputeVF(myV, myF, aT1, aT2, dummy);
+    myFlag=myContext->ComputeVF(myV, myF, aT1, aT2);
   }
   //
  protected:
@@ -405,10 +405,8 @@ void BOPAlgo_Builder::BuildSplitFaces()
       aLE.Append(aSp);
     }
     //
-    if (!myPaveFiller->NonDestructive()) {
-      // speed up for planar faces
-      BOPTools_AlgoTools2D::BuildPCurveForEdgesOnPlane (aLE, aFF);
-    }
+    BOPTools_AlgoTools2D::BuildPCurveForEdgesOnPlane (aLE, aFF);
+    //
     // 3 Build split faces
     BOPAlgo_BuilderFace& aBF=aVBF.Append1();
     aBF.SetFace(aF);

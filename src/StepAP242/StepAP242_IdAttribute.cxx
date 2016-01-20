@@ -15,8 +15,6 @@
 
 #include <StepAP242_IdAttribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP242_IdAttribute,MMgt_TShared)
-
 //=======================================================================
 //function : StepAP242_IdAttribute
 //purpose  : 

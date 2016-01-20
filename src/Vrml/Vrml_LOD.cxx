@@ -16,8 +16,6 @@
 #include <Standard_Type.hxx>
 #include <Vrml_LOD.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_LOD,MMgt_TShared)
-
 Vrml_LOD::Vrml_LOD()
 {
   myRange = new TColStd_HArray1OfReal(1,1);
@@ -58,28 +56,28 @@ Vrml_LOD::Vrml_LOD(const Handle(TColStd_HArray1OfReal)& aRange,
  Standard_OStream& Vrml_LOD::Print(Standard_OStream& anOStream) const
 {
   Standard_Integer i;
-  anOStream  << "LOD {\n";
+  anOStream  << "LOD {" << endl;
   
   if ( myRangeFlag == Standard_True )
     { 
-      anOStream  << "    range [\n\t";
+      anOStream  << "    range [" << endl << "\t";
       for ( i = myRange->Lower(); i <= myRange->Upper(); i++ )
 	{
 	  anOStream << myRange->Value(i);
 	  if ( i < myRange->Length() )
-	    anOStream  << ",";
+	    anOStream  << ',';
         }
-      anOStream  << " ]\n";
+      anOStream  << " ]" << endl;
     }
 
   if ( Abs(myCenter.X() - 0) > 0.0001 || 
       Abs(myCenter.Y() - 0) > 0.0001 || 
       Abs(myCenter.Z() - 0) > 0.0001 ) 
     {
-      anOStream  << "    center\t";
-      anOStream << myCenter.X() << " " << myCenter.Y() << " " << myCenter.Z() << "\n";
+      anOStream  << "    center" << '\t';
+      anOStream << myCenter.X() << ' ' << myCenter.Y() << ' ' << myCenter.Z() << endl;
     }
   
-  anOStream  << "}\n";
+  anOStream  << '}' << endl;
   return anOStream;
 }

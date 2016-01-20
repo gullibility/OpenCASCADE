@@ -38,16 +38,15 @@ public:
   //! Sets the picker's view interface.
   //! The picker uses the view to obtain parameters of
   //! the 3D view projection.
-  Standard_EXPORT virtual void SetView (const IVtk_IView::Handle& theView) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetView (const IVtk_IView::Handle& theView);
 
   //! Get number of picked entities.
-  Standard_EXPORT virtual int  NbPicked() Standard_OVERRIDE;
+  Standard_EXPORT virtual int  NbPicked();
 
   //! Get activated selection modes for a shape.
   //! @param [in] theShape a shape with activated selection mode(s)
   //! @return list of active selection modes
-  Standard_EXPORT virtual IVtk_SelectionModeList 
-    GetSelectionModes (const IVtk_IShape::Handle& theShape) const Standard_OVERRIDE;
+  Standard_EXPORT virtual IVtk_SelectionModeList GetSelectionModes (const IVtk_IShape::Handle& theShape) const;
 
 public: //! @name Set selectable shapes and selection modes
 
@@ -59,7 +58,7 @@ public: //! @name Set selectable shapes and selection modes
   //! @param [in] theIsTurnOn Flag to turn on/off the selection mode
   Standard_EXPORT virtual void SetSelectionMode (const IVtk_IShape::Handle& theShape,
                                                  const IVtk_SelectionMode theMode,
-                                                 const bool theIsTurnOn = true) Standard_OVERRIDE;
+                                                 const bool theIsTurnOn = true);
 
   //! Activates/deactivates the given selection mode for the shape.
   //! If mode == SM_None, the shape becomes non-selectable and 
@@ -69,36 +68,35 @@ public: //! @name Set selectable shapes and selection modes
   //! @param [in] theIsTurnOn Flag to turn on/off the selection mode
   Standard_EXPORT virtual void SetSelectionMode (const IVtk_ShapePtrList& theShapes,
                                                  const IVtk_SelectionMode theMode,
-                                                 const bool theIsTurnOn = true) Standard_OVERRIDE;
+                                                 const bool theIsTurnOn = true);
 
 public: //! @name Picking methods
 
-  Standard_EXPORT virtual bool Pick (const double theX, const double theY) Standard_OVERRIDE;
+  Standard_EXPORT virtual bool Pick (const double theX, const double theY);
 
   Standard_EXPORT virtual bool Pick (const double theXMin,
                                      const double theYMin,
                                      const double theXMax,
-                                     const double theYMax) Standard_OVERRIDE;
+                                     const double theYMax);
 
-  Standard_EXPORT virtual bool Pick (double** thePolyLine, const int theNbPoints) Standard_OVERRIDE;
+  Standard_EXPORT virtual bool Pick (double** thePolyLine, const int theNbPoints);
 
 public: //! @name Obtain picking results
 
   //! @return the list of picked top-level shape IDs,
   //! in the order of increasing depth (the ID of the shape closest to the eye 
   //! is the first in the list)
-  Standard_EXPORT virtual const IVtk_ShapeIdList& ShapesPicked() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const IVtk_ShapeIdList& ShapesPicked() const;
 
   //! @param [in] theId Top-level shape ID
   //! @param [out] theShapeList the list of picked sub-shape IDs for the given top-level shape ID,
   //! in the order of increasing depth (the ID of the sub-shape closest to the eye 
   //! is the first in the list)
-  Standard_EXPORT virtual void 
-    SubShapesPicked (const IVtk_IdType theId, IVtk_ShapeIdList& theShapeList) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void SubShapesPicked (const IVtk_IdType theId, IVtk_ShapeIdList& theShapeList) const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(IVtkOCC_ShapePickerAlgo,IVtk_IShapePickerAlgo)
+  DEFINE_STANDARD_RTTI(IVtkOCC_ShapePickerAlgo, IVtk_IShapePickerAlgo)
 
 private:
 

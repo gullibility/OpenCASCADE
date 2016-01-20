@@ -23,6 +23,10 @@
 
 // CasCade :
 
+#if !defined(WNT)
+   #error WNT precompiler directive is mandatory for CasCade 
+#endif
+
 #ifdef MAINWIN
 # define false FALSE
 # define true TRUE

@@ -23,8 +23,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Face,IGESData_IGESEntity)
-
 IGESSolid_Face::IGESSolid_Face ()    {  }
 
 

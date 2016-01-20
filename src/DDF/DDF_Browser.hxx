@@ -43,7 +43,7 @@ public:
   
   Standard_EXPORT DDF_Browser(const Handle(TDF_Data)& aDF);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
   
@@ -89,7 +89,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DDF_Browser,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(DDF_Browser,Draw_Drawable3D)
 
 protected:
 

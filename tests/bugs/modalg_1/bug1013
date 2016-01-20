@@ -9,6 +9,5 @@ checkshape wire
 
 mkplane result wire
 
-checkprops result -s 92131.6 
-checkshape result
+set square 92131.6
 set 2dviewer 0

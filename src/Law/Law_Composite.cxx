@@ -26,8 +26,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_Composite,Law_Function)
-
 //=======================================================================
 //function : Law_Composite
 //purpose  : 

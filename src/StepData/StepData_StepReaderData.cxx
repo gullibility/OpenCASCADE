@@ -48,8 +48,6 @@
 #include <TColStd_SequenceOfInteger.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(StepData_StepReaderData,Interface_FileReaderData)
-
 // Le Header est constitue d entites analogues dans leur principe a celles
 // du Data, a ceci pres qu elles sont sans identifieur, et ne peuvent ni
 // referencer, ni etre referencees (que ce soit avec Header ou avec Data)

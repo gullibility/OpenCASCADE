@@ -32,8 +32,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDF_Session,Standard_Transient)
-
 static Handle(CDF_Session) CS;
 
 //=======================================================================

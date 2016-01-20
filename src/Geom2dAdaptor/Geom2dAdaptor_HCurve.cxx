@@ -21,8 +21,6 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2dAdaptor_HCurve,Geom2dAdaptor_GHCurve)
-
 //=======================================================================
 //function : Geom2dAdaptor_HCurve
 //purpose  : 

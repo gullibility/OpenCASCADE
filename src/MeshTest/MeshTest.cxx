@@ -128,8 +128,7 @@ options:\n\
                         (enabled by default)\n\
         -surf_def_off   disables control of deflection of mesh from real\n\
                         surface (enabled by default)\n\
-        -parallel       enables parallel execution (switched off by default)\n\
-        -adaptive       enables adaptive computation of minimal value in parametric space\n";
+        -parallel       enables parallel execution (switched off by default)\n";
     return 0;
   }
 
@@ -147,7 +146,6 @@ options:\n\
   Standard_Boolean isInParallel    = Standard_False;
   Standard_Boolean isIntVertices   = Standard_True;
   Standard_Boolean isControlSurDef = Standard_True;
-  Standard_Boolean isAdaptiveMin   = Standard_False;
 
   if (nbarg > 3)
   {
@@ -167,8 +165,6 @@ options:\n\
         isIntVertices = Standard_False;
       else if (aOpt == "-surf_def_off")
         isControlSurDef = Standard_False;
-      else if (aOpt == "-adaptive")
-        isAdaptiveMin   = Standard_True;
       else if (i < nbarg)
       {
         Standard_Real aVal = Draw::Atof(argv[i++]);
@@ -185,17 +181,16 @@ options:\n\
   di << "Incremental Mesh, multi-threading "
      << (isInParallel ? "ON" : "OFF") << "\n";
 
-  BRepMesh_FastDiscret::Parameters aMeshParams;
-  aMeshParams.Deflection = aLinDeflection;
-  aMeshParams.Angle = aAngDeflection;
-  aMeshParams.Relative =  isRelative;
-  aMeshParams.InParallel = isInParallel;
-  aMeshParams.MinSize = aMinSize;
-  aMeshParams.InternalVerticesMode = isIntVertices;
-  aMeshParams.ControlSurfaceDeflection = isControlSurDef;
-  aMeshParams.AdaptiveMin = isAdaptiveMin;
-  
-  BRepMesh_IncrementalMesh aMesher (aShape, aMeshParams);
+  BRepMesh_IncrementalMesh aMesher;
+  aMesher.SetShape     (aShape);
+  aMesher.SetDeflection(aLinDeflection);
+  aMesher.SetRelative  (isRelative);
+  aMesher.SetAngle     (aAngDeflection);
+  aMesher.SetParallel  (isInParallel);
+  aMesher.SetMinSize   (aMinSize);
+  aMesher.SetInternalVerticesMode(isIntVertices);
+  aMesher.SetControlSurfaceDeflection(isControlSurDef);
+  aMesher.Perform();
 
   di << "Meshing statuses: ";
   Standard_Integer statusFlags = aMesher.GetStatusFlags();
@@ -266,20 +261,22 @@ static Standard_Integer fastdiscret(Draw_Interpretor& di, Standard_Integer nbarg
 
   const Standard_Real d = Draw::Atof(argv[2]);
 
+  Standard_Boolean WithShare = Standard_True;
+  if (nbarg > 3) WithShare = Draw::Atoi(argv[3]);
+
   Bnd_Box B;
   BRepBndLib::Add(S,B);
-  BRepMesh_FastDiscret::Parameters aParams;
-  aParams.Deflection = d;
-  aParams.Angle = 0.5;
-  BRepMesh_FastDiscret MESH(B,aParams);
+  BRepMesh_FastDiscret MESH(d,0.5,B,WithShare,Standard_True,Standard_False,Standard_True);
 
   //Standard_Integer NbIterations = MESH.NbIterations();
   //if (nbarg > 4) NbIterations = Draw::Atoi(argv[4]);
   //MESH.NbIterations() = NbIterations;
 
-  di<<"Starting FastDiscret with :\n";
+  di<<"Starting FastDiscret with :"<<"\n";
   di<<"  Deflection="<<d<<"\n";
   di<<"  Angle="<<0.5<<"\n";
+  di<<"  SharedMode="<< (Standard_Integer) WithShare<<"\n";
+  //di<<"  NbIterations="<<NbIterations<<"\n";
 
   Handle(Poly_Triangulation) T;
   BRep_Builder aBuilder;
@@ -349,7 +346,7 @@ static Standard_Integer fastdiscret(Draw_Interpretor& di, Standard_Integer nbarg
     DBRep::Set(name,aCompViolating);
   }
 
-  di<<"FastDiscret completed with :\n";
+  di<<"FastDiscret completed with :"<<"\n";
   di<<"  MaxDeflection="<<maxdef<<"\n";
   di<<"  NbNodes="<<nbnodes<<"\n";
   di<<"  NbTriangles="<<nbtriangles<<"\n";
@@ -459,7 +456,7 @@ static Standard_Integer triangule(Draw_Interpretor& di, Standard_Integer nbarg, 
   Standard_Real aDeflection = Draw::Atof(argv[3]);
   if (aDeflection <= 0.)
   {
-    di << " Incorrect value of deflection!\n";
+    di << " Incorrect value of deflection!" << "\n";
     return 1;
   }
 
@@ -471,7 +468,7 @@ static Standard_Integer triangule(Draw_Interpretor& di, Standard_Integer nbarg, 
   Standard_Integer nbn, nbl, nbe;
   MeshStats(aShape, nbe, nbl, nbn);
 
-  di<<"(Resultat ("<<nbe<<" mailles) ("<<nbl<<" aretes) ("<<nbn<<" sommets))\n";
+  di<<"(Resultat ("<<nbe<<" mailles) ("<<nbl<<" aretes) ("<<nbn<<" sommets))"<<"\n";
 
   // passe de verification du maillage.
   /*Standard_Integer nbc;
@@ -935,8 +932,8 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& di, Standard_Integer n, 
   }
 
   di<<"\n";
-  di<<"This shape contains " <<nbtriangles<<" triangles.\n";
-  di<<"                    " <<nbnodes    <<" nodes.\n";
+  di<<"This shape contains " <<nbtriangles<<" triangles."<<"\n";
+  di<<"                    " <<nbnodes    <<" nodes."<<"\n";
   di<<"Maximal deflection " <<MaxDeflection<<"\n";
   di<<"\n";
 #ifdef OCCT_DEBUG_MESH_CHRONO
@@ -953,26 +950,26 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& di, Standard_Integer n, 
   chPointValid.Show(pointvalid); chIsos.Show(isos); chPointsOnIsos.Show(pointsisos);
 
   if (tot > 0.00001) {
-    di <<"temps total de maillage:     "<<tot        <<" seconds\n";
-    di <<"dont: \n";
-    di <<"discretisation des edges:    "<<edges      <<" seconds---> "<< 100*edges/tot      <<" %\n";
-    di <<"maillage des edges:          "<<mailledges <<" seconds---> "<< 100*mailledges/tot <<" %\n";
-    di <<"controle et points internes: "<<etuinter   <<" seconds---> "<< 100*etuinter/tot   <<" %\n";
-    di <<"derniers controles:          "<<lastcontrol<<" seconds---> "<< 100*lastcontrol/tot<<" %\n";
-    di <<"stockage dans la S.D.        "<<stock      <<" seconds---> "<< 100*stock/tot      <<" %\n";
+    di <<"temps total de maillage:     "<<tot        <<" seconds"<< "\n";
+    di <<"dont: "<< "\n";
+    di <<"discretisation des edges:    "<<edges      <<" seconds---> "<< 100*edges/tot      <<" %"<<"\n";
+    di <<"maillage des edges:          "<<mailledges <<" seconds---> "<< 100*mailledges/tot <<" %"<<"\n";
+    di <<"controle et points internes: "<<etuinter   <<" seconds---> "<< 100*etuinter/tot   <<" %"<<"\n";
+    di <<"derniers controles:          "<<lastcontrol<<" seconds---> "<< 100*lastcontrol/tot<<" %"<<"\n";
+    di <<"stockage dans la S.D.        "<<stock      <<" seconds---> "<< 100*stock/tot      <<" %"<<"\n";
     di << "\n";
-    di <<"et plus precisement: \n";
-    di <<"Add 11ere partie :           "<<add11     <<" seconds---> "<<100*add11/tot      <<" %\n";
-    di <<"Add 12ere partie :           "<<add12     <<" seconds---> "<<100*add12/tot      <<" %\n";
-    di <<"Add 2eme partie :            "<<add2      <<" seconds---> "<<100*add2/tot       <<" %\n";
-    di <<"Update :                     "<<upda      <<" seconds---> "<<100*upda/tot       <<" %\n";
-    di <<"AddPoint :                   "<<addp      <<" seconds---> "<<100*addp/tot       <<" %\n";
-    di <<"UniformDeflection            "<<unif      <<" seconds---> "<<100*unif/tot       <<" %\n";
-    di <<"Controle :                   "<<contr     <<" seconds---> "<<100*contr/tot      <<" %\n";
-    di <<"Points Internes:             "<<inter     <<" seconds---> "<<100*inter/tot      <<" %\n";
-    di <<"calcul des isos et du, dv:   "<<isos      <<" seconds---> "<<100*isos/tot       <<" %\n";
-    di <<"calcul des points sur isos:  "<<pointsisos<<" seconds---> "<<100*pointsisos/tot <<" %\n";
-    di <<"IsPointValid:                "<<pointvalid<<" seconds---> "<<100*pointvalid/tot <<" %\n";
+    di <<"et plus precisement: "<<"\n";
+    di <<"Add 11ere partie :           "<<add11     <<" seconds---> "<<100*add11/tot      <<" %"<<"\n";
+    di <<"Add 12ere partie :           "<<add12     <<" seconds---> "<<100*add12/tot      <<" %"<<"\n";
+    di <<"Add 2eme partie :            "<<add2      <<" seconds---> "<<100*add2/tot       <<" %"<<"\n";
+    di <<"Update :                     "<<upda      <<" seconds---> "<<100*upda/tot       <<" %"<<"\n";
+    di <<"AddPoint :                   "<<addp      <<" seconds---> "<<100*addp/tot       <<" %"<<"\n";
+    di <<"UniformDeflection            "<<unif      <<" seconds---> "<<100*unif/tot       <<" %"<<"\n";
+    di <<"Controle :                   "<<contr     <<" seconds---> "<<100*contr/tot      <<" %"<<"\n";
+    di <<"Points Internes:             "<<inter     <<" seconds---> "<<100*inter/tot      <<" %"<<"\n";
+    di <<"calcul des isos et du, dv:   "<<isos      <<" seconds---> "<<100*isos/tot       <<" %"<<"\n";
+    di <<"calcul des points sur isos:  "<<pointsisos<<" seconds---> "<<100*pointsisos/tot <<" %"<<"\n";
+    di <<"IsPointValid:                "<<pointvalid<<" seconds---> "<<100*pointvalid/tot <<" %"<<"\n";
     di << "\n";
 
 
@@ -1126,7 +1123,7 @@ static Standard_Integer veriftriangles(Draw_Interpretor& di, Standard_Integer n,
             deflemin = Min(deflemin, defle);
 
             if (defle > defstock) {
-              di <<"face "<< nbface <<" deflection = " << defle <<" pour "<<defstock <<" stockee.\n";
+              di <<"face "<< nbface <<" deflection = " << defle <<" pour "<<defstock <<" stockee."<<"\n";
             }
           }
         }
@@ -1469,7 +1466,7 @@ Standard_Integer vb(Draw_Interpretor& di, Standard_Integer nbarg, const char** a
           di<< VB(i, j) << ", ";
         }
       }
-      di << "\n\n";
+      di << "\n" << "\n";
     }
   }
   return 0;
@@ -1621,7 +1618,7 @@ void  MeshTest::Commands(Draw_Interpretor& theCommands)
 
   theCommands.Add("incmesh","Builds triangular mesh for the shape, run w/o args for help",__FILE__, incrementalmesh, g);
   theCommands.Add("MemLeakTest","MemLeakTest",__FILE__, MemLeakTest, g);
-  theCommands.Add("fastdiscret","fastdiscret shape deflection",__FILE__, fastdiscret, g);
+  theCommands.Add("fastdiscret","fastdiscret shape deflection [shared [nbiter]]",__FILE__, fastdiscret, g);
   theCommands.Add("mesh","mesh result Shape deflection",__FILE__, triangule, g);
   theCommands.Add("addshape","addshape meshname Shape [deflection]",__FILE__, addshape, g);
   //theCommands.Add("smooth","smooth meshname",__FILE__, smooth, g);

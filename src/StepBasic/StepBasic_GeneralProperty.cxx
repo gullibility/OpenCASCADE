@@ -19,8 +19,6 @@
 #include <StepBasic_GeneralProperty.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_GeneralProperty,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_GeneralProperty
 //purpose  : 

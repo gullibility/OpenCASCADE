@@ -41,8 +41,6 @@
 #include <TopExp_Explorer.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_TexturedShape,AIS_Shape)
-
 //=======================================================================
 //function : AIS_TexturedShape
 //purpose  :

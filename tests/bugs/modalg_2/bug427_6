@@ -1,6 +1,5 @@
 puts "TODO OCC23068 ALL: ERROR. offsetperform operation not done."
 puts "TODO OCC23068 ALL: result is not a topological shape!!!"
-puts "TODO OCC23068 ALL: Error: The command cannot be built"
 puts "TODO OCC23068 ALL: TEST INCOMPLETE"
 
 puts "========================"
@@ -30,6 +29,5 @@ pipe s w profile
 
 OFFSETSHAPE 1 {s_4 s_5} $calcul $type
 
-checkprops result -s 808.448 
-checkshape result
+set square 808.448
 set 2dviewer 0

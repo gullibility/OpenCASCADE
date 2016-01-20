@@ -11,4 +11,4 @@ prism pp f 0 0 100
 bop a pp
 bopfuse result
 
-checkprops result -s 358551
+set square 358551

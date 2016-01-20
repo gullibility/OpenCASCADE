@@ -27,8 +27,6 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Surface,Geom_Geometry)
-
 typedef Geom_Surface         Surface;
 
 //=======================================================================

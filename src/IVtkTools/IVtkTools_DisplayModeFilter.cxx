@@ -135,7 +135,7 @@ void IVtkTools_DisplayModeFilter::SetDisplayMode(const IVtk_DisplayMode theMode)
 // Method: GetDisplayMode
 // Purpose:
 //============================================================================
-IVtk_DisplayMode IVtkTools_DisplayModeFilter::GetDisplayMode () const
+const IVtk_DisplayMode IVtkTools_DisplayModeFilter::GetDisplayMode () const
 {
   return myDisplayMode;
 }

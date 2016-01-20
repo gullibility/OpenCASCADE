@@ -42,16 +42,16 @@ public:
   Standard_EXPORT IGESSelect_AddGroup();
   
   //! Specific action : Adds a new group
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Add Group"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_AddGroup,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_AddGroup,IGESSelect_ModelModifier)
 
 protected:
 

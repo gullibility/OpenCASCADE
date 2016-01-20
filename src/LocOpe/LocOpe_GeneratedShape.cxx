@@ -20,5 +20,3 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(LocOpe_GeneratedShape,MMgt_TShared)

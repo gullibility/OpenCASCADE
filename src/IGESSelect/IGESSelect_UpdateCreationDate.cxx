@@ -25,8 +25,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_UpdateCreationDate,IGESSelect_ModelModifier)
-
 IGESSelect_UpdateCreationDate::IGESSelect_UpdateCreationDate ()
     : IGESSelect_ModelModifier (Standard_False)    {  }
 

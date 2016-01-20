@@ -28,6 +28,5 @@ checknbshapes result -ref ${nbshapes_expected} -t -m "sewing result"
 checkmaxtol result -ref 0.066338232054955981
 checkfreebounds result 12
 
-checkprops result -s 1.8847e+07 -eps 0.1
-checkshape result
+set square 1.88469e+07
 set 3dviewer 1

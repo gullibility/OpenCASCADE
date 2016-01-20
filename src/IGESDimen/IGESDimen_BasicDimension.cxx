@@ -21,8 +21,6 @@
 #include <IGESDimen_BasicDimension.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_BasicDimension,IGESData_IGESEntity)
-
 IGESDimen_BasicDimension::IGESDimen_BasicDimension ()    {  }
 
     void  IGESDimen_BasicDimension::Init

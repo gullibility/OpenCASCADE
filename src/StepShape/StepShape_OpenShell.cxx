@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_OpenShell.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_OpenShell,StepShape_ConnectedFaceSet)
-
 StepShape_OpenShell::StepShape_OpenShell ()  {}
 

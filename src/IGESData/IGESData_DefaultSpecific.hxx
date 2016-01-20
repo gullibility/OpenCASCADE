@@ -43,12 +43,12 @@ public:
   //! Specific Dump for UndefinedEntity : it concerns only
   //! own parameters, the general data (Directory Part, Lists) are
   //! taken into account by the IGESDumper
-  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_DefaultSpecific,IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTI(IGESData_DefaultSpecific,IGESData_SpecificModule)
 
 protected:
 

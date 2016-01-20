@@ -36,11 +36,11 @@ class BinTObjDrivers_DocumentStorageDriver :
   // Constructor
 
   Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers
-                        (const Handle(CDM_MessageDriver)& theMsgDriver) Standard_OVERRIDE;
+                        (const Handle(CDM_MessageDriver)& theMsgDriver);
 
  public:
   // Declaration of CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(BinTObjDrivers_DocumentStorageDriver,BinLDrivers_DocumentStorageDriver)
+  DEFINE_STANDARD_RTTI (BinTObjDrivers_DocumentStorageDriver, BinLDrivers_DocumentStorageDriver)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

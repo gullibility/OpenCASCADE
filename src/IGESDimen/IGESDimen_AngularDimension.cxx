@@ -26,8 +26,6 @@
 #include <IGESDimen_WitnessLine.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_AngularDimension,IGESData_IGESEntity)
-
 IGESDimen_AngularDimension::IGESDimen_AngularDimension ()    {  }
 
     void  IGESDimen_AngularDimension::Init

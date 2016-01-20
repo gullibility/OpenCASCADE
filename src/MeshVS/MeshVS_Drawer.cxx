@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_Drawer,MMgt_TShared)
-
 //================================================================
 // Function : Assign
 // Purpose  :

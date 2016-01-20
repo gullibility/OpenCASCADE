@@ -24,8 +24,6 @@
 #include <Poly_Polygon3D.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Polygon3D,Draw_Drawable3D)
-
 //=======================================================================
 //function : DrawTrSurf_Polygon3D
 //purpose  : 

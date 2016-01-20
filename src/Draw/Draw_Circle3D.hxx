@@ -41,12 +41,12 @@ public:
   
   Standard_EXPORT Draw_Circle3D(const gp_Circ& C, const Standard_Real A1, const Standard_Real A2, const Draw_Color& col);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Circle3D,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(Draw_Circle3D,Draw_Drawable3D)
 
 protected:
 

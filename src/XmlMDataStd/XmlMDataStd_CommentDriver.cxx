@@ -22,8 +22,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataStd_CommentDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDataStd_CommentDriver
 //purpose  : Constructor

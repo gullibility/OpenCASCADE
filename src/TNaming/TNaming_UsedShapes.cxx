@@ -30,8 +30,6 @@
 #include <TNaming_UsedShapes.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TNaming_UsedShapes,TDF_Attribute)
-
 //=======================================================================
 //function : GetID
 //purpose  : 

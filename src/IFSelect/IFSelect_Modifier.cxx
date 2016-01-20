@@ -19,7 +19,5 @@
 #include <Interface_Protocol.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Modifier,IFSelect_GeneralModifier)
-
 IFSelect_Modifier::IFSelect_Modifier (const Standard_Boolean grf)
     : IFSelect_GeneralModifier (grf)    {  }

@@ -31,8 +31,6 @@
 #include <XCAFDoc_LayerTool.hxx>
 #include <XCAFDoc_ShapeTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_LayerTool,TDF_Attribute)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

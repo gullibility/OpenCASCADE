@@ -20,8 +20,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <XCAFDoc_Material.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_Material,TDF_Attribute)
-
 //=======================================================================
 //function : XCAFDoc_Material
 //purpose  : 

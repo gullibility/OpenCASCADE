@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_ShapeRepresentationRelationshipWithTransformation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ShapeRepresentationRelationshipWithTransformation,StepRepr_RepresentationRelationshipWithTransformation)
-
 StepRepr_ShapeRepresentationRelationshipWithTransformation::StepRepr_ShapeRepresentationRelationshipWithTransformation ()    {  }

@@ -101,8 +101,6 @@
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Face,ShapeFix_Root)
-
 #ifdef OCCT_DEBUG
 #define DEBUG
 #endif
@@ -844,7 +842,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     Handle(ShapeFix_Edge) sfe = myFixWire->FixEdgeTool();
     for (TopExp_Explorer Eed (myFace, TopAbs_EDGE); Eed.More(); Eed.Next()) {
       TopoDS_Edge edg = TopoDS::Edge (Eed.Current());
-      sfe->FixVertexTolerance(edg, myFace);
+      sfe->FixVertexTolerance(edg);
     }
 
 //    B.UpdateFace (myFace,myPrecision);

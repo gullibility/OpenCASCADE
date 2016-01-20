@@ -1,7 +1,7 @@
-// Created on: 2012-02-03 
-// 
-// Copyright (c) 2012-2014 OPEN CASCADE SAS 
-// 
+// Created on: 2012-02-03
+//
+// Copyright (c) 2012-2014 OPEN CASCADE SAS
+//
 // This file is part of Open CASCADE Technology software library.
 //
 // This library is free software; you can redistribute it and/or modify it under
@@ -30,19 +30,19 @@
 #undef NOGDI       /* avoid #define SetPrinter (winspool.h) etc. */
 #endif
 #ifdef NOSERVICE
-#undef NOSERVICE    
+#undef NOSERVICE
 #endif
 #ifdef NOKERNEL
-#undef NOKERNEL 
+#undef NOKERNEL
 #endif
 #ifdef NOUSER
-#undef NOUSER 
+#undef NOUSER
 #endif
 #ifdef NOMCX
-#undef NOMCX 
+#undef NOMCX
 #endif
 #ifdef NOIME
-#undef NOIME 
+#undef NOIME
 #endif
 
 #include <stdio.h>
@@ -115,8 +115,8 @@
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <Xw_Window.hxx>
-#include <vtkXRenderWindowInteractor.h>
-#include <vtkXOpenGLRenderWindow.h>
+//#include <vtkXRenderWindowInteractor.h>
+//#include <vtkXOpenGLRenderWindow.h>
 #include <X11/Xutil.h>
 #include <tk.h>
 #endif
@@ -268,7 +268,7 @@ const Handle(MMgt_TShared)& IVtkDraw::WClass()
 
 //==============================================================
 // Function : ViewerInit
-// Purpose  : 
+// Purpose  :
 //==============================================================
 void IVtkDraw::ViewerInit (Standard_Integer thePxLeft,
                            Standard_Integer thePxTop,
@@ -298,7 +298,7 @@ void IVtkDraw::ViewerInit (Standard_Integer thePxLeft,
   {
     aPxHeight = thePxHeight;
   }
-  
+
   if (isFirst)
   {
     SetDisplayConnection (new Aspect_DisplayConnection ());
@@ -392,7 +392,7 @@ void IVtkDraw::ViewerInit (Standard_Integer thePxLeft,
 
 //================================================================
 // Function : VtkInit
-// Purpose  : 
+// Purpose  :
 //================================================================
 static Standard_Integer VtkInit (Draw_Interpretor& ,
                                  Standard_Integer theArgNum,
@@ -410,7 +410,7 @@ static Standard_Integer VtkInit (Draw_Interpretor& ,
 
 //================================================================
 // Function : CreateActor
-// Purpose  : 
+// Purpose  :
 //================================================================
 vtkActor* CreateActor (const Standard_Integer theId,
                        const TopoDS_Shape& theShape)
@@ -428,7 +428,7 @@ vtkActor* CreateActor (const Standard_Integer theId,
 
 //================================================================
 // Function : VtkDisplay
-// Purpose  : 
+// Purpose  :
 //================================================================
 
 static Standard_Integer VtkDisplay (Draw_Interpretor& theDI,
@@ -515,7 +515,7 @@ static Standard_Integer VtkDisplay (Draw_Interpretor& theDI,
 
 //================================================================
 // Function : VtkErase
-// Purpose  : 
+// Purpose  :
 //================================================================
 static Standard_Integer VtkErase (Draw_Interpretor& theDI,
                                   Standard_Integer theArgNum,
@@ -561,7 +561,7 @@ static Standard_Integer VtkErase (Draw_Interpretor& theDI,
 
 //================================================================
 // Function  : VtkSetDisplayMode
-// Purpose   : 
+// Purpose   :
 // Draw args : ivtksetdispmode [name] mode(0,1)
 //================================================================
 static Standard_Integer VtkSetDisplayMode (Draw_Interpretor& theDI,
@@ -608,7 +608,7 @@ static Standard_Integer VtkSetDisplayMode (Draw_Interpretor& theDI,
     }
   }
   // Set disp mode for named object
-  else 
+  else
   {
     Standard_Integer aMode = atoi(theArgs[2]);
     TCollection_AsciiString aName = theArgs[1];
@@ -637,7 +637,7 @@ static Standard_Integer VtkSetDisplayMode (Draw_Interpretor& theDI,
 
 //================================================================
 // Function  : VtkSetSelectionMode
-// Purpose   : 
+// Purpose   :
 // Draw args : ivtksetselmode [name] mode on/off(0,1)
 //================================================================
 static Standard_Integer VtkSetSelectionMode (Draw_Interpretor& theDI,
@@ -792,7 +792,7 @@ static Standard_Integer VtkSetSelectionMode (Draw_Interpretor& theDI,
 
 //================================================================
 // Function  : VtkMoveTo
-// Purpose   : 
+// Purpose   :
 // Draw args : ivtkmoveto x y
 //================================================================
 static Standard_Integer VtkMoveTo(Draw_Interpretor& theDI,
@@ -820,7 +820,7 @@ static Standard_Integer VtkMoveTo(Draw_Interpretor& theDI,
 
 //================================================================
 // Function  : VtkSelect
-// Purpose   : 
+// Purpose   :
 // Draw args : ivtkselect x y
 //================================================================
 static Standard_Integer VtkSelect (Draw_Interpretor& theDI,
@@ -873,7 +873,7 @@ static Standard_Integer VtkFit (Draw_Interpretor& theDI,
 //===================================================================
 // Fubction  : VtkDump
 // Purpose   :
-// Draw args : ivtkdump FullFilename.{png|bmp|jpeg|tiff|pnm} 
+// Draw args : ivtkdump FullFilename.{png|bmp|jpeg|tiff|pnm}
 //                      [buffer={rgb|rgba|depth}] [width height]
 //                      [stereoproj={L|R}]
 //===================================================================
@@ -1073,12 +1073,12 @@ static Standard_Integer VtkBackgroundColor (Draw_Interpretor& theDI,
 
 //================================================================
 // Function : Commands
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkDraw::Commands (Draw_Interpretor& theCommands)
 {
   const char *group = "VtkViewer";
-  
+
   theCommands.Add("ivtkinit",
     "ivtkinit usage:\n"
     "ivtkinit [leftPx topPx widthPx heightPx]"
@@ -1145,7 +1145,7 @@ void IVtkDraw::Commands (Draw_Interpretor& theCommands)
 
 //================================================================
 // Function : Factory
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkDraw::Factory (Draw_Interpretor& theDI)
 {

@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_CalendarDate.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CalendarDate,StepBasic_Date)
-
 StepBasic_CalendarDate::StepBasic_CalendarDate ()  {}
 
 void StepBasic_CalendarDate::Init(

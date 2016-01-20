@@ -18,8 +18,6 @@
 #include <StepBasic_SiUnit.hxx>
 #include <StepBasic_SiUnitAndRatioUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnitAndRatioUnit,StepBasic_SiUnit)
-
 StepBasic_SiUnitAndRatioUnit::StepBasic_SiUnitAndRatioUnit ()
 {
 }

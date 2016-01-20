@@ -17,8 +17,6 @@
 #include <StepGeom_PointOnCurve.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_PointOnCurve,StepGeom_Point)
-
 StepGeom_PointOnCurve::StepGeom_PointOnCurve ()  {}
 
 void StepGeom_PointOnCurve::Init(

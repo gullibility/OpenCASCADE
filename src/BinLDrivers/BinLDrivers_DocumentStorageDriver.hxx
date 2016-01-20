@@ -56,9 +56,6 @@ public:
   
   //! Write <theDocument> to the binary file <theFileName>
   Standard_EXPORT virtual void Write (const Handle(CDM_Document)& theDocument, const TCollection_ExtendedString& theFileName) Standard_OVERRIDE;
-
-  //! Write <theDocument> to theOStream
-  Standard_EXPORT virtual void Write (const Handle(CDM_Document)& theDocument, Standard_OStream& theOStream) Standard_OVERRIDE;
   
   Standard_EXPORT virtual Handle(BinMDF_ADriverTable) AttributeDrivers (const Handle(CDM_MessageDriver)& theMsgDriver);
   
@@ -68,7 +65,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(BinLDrivers_DocumentStorageDriver,PCDM_StorageDriver)
+  DEFINE_STANDARD_RTTI(BinLDrivers_DocumentStorageDriver,PCDM_StorageDriver)
 
 protected:
 
@@ -100,7 +97,7 @@ private:
   Standard_EXPORT Standard_Boolean FirstPassSubTree (const TDF_Label& L, TDF_LabelList& ListOfEmptyL);
   
   //! Write info secton using FSD_BinaryFile driver
-  Standard_EXPORT void WriteInfoSection (const Handle(CDM_Document)& theDocument, Standard_OStream& theOStream);
+  Standard_EXPORT void WriteInfoSection (const Handle(CDM_Document)& theDocument, const TCollection_AsciiString& theFile);
   
   Standard_EXPORT void UnsupportedAttrMsg (const Handle(Standard_Type)& theType);
 
@@ -110,7 +107,6 @@ private:
   TColStd_MapOfTransient myMapUnsupported;
   TColStd_IndexedMapOfTransient myTypesMap;
   BinLDrivers_VectorOfDocumentSection mySections;
-  TCollection_ExtendedString myFileName;
 
 
 };

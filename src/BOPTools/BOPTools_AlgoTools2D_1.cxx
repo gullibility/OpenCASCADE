@@ -294,8 +294,7 @@ Standard_Boolean IsToReverse(const TopoDS_Edge& aEold,
   aCnew->D1(aTnew, aP, aVnew);
   aVnew.Normalize(); 
   //
-  if (!aCtx->ProjectPointOnEdge(aP, aEold, aTold))
-    return Standard_False;
+  aCtx->ProjectPointOnEdge(aP, aEold, aTold);
   aCold->D1(aTold, aP, aVold);
   aVold.Normalize(); 
   //

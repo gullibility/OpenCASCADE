@@ -19,8 +19,6 @@
 #include <StepVisual_PointStyle.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PointStyle,MMgt_TShared)
-
 StepVisual_PointStyle::StepVisual_PointStyle ()  {}
 
 void StepVisual_PointStyle::Init(

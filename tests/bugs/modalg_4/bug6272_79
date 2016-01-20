@@ -21,7 +21,6 @@ if { [catch { bopfuse result } ] } {
     puts "Faulty ${BugNumber}"
 }
 
-checkprops result -s 3387.54 
-checkshape result
+set square 3387.54
 set 2dviewer 0
 

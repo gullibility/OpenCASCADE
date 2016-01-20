@@ -43,8 +43,7 @@ baddctools b7
 bfillds
 bbop result 0
 
-checkprops result -s 10008.9 
-checkshape result
+set square 10008.9
 
 checknbshapes result -vertex 86 -edge 132 -wire 126 -face 126 -shell 40 -solid 40 -compsolid 0 -compound 1 -shape 551
 set 2dviewer 1

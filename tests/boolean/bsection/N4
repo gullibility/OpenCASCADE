@@ -18,5 +18,4 @@ repeat 199 {
   incr i
 }
 
-checkprops result -l 2.7724e+07
-checksection result
+set length 2.7724e+07

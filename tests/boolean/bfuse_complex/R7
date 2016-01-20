@@ -11,4 +11,4 @@ maxtolerance s
 
 bfuse result s t
 
-checkprops result -s 100110
+set square 100110

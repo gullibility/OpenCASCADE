@@ -42,9 +42,7 @@ if { [regexp {Faulty} $che ] == 1 } {
 	}
     }
 }
-checkprops result -l 0 
-checkshape result
-checksection result
+set length 0
 set 2dviewer 0
 
 

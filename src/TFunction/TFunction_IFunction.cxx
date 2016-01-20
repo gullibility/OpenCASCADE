@@ -406,7 +406,7 @@ const TFunction_DoubleMapOfIntegerLabel& TFunction_IFunction::GetAllFunctions() 
 //purpose  : Returns the Logbook.
 //=======================================================================
 
-Handle(TFunction_Logbook) TFunction_IFunction::GetLogbook() const
+TFunction_Logbook& TFunction_IFunction::GetLogbook() const
 {
   return TFunction_Scope::Set(myLabel)->GetLogbook();
 }

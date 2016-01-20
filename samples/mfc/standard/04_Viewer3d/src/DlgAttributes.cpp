@@ -76,7 +76,7 @@ END_MESSAGE_MAP()
 
 void DlgAttributes::OnColor() 
 {
-	Handle(AIS_InteractiveObject) Current ;
+	Handle_AIS_InteractiveObject Current ;
 	Quantity_Color CSFColor ;
 	COLORREF MSColor ;
 

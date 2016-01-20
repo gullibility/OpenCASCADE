@@ -94,9 +94,6 @@ public:
   //! Returns true if the labels placed at border of color filled rectangles.
   Standard_EXPORT Standard_Boolean IsLabelAtBorder() const { return myAtBorder; }
 
-  //! Returns true if the color scale has logarithmic intervals
-  Standard_Boolean IsLogarithmic() const { return myIsLogarithmic; }
-
   //! Sets the minimal value of color scale.
   Standard_EXPORT void SetMin (const Standard_Real theMin);
 
@@ -148,9 +145,6 @@ public:
 
   //! Sets true if the labels placed at border of color filled rectangles.
   Standard_EXPORT void SetLabelAtBorder (const Standard_Boolean theOn);
-
-  //! Sets true if the color scale has logarithmic intervals.
-  void SetLogarithmic (const Standard_Boolean isLogarithmic) { myIsLogarithmic = isLogarithmic; };
 
   //! Returns the size of color scale.
   Standard_EXPORT void GetSize (Standard_Integer& theWidth, Standard_Integer& theHeight) const;
@@ -211,7 +205,7 @@ public:
   Standard_EXPORT void TextSize (const TCollection_ExtendedString& theText, const Standard_Integer theHeight, Standard_Integer& theWidth, Standard_Integer& theAscent, Standard_Integer& theDescent) const;
 
 
-  DEFINE_STANDARD_RTTIEXT(AIS_ColorScale,AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTI(AIS_ColorScale,AIS_InteractiveObject)
 
 protected:
 
@@ -245,26 +239,22 @@ private:
 
   void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                   const Handle(Prs3d_Presentation)& thePresentation,
-                  const Standard_Integer theMode) Standard_OVERRIDE;
+                  const Standard_Integer theMode);
 
   void ComputeSelection (const Handle(SelectMgr_Selection)& /*aSelection*/,
-                           const Standard_Integer /*aMode*/) Standard_OVERRIDE
-  {}
+                           const Standard_Integer /*aMode*/){};
 
   //! Returns the format of text.
   TCollection_AsciiString Format() const;
 
   //! Returns the value of given interval.
-  Standard_Real GetNumber (const Standard_Integer theIndex) const;
-
-  //! Returns the value of given logarithmic interval.
-  Standard_Real GetLogNumber (const Standard_Integer theIndex) const;
+  Standard_Real GetNumber (const Standard_Integer anIndex) const;
 
   //! Returns the color's hue for the given value in the given interval.
   //! @param theValue [in] the current value of interval.
   //! @param theMin [in] the min value of interval.
   //! @param theMax [in] the max value of interval.
-  static Standard_Integer HueFromValue (const Standard_Integer theValue, const Standard_Integer theMin, const Standard_Integer theMax);
+  static Standard_Integer HueFromValue (const Standard_Integer aValue, const Standard_Integer aMin, const Standard_Integer aMax);
 
 private:
 
@@ -277,7 +267,6 @@ private:
   Aspect_TypeOfColorScaleData myLabelType;
   Standard_Boolean myAtBorder;
   Standard_Boolean myReversed;
-  Standard_Boolean myIsLogarithmic;
   Aspect_SequenceOfColor myColors;
   TColStd_SequenceOfExtendedString myLabels;
   Aspect_TypeOfColorScalePosition myLabelPos;

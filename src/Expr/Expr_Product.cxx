@@ -34,8 +34,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_Product,Expr_PolyExpression)
-
 Expr_Product::Expr_Product (const Expr_SequenceOfGeneralExpression& exps)
 {
   Standard_Integer i;

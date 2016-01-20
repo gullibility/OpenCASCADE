@@ -20,8 +20,6 @@
 #include <Standard_DomainError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GccInt_BPoint,GccInt_Bisec)
-
 GccInt_BPoint::
    GccInt_BPoint(const gp_Pnt2d& Point) {
    pnt = gp_Pnt2d(Point);

@@ -7,5 +7,4 @@ restore [locate_data_file cts20769a.brep] b
 bop a b
 bopsection result
 
-checkprops result -l 312.73
-checksection result
+set length 312.73

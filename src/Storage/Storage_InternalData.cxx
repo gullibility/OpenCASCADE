@@ -17,8 +17,6 @@
 #include <Storage_InternalData.hxx>
 #include <Storage_Schema.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_InternalData,MMgt_TShared)
-
 Storage_InternalData::Storage_InternalData() : myObjId(1), myTypeId(1)
 {
 }

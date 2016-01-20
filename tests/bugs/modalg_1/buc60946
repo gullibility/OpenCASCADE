@@ -21,7 +21,5 @@ if { $nb_vertices != $nb_edges } {
 } else {
     puts "Section is closed: OK"
 }
-checkprops result -l 52.5057 
-checkshape result
-checksection result
+set length 52.5057
 set 2dviewer 0

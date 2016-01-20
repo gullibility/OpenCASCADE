@@ -36,8 +36,6 @@
 #include <TDataStd_NamedData.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_NamedDataDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_NamedDataDriver
 //purpose  : Constructor

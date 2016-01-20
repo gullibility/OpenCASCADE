@@ -31,8 +31,6 @@
 #include <TopExp_Explorer.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshTest_DrawableMesh,Draw_Drawable3D)
-
 typedef NCollection_Map<BRepMesh_Edge> BRepMesh_MapOfLinks;
 
 static inline void addLink(const Standard_Integer theIndex1,
@@ -73,7 +71,7 @@ MeshTest_DrawableMesh::MeshTest_DrawableMesh(
 {
   myMesher = theMesher;
   if (!myMesher.IsNull())
-    myDeflection = myMesher->Parameters().Deflection;
+    myDeflection = myMesher->Deflection();
 }
 
 //=======================================================================
@@ -85,8 +83,8 @@ void MeshTest_DrawableMesh::Add(const TopoDS_Shape& theShape)
   if (myMesher.IsNull())
   {
     myMesher = new BRepMesh_IncrementalMesh;
-    myMesher->ChangeParameters().Deflection = myDeflection;
-    myMesher->ChangeParameters().Angle = 0.5;
+    myMesher->SetDeflection(myDeflection);
+    myMesher->SetAngle(0.5);
   }
   
   myMesher->SetShape(theShape);

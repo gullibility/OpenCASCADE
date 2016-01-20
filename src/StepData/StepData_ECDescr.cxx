@@ -20,8 +20,6 @@
 #include <StepData_Simple.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_ECDescr,StepData_EDescr)
-
 StepData_ECDescr::StepData_ECDescr  ()    {  }
 
     void  StepData_ECDescr::Add (const Handle(StepData_ESDescr)& member)

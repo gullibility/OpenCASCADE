@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_RatioUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_RatioUnit,StepBasic_NamedUnit)
-
 StepBasic_RatioUnit::StepBasic_RatioUnit ()  {}
 

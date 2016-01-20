@@ -25,7 +25,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMXCAFDoc_GraphNodeDriver,XmlMDF_ADriver)
 IMPLEMENT_DOMSTRING (TreeIdString,   "treeid")
 IMPLEMENT_DOMSTRING (ChildrenString, "children")
 IMPLEMENT_DOMSTRING (FathersString,  "fathers")

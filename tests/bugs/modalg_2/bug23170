@@ -14,6 +14,5 @@ sphere s 10
 
 mkface result s 0 6.2831853071795880 -1.5707963267948970 1.5707963267948970
 
-checkprops result -s 1256.63 
-checkshape result
+set square 1256.63
 set 3dviewer 0

@@ -32,8 +32,7 @@ set distance -0.5
 catch { OFFSETSHAPE $distance {s_2 s_3} $calcul $type }
 
 
-checkprops result -s 882.928
-checkshape result
+set square 856.92
 
 checknbshapes result -vertex 4 -edge 6 -wire 6 -face 4 -shell 1 -solid 1 -compsolid 0 -compound 0 -shape 22
 

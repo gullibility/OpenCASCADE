@@ -59,12 +59,12 @@ public:
   
   //! Returns the Step Type defined from the Protocol (see above).
   //! If <ent> is not recognised, produces "..NOT FROM SCHEMA <name>.."
-  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepSelect_StepType,IFSelect_Signature)
+  DEFINE_STANDARD_RTTI(StepSelect_StepType,IFSelect_Signature)
 
 protected:
 

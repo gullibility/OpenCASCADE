@@ -4,4 +4,4 @@ explode sh
 bop sh_2 sh_1
 bopcommon result
 
-checkprops result -s 152908
+set square 152908

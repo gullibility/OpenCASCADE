@@ -17,8 +17,6 @@
 #include <StepBasic_ProductDefinitionFormationWithSpecifiedSource.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductDefinitionFormationWithSpecifiedSource,StepBasic_ProductDefinitionFormation)
-
 StepBasic_ProductDefinitionFormationWithSpecifiedSource::StepBasic_ProductDefinitionFormationWithSpecifiedSource ()  {}
 
 void StepBasic_ProductDefinitionFormationWithSpecifiedSource::Init(

@@ -37,8 +37,6 @@
 #include <TCollection_ExtendedString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDM_Document,Standard_Transient)
-
 static CDM_PresentationDirectory& getPresentations() {
   static CDM_PresentationDirectory thePresentations;
   return thePresentations;
@@ -1205,7 +1203,7 @@ void CDM_Document::LoadResources()
     }
     myResourcesAreLoaded=Standard_True;
     
-//    cout << "resource Loaded: Format: " << theFormat << ", FileExtension:" << myFileExtension << ", DataType:" <<  myDataType << ", VersionDataType:" << myVersionDataType << ", Description:" << myDescription << ", Domain:" << myDomain << endl;
+//    cout << "resource Loaded: " << "Format: " << theFormat << ", FileExtension:" << myFileExtension << ", DataType:" <<  myDataType << ", VersionDataType:" << myVersionDataType << ", Description:" << myDescription << ", Domain:" << myDomain << endl;
   }
   return;
 }

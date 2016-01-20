@@ -91,7 +91,7 @@ public:
   
   //! determines next suitable record from num; that is num+1 except
   //! for last one which gives 0
-  Standard_EXPORT Standard_Integer FindNextRecord (const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer FindNextRecord (const Standard_Integer num) const;
   
   //! determines reference numbers in EntityNumber fields (called by
   //! SetEntities from IGESReaderTool)
@@ -115,7 +115,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_IGESReaderData,Interface_FileReaderData)
+  DEFINE_STANDARD_RTTI(IGESData_IGESReaderData,Interface_FileReaderData)
 
 protected:
 

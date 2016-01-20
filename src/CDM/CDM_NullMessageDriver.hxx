@@ -36,12 +36,12 @@ public:
   
   Standard_EXPORT CDM_NullMessageDriver();
   
-  Standard_EXPORT void Write (const Standard_ExtString aString) Standard_OVERRIDE;
+  Standard_EXPORT void Write (const Standard_ExtString aString);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(CDM_NullMessageDriver,CDM_MessageDriver)
+  DEFINE_STANDARD_RTTI(CDM_NullMessageDriver,CDM_MessageDriver)
 
 protected:
 

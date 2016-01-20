@@ -27,4 +27,4 @@ bfuse result ba bb
 
 normals result
 
-checkprops result -s 170
+set square 170

@@ -58,7 +58,7 @@ public:
   Standard_EXPORT Standard_CString SignName() const;
   
   //! Returns as Label, "One File per Signature <name>"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
   
   //! Returns True, maximum count is given as <nbent>
   Standard_EXPORT virtual Standard_Boolean LimitedMax (const Standard_Integer nbent, Standard_Integer& max) const Standard_OVERRIDE;
@@ -66,12 +66,12 @@ public:
   //! Computes the list of produced Packets. It defines Packets from
   //! the SignCounter, which sirts the input Entities per Signature
   //! (specific of the SignCounter).
-  Standard_EXPORT void Packets (const Interface_Graph& G, IFGraph_SubPartsIterator& packs) const Standard_OVERRIDE;
+  Standard_EXPORT void Packets (const Interface_Graph& G, IFGraph_SubPartsIterator& packs) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_DispPerSignature,IFSelect_Dispatch)
+  DEFINE_STANDARD_RTTI(IFSelect_DispPerSignature,IFSelect_Dispatch)
 
 protected:
 

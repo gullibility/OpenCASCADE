@@ -26,8 +26,7 @@ set testinfos(infoZ2) -0.3
 
 checkshape -top result
 
-checkprops result -s 0.402138 
-checkshape result
+set square 0.402138
 set 2dviewer 0
 
 

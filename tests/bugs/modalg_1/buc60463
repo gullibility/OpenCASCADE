@@ -17,9 +17,6 @@ regexp {nb alone Vertices : ([-0-9.+eE]+)} [checksection result] full cs
 if { $cs != 0 } {
     puts "Faulty : Section is incorrect"
 }
-
-checkprops result -l 0 
-checkshape result
-checksection result
+set length 0
 set 2dviewer 0
 

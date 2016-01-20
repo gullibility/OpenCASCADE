@@ -17,8 +17,6 @@
 #include <IFSelect_SelectionIterator.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectControl,IFSelect_Selection)
-
 Handle(IFSelect_Selection)  IFSelect_SelectControl::MainInput () const 
       {  return themain;  }
 

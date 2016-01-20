@@ -20,8 +20,6 @@
 #include <StepFEA_SymmetricTensor23d.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaSecantCoefficientOfLinearThermalExpansion,StepFEA_FeaMaterialPropertyRepresentationItem)
-
 //=======================================================================
 //function : StepFEA_FeaSecantCoefficientOfLinearThermalExpansion
 //purpose  : 

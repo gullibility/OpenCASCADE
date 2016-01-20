@@ -25,7 +25,6 @@
 #include <XmlObjMgt_Element.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
-#include <Storage_Data.hxx>
 class XmlMDF_ADriverTable;
 class TCollection_ExtendedString;
 class PCDM_Document;
@@ -47,21 +46,20 @@ public:
   
   Standard_EXPORT XmlLDrivers_DocumentRetrievalDriver();
   
+  Standard_EXPORT virtual TCollection_ExtendedString SchemaName() const Standard_OVERRIDE;
+  
+  Standard_EXPORT virtual void Make (const Handle(PCDM_Document)& PD, const Handle(CDM_Document)& TD) Standard_OVERRIDE;
+  
   Standard_EXPORT virtual Handle(CDM_Document) CreateDocument() Standard_OVERRIDE;
   
   Standard_EXPORT virtual void Read (const TCollection_ExtendedString& theFileName, const Handle(CDM_Document)& theNewDocument, const Handle(CDM_Application)& theApplication) Standard_OVERRIDE;
-
-  Standard_EXPORT virtual void Read (Standard_IStream&               theIStream,
-                                     const Handle(Storage_Data)&     theStorageData,
-                                     const Handle(CDM_Document)&     theDoc,
-                                     const Handle(CDM_Application)&  theApplication) Standard_OVERRIDE;
   
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers (const Handle(CDM_MessageDriver)& theMsgDriver);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(XmlLDrivers_DocumentRetrievalDriver,PCDM_RetrievalDriver)
+  DEFINE_STANDARD_RTTI(XmlLDrivers_DocumentRetrievalDriver,PCDM_RetrievalDriver)
 
 protected:
 

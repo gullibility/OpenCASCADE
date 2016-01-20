@@ -37,8 +37,6 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_IGESEntity,MMgt_TShared)
-
 #define ThisEntity  Handle(IGESData_IGESEntity)::DownCast(This())
 
 namespace

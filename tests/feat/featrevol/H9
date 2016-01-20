@@ -2,7 +2,6 @@
 puts "*"
 puts "TODO OCC22810 All:Error in featperform"
 puts "TODO OCC22810 All:Error : The feat grid cannot be built."
-puts "TODO OCC22810 All: Error: The command cannot be built"
 #
 box b 8 8 8
 ttranslate b -4 0 0 
@@ -25,4 +24,4 @@ if { [catch { featperform revol result ff fu } ] != 0 } {
   puts "Error in featperform"
 }
 
-checkprops result -s 0
+set square 0

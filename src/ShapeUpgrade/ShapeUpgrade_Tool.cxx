@@ -20,8 +20,6 @@
 #include <ShapeUpgrade_Tool.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_Tool,MMgt_TShared)
-
 //=======================================================================
 //function : ShapeUpgrade_Tool
 //purpose  : 

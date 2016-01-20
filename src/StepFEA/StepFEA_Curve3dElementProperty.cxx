@@ -19,8 +19,6 @@
 #include <StepFEA_Curve3dElementProperty.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_Curve3dElementProperty,MMgt_TShared)
-
 //=======================================================================
 //function : StepFEA_Curve3dElementProperty
 //purpose  : 

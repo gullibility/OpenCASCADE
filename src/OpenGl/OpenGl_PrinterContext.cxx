@@ -17,8 +17,6 @@
 #include <OpenGl_PrinterContext.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_PrinterContext,Standard_Transient)
-
 //=======================================================================
 //function : OpenGl_PrinterContext
 //purpose  :

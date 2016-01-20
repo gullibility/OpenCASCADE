@@ -17,8 +17,6 @@
 #include <StepVisual_PlanarBox.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CameraModelD2,StepVisual_CameraModel)
-
 StepVisual_CameraModelD2::StepVisual_CameraModelD2 ()  {}
 
 void StepVisual_CameraModelD2::Init(

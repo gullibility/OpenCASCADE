@@ -48,8 +48,6 @@
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_SpotLight,V3d_PositionLight)
-
 // =======================================================================
 // function : V3d_SpotLight
 // purpose  :

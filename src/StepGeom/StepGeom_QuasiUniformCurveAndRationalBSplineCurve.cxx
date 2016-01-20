@@ -18,8 +18,6 @@
 #include <StepGeom_RationalBSplineCurve.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_QuasiUniformCurveAndRationalBSplineCurve,StepGeom_BSplineCurve)
-
 StepGeom_QuasiUniformCurveAndRationalBSplineCurve::StepGeom_QuasiUniformCurveAndRationalBSplineCurve ()  {}
 
 void StepGeom_QuasiUniformCurveAndRationalBSplineCurve::Init(

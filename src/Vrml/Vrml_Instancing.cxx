@@ -24,12 +24,12 @@ Vrml_Instancing::Vrml_Instancing(const TCollection_AsciiString& aString)
 
  Standard_OStream& Vrml_Instancing::DEF(Standard_OStream& anOStream) const
 {
- anOStream  << "DEF " << myName << "\n";
+ anOStream  << "DEF " << myName << endl;
  return anOStream;
 }
 
  Standard_OStream& Vrml_Instancing::USE(Standard_OStream& anOStream) const
 {
- anOStream  << "USE " << myName << "\n";
+ anOStream  << "USE " << myName << endl;
  return anOStream;
 }

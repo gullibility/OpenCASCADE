@@ -24,8 +24,6 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_TransferParameters,MMgt_TShared)
-
 //=======================================================================
 //function : ShapeAnalysis_TransferParameters
 //purpose  : 

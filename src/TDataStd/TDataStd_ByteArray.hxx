@@ -95,13 +95,13 @@ Standard_Byte operator () (const Standard_Integer Index) const
   
   Standard_EXPORT TDataStd_ByteArray();
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with);
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual Standard_OStream& Dump (Standard_OStream& OS) const Standard_OVERRIDE;
   
@@ -113,7 +113,7 @@ Standard_Byte operator () (const Standard_Integer Index) const
 friend class TDataStd_DeltaOnModificationOfByteArray;
 
 
-  DEFINE_STANDARD_RTTIEXT(TDataStd_ByteArray,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TDataStd_ByteArray,TDF_Attribute)
 
 protected:
 

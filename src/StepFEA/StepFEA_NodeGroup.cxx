@@ -20,8 +20,6 @@
 #include <StepFEA_NodeGroup.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_NodeGroup,StepFEA_FeaGroup)
-
 //=======================================================================
 //function : StepFEA_NodeGroup
 //purpose  : 

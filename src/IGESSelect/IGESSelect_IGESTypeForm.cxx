@@ -21,8 +21,6 @@
 #include <Standard_Type.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_IGESTypeForm,IFSelect_Signature)
-
 static char falsetype [] = "?";
 static char typeval [30];    // une seule reponse a la fois ...
 

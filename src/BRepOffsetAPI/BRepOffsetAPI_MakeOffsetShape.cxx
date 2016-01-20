@@ -43,11 +43,9 @@ BRepOffsetAPI_MakeOffsetShape::BRepOffsetAPI_MakeOffsetShape
  const BRepOffset_Mode  Mode, 
  const Standard_Boolean Intersection,
  const Standard_Boolean SelfInter,
- const GeomAbs_JoinType Join,
- const Standard_Boolean RemoveIntEdges)
+ const GeomAbs_JoinType Join)
 {
-  myOffsetShape.Initialize (S,Offset,Tol,Mode,Intersection,SelfInter,
-                            Join, Standard_False, RemoveIntEdges);
+  myOffsetShape.Initialize (S,Offset,Tol,Mode,Intersection,SelfInter,Join);
   Build();
 }
 

@@ -26,8 +26,6 @@
 #include <Select3D_SensitiveTriangulation.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveTriangulation,Select3D_SensitiveSet)
-
 static Standard_Integer NbOfFreeEdges (const Handle(Poly_Triangulation)& theTriangulation)
 {
   Standard_Integer aNbFree = 0;
@@ -53,7 +51,8 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation (const Handle(S
                                                                   const Standard_Boolean theIsInterior)
 : Select3D_SensitiveSet (theOwnerId),
   myTriangul (theTrg),
-  myInitLocation (theInitLoc)
+  myInitLocation (theInitLoc),
+  myDetectedTr (-1)
 {
   myInvInitLocation = myInitLocation.Transformation().Inverted();
   mySensType = theIsInterior ? Select3D_TOS_INTERIOR : Select3D_TOS_BOUNDARY;
@@ -145,7 +144,8 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation (const Handle(S
   myTriangul (theTrg),
   myInitLocation (theInitLoc),
   myCDG3D (theCOG),
-  myFreeEdges (theFreeEdges)
+  myFreeEdges (theFreeEdges),
+  myDetectedTr (-1)
 {
   myInvInitLocation = myInitLocation.Transformation().Inverted();
   mySensType = theIsInterior ? Select3D_TOS_INTERIOR : Select3D_TOS_BOUNDARY;

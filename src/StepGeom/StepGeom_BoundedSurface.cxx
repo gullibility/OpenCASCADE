@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_BoundedSurface.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_BoundedSurface,StepGeom_Surface)
-
 StepGeom_BoundedSurface::StepGeom_BoundedSurface ()  {}
 

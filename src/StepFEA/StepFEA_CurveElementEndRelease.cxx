@@ -19,8 +19,6 @@
 #include <StepFEA_CurveElementEndCoordinateSystem.hxx>
 #include <StepFEA_CurveElementEndRelease.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease,MMgt_TShared)
-
 //=======================================================================
 //function : StepFEA_CurveElementEndRelease
 //purpose  : 

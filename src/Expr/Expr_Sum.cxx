@@ -32,8 +32,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_Sum,Expr_PolyExpression)
-
 Expr_Sum::Expr_Sum (const Expr_SequenceOfGeneralExpression& exps)
 {
   Standard_Integer i;

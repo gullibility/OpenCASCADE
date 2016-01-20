@@ -31,7 +31,6 @@
 #include <Geom_TrimmedCurve.hxx>
 #include <Geom_UndefinedDerivative.hxx>
 #include <GeomAbs_CurveType.hxx>
-#include <GeomEvaluator_SurfaceOfExtrusion.hxx>
 #include <gp.hxx>
 #include <gp_Ax2d.hxx>
 #include <gp_Dir.hxx>
@@ -44,8 +43,6 @@
 #include <Precision.hxx>
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfLinearExtrusion,Geom_SweptSurface)
 
 #define  POLES    (poles->Array2())
 #define  WEIGHTS  (weights->Array2())
@@ -62,6 +59,62 @@ typedef gp_Pnt  Pnt;
 typedef gp_Trsf Trsf;
 typedef gp_Vec  Vec;
 typedef gp_XYZ  XYZ;
+
+static void LocateSide(const Standard_Real U,
+		       const Standard_Integer Side,
+		       const Handle(Geom_BSplineCurve)& BSplC,
+		       const Standard_Integer NDir,
+		       gp_Pnt& P,
+		       gp_Vec& D1U,
+		       gp_Vec& D2U,
+		       gp_Vec& D3U) 
+{ 
+  Standard_Integer Ideb, Ifin;
+  Standard_Real ParTol=Precision::PConfusion()/2;
+  BSplC->Geom_BSplineCurve::LocateU(U,ParTol,Ideb,Ifin,Standard_False);   
+  if(Side == 1)
+    {
+      if(Ideb<1) Ideb=1;
+      if ((Ideb>=Ifin))  Ifin = Ideb+1;
+    }else
+  if(Side ==-1)
+	{ 
+	  if(Ifin > BSplC -> NbKnots()) Ifin=BSplC->NbKnots();
+	  if ((Ideb>=Ifin))  Ideb = Ifin-1;
+	}
+
+  switch(NDir)
+       {
+       case 0 :  BSplC->Geom_BSplineCurve::LocalD0(U,Ideb,Ifin,P); break;
+       case 1 :  BSplC->Geom_BSplineCurve::LocalD1(U,Ideb,Ifin,P,D1U); break;
+       case 2 :  BSplC->Geom_BSplineCurve::LocalD2(U,Ideb,Ifin,P,D1U,D2U); break;
+       case 3 :  BSplC->Geom_BSplineCurve::LocalD3(U,Ideb,Ifin,P,D1U,D2U,D3U);break;
+	}
+   
+}
+
+static gp_Vec LocateSideN(const Standard_Real U,
+			  const Standard_Integer Side,
+			  const Handle(Geom_BSplineCurve)& BSplC,
+			  const Standard_Integer Nu,
+//			  const	Standard_Integer  Nv ) 
+			  const	Standard_Integer ) 
+{ 
+  Standard_Integer Ideb, Ifin;
+  Standard_Real ParTol=Precision::PConfusion()/2;
+  BSplC->Geom_BSplineCurve::LocateU(U,ParTol,Ideb,Ifin,Standard_False);   
+  if(Side == 1)
+    {
+      if(Ideb<1) Ideb=1;
+      if ((Ideb>=Ifin))  Ifin = Ideb+1;
+    }else
+      if(Side ==-1)
+	{ 
+	  if(Ifin > BSplC -> NbKnots()) Ifin=BSplC->NbKnots();
+	  if ((Ideb>=Ifin))  Ideb = Ifin-1;
+	}
+  return BSplC->Geom_BSplineCurve::LocalDN(U,Ideb,Ifin,Nu);
+}
 
 
 
@@ -91,7 +144,6 @@ Geom_SurfaceOfLinearExtrusion::Geom_SurfaceOfLinearExtrusion
    basisCurve = Handle(Geom_Curve)::DownCast(C->Copy());  // Copy 10-03-93
    direction  = V;
    smooth     = C->Continuity();
-   myEvaluator = new GeomEvaluator_SurfaceOfExtrusion(basisCurve, direction);
  }
 
 
@@ -124,8 +176,7 @@ Standard_Real Geom_SurfaceOfLinearExtrusion::UReversedParameter(const Standard_R
 
 void Geom_SurfaceOfLinearExtrusion::VReverse () {
 
-  direction.Reverse();
-  myEvaluator->SetDirection(direction);
+  direction.Reverse(); 
 }
 
 
@@ -145,11 +196,12 @@ Standard_Real Geom_SurfaceOfLinearExtrusion::VReversedParameter( const Standard_
 //purpose  : 
 //=======================================================================
 
-void Geom_SurfaceOfLinearExtrusion::SetDirection (const Dir& V)
-{
-  direction = V;
-  myEvaluator->SetDirection(direction);
-}
+void Geom_SurfaceOfLinearExtrusion::SetDirection (const Dir& V) {
+
+   Handle(Geom_Curve) C;
+   direction = V;
+   C         = basisCurve;
+ }
 
 
 //=======================================================================
@@ -161,7 +213,6 @@ void Geom_SurfaceOfLinearExtrusion::SetBasisCurve (const Handle(Geom_Curve)& C) 
 
    smooth = C->Continuity();
    basisCurve = Handle(Geom_Curve)::DownCast(C->Copy());  // Copy 10-03-93
-   myEvaluator = new GeomEvaluator_SurfaceOfExtrusion(basisCurve, direction);
 }
 
 
@@ -185,11 +236,13 @@ void Geom_SurfaceOfLinearExtrusion::Bounds ( Standard_Real& U1,
 //purpose  : 
 //=======================================================================
 
-void Geom_SurfaceOfLinearExtrusion::D0 (const Standard_Real U,
-                                        const Standard_Real V,
-                                              Pnt& P)  const
-{
-  myEvaluator->D0(U, V, P);
+void Geom_SurfaceOfLinearExtrusion::D0 (const Standard_Real U, const Standard_Real V, 
+					      Pnt& P               )  const {
+  
+  XYZ Pxyz = direction.XYZ();
+  Pxyz.Multiply (V);
+  Pxyz.Add (basisCurve->Value (U).XYZ());
+  P.SetXYZ(Pxyz);      
 }
 
 
@@ -198,12 +251,17 @@ void Geom_SurfaceOfLinearExtrusion::D0 (const Standard_Real U,
 //purpose  : 
 //=======================================================================
 
-void Geom_SurfaceOfLinearExtrusion::D1 (const Standard_Real U,
-                                        const Standard_Real V,
-                                              Pnt& P,
-                                              Vec& D1U, Vec& D1V) const
-{
-  myEvaluator->D1(U, V, P, D1U, D1V);
+void Geom_SurfaceOfLinearExtrusion::D1 ( const Standard_Real U  , 
+					 const Standard_Real V  , 
+					       Pnt& P  , 
+					       Vec& D1U, Vec& D1V) const {
+
+   basisCurve->D1 (U, P, D1U);
+   D1V = direction;
+   XYZ Pxyz = direction.XYZ();
+   Pxyz.Multiply (V);
+   Pxyz.Add (P.XYZ());
+   P.SetXYZ (Pxyz);
 }
 
 
@@ -212,13 +270,21 @@ void Geom_SurfaceOfLinearExtrusion::D1 (const Standard_Real U,
 //purpose  : 
 //=======================================================================
 
-void Geom_SurfaceOfLinearExtrusion::D2 (const Standard_Real U,
-                                        const Standard_Real V,
-                                              Pnt& P,
-                                              Vec& D1U, Vec& D1V,
-                                              Vec& D2U, Vec& D2V, Vec& D2UV) const
-{
-  myEvaluator->D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
+void Geom_SurfaceOfLinearExtrusion::D2 ( const Standard_Real U  , 
+					 const Standard_Real V  ,
+					       Pnt& P  ,
+					       Vec& D1U, Vec& D1V,
+					       Vec& D2U, Vec& D2V, Vec& D2UV)
+const {
+
+   basisCurve->D2 (U, P, D1U, D2U);
+   D1V = direction;
+   D2V.SetCoord  (0.0, 0.0, 0.0);
+   D2UV.SetCoord (0.0, 0.0, 0.0);
+   XYZ Pxyz = direction.XYZ();
+   Pxyz.Multiply (V);
+   Pxyz.Add (P.XYZ());
+   P.SetXYZ (Pxyz);
 }
 
 
@@ -227,30 +293,192 @@ void Geom_SurfaceOfLinearExtrusion::D2 (const Standard_Real U,
 //purpose  : 
 //=======================================================================
 
-void Geom_SurfaceOfLinearExtrusion::D3 (const Standard_Real U,
-                                        const Standard_Real V,
-                                              Pnt& P,
-                                              Vec& D1U, Vec& D1V,
-                                              Vec& D2U, Vec& D2V, Vec& D2UV,
-                                              Vec& D3U, Vec& D3V, Vec& D3UUV, Vec& D3UVV) const
-{
-  myEvaluator->D3(U, V, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
+void Geom_SurfaceOfLinearExtrusion::D3 
+  ( const Standard_Real U, const Standard_Real V,
+    Pnt& P,
+    Vec& D1U, Vec& D1V,
+    Vec& D2U, Vec& D2V, Vec& D2UV,
+    Vec& D3U, Vec& D3V, Vec& D3UUV, Vec& D3UVV ) const {
+
+
+   basisCurve->D3 (U, P, D1U, D2U, D3U);
+   D1V = direction;
+   D2V.SetCoord   (0.0, 0.0, 0.0);
+   D3V.SetCoord   (0.0, 0.0, 0.0);
+   D3UUV.SetCoord (0.0, 0.0, 0.0);
+   D3UVV.SetCoord (0.0, 0.0, 0.0);
+   D2UV.SetCoord  (0.0, 0.0, 0.0);
+   XYZ Pxyz = direction.XYZ();
+   Pxyz.Multiply (V);
+   Pxyz.Add (P.XYZ());
+   P.SetXYZ (Pxyz);
 }
-
-
 //=======================================================================
 //function : DN
 //purpose  : 
 //=======================================================================
 
-Vec Geom_SurfaceOfLinearExtrusion::DN (const Standard_Real    U,
-                                       const Standard_Real    V,
-                                       const Standard_Integer Nu,
-                                       const Standard_Integer Nv) const
-{
-  return myEvaluator->DN(U, V, Nu, Nv);
+Vec Geom_SurfaceOfLinearExtrusion::DN 
+  ( const Standard_Real     U, const Standard_Real , 
+    const Standard_Integer Nu, const Standard_Integer Nv) const {
+
+  Standard_RangeError_Raise_if (Nu + Nv < 1 || Nu < 0 || Nv <0, " ");
+  if (Nu == 0 && Nv == 1)  return Vec (direction);
+  else if (Nv == 0)        return basisCurve->DN (U, Nu);
+  else                     return Vec (0.0, 0.0, 0.0);
 }
 
+
+//=======================================================================
+//function : LocalD0
+//purpose  : 
+//=======================================================================
+
+void Geom_SurfaceOfLinearExtrusion::LocalD0 (const Standard_Real    U,
+					     const Standard_Real    V, 
+					     const Standard_Integer USide,
+					     gp_Pnt&          P     )  const
+{ 
+  if((USide != 0) && basisCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) 
+    { 
+      Vec D1U,D2U,D3U;
+      Handle( Geom_BSplineCurve) BSplC;
+      BSplC= Handle(Geom_BSplineCurve)::DownCast(basisCurve);
+
+      LocateSide(U,USide,BSplC,0,P,D1U,D2U,D3U);
+      XYZ Pxyz = direction.XYZ();
+      Pxyz.Multiply (V);
+      Pxyz.Add (P.XYZ());
+      P.SetXYZ (Pxyz);
+    }
+  else D0(U,V,P);
+}        
+
+//=======================================================================
+//function : LocalD1
+//purpose  : 
+//=======================================================================
+
+void Geom_SurfaceOfLinearExtrusion::LocalD1 (const Standard_Real    U, 
+				   const Standard_Real    V,
+				   const Standard_Integer USide, 
+				         gp_Pnt&          P,
+				         gp_Vec&          D1U, 
+				         gp_Vec&          D1V)     const
+{ 
+  if((USide != 0) && basisCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) 
+    { 
+      Vec D2U,D3U;
+      Handle( Geom_BSplineCurve) BSplC;
+      BSplC= Handle(Geom_BSplineCurve)::DownCast(basisCurve);
+
+	  LocateSide(U,USide,BSplC,1,P,D1U,D2U,D3U);
+	  D1V = direction;
+	  XYZ Pxyz = direction.XYZ();
+	  Pxyz.Multiply (V);
+	  Pxyz.Add (P.XYZ());
+	  P.SetXYZ (Pxyz);
+    }
+  else D1(U,V,P,D1U,D1V);
+}
+
+//=======================================================================
+//function : LocalD2
+//purpose  : 
+//=======================================================================
+
+void Geom_SurfaceOfLinearExtrusion::LocalD2 (const Standard_Real    U,
+				   const Standard_Real    V,
+				   const Standard_Integer USide,
+				         gp_Pnt&          P,
+				         gp_Vec&          D1U,
+				         gp_Vec&          D1V,
+				         gp_Vec&          D2U,
+				         gp_Vec&          D2V,
+				         gp_Vec&          D2UV) const
+{
+ if((USide != 0) && basisCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) 
+    { 
+      Vec D3U;
+      Handle( Geom_BSplineCurve) BSplC;
+      BSplC= Handle(Geom_BSplineCurve)::DownCast(basisCurve);
+
+	  LocateSide(U,USide,BSplC,2,P,D1U,D2U,D3U);
+	  D1V = direction;
+	  D2V.SetCoord  (0.0, 0.0, 0.0);
+	  D2UV.SetCoord (0.0, 0.0, 0.0);
+	  XYZ Pxyz = direction.XYZ();
+	  Pxyz.Multiply (V);
+	  Pxyz.Add (P.XYZ());
+	  P.SetXYZ (Pxyz); 
+    }
+  else D2(U,V,P,D1U,D1V,D2U,D2V,D2UV);
+}
+
+//=======================================================================
+//function : LocalD3
+//purpose  : 
+//=======================================================================
+
+void Geom_SurfaceOfLinearExtrusion::LocalD3 (const Standard_Real    U, 
+				   const Standard_Real    V,
+				   const Standard_Integer USide, 
+					 gp_Pnt&          P,
+				         gp_Vec&          D1U,
+				         gp_Vec&          D1V, 
+				         gp_Vec&          D2U, 
+				         gp_Vec&          D2V, 
+				         gp_Vec&          D2UV, 
+				         gp_Vec&          D3U,
+				         gp_Vec&          D3V,
+				         gp_Vec&          D3UUV,
+				         gp_Vec&          D3UVV) const
+{
+  if((USide != 0) && basisCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) 
+    { 
+      Handle( Geom_BSplineCurve) BSplC;
+      BSplC= Handle(Geom_BSplineCurve)::DownCast(basisCurve);
+
+	  LocateSide(U,USide,BSplC,3,P,D1U,D2U,D3U);
+	  D1V = direction;
+	  D2V.SetCoord   (0.0, 0.0, 0.0);
+	  D3V.SetCoord   (0.0, 0.0, 0.0);
+	  D3UUV.SetCoord (0.0, 0.0, 0.0);
+	  D3UVV.SetCoord (0.0, 0.0, 0.0);
+	  D2UV.SetCoord  (0.0, 0.0, 0.0);
+	  XYZ Pxyz = direction.XYZ();
+	  Pxyz.Multiply (V);
+	  Pxyz.Add (P.XYZ());
+	  P.SetXYZ (Pxyz);
+    }
+  else D3(U,V,P,D1U,D1V,D2U,D2V,D2UV,D3U,D3V,D3UUV,D3UVV);
+
+}
+
+//=======================================================================
+//function : LocalDN
+//purpose  : 
+//=======================================================================
+
+gp_Vec Geom_SurfaceOfLinearExtrusion::LocalDN  (const Standard_Real    U, 
+				      const Standard_Real    V,
+				      const Standard_Integer USide,
+				      const Standard_Integer Nu,
+				      const Standard_Integer Nv) const
+{
+  Standard_RangeError_Raise_if (Nu + Nv < 1 || Nu < 0 || Nv <0, " ");
+  if (Nu == 0 && Nv == 1)  return Vec (direction);
+  else if (Nv == 0) {
+    if((USide != 0) && basisCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) { 
+      Handle( Geom_BSplineCurve) BSplC;
+      BSplC= Handle(Geom_BSplineCurve)::DownCast(basisCurve);
+      return LocateSideN(U,USide,BSplC,Nu,Nv);
+    }
+    else
+      return DN(U,V,Nu,Nv);
+  }      
+  return Vec (0.0, 0.0, 0.0);
+}
 
 //=======================================================================
 //function : UIso
@@ -312,7 +540,6 @@ void Geom_SurfaceOfLinearExtrusion::Transform (const Trsf& T) {
 
    direction.Transform   (T);
    basisCurve->Transform (T);
-   myEvaluator->SetDirection(direction);
 }
 
 

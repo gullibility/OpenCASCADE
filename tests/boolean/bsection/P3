@@ -5,5 +5,4 @@ explode m
 compound  m_2 m_3 m_4 m_5 c1
 bsection result m_1 c1
 
-checkprops result -l 214.703
-checksection result
+set length 214.703

@@ -17,8 +17,6 @@
 #include <StepGeom_CompositeCurveSegment.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_CompositeCurve,StepGeom_BoundedCurve)
-
 StepGeom_CompositeCurve::StepGeom_CompositeCurve ()  {}
 
 void StepGeom_CompositeCurve::Init(

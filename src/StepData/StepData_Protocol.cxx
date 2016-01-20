@@ -28,8 +28,6 @@
 #include <StepData_UndefinedEntity.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(StepData_Protocol,Interface_Protocol)
-
 //  Le Protocol de base reconnait UnknownEntity
 //static TCollection_AsciiString  thename("(DEFAULT)");
 static Standard_CString thename = "(DEFAULT)";

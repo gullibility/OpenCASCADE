@@ -128,7 +128,6 @@
 #include <BRepExtrema_ExtPC.hxx>
 #include <BRepExtrema_ExtPF.hxx>
 
-#include <Prs3d_DatumAspect.hxx>
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_VertexDrawMode.hxx>
 #include <Prs3d_LineAspect.hxx>
@@ -137,7 +136,6 @@
 
 #include <Image_AlienPixMap.hxx>
 #include <TColStd_HArray1OfAsciiString.hxx>
-#include <TColStd_HSequenceOfAsciiString.hxx>
 
 #ifdef _WIN32
 # define _CRT_SECURE_NO_DEPRECATE
@@ -165,7 +163,7 @@ static int VTrihedron2D (Draw_Interpretor& di, Standard_Integer argc, const char
 
 {
   // Verification des arguments
-  if ( argc!=2) {di<<argv[0]<<" error\n"; return 1;}
+  if ( argc!=2) {di<<argv[0]<<" error"<<"\n"; return 1;}
 
   // Declarations
   Standard_Integer myCurrentIndex;
@@ -176,7 +174,7 @@ static int VTrihedron2D (Draw_Interpretor& di, Standard_Integer argc, const char
   myCurrentIndex=TheAISContext()->IndexOfCurrentLocal();
   // On active les modes de selections faces.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select a face .\n";
+  di<<" Select a face ."<<"\n";
 
   // Boucle d'attente waitpick.
   Standard_Integer argccc = 5;
@@ -243,126 +241,47 @@ static int VTrihedron2D (Draw_Interpretor& di, Standard_Integer argc, const char
 //Draw arg : vtrihedron  name  [Xo] [Yo] [Zo] [Zu] [Zv] [Zw] [Xu] [Xv] [Xw]
 //==============================================================================
 
-static int VTrihedron (Draw_Interpretor& /*theDi*/,
+static int VTrihedron (Draw_Interpretor& theDi,
                        Standard_Integer  theArgsNb,
                        const char**      theArgVec)
 {
-  if (theArgsNb < 2 || theArgsNb > 11)
+  if (theArgsNb != 2 && theArgsNb != 5 && theArgsNb != 11)
   {
-    std::cout << theArgVec[0] << " syntax error\n";
+    theDi << theArgVec[0] << " Syntax error\n";
     return 1;
   }
 
-  // Parse parameters
-  NCollection_DataMap<TCollection_AsciiString, Handle(TColStd_HSequenceOfAsciiString)> aMapOfArgs;
-  TCollection_AsciiString aParseKey;
-  for (Standard_Integer anArgIt = 1; anArgIt < theArgsNb; ++anArgIt)
-  {
-    TCollection_AsciiString anArg (theArgVec [anArgIt]);
-
-    if (anArg.Value (1) == '-' && !anArg.IsRealValue())
-    {
-      aParseKey = anArg;
-      aParseKey.Remove (1);
-      aParseKey.LowerCase();
-      aMapOfArgs.Bind (aParseKey, new TColStd_HSequenceOfAsciiString);
-      continue;
-    }
-
-    if (aParseKey.IsEmpty())
-    {
-      continue;
-    }
-
-    aMapOfArgs(aParseKey)->Append (anArg);
-  }
-
-  // Check parameters
-  if ( (aMapOfArgs.IsBound ("xaxis") && !aMapOfArgs.IsBound ("zaxis"))
-    || (!aMapOfArgs.IsBound ("xaxis") && aMapOfArgs.IsBound ("zaxis")) )
-  {
-    std::cout << theArgVec[0] << " error: -xaxis and -yaxis parameters are to set together.\n";
-    return 1;
-  }
-
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(TColStd_HSequenceOfAsciiString)>::Iterator aMapIt (aMapOfArgs);
-       aMapIt.More(); aMapIt.Next())
-  {
-    const TCollection_AsciiString& aKey = aMapIt.Key();
-    const Handle(TColStd_HSequenceOfAsciiString)& anArgs = aMapIt.Value();
-
-    // Bool key, without arguments
-    if (aKey.IsEqual ("hidelabels") && anArgs->IsEmpty())
-    {
-      continue;
-    }
-
-    if ( (aKey.IsEqual ("xaxis") || aKey.IsEqual ("zaxis") || aKey.IsEqual ("origin")) && anArgs->Length() == 3
-      && anArgs->Value(1).IsRealValue() && anArgs->Value(2).IsRealValue() && anArgs->Value(3).IsRealValue() )
-    {
-      continue;
-    }
-  }
-
-  // Process parameters
   gp_Pnt anOrigin (0.0, 0.0, 0.0);
   gp_Dir aDirZ = gp::DZ();
   gp_Dir aDirX = gp::DX();
-
-  Handle(TColStd_HSequenceOfAsciiString) aValues;
-
-  if (aMapOfArgs.Find ("origin", aValues))
+  Standard_Integer anArgIter = 2; // 1st is an IO name
+  if (anArgIter < theArgsNb)
   {
-    anOrigin.SetX (aValues->Value(1).RealValue());
-    anOrigin.SetY (aValues->Value(2).RealValue());
-    anOrigin.SetZ (aValues->Value(3).RealValue());
-  }
+    anOrigin.SetX (Draw::Atof (theArgVec[anArgIter++]));
+    anOrigin.SetY (Draw::Atof (theArgVec[anArgIter++]));
+    anOrigin.SetZ (Draw::Atof (theArgVec[anArgIter++]));
+    if (anArgIter < theArgsNb)
+    {
+      Standard_Real aX = Draw::Atof (theArgVec[anArgIter++]);
+      Standard_Real aY = Draw::Atof (theArgVec[anArgIter++]);
+      Standard_Real aZ = Draw::Atof (theArgVec[anArgIter++]);
+      aDirZ.SetCoord (aX, aY, aZ);
 
-  Handle(TColStd_HSequenceOfAsciiString) aValues2;
-  if (aMapOfArgs.Find ("xaxis", aValues) && aMapOfArgs.Find ("zaxis", aValues2))
-  {
-    Standard_Real aX = aValues->Value(1).RealValue();
-    Standard_Real aY = aValues->Value(2).RealValue();
-    Standard_Real aZ = aValues->Value(3).RealValue();
-    aDirX.SetCoord (aX, aY, aZ);
-
-    aX = aValues->Value(1).RealValue();
-    aY = aValues->Value(2).RealValue();
-    aZ = aValues->Value(3).RealValue();
-    aDirZ.SetCoord (aX, aY, aZ);
+      aX = Draw::Atof (theArgVec[anArgIter++]);
+      aY = Draw::Atof (theArgVec[anArgIter++]);
+      aZ = Draw::Atof (theArgVec[anArgIter++]);
+      aDirX.SetCoord (aX, aY, aZ);
+    }
   }
 
   if (!aDirZ.IsNormal (aDirX, M_PI / 180.0))
   {
-    std::cout << theArgVec[0] << " error - VectorX is not normal to VectorZ\n";
+    theDi << theArgVec[0] << " - VectorX is not normal to VectorZ\n";
     return 1;
   }
 
   Handle(Geom_Axis2Placement) aPlacement = new Geom_Axis2Placement (anOrigin, aDirZ, aDirX);
   Handle(AIS_Trihedron) aShape = new AIS_Trihedron (aPlacement);
-
-  if (aMapOfArgs.Find ("hidelabels", aValues))
-  {
-    const Handle(Prs3d_Drawer)& aDrawer = aShape->Attributes();
-
-    if(!aDrawer->HasOwnDatumAspect())
-    {
-      Handle(Prs3d_DatumAspect) aDefAspect = ViewerTest::GetAISContext()->DefaultDrawer()->DatumAspect();
-
-      Handle(Prs3d_DatumAspect) aDatumAspect = new Prs3d_DatumAspect();
-      aDatumAspect->FirstAxisAspect()->SetAspect (aDefAspect->FirstAxisAspect()->Aspect());
-      aDatumAspect->SecondAxisAspect()->SetAspect (aDefAspect->SecondAxisAspect()->Aspect());
-      aDatumAspect->ThirdAxisAspect()->SetAspect (aDefAspect->ThirdAxisAspect()->Aspect());
-      aDatumAspect->SetAxisLength (aDefAspect->FirstAxisLength(),
-                                   aDefAspect->SecondAxisLength(),
-                                   aDefAspect->ThirdAxisLength());
-
-      aDrawer->SetDatumAspect (aDatumAspect);
-    }
-
-    aDrawer->DatumAspect()->SetToDrawLabels (Standard_False);
-  }
-
   VDisplayAISObject (theArgVec[1], aShape);
   return 0;
 }
@@ -388,7 +307,7 @@ static int VSize (Draw_Interpretor& di, Standard_Integer argc, const char** argv
   Quantity_NameOfColor         col = Quantity_NOC_BLACK ;
 
   // Verification des arguments
-  if ( argc>3 ) {di<<argv[0]<<" Syntaxe error\n"; return 1;}
+  if ( argc>3 ) {di<<argv[0]<<" Syntaxe error"<<"\n"; return 1;}
 
   // Verification du nombre d'arguments
   if (argc==1)      {ThereIsName=Standard_False;value=100;}
@@ -533,7 +452,7 @@ static int VPlaneTrihedron (Draw_Interpretor& di, Standard_Integer argc, const c
 
 {
   // Verification des arguments
-  if ( argc!=2) {di<<argv[0]<<" error\n"; return 1;}
+  if ( argc!=2) {di<<argv[0]<<" error"<<"\n"; return 1;}
 
   // Declarations
   Standard_Integer myCurrentIndex;
@@ -565,7 +484,7 @@ static int VPlaneTrihedron (Draw_Interpretor& di, Standard_Integer argc, const c
       it.Next();
   }
 
-  di<<" Select a plane.\n";
+  di<<" Select a plane."<<"\n";
   // Boucle d'attente waitpick.
   Standard_Integer argccc = 5;
   const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -620,7 +539,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
   Standard_Integer MyCurrentIndex;
 
   // Verification
-  if (argc<2 || argc>8 ) {di<<" Syntaxe error\n";return 1;}
+  if (argc<2 || argc>8 ) {di<<" Syntaxe error"<<"\n";return 1;}
   if (argc==8) HasArg=Standard_True;
   else HasArg=Standard_False;
 
@@ -655,7 +574,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       // Active le mode edge et le mode vertex
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(1) );
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(2) );
-      di<<" Select an edge or a vertex.\n";
+      di<<" Select an edge or a vertex."<<"\n";
 
       // Boucle d'attente waitpick.
       Standard_Integer argcc = 5;
@@ -677,7 +596,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       if (ShapeA.ShapeType()==TopAbs_VERTEX) {
         // on desactive le mode edge
         TheAISContext()->DeactivateStandardMode(AIS_Shape::SelectionType(2) );
-        di<<" Select a different vertex.\n";
+        di<<" Select a different vertex."<<"\n";
 
         TopoDS_Shape ShapeB;
         do {
@@ -736,7 +655,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
       // Active le mode edge
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(2) );
-      di<<" Select an edge.\n";
+      di<<" Select an edge."<<"\n";
 
       // Boucle d'attente waitpick.
       Standard_Integer argcc = 5;
@@ -752,7 +671,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       // Active le mode vertex et deactive edges
       TheAISContext()->DeactivateStandardMode(AIS_Shape::SelectionType(2) );
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(1) );
-      di<<" Select a vertex.\n";
+      di<<" Select a vertex."<<"\n";
 
       // Boucle d'attente waitpick.
       Standard_Integer argccc = 5;
@@ -792,7 +711,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
       // Active le mode edge
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(2) );
-      di<<" Select an edge.\n";
+      di<<" Select an edge."<<"\n";
 
       // Boucle d'attente waitpick.
       Standard_Integer argcc = 5;
@@ -808,7 +727,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       // Active le mode vertex et deactive edges
       TheAISContext()->DeactivateStandardMode(AIS_Shape::SelectionType(2) );
       TheAISContext()->ActivateStandardMode(AIS_Shape::SelectionType(1) );
-      di<<" Slect a vertex.\n";
+      di<<" Slect a vertex."<<"\n";
 
       // Boucle d'attente waitpick.
       Standard_Integer argccc = 5;
@@ -873,7 +792,7 @@ static int VPointBuilder(Draw_Interpretor& di, Standard_Integer argc, const char
   Standard_Integer myCurrentIndex;
 
   // Verification
-  if (argc<2 || argc>5 ) {di<<" Syntaxe error\n";return 1;}
+  if (argc<2 || argc>5 ) {di<<" Syntaxe error"<<"\n";return 1;}
   if (argc==5) HasArg=Standard_True;
   else HasArg=Standard_False;
 
@@ -900,7 +819,7 @@ static int VPointBuilder(Draw_Interpretor& di, Standard_Integer argc, const char
     // Active le mode Vertex et Edges
     TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(1) );
     TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-    di<<" Select a vertex or an edge(build the middle)\n";
+    di<<" Select a vertex or an edge(build the middle)"<<"\n";
 
     // Boucle d'attente waitpick.
     Standard_Integer argcc = 5;
@@ -1064,21 +983,21 @@ static Standard_Integer VPlaneBuilder (Draw_Interpretor& /*di*/,
            Abs(aCartPointB->Z()-aCartPointA->Z())<=Precision::Confusion())
         {
           // B=A
-          std::cout<<"vplane error: same points\n";return 1;
+          std::cout<<"vplane error: same points"<<"\n";return 1;
         }
         if(Abs(aCartPointC->X()-aCartPointA->X())<=Precision::Confusion() &&
            Abs(aCartPointC->Y()-aCartPointA->Y())<=Precision::Confusion() &&
            Abs(aCartPointC->Z()-aCartPointA->Z())<=Precision::Confusion())
         {
           // C=A
-          std::cout<<"vplane error: same points\n";return 1;
+          std::cout<<"vplane error: same points"<<"\n";return 1;
         }
         if(Abs(aCartPointC->X()-aCartPointB->X())<=Precision::Confusion() &&
            Abs(aCartPointC->Y()-aCartPointB->Y())<=Precision::Confusion() &&
            Abs(aCartPointC->Z()-aCartPointB->Z())<=Precision::Confusion())
         {
           // C=B
-          std::cout<<"vplane error: same points\n";return 1;
+          std::cout<<"vplane error: same points"<<"\n";return 1;
         }
 
         gp_Pnt A = aCartPointA->Pnt();
@@ -1549,7 +1468,7 @@ static Standard_Integer VPlaneBuilder (Draw_Interpretor& /*di*/,
         }
         else
         {
-          std::cout<<" vplanepara: error\n";return 1;
+          std::cout<<" vplanepara: error"<<"\n";return 1;
         }
       }
     }
@@ -1850,7 +1769,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 {
   Standard_Integer myCurrentIndex;
   // Verifications
-  if (argc!=4 && argc!=8 && argc!=2 )  {di<<"vline error: number of arguments not correct \n";return 1; }
+  if (argc!=4 && argc!=8 && argc!=2 )  {di<<"vline error: number of arguments not correct "<<"\n";return 1; }
   // Fermeture des contextes
   TheAISContext()->CloseAllContexts();
 
@@ -1872,11 +1791,11 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
         if (theShapeA.IsNull() ||
           (!(theShapeB->Type()==AIS_KOI_Datum && theShapeB->Signature()==1)))
         {
-          di <<"vline error: wrong type of 2de argument.\n";
+          di <<"vline error: wrong type of 2de argument."<<"\n";
           return 1;
         }
       }
-    else {di <<"vline error: wrong type of 1st argument.\n";return 1; }
+    else {di <<"vline error: wrong type of 1st argument."<<"\n";return 1; }
     // Les deux parametres sont du bon type. On verifie que les points ne sont pas confondus
     Handle(AIS_Point) theAISPointA= Handle(AIS_Point)::DownCast (theShapeA);
     Handle(AIS_Point) theAISPointB= Handle(AIS_Point)::DownCast (theShapeB);
@@ -1891,7 +1810,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
     if (myCartPointB->X()==myCartPointA->X() && myCartPointB->Y()==myCartPointA->Y() && myCartPointB->Z()==myCartPointA->Z() ) {
       // B=A
-      di<<"vline error: same points\n";return 1;
+      di<<"vline error: same points"<<"\n";return 1;
     }
     // Les deux points sont OK...Construction de l'AIS_Line (en faite, le segment AB)
     Handle(AIS_Line) theAISLine= new AIS_Line(myCartPointA,myCartPointB );
@@ -1930,7 +1849,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
     // Active le mode Vertex.
     TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(1) );
-    di<<" Select a vertex \n";
+    di<<" Select a vertex "<<"\n";
 
     // Boucle d'attente waitpick.
     Standard_Integer argcc = 5;
@@ -1947,7 +1866,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
     // ShapeA est un Vertex
     if (ShapeA.ShapeType()==TopAbs_VERTEX ) {
 
-      di<<" Select a different vertex.\n";
+      di<<" Select a different vertex."<<"\n";
 
       TopoDS_Shape ShapeB;
       do {
@@ -1982,7 +1901,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
     }
     else  {
-      di<<"vline error.\n";
+      di<<"vline error."<<"\n";
     }
 
   }
@@ -2013,7 +1932,7 @@ class FilledCircle : public AIS_InteractiveObject
 {
 public:
     // CASCADE RTTI
-    DEFINE_STANDARD_RTTI_INLINE(FilledCircle,AIS_InteractiveObject); 
+    DEFINE_STANDARD_RTTI(FilledCircle, AIS_InteractiveObject); 
 
     FilledCircle(gp_Pnt theCenter, Standard_Real theRadius);
     FilledCircle(Handle(Geom_Circle) theCircle);
@@ -2024,10 +1943,10 @@ private:
     // Virtual methods implementation
     void Compute (  const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                   const Handle(Prs3d_Presentation)& thePresentation,
-                  const Standard_Integer theMode) Standard_OVERRIDE;
+                  const Standard_Integer theMode);
 
     void ComputeSelection (  const Handle(SelectMgr_Selection)& theSelection, 
-                           const Standard_Integer theMode) Standard_OVERRIDE;
+                           const Standard_Integer theMode);
 
 protected:
     Handle(Geom_Circle) myCircle;
@@ -3250,7 +3169,7 @@ static int VComputeHLR (Draw_Interpretor& di,
   if ( argc != 3 &&  argc != 12 )
   {
     di << "Usage: " << argv[0] << " ShapeName HlrName "
-       << "[ eye_x eye_y eye_z dir_x dir_y dir_z upx upy upz ]\n"
+       << "[ eye_x eye_y eye_z dir_x dir_y dir_z upx upy upz ]" << "\n"
        << "                    ShapeName - name of the initial shape\n"
        << "                    HlrName - result hlr object from initial shape\n"
        << "                    eye, dir are eye position and look direction\n"
@@ -3379,16 +3298,16 @@ public:
     myMarkerAspect = theMarkerAspect;
   }
 
-  DEFINE_STANDARD_RTTI_INLINE(MyPArrayObject,AIS_InteractiveObject);
+  DEFINE_STANDARD_RTTI(MyPArrayObject, AIS_InteractiveObject);
 
 private:
 
   void Compute (const Handle(PrsMgr_PresentationManager3d)& aPresentationManager,
                 const Handle(Prs3d_Presentation)& aPresentation,
-                const Standard_Integer aMode) Standard_OVERRIDE;
+                const Standard_Integer aMode);
 
   void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection,
-                         const Standard_Integer /*theMode*/) Standard_OVERRIDE;
+                         const Standard_Integer /*theMode*/);
 
   bool CheckInputCommand (const TCollection_AsciiString theCommand,
                           const Handle(TColStd_HArray1OfAsciiString) theArgsArray,
@@ -4179,13 +4098,13 @@ static Standard_Integer VDisconnect (Draw_Interpretor& di,
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
-    std::cout << argv[0] << "ERROR : use 'vinit' command before \n";
+    std::cout << argv[0] << "ERROR : use 'vinit' command before " << "\n";
     return 1;
   }
   
   if (argc != 3)
   {
-    std::cout << "ERROR : Usage : " << argv[0] << " name object\n";
+    std::cout << "ERROR : Usage : " << argv[0] << " name object" << "\n";
     return 1;
   }
 
@@ -4198,14 +4117,14 @@ static Standard_Integer VDisconnect (Draw_Interpretor& di,
   Handle(AIS_MultipleConnectedInteractive) anAssembly;
   if (!aMap.IsBound2 (aName) )
   {
-    std::cout << "Use 'vdisplay' before\n";
+    std::cout << "Use 'vdisplay' before" << "\n";
     return 1;
   }
 
   anAssembly = Handle(AIS_MultipleConnectedInteractive)::DownCast (aMap.Find2 (aName));
   if (anAssembly.IsNull())
   {
-    di << "Not an assembly\n";
+    di << "Not an assembly" << "\n";
     return 1;
   }
 
@@ -4228,7 +4147,7 @@ static Standard_Integer VDisconnect (Draw_Interpretor& di,
     }
     else
     {
-      std::cout << "Use 'vdisplay' before\n";
+      std::cout << "Use 'vdisplay' before" << "\n";
       return 1;
     }    
   }
@@ -4256,7 +4175,7 @@ static Standard_Integer VAddConnected (Draw_Interpretor& di,
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
-    std::cout << argv[0] << "error : use 'vinit' command before \n";
+    std::cout << argv[0] << "error : use 'vinit' command before " << "\n";
     return 1;
   }
   
@@ -4277,21 +4196,21 @@ static Standard_Integer VAddConnected (Draw_Interpretor& di,
   Handle(AIS_MultipleConnectedInteractive) anAssembly;
   if (!aMap.IsBound2 (aName) )
   {
-    std::cout << "Use 'vdisplay' before\n";
+    std::cout << "Use 'vdisplay' before" << "\n";
     return 1;
   }
 
   anAssembly = Handle(AIS_MultipleConnectedInteractive)::DownCast (aMap.Find2 (aName));
   if (anAssembly.IsNull())
   {
-    di << "Not an assembly\n";
+    di << "Not an assembly" << "\n";
     return 1;
   }
 
   Handle(AIS_InteractiveObject) anIObj;
   if (!aMap.IsBound2 (anObject))
   {
-      std::cout << "Use 'vdisplay' before\n";
+      std::cout << "Use 'vdisplay' before" << "\n";
       return 1; 
   }
 
@@ -4319,13 +4238,13 @@ static Standard_Integer VListConnected (Draw_Interpretor& /*di*/,
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
-    std::cout << argv[0] << "ERROR : use 'vinit' command before \n";
+    std::cout << argv[0] << "ERROR : use 'vinit' command before " << "\n";
     return 1;
   }
   
   if (argc != 2)
   {
-    std::cout << "ERROR : Usage : " << argv[0] << " name\n";
+    std::cout << "ERROR : Usage : " << argv[0] << " name" << "\n";
     return 1;
   }
 
@@ -4336,14 +4255,14 @@ static Standard_Integer VListConnected (Draw_Interpretor& /*di*/,
   Handle(AIS_MultipleConnectedInteractive) anAssembly;
   if (!aMap.IsBound2 (aName) )
   {
-    std::cout << "Use 'vdisplay' before\n";
+    std::cout << "Use 'vdisplay' before" << "\n";
     return 1;
   }
 
   anAssembly = Handle(AIS_MultipleConnectedInteractive)::DownCast (aMap.Find2 (aName));
   if (anAssembly.IsNull())
   {
-    std::cout << "Not an assembly\n";
+    std::cout << "Not an assembly" << "\n";
     return 1;
   }
 
@@ -4576,17 +4495,17 @@ class Triangle: public AIS_InteractiveObject
 {
 public: 
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTI_INLINE(Triangle,AIS_InteractiveObject);
+  DEFINE_STANDARD_RTTI(Triangle, AIS_InteractiveObject);
   Triangle (const gp_Pnt& theP1, 
             const gp_Pnt& theP2, 
             const gp_Pnt& theP3);
 protected:
   void Compute (  const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                   const Handle(Prs3d_Presentation)& thePresentation,
-                  const Standard_Integer theMode) Standard_OVERRIDE;
+                  const Standard_Integer theMode);
 
   void ComputeSelection (  const Handle(SelectMgr_Selection)& theSelection, 
-                           const Standard_Integer theMode) Standard_OVERRIDE;
+                           const Standard_Integer theMode);
 private: 
   gp_Pnt myPoint1;
   gp_Pnt myPoint2;
@@ -4770,15 +4689,15 @@ class SegmentObject: public AIS_InteractiveObject
 {
 public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTI_INLINE(SegmentObject,AIS_InteractiveObject); 
+  DEFINE_STANDARD_RTTI(SegmentObject, AIS_InteractiveObject); 
   SegmentObject (const gp_Pnt& thePnt1, const gp_Pnt& thePnt2);
 protected:
   void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                 const Handle(Prs3d_Presentation)& thePresentation,
-                const Standard_Integer theMode) Standard_OVERRIDE;
+                const Standard_Integer theMode);
 
   void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection, 
-                         const Standard_Integer theMode) Standard_OVERRIDE;
+                         const Standard_Integer theMode);
 private:
   gp_Pnt myPoint1;
   gp_Pnt myPoint2;
@@ -4916,7 +4835,7 @@ static Standard_Integer VObjZLayer (Draw_Interpretor& di,
   ViewerTest_DoubleMapOfInteractiveAndName& aMap = GetMapOfAIS();
   if (!aMap.IsBound2 (aName))
   {
-    di << "Use 'vdisplay' before\n";
+    di << "Use 'vdisplay' before" << "\n";
     return 1;
   }
 
@@ -5159,16 +5078,16 @@ public:
     myMarkerAspect = theMarkerAspect;
   }
 
-  DEFINE_STANDARD_RTTI_INLINE(MyPArrayObject,AIS_InteractiveObject);
+  DEFINE_STANDARD_RTTI(MyPArrayObject, AIS_InteractiveObject);
 
 private:
 
   void Compute (const Handle(PrsMgr_PresentationManager3d)& aPresentationManager,
                 const Handle(Prs3d_Presentation)& aPresentation,
-                const Standard_Integer aMode) Standard_OVERRIDE;
+                const Standard_Integer aMode);
 
   void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection,
-                         const Standard_Integer /*theMode*/) Standard_OVERRIDE;
+                         const Standard_Integer /*theMode*/);
 
 protected:
 
@@ -6304,9 +6223,8 @@ void ViewerTest::ObjectCommands(Draw_Interpretor& theCommands)
 {
   const char *group ="AISObjects";
   theCommands.Add("vtrihedron",
-    "vtrihedron         : vtrihedron name [ -origin x y z ] [ -zaxis u v w -xaxis u v w ] [ -hidelabels ]"
-    "\n\t\t: Creates a new *AIS_Trihedron* object. If no argument is set, the default trihedron (0XYZ) is created."
-     "\n\t\t: -hidelabels allows to draw trihedron without axes labels. By default, they are displayed.",
+    "vtrihedron         : vtrihedron name [Xo] [Yo] [Zo] [Zu] [Zv] [Zw] [Xu] [Xv] [Xw] "
+    "\n\t\t: Creates a new *AIS_Trihedron* object. If no argument is set, the default trihedron (0XYZ) is created.",
     __FILE__,VTrihedron,group);
 
   theCommands.Add("vtri2d",

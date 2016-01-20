@@ -46,7 +46,11 @@ class Adaptor3d_HSurface;
 class Adaptor3d_HSurfaceTool;
 class Contap_SurfFunction;
 class Contap_TheIWLineOfTheIWalking;
+class Contap_SequenceOfIWLineOfTheIWalking;
+class Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking;
 class IntSurf_PntOn2S;
+
+
 
 class Contap_TheIWalking 
 {
@@ -55,52 +59,22 @@ public:
   DEFINE_STANDARD_ALLOC
 
   
-  //! Deflection is the maximum deflection admitted between two
-  //! consecutive points on a resulting polyline.
-  //! Step is the maximum increment admitted between two
-  //! consecutive points (in 2d space).
-  //! Epsilon is the tolerance beyond which 2 points
-  //! are confused.
   Standard_EXPORT Contap_TheIWalking(const Standard_Real Epsilon, const Standard_Real Deflection, const Standard_Real Step);
   
-  //! Deflection is the maximum deflection admitted between two
-  //! consecutive points on a resulting polyline.
-  //! Step is the maximum increment admitted between two
-  //! consecutive points (in 2d space).
-  //! Epsilon is the tolerance beyond which 2 points
-  //! are confused
     void SetTolerance (const Standard_Real Epsilon, const Standard_Real Deflection, const Standard_Real Step);
   
-  //! Searches a set of polylines starting on a point of Pnts1
-  //! or Pnts2.
-  //! Each point on a resulting polyline verifies F(u,v)=0
   Standard_EXPORT void Perform (const IntSurf_SequenceOfPathPoint& Pnts1, const IntSurf_SequenceOfInteriorPoint& Pnts2, Contap_SurfFunction& Func, const Handle(Adaptor3d_HSurface)& S, const Standard_Boolean Reversed = Standard_False);
   
-  //! Searches a set of polylines starting on a point of Pnts1.
-  //! Each point on a resulting polyline verifies F(u,v)=0
   Standard_EXPORT void Perform (const IntSurf_SequenceOfPathPoint& Pnts1, Contap_SurfFunction& Func, const Handle(Adaptor3d_HSurface)& S, const Standard_Boolean Reversed = Standard_False);
   
-  //! Returns true if the calculus was successful.
     Standard_Boolean IsDone() const;
   
-  //! Returns the number of resulting polylines.
-  //! An exception is raised if IsDone returns False.
     Standard_Integer NbLines() const;
   
-  //! Returns the polyline of range Index.
-  //! An exception is raised if IsDone is False.
-  //! An exception is raised if Index<=0 or Index>NbLines.
     const Handle(Contap_TheIWLineOfTheIWalking)& Value (const Standard_Integer Index) const;
   
-  //! Returns the number of points belonging to Pnts on which no
-  //! line starts or ends.
-  //! An exception is raised if IsDone returns False.
     Standard_Integer NbSinglePnts() const;
   
-  //! Returns the point of range Index .
-  //! An exception is raised if IsDone returns False.
-  //! An exception is raised if Index<=0 or
-  //! Index > NbSinglePnts.
     const IntSurf_PathPoint& SinglePnt (const Standard_Integer Index) const;
 
 
@@ -131,7 +105,6 @@ protected:
   
   Standard_EXPORT void MakeWalkingPoint (const Standard_Integer Case, const Standard_Real U, const Standard_Real V, Contap_SurfFunction& Section, IntSurf_PntOn2S& Psol);
   
-  //! Clears up internal containers
   Standard_EXPORT void Clear();
 
 
@@ -186,7 +159,13 @@ private:
 #define IntWalk_TheIWLine_hxx <Contap_TheIWLineOfTheIWalking.hxx>
 #define IntWalk_SequenceOfIWLine Contap_SequenceOfIWLineOfTheIWalking
 #define IntWalk_SequenceOfIWLine_hxx <Contap_SequenceOfIWLineOfTheIWalking.hxx>
+#define IntWalk_SequenceNodeOfSequenceOfIWLine Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking
+#define IntWalk_SequenceNodeOfSequenceOfIWLine_hxx <Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking.hxx>
+#define IntWalk_SequenceNodeOfSequenceOfIWLine Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking
+#define IntWalk_SequenceNodeOfSequenceOfIWLine_hxx <Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking.hxx>
 #define Handle_IntWalk_TheIWLine Handle(Contap_TheIWLineOfTheIWalking)
+#define Handle_IntWalk_SequenceNodeOfSequenceOfIWLine Handle(Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking)
+#define Handle_IntWalk_SequenceNodeOfSequenceOfIWLine Handle(Contap_SequenceNodeOfSequenceOfIWLineOfTheIWalking)
 #define IntWalk_IWalking Contap_TheIWalking
 #define IntWalk_IWalking_hxx <Contap_TheIWalking.hxx>
 
@@ -214,7 +193,13 @@ private:
 #undef IntWalk_TheIWLine_hxx
 #undef IntWalk_SequenceOfIWLine
 #undef IntWalk_SequenceOfIWLine_hxx
+#undef IntWalk_SequenceNodeOfSequenceOfIWLine
+#undef IntWalk_SequenceNodeOfSequenceOfIWLine_hxx
+#undef IntWalk_SequenceNodeOfSequenceOfIWLine
+#undef IntWalk_SequenceNodeOfSequenceOfIWLine_hxx
 #undef Handle_IntWalk_TheIWLine
+#undef Handle_IntWalk_SequenceNodeOfSequenceOfIWLine
+#undef Handle_IntWalk_SequenceNodeOfSequenceOfIWLine
 #undef IntWalk_IWalking
 #undef IntWalk_IWalking_hxx
 

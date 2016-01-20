@@ -38,6 +38,7 @@ class STEPCAFControl_ExternFile;
 class STEPControl_Writer;
 class TopoDS_Shape;
 
+
 //! Provides a tool to write DECAF document to the
 //! STEP file. Besides transfer of shapes (including
 //! assemblies) provided by STEPControl, supports also
@@ -174,9 +175,6 @@ protected:
   //! Write D&GTs assigned to specified labels, to STEP model
   Standard_EXPORT Standard_Boolean WriteDGTs (const Handle(XSControl_WorkSession)& WS, const TDF_LabelSequence& labels) const;
   
-   //! Write D&GTs assigned to specified labels, to STEP model, according AP242
-  Standard_EXPORT Standard_Boolean WriteDGTsAP242 (const Handle(XSControl_WorkSession)& WS, const TDF_LabelSequence& labels) const;
-
   //! Write materials assigned to specified labels, to STEP model
   Standard_EXPORT Standard_Boolean WriteMaterials (const Handle(XSControl_WorkSession)& WS, const TDF_LabelSequence& labels) const;
   

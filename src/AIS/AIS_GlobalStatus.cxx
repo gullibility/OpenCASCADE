@@ -19,8 +19,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_ListIteratorOfListOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_GlobalStatus,MMgt_TShared)
-
 AIS_GlobalStatus::AIS_GlobalStatus():
 myStatus(AIS_DS_None),
 myLayerIndex(0),

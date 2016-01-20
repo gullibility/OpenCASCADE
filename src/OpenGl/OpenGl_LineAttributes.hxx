@@ -32,7 +32,7 @@ public:
   virtual ~OpenGl_LineAttributes();
 
   void Init (const Handle(OpenGl_Context)& theGlCtx);
-  virtual void Release (OpenGl_Context* theGlCtx) Standard_OVERRIDE;
+  virtual void Release (OpenGl_Context* theGlCtx);
 
   void SetTypeOfHatch (const int theType) const;
 
@@ -42,7 +42,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_LineAttributes,OpenGl_Resource)
+  DEFINE_STANDARD_RTTI(OpenGl_LineAttributes, OpenGl_Resource)
 
 };
 

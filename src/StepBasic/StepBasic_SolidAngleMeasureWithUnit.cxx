@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_SolidAngleMeasureWithUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SolidAngleMeasureWithUnit,StepBasic_MeasureWithUnit)
-
 StepBasic_SolidAngleMeasureWithUnit::StepBasic_SolidAngleMeasureWithUnit ()  {}
 

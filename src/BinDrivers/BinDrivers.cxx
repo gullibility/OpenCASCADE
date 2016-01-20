@@ -25,6 +25,7 @@
 #include <BinMDocStd.hxx>
 #include <BinMFunction.hxx>
 #include <BinMNaming.hxx>
+#include <BinMPrsStd.hxx>
 #include <CDM_MessageDriver.hxx>
 #include <Plugin_Macro.hxx>
 #include <Standard_Failure.hxx>
@@ -82,6 +83,7 @@ Handle(BinMDF_ADriverTable) BinDrivers::AttributeDrivers
   BinMNaming    ::AddDrivers (aTable, aMsgDrv);
   BinMDocStd    ::AddDrivers (aTable, aMsgDrv);
   BinMFunction  ::AddDrivers (aTable, aMsgDrv);
+  BinMPrsStd    ::AddDrivers (aTable, aMsgDrv);
   return aTable;
 }
 

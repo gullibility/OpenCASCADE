@@ -31,14 +31,14 @@ class TObj_HiddenPartition : public TObj_Partition
   Standard_EXPORT TObj_HiddenPartition (const TDF_Label& theLabel);
 
   //! Returns all flags of father except Visible
-  virtual Standard_EXPORT Standard_Integer GetTypeFlags() const Standard_OVERRIDE;
+  virtual Standard_EXPORT Standard_Integer GetTypeFlags() const;
 
  protected:
   //! Persistence of TObj object
   DECLARE_TOBJOCAF_PERSISTENCE(TObj_HiddenPartition,TObj_Partition)
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_HiddenPartition,TObj_Partition)
+  DEFINE_STANDARD_RTTI(TObj_HiddenPartition, TObj_Partition)
 };
 
 //! Define handle class for TObj_HiddenPartition

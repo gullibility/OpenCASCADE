@@ -202,11 +202,11 @@ public:
   
   //! Returns the tree ID (default or explicit one depending
   //! onthe Set method used).
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT virtual void Restore (const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Restore (const Handle(TDF_Attribute)& with);
   
-  Standard_EXPORT virtual void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
   
@@ -218,7 +218,7 @@ public:
 friend class TDataStd_ChildNodeIterator;
 
 
-  DEFINE_STANDARD_RTTIEXT(TDataStd_TreeNode,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TDataStd_TreeNode,TDF_Attribute)
 
 protected:
 

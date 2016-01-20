@@ -19,8 +19,6 @@
 #include <StepBasic_CharacterizedObject.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CharacterizedObject,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_CharacterizedObject
 //purpose  : 

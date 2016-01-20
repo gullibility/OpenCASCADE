@@ -25,8 +25,6 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_MeshOwner,SelectMgr_EntityOwner)
-
 #ifndef MeshVS_PRSBUILDERHXX
 #include <MeshVS_PrsBuilder.hxx>
 #endif

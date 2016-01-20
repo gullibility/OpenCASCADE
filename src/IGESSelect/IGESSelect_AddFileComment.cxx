@@ -23,8 +23,6 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_AddFileComment,IGESSelect_FileModifier)
-
 IGESSelect_AddFileComment::IGESSelect_AddFileComment  ()
       {  thelist = new TColStd_HSequenceOfHAsciiString();  }
 

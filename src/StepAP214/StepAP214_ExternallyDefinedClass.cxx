@@ -22,8 +22,6 @@
 #include <StepBasic_SourceItem.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_ExternallyDefinedClass,StepAP214_Class)
-
 //=======================================================================
 //function : StepAP214_ExternallyDefinedClass
 //purpose  : 

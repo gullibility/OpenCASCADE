@@ -24,8 +24,6 @@
 #include <TDataXtd_Axis.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataXtd_AxisDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataXtd_AxisDriver
 //purpose  : 

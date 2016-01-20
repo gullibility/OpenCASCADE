@@ -24,8 +24,6 @@
 #include <TDataStd_Tick.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_TickDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_TickDriver
 //purpose  : 

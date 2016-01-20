@@ -45,15 +45,15 @@ public:
   
   //! Selects the Drawings attached (through Single Views in
   //! Directory Part) to input entities
-  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const Standard_OVERRIDE;
+  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const;
   
   //! Returns the label, with is "Drawings attached"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectDrawingFrom,IFSelect_SelectDeduct)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectDrawingFrom,IFSelect_SelectDeduct)
 
 protected:
 

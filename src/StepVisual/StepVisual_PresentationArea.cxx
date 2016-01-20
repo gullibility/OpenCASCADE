@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_PresentationArea.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationArea,StepVisual_PresentationRepresentation)
-
 StepVisual_PresentationArea::StepVisual_PresentationArea ()  {}
 

@@ -5,5 +5,4 @@ bop b1 b2
 bopsection result
 
 
-checkprops result -l 200.543
-checksection result
+set length 200.543

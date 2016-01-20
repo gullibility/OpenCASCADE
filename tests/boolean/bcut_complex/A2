@@ -3,4 +3,4 @@ restore [locate_data_file CIN900_cts21hlr.rle] b
 
 bcut result a b
 
-checkprops result -s 330507
+set square 330507

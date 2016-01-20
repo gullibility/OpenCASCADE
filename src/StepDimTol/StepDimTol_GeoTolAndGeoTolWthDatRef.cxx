@@ -22,8 +22,6 @@
 #include <StepRepr_ShapeAspect.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeoTolAndGeoTolWthDatRef,StepDimTol_GeometricTolerance)
-
 //=======================================================================
 //function : StepDimTol_GeoTolAndGeoTolWthDatRef
 //purpose  : 

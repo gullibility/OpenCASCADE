@@ -17,8 +17,7 @@ set percent_tolerance 0.01
 
 OCC367 result ${step} ${goodX} ${goodY} ${goodZ} ${percent_tolerance} 
 
-checkprops result -l 1760.13 
-checksection result
+set length 1760.13
 set 2dviewer 0
 
 

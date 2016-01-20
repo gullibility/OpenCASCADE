@@ -19,8 +19,6 @@
 #include <StepBasic_ConversionBasedUnitAndVolumeUnit.hxx>
 #include <StepBasic_VolumeUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndVolumeUnit,StepBasic_ConversionBasedUnit)
-
 StepBasic_ConversionBasedUnitAndVolumeUnit::StepBasic_ConversionBasedUnitAndVolumeUnit()
 {
 }

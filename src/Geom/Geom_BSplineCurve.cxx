@@ -51,8 +51,6 @@
 #include <Standard_Real.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BSplineCurve,Geom_BoundedCurve)
-
 //=======================================================================
 //function : CheckCurveData
 //purpose  : Internal use only

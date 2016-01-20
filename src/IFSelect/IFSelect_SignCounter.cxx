@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignCounter,IFSelect_SignatureList)
-
 IFSelect_SignCounter::IFSelect_SignCounter
   (const Standard_Boolean withmap, const Standard_Boolean withlist)
     : IFSelect_SignatureList (withlist)

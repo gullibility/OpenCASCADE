@@ -25,8 +25,6 @@
 #include <TShort_HArray1OfShortReal.hxx> 
 
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_CoherentTriangulation,Standard_Transient)
-
 //=======================================================================
 //function : Poly_CoherentTriangulation
 //purpose  : Empty constructor

@@ -37,4 +37,4 @@ prism bb fb 0 -2 0
 
 bcommon result ba bb
 
-checkprops result -s 18
+set square 18

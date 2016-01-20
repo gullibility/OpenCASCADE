@@ -40,7 +40,6 @@ if { $status != 0 } {
   puts "$BugNumber: Faulty"
 }
 
-checkprops result -s 2.04205e-08 
-checkshape result
+set square 2.04205e-08
 set only_screen 1
 

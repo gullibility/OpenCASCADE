@@ -61,7 +61,7 @@ public:
                                  const Standard_Real       theSize);
 
   //! Release currently loaded font.
-  Standard_EXPORT virtual void Release() Standard_OVERRIDE;
+  Standard_EXPORT virtual void Release();
 
   //! Initialize the font.
   //! @param theFontPath FULL path to the font
@@ -211,7 +211,7 @@ protected: //! @name Shared temporary variables for glyph construction
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Font_BRepFont,Font_FTFont)
+  DEFINE_STANDARD_RTTI(Font_BRepFont, Font_FTFont)
 
 };
 

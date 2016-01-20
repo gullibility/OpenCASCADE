@@ -18,8 +18,6 @@
 #include <StepRepr_ValueRepresentationItem.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ValueRepresentationItem,StepRepr_RepresentationItem)
-
 StepRepr_ValueRepresentationItem::StepRepr_ValueRepresentationItem ()  {}
 
 void StepRepr_ValueRepresentationItem::Init(

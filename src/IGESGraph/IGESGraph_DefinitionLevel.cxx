@@ -21,8 +21,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_DefinitionLevel,IGESData_LevelListEntity)
-
 IGESGraph_DefinitionLevel::IGESGraph_DefinitionLevel ()    {  }
 
 

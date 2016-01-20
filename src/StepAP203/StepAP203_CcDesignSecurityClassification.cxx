@@ -20,8 +20,6 @@
 #include <StepAP203_CcDesignSecurityClassification.hxx>
 #include <StepBasic_SecurityClassification.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP203_CcDesignSecurityClassification,StepBasic_SecurityClassificationAssignment)
-
 //=======================================================================
 //function : StepAP203_CcDesignSecurityClassification
 //purpose  : 

@@ -23,8 +23,6 @@
 #include <TCollection_AsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectSuite,IFSelect_SelectDeduct)
-
 IFSelect_SelectSuite::IFSelect_SelectSuite  ()    {  }
 
     Standard_Boolean  IFSelect_SelectSuite::AddInput

@@ -22,8 +22,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <Standard_DomainError.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_TreeNode,TDF_Attribute)
-
 //=======================================================================
 //function : Find
 //purpose  : 

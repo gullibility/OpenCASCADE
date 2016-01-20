@@ -18,8 +18,6 @@
 #include <StepBasic_SiUnitAndThermodynamicTemperatureUnit.hxx>
 #include <StepBasic_ThermodynamicTemperatureUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnitAndThermodynamicTemperatureUnit,StepBasic_SiUnit)
-
 //=======================================================================
 //function : StepBasic_SiUnitAndThermodynamicTemperatureUnit
 //purpose  : 

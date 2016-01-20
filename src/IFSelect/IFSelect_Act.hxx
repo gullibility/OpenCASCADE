@@ -64,10 +64,10 @@ public:
   
   //! Execution of Command Line. remark that <number> is senseless
   //! because each Act brings one and only one function
-  Standard_EXPORT IFSelect_ReturnStatus Do (const Standard_Integer number, const Handle(IFSelect_SessionPilot)& pilot) Standard_OVERRIDE;
+  Standard_EXPORT IFSelect_ReturnStatus Do (const Standard_Integer number, const Handle(IFSelect_SessionPilot)& pilot);
   
   //! Short Help for commands : returns the help given to create
-  Standard_EXPORT Standard_CString Help (const Standard_Integer number) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Help (const Standard_Integer number) const;
   
   //! Changes the default group name for the following Acts
   //! group empty means to come back to default from Activator
@@ -85,7 +85,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Act,IFSelect_Activator)
+  DEFINE_STANDARD_RTTI(IFSelect_Act,IFSelect_Activator)
 
 protected:
 

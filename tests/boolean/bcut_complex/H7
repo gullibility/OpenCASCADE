@@ -7,4 +7,4 @@ btolx tool
 
 bcut result part tool
 
-checkprops result -s 2.23524e+06
+set square 2.23524e+06

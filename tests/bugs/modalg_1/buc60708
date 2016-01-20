@@ -20,6 +20,5 @@ if {  $end != "result_4" } {
 } else {
     puts " Common operation was made successfully"
 }
-checkprops result -s 13.4871 
-checkshape result
+set square 13.4871
 set 2dviewer 0

@@ -87,8 +87,6 @@
 #include <BRepAdaptor_Curve.hxx>
 #include <BRepClass_FaceClassifier.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain,MMgt_TShared)
-
 struct SubSequenceOfEdges
 {
   TopTools_SequenceOfShape SeqsEdges;

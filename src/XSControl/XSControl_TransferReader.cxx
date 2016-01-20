@@ -55,8 +55,6 @@
 #include <XSControl_Utils.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_TransferReader,MMgt_TShared)
-
 //  Precision :
 //  Pour les regularites
 //=======================================================================

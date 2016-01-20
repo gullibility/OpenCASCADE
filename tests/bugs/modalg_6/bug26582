@@ -20,8 +20,7 @@ baddtools b2
 bfillds
 bbop result 0
 
-checkprops result -s 39.1778 
-checkshape result
+set square 39.1778
 
 set nbshapes_expected "
 Number of shapes in shape

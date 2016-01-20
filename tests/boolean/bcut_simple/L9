@@ -26,4 +26,4 @@ shape result CS
 add b2 result
 add Solid1 result
 
-checkprops result -s 750
+set square 750

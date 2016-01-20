@@ -18,8 +18,6 @@
 #include <StepBasic_LengthMeasureWithUnit.hxx>
 #include <StepDimTol_GeometricToleranceTarget.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithMaximumTolerance,StepDimTol_GeometricToleranceWithModifiers)
-
 //=======================================================================
 //function : StepDimTol_GeometricToleranceWithModifiers
 //purpose  : 
@@ -43,5 +41,5 @@ void StepDimTol_GeometricToleranceWithMaximumTolerance::
         const Handle(StepBasic_LengthMeasureWithUnit) &theMaximumUpperTolerance)
 {
   StepDimTol_GeometricToleranceWithModifiers::Init(theName, theDescription, theMagnitude, theTolerancedShapeAspect, theModifiers);
-  myMaximumUpperTolerance = theMaximumUpperTolerance;
+  maximumUpperTolerance = theMaximumUpperTolerance;
 }

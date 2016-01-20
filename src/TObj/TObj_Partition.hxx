@@ -62,7 +62,7 @@ class TObj_Partition : public TObj_Object
 
   //! Sets name of the object. partition does not check unique of own name
   virtual Standard_EXPORT Standard_Boolean SetName
-                        (const Handle(TCollection_HExtendedString)& theName) const Standard_OVERRIDE;
+                        (const Handle(TCollection_HExtendedString)& theName) const;
 
  public:
   /**
@@ -71,7 +71,7 @@ class TObj_Partition : public TObj_Object
 
   //! Preforms updating the links and dependances of the object which are not
   //! stored in persistence. Does not register the partition name
-  virtual Standard_EXPORT void AfterRetrieval() Standard_OVERRIDE;
+  virtual Standard_EXPORT void AfterRetrieval();
 
  public:
   /**
@@ -128,7 +128,7 @@ class TObj_Partition : public TObj_Object
   //! Coping the data of me to Target object.
   //! return Standard_False is Target object is different type
   Standard_EXPORT virtual Standard_Boolean copyData
-                        (const Handle(TObj_Object)& theTargetObject) Standard_OVERRIDE;
+                        (const Handle(TObj_Object)& theTargetObject);
  
  private:
   /**
@@ -144,7 +144,7 @@ class TObj_Partition : public TObj_Object
 
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_Partition,TObj_Object)
+  DEFINE_STANDARD_RTTI(TObj_Partition, TObj_Object)
 
  public:
   friend class TObj_Model;

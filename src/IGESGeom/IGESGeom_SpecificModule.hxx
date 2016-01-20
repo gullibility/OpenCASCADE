@@ -43,7 +43,7 @@ public:
   Standard_EXPORT IGESGeom_SpecificModule();
   
   //! Specific Dump (own parameters) for IGESGeom
-  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const;
   
   //! Performs non-ambiguous Correction on Entities which support
   //! them (Boundary,ConicArc,Flash,OffsetCurve,TransformationMatrix)
@@ -52,7 +52,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESGeom_SpecificModule,IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTI(IGESGeom_SpecificModule,IGESData_SpecificModule)
 
 protected:
 

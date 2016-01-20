@@ -24,8 +24,6 @@
 #include <StepRepr_GlobalUnitAssignedContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx,StepRepr_RepresentationContext)
-
 // --------------------------------------------------------------------------------------------------
 // Method  :
 // Purpose :

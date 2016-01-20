@@ -17,15 +17,24 @@
 #ifndef _OSD_FileIterator_HeaderFile
 #define _OSD_FileIterator_HeaderFile
 
-#include <OSD_File.hxx>
-#include <OSD_Error.hxx>
-#include <TCollection_AsciiString.hxx>
+#include <Standard.hxx>
+#include <Standard_DefineAlloc.hxx>
+#include <Standard_Handle.hxx>
 
+#include <OSD_File.hxx>
+#include <Standard_Integer.hxx>
+#include <TCollection_AsciiString.hxx>
+#include <Standard_Address.hxx>
+#include <OSD_Error.hxx>
+#include <Standard_Boolean.hxx>
 class OSD_OSDError;
 class OSD_Path;
+class TCollection_AsciiString;
 class OSD_File;
 
-//! Manages a breadth-only search for files in the specified Path.
+
+//! Manages a breadth-only search for files in the specified
+//! Path.
 //! There is no specific order of results.
 class OSD_FileIterator 
 {
@@ -75,24 +84,38 @@ public:
   //! Returns error number if 'Failed' is TRUE.
   Standard_EXPORT Standard_Integer Error() const;
 
+
+
+
+protected:
+
+
+
+
+
 private:
+
+
 
   OSD_File TheIterator;
   Standard_Integer myFlag;
   TCollection_AsciiString myMask;
   TCollection_AsciiString myPlace;
-  OSD_Error myError;
-
-  // platform-specific fields
-#ifdef _WIN32
-  Standard_Address myHandle;
-  Standard_Address myData;
-  Standard_Boolean myFirstCall;
-#else
   Standard_Address myDescr;
   Standard_Address myEntry;
   Standard_Integer myInit;
-#endif
+  OSD_Error myError;
+  Standard_Address myHandle;
+  Standard_Address myData;
+  Standard_Boolean myFirstCall;
+
+
 };
+
+
+
+
+
+
 
 #endif // _OSD_FileIterator_HeaderFile

@@ -15,4 +15,4 @@ bopcommon result
 
 
 
-checkprops result -s 96
+set square 96

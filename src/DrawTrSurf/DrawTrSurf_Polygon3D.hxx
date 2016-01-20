@@ -49,7 +49,7 @@ public:
   
   Standard_EXPORT Standard_Boolean ShowNodes() const;
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -64,7 +64,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Polygon3D,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(DrawTrSurf_Polygon3D,Draw_Drawable3D)
 
 protected:
 

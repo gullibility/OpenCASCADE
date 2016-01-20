@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignAncestor,IFSelect_SignType)
-
 IFSelect_SignAncestor::IFSelect_SignAncestor (const Standard_Boolean nopk) 
      : IFSelect_SignType (nopk) {  }
      

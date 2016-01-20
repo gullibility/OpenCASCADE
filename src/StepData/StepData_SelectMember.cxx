@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectMember.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectMember,MMgt_TShared)
-
 //  Definitions reprises de Field :
 #define KindInteger 1
 #define KindBoolean 2

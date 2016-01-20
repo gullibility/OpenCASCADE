@@ -18,8 +18,6 @@
 #include <Message_Messenger.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_SpecificModule,Standard_Transient)
-
 Standard_Boolean  IGESData_SpecificModule::OwnCorrect
   (const Standard_Integer , const Handle(IGESData_IGESEntity)& ) const
 {  return Standard_False;  }    // par defaut, ne fait rien

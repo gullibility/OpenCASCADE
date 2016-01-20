@@ -78,13 +78,13 @@ public:
   Standard_EXPORT void Init (const Standard_Integer aViewNumber, const Standard_Real aScaleFactor, const gp_XYZ& aViewNormalVector, const gp_XYZ& aViewReferencePoint, const gp_XYZ& aCenterOfProjection, const gp_XYZ& aViewUpVector, const Standard_Real aViewPlaneDistance, const gp_XY& aTopLeft, const gp_XY& aBottomRight, const Standard_Integer aDepthClip, const Standard_Real aBackPlaneDistance, const Standard_Real aFrontPlaneDistance);
   
   //! Returns True (for a single view)
-  Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsSingle() const;
   
   //! Returns 1 (single view)
-  Standard_EXPORT Standard_Integer NbViews() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer NbViews() const;
   
   //! For a single view, returns <me> whatever <num>
-  Standard_EXPORT Handle(IGESData_ViewKindEntity) ViewItem (const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(IGESData_ViewKindEntity) ViewItem (const Standard_Integer num) const;
   
   //! returns the view number associated with <me>
   Standard_EXPORT Standard_Integer ViewNumber() const;
@@ -138,7 +138,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESDraw_PerspectiveView,IGESData_ViewKindEntity)
+  DEFINE_STANDARD_RTTI(IGESDraw_PerspectiveView,IGESData_ViewKindEntity)
 
 protected:
 

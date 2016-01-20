@@ -46,8 +46,6 @@
 #include <TopOpeBRepTool_ShapeExplorer.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_HDataStructure,MMgt_TShared)
-
 #ifdef OCCT_DEBUG
 extern Standard_Boolean TopOpeBRepDS_GettraceISTO();
 extern Standard_Boolean TopOpeBRepDS_GettraceEDSF(); 

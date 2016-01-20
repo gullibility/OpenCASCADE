@@ -20,7 +20,7 @@ if {[llength ${Log}] < 1} {
    set status 1
 }
 
-if { [regexp "INSTANCE" ${Log}] != 1 } {
+if { [regexp "ASSEMBLY" ${Log}] != 1 } {
    puts "Error: Invalid output of command Xdump"
    set status 1
 }

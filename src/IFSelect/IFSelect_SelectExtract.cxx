@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectExtract,IFSelect_SelectDeduct)
-
 IFSelect_SelectExtract::IFSelect_SelectExtract ()
       {  thesort = Standard_True;  }
 

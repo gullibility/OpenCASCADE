@@ -13,7 +13,6 @@ checkshape S2
 bop S1 S2
 bopcommon result
 
-checkprops result -s 314.301 
-checkshape result
+set square 314.301
 set 2dviewer 1
 

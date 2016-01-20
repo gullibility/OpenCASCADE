@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TestTopOpeDraw_DrawableP2D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TestTopOpeDraw_DrawableP2D,Draw_Marker2D)
-
 //=======================================================================
 //function : TestTopOpeDraw_DrawableP2D
 //purpose  : 

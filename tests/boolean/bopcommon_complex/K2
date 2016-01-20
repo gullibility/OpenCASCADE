@@ -4,4 +4,4 @@ restore [locate_data_file b201] b
 bop a b
 bopcommon result
 
-checkprops result -s 10424.2
+set square 10424.2

@@ -19,8 +19,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SessionDumper,MMgt_TShared)
-
 static Handle(IFSelect_SessionDumper)  thefirst;
 static int cefait = 0;
 // On commence la serie avec celui-la

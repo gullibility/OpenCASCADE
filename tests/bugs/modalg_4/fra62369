@@ -16,7 +16,5 @@ repeat 100 {
     compound s_$i result result
     incr i
 }
-checkprops result -l 3854.34 
-checkshape result 
-checksection result
+set length 3854.34
 set 2dviewer 0

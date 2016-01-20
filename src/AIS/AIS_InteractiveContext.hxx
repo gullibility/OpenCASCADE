@@ -753,7 +753,7 @@ public:
   //! SizeOfObject * DeviationCoefficient.
   Standard_EXPORT Standard_Real DeviationCoefficient() const;
   
-  //! default 12 degrees
+  //! default 6degrees
   Standard_EXPORT void SetDeviationAngle (const Standard_Real anAngle);
   
   Standard_EXPORT Standard_Real DeviationAngle() const;
@@ -1566,7 +1566,7 @@ public:
 friend class AIS_LocalContext;
 
 
-  DEFINE_STANDARD_RTTIEXT(AIS_InteractiveContext,MMgt_TShared)
+  DEFINE_STANDARD_RTTI(AIS_InteractiveContext,MMgt_TShared)
 
 protected:
 

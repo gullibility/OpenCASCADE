@@ -19,8 +19,6 @@
 #include <StepBasic_Effectivity.hxx>
 #include <StepBasic_EffectivityAssignment.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_EffectivityAssignment,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_EffectivityAssignment
 //purpose  : 

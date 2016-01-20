@@ -23,8 +23,6 @@
 #include <IGESSolid_Torus.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_Torus,IGESData_IGESEntity)
-
 IGESSolid_Torus::IGESSolid_Torus ()    {  }
 
 

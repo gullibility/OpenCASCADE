@@ -9,4 +9,4 @@ tscale u 0 0 0 0.01
 
 bfuse result s u
 
-checkprops result -s 2.29992
+set square 2.29992

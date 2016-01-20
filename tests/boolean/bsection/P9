@@ -24,5 +24,4 @@ mkface fb pl2 wir
 
 bsection result fa fb
 
-checkprops result -l 1
-checksection result
+set length 1

@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TopLoc_Location.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRep_PointOnSurface,BRep_PointsOnSurface)
-
 //=======================================================================
 //function : BRep_PointOnSurface
 //purpose  : 

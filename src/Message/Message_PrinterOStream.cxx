@@ -22,12 +22,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterOStream,Message_Printer)
-
-#ifndef _WIN32
-  #include <strings.h>
-#endif
-
 //=======================================================================
 //function : Constructor
 //purpose  : Empty constructor, defaulting to cerr

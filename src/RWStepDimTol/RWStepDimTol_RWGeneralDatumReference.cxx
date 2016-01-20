@@ -23,8 +23,6 @@
 #include <StepDimTol_GeneralDatumReference.hxx>
 #include <StepDimTol_HArray1OfDatumReferenceElement.hxx>
 #include <StepRepr_ProductDefinitionShape.hxx>
-#include <StepDimTol_DatumReferenceElement.hxx>
-#include <StepDimTol_DatumReferenceModifierWithValue.hxx>
 
 //=======================================================================
 //function : RWStepDimTol_RWGeneralDatumReference
@@ -103,7 +101,7 @@ void RWStepDimTol_RWGeneralDatumReference::ReadStep (const Handle(StepData_StepR
     Standard_Integer nbElements = data->NbParams(nbSub);
     aModifiers = new StepDimTol_HArray1OfDatumReferenceModifier (1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++) {
-      aType = data->ParamType (nbSub, i);
+      Interface_ParamType aType = data->ParamType (nbSub, i);
       if (aType == Interface_ParamIdent) {
         Handle(StepDimTol_DatumReferenceModifierWithValue) aDRMWV;
         data->ReadEntity(nbSub, i,"datum_reference_modifier_with_value", ach, STANDARD_TYPE(StepDimTol_DatumReferenceModifierWithValue), aDRMWV);
@@ -158,7 +156,7 @@ void RWStepDimTol_RWGeneralDatumReference::WriteStep (StepData_StepWriter& SW,
   else if (aBaseType == 2) {
     Handle(StepDimTol_HArray1OfDatumReferenceElement) anArray = ent->Base().CommonDatumList();
     Standard_Integer i, nb = (anArray.IsNull() ? 0 : anArray->Length());
-    SW.OpenTypedSub("COMMON_DATUM_LIST");
+    SW.OpenSub();
     for (i = 1; i <= nb; i++)  
       SW.Send (anArray->Value(i));
     SW.CloseSub();
@@ -176,10 +174,7 @@ void RWStepDimTol_RWGeneralDatumReference::WriteStep (StepData_StepWriter& SW,
       }
     }
     SW.CloseSub();
-  }
-  else {
-    SW.SendUndef();
-  }
+  }  
   
 }
 

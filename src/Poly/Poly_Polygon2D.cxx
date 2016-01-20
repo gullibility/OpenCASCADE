@@ -20,8 +20,6 @@
 #include <Standard_NullObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_Polygon2D,MMgt_TShared)
-
 //=======================================================================
 //function : Poly_Polygon2D
 //purpose  : 

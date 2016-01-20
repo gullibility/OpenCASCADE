@@ -20,8 +20,6 @@
 #include <StepFEA_SymmetricTensor42d.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaShellMembraneStiffness,StepFEA_FeaMaterialPropertyRepresentationItem)
-
 //=======================================================================
 //function : StepFEA_FeaShellMembraneStiffness
 //purpose  : 

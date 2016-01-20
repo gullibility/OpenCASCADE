@@ -23,7 +23,7 @@ class COCCDemoApp : public CWinApp
 {
 public:
   COCCDemoApp();
-  Handle(Graphic3d_WNTGraphicDevice)	  GetGraphicDevice() const 
+  Handle_Graphic3d_WNTGraphicDevice	  GetGraphicDevice() const 
   { return myGraphicDevice; } ;
 
 // Overrides
@@ -42,7 +42,7 @@ public:
 	DECLARE_MESSAGE_MAP()
 
 private:
-  Handle(Graphic3d_WNTGraphicDevice) myGraphicDevice;
+  Handle_Graphic3d_WNTGraphicDevice myGraphicDevice;
 
 };
 

@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_LineFontDefPattern,IGESData_LineFontEntity)
-
 IGESGraph_LineFontDefPattern::IGESGraph_LineFontDefPattern ()    {  }
 
 

@@ -59,7 +59,7 @@ public:
   //! rub out all the isoparametric curves.
   Standard_EXPORT virtual void ClearIsos();
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   //! Iso = True : Draw the isos, the boundaries, the UVMarker.
   //! Iso = False: Only Draw the boundary and the UVMarker.
@@ -90,7 +90,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Surface,DrawTrSurf_Drawable)
+  DEFINE_STANDARD_RTTI(DrawTrSurf_Surface,DrawTrSurf_Drawable)
 
 protected:
 

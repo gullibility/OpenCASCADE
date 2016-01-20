@@ -25,8 +25,6 @@
 #include <HLRAlgo_PolyShellData.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyShellData,MMgt_TShared)
-
 #define PntX1  ((Standard_Real*)Coordinates)[ 0]
 #define PntY1  ((Standard_Real*)Coordinates)[ 1]
 #define PntZ1  ((Standard_Real*)Coordinates)[ 2]

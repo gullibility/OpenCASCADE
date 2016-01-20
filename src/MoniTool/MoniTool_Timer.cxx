@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_Timer,MMgt_TShared)
-
 //=======================================================================
 //function : Dump
 //purpose  : 

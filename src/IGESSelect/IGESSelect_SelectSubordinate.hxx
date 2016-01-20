@@ -56,16 +56,16 @@ public:
   
   //! Returns True if <ent> is an IGES Entity with Subordinate
   //! Status matching the criterium
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Returns the Selection criterium : "IGES Entity, Independant"
   //! etc...
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExtractLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectSubordinate,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectSubordinate,IFSelect_SelectExtract)
 
 protected:
 

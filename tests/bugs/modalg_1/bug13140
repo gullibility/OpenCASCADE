@@ -11,8 +11,7 @@ restore [locate_data_file OCC13140_Profile.brep] Profile
 
 pipe result Spine Profile
 
-checkprops result -s 3.68518
-checkshape result
+set square 3.68518
 set good_vertex 2
 set good_edge 3
 set good_wire 1

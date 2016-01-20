@@ -321,11 +321,11 @@ void  BinTools_ShapeSet::Write(Standard_OStream& OS)const
 
   // write the copyright
   if (myFormatNb == 3)
-    OS << "\n" << Version_3 << "\n";
+    OS << "\n" << Version_3 << endl;
   else if (myFormatNb == 2)
-    OS << "\n" << Version_2 << "\n";
+    OS << "\n" << Version_2 << endl;
   else
-    OS << "\n" << Version_1 << "\n";
+    OS << "\n" << Version_1 << endl;
 
   //-----------------------------------------
   // write the locations
@@ -433,11 +433,11 @@ void  BinTools_ShapeSet::Read(Standard_IStream& IS)
     return;
   }
 
-  Standard_Integer nbShapes = 0;
+  Standard_Integer i, nbShapes;
   IS >> nbShapes;
   IS.get();//remove lf 
 
-  for (int i = 1; i <= nbShapes; i++) {
+  for (i = 1; i <= nbShapes; i++) {
 
     TopoDS_Shape S;
     
@@ -512,7 +512,7 @@ void  BinTools_ShapeSet::Write(const TopoDS_Shape& S, Standard_OStream& OS)const
 void  BinTools_ShapeSet::Read(TopoDS_Shape& S, Standard_IStream& IS,
                               const Standard_Integer nbshapes)const 
 {
-  Standard_Character aChar = '\0';
+  Standard_Character aChar;
   IS >> aChar;
   if(aChar == '*')
     S = TopoDS_Shape();
@@ -773,6 +773,7 @@ void  BinTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
   Standard_Real PfX,PfY,PlX,PlY;
   gp_Pnt2d aPf, aPl;
   Standard_Boolean closed, bval;
+  Standard_SStream aMsg;
   GeomAbs_Shape reg = GeomAbs_C0;
   try {
     OCC_CATCH_SIGNALS
@@ -794,13 +795,15 @@ void  BinTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 	BinTools::GetReal(IS, X);
 	BinTools::GetReal(IS, Y);
 	BinTools::GetReal(IS, Z);
-	gp_Pnt aPnt (X, Y, Z);
-	myBuilder.MakeVertex (V, aPnt, tol);
+	myBuilder.MakeVertex(V,gp_Pnt(X,Y,Z),tol);
 	Handle(BRep_TVertex) TV = Handle(BRep_TVertex)::DownCast(V.TShape());
 
 	BRep_ListOfPointRepresentation& lpr = TV->ChangePoints();
 	TopLoc_Location L;
 	Standard_Boolean aNewF = (myFormatNb > 2) ? Standard_True : Standard_False;
+#ifdef OCCT_DEBUG
+	gp_Pnt aPnt = gp_Pnt(X,Y,Z);
+#endif
 	do {
 	  if(aNewF) {
 	    val = (Standard_Integer)IS.get();//case {0|1|2|3}
@@ -872,7 +875,6 @@ void  BinTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 	    
 	  default:
 	    {
-              Standard_SStream aMsg;
 	      aMsg << "BinTools_SurfaceSet::ReadGeometry: UnExpected BRep_PointRepresentation = "<< val <<endl;
 	      Standard_Failure::Raise(aMsg);
 	      }
@@ -1067,7 +1069,6 @@ void  BinTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
             break;
 	  default:
 	    {
-              Standard_SStream aMsg;
 	      aMsg <<"Unexpected Curve Representation ="<< val << endl;
 	      Standard_Failure::Raise(aMsg);
 	    }
@@ -1154,16 +1155,12 @@ void  BinTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
       break;
 
     default:
-      {
-        Standard_SStream aMsg;
-        aMsg << "Unexpected topology type = "<< T <<endl;
-        Standard_Failure::Raise(aMsg);
-        break;
-      }
+      aMsg << "Unexpected topology type = "<< T <<endl;
+      Standard_Failure::Raise(aMsg);
+      break;
     }
   }
   catch(Standard_Failure) {
-    Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeSet::ReadGeometry(S,OS)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;
@@ -1194,7 +1191,7 @@ void BinTools_ShapeSet::WritePolygonOnTriangulation(Standard_OStream& OS) const
 {
   Standard_Integer i, j, nbpOntri = myNodes.Extent();
 
-  OS << "PolygonOnTriangulations " << nbpOntri << "\n";
+  OS << "PolygonOnTriangulations " << nbpOntri << endl;
   Handle(Poly_PolygonOnTriangulation) Poly;
   Handle(TColStd_HArray1OfReal) Param;
   try {
@@ -1238,8 +1235,10 @@ void BinTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream& IS)
 {
   char buffer[255];
   IS >> buffer;
+  Standard_SStream aMsg;
   if (IS.fail() || (strstr(buffer,"PolygonOnTriangulations") == NULL)) {
-    Standard_Failure::Raise("BinTools_ShapeSet::ReadPolygonOnTriangulation: Not a PolygonOnTriangulation section");
+    aMsg << "BinTools_ShapeSet::ReadPolygonOnTriangulation: Not a PolygonOnTriangulation section" <<endl;
+    Standard_Failure::Raise(aMsg);
   }
   Standard_Integer i, j, val, nbpol = 0, nbnodes =0;
   Standard_Boolean hasparameters;
@@ -1275,7 +1274,6 @@ void BinTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream& IS)
     }
   }
   catch(Standard_Failure) {
-    Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeSet::ReadPolygonOnTriangulation(..)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;
@@ -1293,7 +1291,7 @@ void BinTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream& IS)
 void BinTools_ShapeSet::WritePolygon3D(Standard_OStream& OS)const
 {
   Standard_Integer i, j, nbpol = myPolygons3D.Extent();
-  OS << "Polygon3D " << nbpol << "\n";
+  OS << "Polygon3D " << nbpol << endl;
   Handle(Poly_Polygon3D) P;
   try {
     OCC_CATCH_SIGNALS
@@ -1341,12 +1339,14 @@ void BinTools_ShapeSet::ReadPolygon3D(Standard_IStream& IS)
   Standard_Boolean hasparameters = Standard_False;
   Standard_Real d, x, y, z;
   IS >> buffer;
+  Standard_SStream aMsg;
 
   if (IS.fail() || strstr(buffer,"Polygon3D") == NULL) {
+    aMsg << "BinTools_ShapeSet::ReadPolygon3D: Not a Polygon3D section" <<endl;
 #ifdef OCCT_DEBUG
     cout <<"Buffer: " << buffer << endl;
 #endif
-    Standard_Failure::Raise("BinTools_ShapeSet::ReadPolygon3D: Not a Polygon3D section");
+    Standard_Failure::Raise(aMsg);
   }
   Handle(Poly_Polygon3D) P;
   IS >> nbpol;
@@ -1378,7 +1378,6 @@ void BinTools_ShapeSet::ReadPolygon3D(Standard_IStream& IS)
     }
   }
   catch(Standard_Failure) {
-    Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeSet::ReadPolygon3D(..)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;
@@ -1396,7 +1395,7 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream& OS) const
 {
   Standard_Integer i, j, nbNodes, nbtri = myTriangulations.Extent();
   Standard_Integer nbTriangles = 0, n1, n2, n3;
-    OS << "Triangulations " << nbtri << "\n";
+    OS << "Triangulations " << nbtri << endl;
   Handle(Poly_Triangulation) T;
   try {
     OCC_CATCH_SIGNALS
@@ -1459,8 +1458,10 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream& IS)
   Handle(Poly_Triangulation) T;
   IS >> buffer;
 
+  Standard_SStream aMsg;
   if (IS.fail() || (strstr(buffer,"Triangulations") == NULL)) {
-    Standard_Failure::Raise("BinTools_ShapeSet::Triangulation: Not a Triangulation section");
+    aMsg << "BinTools_ShapeSet::Triangulation: Not a Triangulation section" <<endl;
+    Standard_Failure::Raise(aMsg);
   }
   IS >> nbtri;
   IS.get();// remove LF 
@@ -1506,7 +1507,6 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream& IS)
     }
   }
   catch(Standard_Failure) {
-    Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeSet::ReadTriangulation(..)" << endl;
     Handle(Standard_Failure) anExc = Standard_Failure::Caught();
     aMsg << anExc << endl;

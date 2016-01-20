@@ -19,8 +19,6 @@
 #include <StepData_Field.hxx>
 #include <StepData_FreeFormEntity.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_FreeFormEntity,MMgt_TShared)
-
 void StepData_FreeFormEntity::SetStepType (const Standard_CString typenam)
       {  thetype.Clear();  thetype.AssignCat (typenam);  }
 

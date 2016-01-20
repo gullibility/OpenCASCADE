@@ -45,7 +45,7 @@
     #include <OpenGL/gl.h>
   #endif
   #define __X_GL_H // prevent chaotic gl.h inclusions to avoid compile errors
-#elif defined(HAVE_GLES2) || defined(__ANDROID__) || defined(__QNX__)
+#elif defined(HAVE_GLES2) || defined(__ANDROID__)
   #include <GLES2/gl2.h>
   //#include <GLES3/gl3.h>
 #else
@@ -61,13 +61,6 @@
 
   // OpenGL ES 3.0+ or GL_OES_element_index_uint extension
   #define GL_UNSIGNED_INT 0x1405
-
-  // OpenGL ES 3.1+
-  #define GL_TEXTURE_2D_MULTISAMPLE 0x9100
-  #define GL_MAX_SAMPLES  0x8D57
-
-  // OpenGL ES 3.2+ or GL_EXT_texture_buffer for OpenGL ES 3.1+
-  #define GL_TEXTURE_BUFFER 0x8C2A
 
   // in core since OpenGL ES 3.0, extension GL_EXT_texture_rg
   #define GL_RED   0x1903
@@ -106,58 +99,47 @@
   #define GL_RG16F    0x822F
   #define GL_RG32F    0x8230
 
-  #define GL_R32I     0x8235
-  #define GL_RG32I    0x823B
-  #define GL_RGB32I   0x8D83
-  #define GL_RGBA32I  0x8D82
-
   // GL_OES_packed_depth_stencil
   #define GL_DEPTH_STENCIL                  0x84F9
   #define GL_UNSIGNED_INT_24_8              0x84FA
   #define GL_DEPTH24_STENCIL8               0x88F0
 
-  // OpenGL ES 3.0+
-  #define GL_DEPTH_COMPONENT24              0x81A6
-  #define GL_DEPTH_COMPONENT32F             0x8CAC
-  #define GL_DEPTH32F_STENCIL8              0x8CAD
-  #define GL_FLOAT_32_UNSIGNED_INT_24_8_REV 0x8DAD
-
   #define GL_READ_FRAMEBUFFER               0x8CA8
   #define GL_DRAW_FRAMEBUFFER               0x8CA9
-
-  #define GL_TEXTURE_3D                     0x806F
-  #define GL_TEXTURE_WRAP_R                 0x8072
 
   // GL_EXT_texture_filter_anisotropic
   #define GL_TEXTURE_MAX_ANISOTROPY_EXT     0x84FE
   #define GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT 0x84FF
 
   // debug ARB extension
-  #define GL_DEBUG_OUTPUT_SYNCHRONOUS   0x8242
-  #define GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH 0x8243
-  #define GL_DEBUG_CALLBACK_FUNCTION    0x8244
-  #define GL_DEBUG_CALLBACK_USER_PARAM  0x8245
-  #define GL_DEBUG_SOURCE_API           0x8246
-  #define GL_DEBUG_SOURCE_WINDOW_SYSTEM 0x8247
-  #define GL_DEBUG_SOURCE_SHADER_COMPILER 0x8248
-  #define GL_DEBUG_SOURCE_THIRD_PARTY   0x8249
-  #define GL_DEBUG_SOURCE_APPLICATION   0x824A
-  #define GL_DEBUG_SOURCE_OTHER         0x824B
-  #define GL_DEBUG_TYPE_ERROR           0x824C
-  #define GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR 0x824D
-  #define GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR  0x824E
-  #define GL_DEBUG_TYPE_PORTABILITY     0x824F
-  #define GL_DEBUG_TYPE_PERFORMANCE     0x8250
-  #define GL_DEBUG_TYPE_OTHER           0x8251
-  #define GL_MAX_DEBUG_MESSAGE_LENGTH   0x9143
-  #define GL_MAX_DEBUG_LOGGED_MESSAGES  0x9144
-  #define GL_DEBUG_LOGGED_MESSAGES      0x9145
-  #define GL_DEBUG_SEVERITY_HIGH        0x9146
-  #define GL_DEBUG_SEVERITY_MEDIUM      0x9147
-  #define GL_DEBUG_SEVERITY_LOW         0x9148
+  #define GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB   0x8242
+  #define GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH_ARB 0x8243
+  #define GL_DEBUG_CALLBACK_FUNCTION_ARB    0x8244
+  #define GL_DEBUG_CALLBACK_USER_PARAM_ARB  0x8245
+  #define GL_DEBUG_SOURCE_API_ARB           0x8246
+  #define GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB 0x8247
+  #define GL_DEBUG_SOURCE_SHADER_COMPILER_ARB 0x8248
+  #define GL_DEBUG_SOURCE_THIRD_PARTY_ARB   0x8249
+  #define GL_DEBUG_SOURCE_APPLICATION_ARB   0x824A
+  #define GL_DEBUG_SOURCE_OTHER_ARB         0x824B
+  #define GL_DEBUG_TYPE_ERROR_ARB           0x824C
+  #define GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB 0x824D
+  #define GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB  0x824E
+  #define GL_DEBUG_TYPE_PORTABILITY_ARB     0x824F
+  #define GL_DEBUG_TYPE_PERFORMANCE_ARB     0x8250
+  #define GL_DEBUG_TYPE_OTHER_ARB           0x8251
+  #define GL_MAX_DEBUG_MESSAGE_LENGTH_ARB   0x9143
+  #define GL_MAX_DEBUG_LOGGED_MESSAGES_ARB  0x9144
+  #define GL_DEBUG_LOGGED_MESSAGES_ARB      0x9145
+  #define GL_DEBUG_SEVERITY_HIGH_ARB        0x9146
+  #define GL_DEBUG_SEVERITY_MEDIUM_ARB      0x9147
+  #define GL_DEBUG_SEVERITY_LOW_ARB         0x9148
+
+  // GL_EXT_texture_buffer for OpenGL ES 3.1+
+  #define GL_TEXTURE_BUFFER_ARB             0x8C2A
 #endif
 
-#if defined(__ANDROID__) || defined(__QNX__)
+#if defined(__ANDROID__)
   #define HAVE_EGL
 #endif
 
@@ -719,19 +701,6 @@ public: //! @name OpenGL ES 3.0
 
   typedef void (*glBlitFramebuffer_t)(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
   glBlitFramebuffer_t glBlitFramebuffer;
-
-  typedef void (*glTexImage3D_t)(GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid* data);
-  glTexImage3D_t glTexImage3D;
-
-public: //! @name OpenGL ES 3.1
-
-  typedef void (*glTexStorage2DMultisample_t)(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
-  glTexStorage2DMultisample_t glTexStorage2DMultisample;
-
-public: //! @name OpenGL ES 3.2
-
-  typedef void (*glTexBuffer_t)(GLenum target, GLenum internalFormat, GLuint buffer);
-  glTexBuffer_t glTexBuffer;
 
 #else // OpenGL ES vs. desktop
 

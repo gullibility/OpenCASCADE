@@ -17,5 +17,4 @@ wire ww2 w2_1
 thrusections result 0 0 ww1 ww2
 
 set 2dviewer 0
-checkprops result -s 148608. 
-checkshape result
+set square 148608.

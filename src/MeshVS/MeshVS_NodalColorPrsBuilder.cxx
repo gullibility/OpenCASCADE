@@ -61,8 +61,6 @@
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_NodalColorPrsBuilder,MeshVS_PrsBuilder)
-
 /*
   Class       : MeshVS_ImageTexture2D
   Description : Texture for nodal presentation
@@ -79,7 +77,7 @@ public:
 
 public:
 
-  DEFINE_STANDARD_RTTI_INLINE(MeshVS_ImageTexture2D,Graphic3d_Texture2D)
+  DEFINE_STANDARD_RTTI(MeshVS_ImageTexture2D, Graphic3d_Texture2D)
 };
 
 DEFINE_STANDARD_HANDLE    (MeshVS_ImageTexture2D, Graphic3d_Texture2D)

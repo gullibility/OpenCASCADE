@@ -9,4 +9,4 @@ tclean a
 
 bfuse result a b
 
-checkprops result -s 70265.2
+set square 70265.2

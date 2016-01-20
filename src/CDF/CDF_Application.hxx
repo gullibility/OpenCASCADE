@@ -29,8 +29,6 @@
 #include <CDF_TypeOfActivation.hxx>
 #include <Standard_ExtString.hxx>
 #include <Standard_Integer.hxx>
-#include <Standard_IStream.hxx>
-
 class Standard_NoSuchObject;
 class CDF_Session;
 class Standard_GUID;
@@ -121,11 +119,7 @@ public:
   Standard_EXPORT Standard_Boolean FindReader (const TCollection_ExtendedString& aFileName);
   
   Standard_EXPORT Handle(PCDM_Reader) Reader (const TCollection_ExtendedString& aFileName);
-
-  //! Reads aDoc from standard SEEKABLE stream theIStream,
-  //! the stream should support SEEK fuctionality
-  Standard_EXPORT Handle(CDM_Document) Read (Standard_IStream& theIStream);
- 
+  
   Standard_EXPORT Standard_Boolean FindReaderFromFormat (const TCollection_ExtendedString& aFormat);
   
   Standard_EXPORT Handle(PCDM_Reader) ReaderFromFormat (const TCollection_ExtendedString& aFormat);
@@ -145,7 +139,7 @@ public:
 friend class CDF_Session;
 
 
-  DEFINE_STANDARD_RTTIEXT(CDF_Application,CDM_Application)
+  DEFINE_STANDARD_RTTI(CDF_Application,CDM_Application)
 
 protected:
 
@@ -173,11 +167,11 @@ private:
   //! this method to implement application specific behavior.
   Standard_EXPORT virtual void Activate (const Handle(CDM_Document)& aDocument, const CDF_TypeOfActivation aTypeOfActivation);
   
-  Standard_EXPORT Handle(CDM_Document) Retrieve (const Handle(CDM_MetaData)& aMetaData, const Standard_Boolean UseStorageConfiguration) Standard_OVERRIDE;
+  Standard_EXPORT Handle(CDM_Document) Retrieve (const Handle(CDM_MetaData)& aMetaData, const Standard_Boolean UseStorageConfiguration);
   
   Standard_EXPORT Handle(CDM_Document) Retrieve (const Handle(CDM_MetaData)& aMetaData, const Standard_Boolean UseStorageConfiguration, const Standard_Boolean IsComponent);
   
-  Standard_EXPORT Standard_Integer DocumentVersion (const Handle(CDM_MetaData)& theMetaData) Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer DocumentVersion (const Handle(CDM_MetaData)& theMetaData);
   
   Standard_EXPORT Standard_Boolean FindReader (const TCollection_ExtendedString& aFileName, Standard_GUID& PluginIn, TCollection_ExtendedString& ResourceName);
   

@@ -30,8 +30,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Curve,DrawTrSurf_Drawable)
-
 Standard_Real DrawTrSurf_CurveLimit = 400;
 extern Standard_Boolean Draw_Bounds;
 

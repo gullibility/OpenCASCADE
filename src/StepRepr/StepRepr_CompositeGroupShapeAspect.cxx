@@ -14,6 +14,4 @@
 // commercial license or contractual agreement.
 #include <StepRepr_CompositeGroupShapeAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_CompositeGroupShapeAspect,StepRepr_CompositeShapeAspect)
-
 StepRepr_CompositeGroupShapeAspect::StepRepr_CompositeGroupShapeAspect ()    {  }

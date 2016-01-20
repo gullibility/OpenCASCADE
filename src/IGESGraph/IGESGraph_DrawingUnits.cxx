@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_DrawingUnits,IGESData_IGESEntity)
-
 IGESGraph_DrawingUnits::IGESGraph_DrawingUnits ()    {  }
 
 

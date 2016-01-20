@@ -17,8 +17,6 @@
 #include <StepBasic_PersonalAddress.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PersonalAddress,StepBasic_Address)
-
 StepBasic_PersonalAddress::StepBasic_PersonalAddress ()  {}
 
 void StepBasic_PersonalAddress::Init(

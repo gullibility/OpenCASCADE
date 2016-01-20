@@ -24,4 +24,4 @@ ttranslate pb 0 0 10
 
 bfuse result pa pb
 
-checkprops result -s 2104.16
+set square 2104.16

@@ -68,7 +68,6 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
-#include <BRep_GCurve.hxx>
 
 //modified by NIZNHY-PKV Fri Oct 17 14:13:29 2008f
 static 

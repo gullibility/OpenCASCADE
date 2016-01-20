@@ -30,6 +30,5 @@ if { $r1 == $r2 } {
     puts "OCC535 Faulty"
 }
 
-checkprops result -s 3554.31 
-checkshape result
+set square 3554.31
 set 2dviewer 0

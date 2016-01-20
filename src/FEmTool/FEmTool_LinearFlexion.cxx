@@ -32,8 +32,6 @@
 #include <TColStd_HArray2OfInteger.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(FEmTool_LinearFlexion,FEmTool_ElementaryCriterion)
-
 //=======================================================================
 //function : FEmTool_LinearFlexion
 //purpose  :

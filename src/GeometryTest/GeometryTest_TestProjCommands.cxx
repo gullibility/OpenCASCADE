@@ -297,13 +297,10 @@ static Standard_Integer xdistcc2ds(Draw_Interpretor& , Standard_Integer n, const
 //function : xdistcs
 //purpose  : 
 //=======================================================================
-static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer xdistcs(Draw_Interpretor& , Standard_Integer n, const char** a)
 {
-  if (n < 6) {
-    cout << "Use: xdistcs curve surface t1 t2 nbpoints [tol [warn_tol]]" << endl;
-    cout << "Measures distances from curve to surface by nbpoints probing points on a curve" << endl;
-    cout << "Error will be reported for points where distance is greater than tol" << endl;
-    cout << "Warning will be reported for points where distance is greater than warn_tol" << endl;
+  if (n<5) {
+    cout<<" Use xdistcs c s t1 t2 nbp"<<endl;
     return 0;
   }
   //
@@ -321,13 +318,13 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
   //
   aC=DrawTrSurf::GetCurve(a[1]);
   if (aC.IsNull()) {
-    di << "Error: " << a[1] << " is not a curve!\n";
+    cout<<a[1]<<" is null curve"<<endl;
     return 0;
   }
   //
   aS=DrawTrSurf::GetSurface(a[2]);
   if (aS.IsNull()) {
-    di << "Error: " << a[2] << " is not a surface!\n";
+    cout<<a[2]<<" is null"<<endl;
     return 0;
   }
   //
@@ -338,8 +335,6 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
   if (n>5) {
     aNbP=Draw::Atoi(a[5]);
   }
-  Standard_Real anErrTol = (n > 6 ? Draw::Atof(a[6]) : RealLast());
-  Standard_Real aWarnTol = (n > 7 ? Draw::Atof(a[7]) : RealLast());
   //
   iSize=3;
   //
@@ -354,23 +349,12 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
     aPPS.Init(aP, aS, aTol);
     bRet=aPPS.IsDone();
     if (!bRet) {
-      di << "Error: GeomAPI_ProjectPointOnSurf failed\n";
+      cout<<" GeomAPI_ProjectPointOnSurf failed"<<endl;
       return 0;
     }
     //
     aD=aPPS.LowerDistance();
-    // report error or warning if distance is greater than tolerance
-    if (aD > anErrTol)
-    {
-      di << "Error :";
-    }
-    else if (aD > aWarnTol)
-    {
-      di << "Attention (critical value of tolerance) :";
-    }
-    char aMsg[256];
-    sprintf(aMsg," T=%lg\tD=%lg\n", aT, aD);
-    di << aMsg;
+    printf(" T=%lg\tD=%lg\n", aT, aD);
     //
     aMr=new Draw_Marker3D(aP, Draw_Plus, aColor, iSize);
     dout << aMr;
@@ -397,7 +381,7 @@ void  GeometryTest::TestProjCommands(Draw_Interpretor& theCommands)
   
   g = "Testing of projection (geometric objects)";
   
-  theCommands.Add("xdistcs", "xdistcs curve surface t1 t2 nbpoints [tol [warn_tol]]", __FILE__, xdistcs, g);
+  theCommands.Add("xdistcs", "xdistcs c s t1 t2 nbp", __FILE__, xdistcs, g);
   theCommands.Add("xdistcc2ds", "xdistcc2ds c c2d s t1 t2 nbp", __FILE__, xdistcc2ds, g);
   theCommands.Add("xdistc2dc2dss", "xdistc2dc2dss c2d_1 c2d_2 s1 s2 t1 t2 nbp", __FILE__, xdistc2dc2dss, g);
   theCommands.Add("xdistcc", "xdistcc c1 c2 t1 t2 nbp", __FILE__, xdistcc, g);

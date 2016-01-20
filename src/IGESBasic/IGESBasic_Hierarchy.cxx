@@ -19,8 +19,6 @@
 #include <IGESBasic_Hierarchy.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_Hierarchy,IGESData_IGESEntity)
-
 IGESBasic_Hierarchy::IGESBasic_Hierarchy ()    {  }
 
 

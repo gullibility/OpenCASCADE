@@ -17,8 +17,6 @@
 #include <StepRepr_GlobalUncertaintyAssignedContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_GlobalUncertaintyAssignedContext,StepRepr_RepresentationContext)
-
 StepRepr_GlobalUncertaintyAssignedContext::StepRepr_GlobalUncertaintyAssignedContext ()  {}
 
 void StepRepr_GlobalUncertaintyAssignedContext::Init(

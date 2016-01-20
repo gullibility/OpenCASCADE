@@ -21,8 +21,6 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData,MMgt_TShared)
-
 //=======================================================================
 //function : ShapeAnalysis_FreeBoundData
 //purpose  : Empty constructor

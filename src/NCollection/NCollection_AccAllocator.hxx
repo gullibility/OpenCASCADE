@@ -62,11 +62,11 @@ public:
   Standard_EXPORT ~NCollection_AccAllocator();
 
   //! Allocate memory with given size
-  Standard_EXPORT virtual void* Allocate  (const size_t theSize) Standard_OVERRIDE;
+  Standard_EXPORT virtual void* Allocate  (const size_t theSize);
 
   //! Free a previously allocated memory;
   //! memory is returned to the OS when all allocations in some block are freed
-  Standard_EXPORT virtual void  Free      (void* theAddress) Standard_OVERRIDE;
+  Standard_EXPORT virtual void  Free      (void* theAddress);
 
 // --------- PROTECTED TYPES ---------
 protected:
@@ -78,7 +78,8 @@ protected:
     AlignedSize(){}
     AlignedSize(const Standard_Size theValue)
       : myValue((theValue + Align - 1) & ~(Align - 1)) {}
-    operator Standard_Size() const {return myValue;}
+    operator       Standard_Size()       {return myValue;}
+    operator const Standard_Size() const {return myValue;}
   };
 
   //! A pointer aligned to a 4 byte boundary
@@ -89,8 +90,10 @@ protected:
     AlignedPtr(){}
     AlignedPtr(const Standard_Address theValue)
       : myValue((Standard_Byte*)((Standard_Size)theValue & ~(Align - 1))) {}
-    operator Standard_Address       () const {return myValue;}
-    operator Standard_Byte*         () const {return myValue;}
+    operator Standard_Address       ()       {return myValue;}
+    operator Standard_Address const () const {return myValue;}
+    operator Standard_Byte*         ()       {return myValue;}
+    operator Standard_Byte*   const () const {return myValue;}
     AlignedPtr operator -(const AlignedSize theValue) const
       {return myValue - theValue;}
     AlignedPtr operator +(const AlignedSize theValue) const
@@ -173,7 +176,7 @@ protected:
 
 // Declaration of CASCADE RTTI
 public:
-  DEFINE_STANDARD_RTTIEXT(NCollection_AccAllocator,NCollection_BaseAllocator)
+  DEFINE_STANDARD_RTTI (NCollection_AccAllocator, NCollection_BaseAllocator)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

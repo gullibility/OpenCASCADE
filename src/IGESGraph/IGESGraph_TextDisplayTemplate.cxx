@@ -23,8 +23,6 @@
 #include <IGESGraph_TextFontDef.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_TextDisplayTemplate,IGESData_IGESEntity)
-
 IGESGraph_TextDisplayTemplate::IGESGraph_TextDisplayTemplate ()    {  }
 
 

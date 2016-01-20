@@ -16,8 +16,6 @@
 #include <Vrml_Material.hxx>
 #include <VrmlConverter_IsoAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_IsoAspect,VrmlConverter_LineAspect)
-
 VrmlConverter_IsoAspect::VrmlConverter_IsoAspect():VrmlConverter_LineAspect ()
 {
  myNumber = 10; 

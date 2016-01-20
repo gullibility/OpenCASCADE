@@ -21,8 +21,7 @@ puts "Start boolean operation ..."
 bopcommon result
 puts "Finish boolean operation ..."
 
-checkprops result -s 0.0457691 
-checkshape result
+set square 0.0457691
 
 checknbshapes result -vertex 6 -edge 9 -wire 5 -face 5 -shell 1 -solid 1 -compsolid 0 -compound 1 -shape 28
 

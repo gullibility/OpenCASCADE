@@ -7,4 +7,4 @@ restore [locate_data_file buc60092b.rle] b
 
 bcut result a b
 
-checkprops result -s 88508.3
+set square 88508.3

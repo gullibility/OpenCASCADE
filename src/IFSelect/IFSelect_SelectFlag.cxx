@@ -20,8 +20,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectFlag,IFSelect_SelectExtract)
-
 IFSelect_SelectFlag::IFSelect_SelectFlag (const Standard_CString flagname)
     : thename (flagname)    {  }
 

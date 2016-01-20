@@ -20,8 +20,6 @@
 #include <StepGeom_Direction.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_ParametricCurve3dElementCoordinateDirection,StepFEA_FeaRepresentationItem)
-
 //=======================================================================
 //function : StepFEA_ParametricCurve3dElementCoordinateDirection
 //purpose  : 

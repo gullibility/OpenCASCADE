@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_CameraModel.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CameraModel,StepGeom_GeometricRepresentationItem)
-
 StepVisual_CameraModel::StepVisual_CameraModel ()  {}
 

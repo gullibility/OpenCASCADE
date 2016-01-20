@@ -55,13 +55,13 @@ public:
   Standard_EXPORT virtual bool InitTrash (ImgFormat           thePixelFormat,
                                           const Standard_Size theSizeX,
                                           const Standard_Size theSizeY,
-                                          const Standard_Size theSizeRowBytes = 0) Standard_OVERRIDE;
+                                          const Standard_Size theSizeRowBytes = 0);
 
   //! Initialize by copying data.
-  Standard_EXPORT virtual bool InitCopy (const Image_PixMap& theCopy) Standard_OVERRIDE;
+  Standard_EXPORT virtual bool InitCopy (const Image_PixMap& theCopy);
 
   //! Method correctly deallocate internal buffer.
-  Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
+  Standard_EXPORT virtual void Clear();
 
   //! Performs gamma correction on image.
   //! theGamma - gamma value to use; a value of 1.0 leaves the image alone
@@ -83,14 +83,14 @@ private:
                                             Standard_Byte*      theDataPtr,
                                             const Standard_Size theSizeX,
                                             const Standard_Size theSizeY,
-                                            const Standard_Size theSizeRowBytes) Standard_OVERRIDE;
+                                            const Standard_Size theSizeRowBytes);
 
   //! Built-in PPM export
   Standard_EXPORT bool savePPM (const TCollection_AsciiString& theFileName) const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Image_AlienPixMap,Image_PixMap) // Type definition
+  DEFINE_STANDARD_RTTI(Image_AlienPixMap, Image_PixMap) // Type definition
 
 };
 

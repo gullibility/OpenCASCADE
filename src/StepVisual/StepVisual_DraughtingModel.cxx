@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_DraughtingModel.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_DraughtingModel,StepRepr_Representation)
-
 //=======================================================================
 //function : StepVisual_DraughtingModel
 //purpose  : 

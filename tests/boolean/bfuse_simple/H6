@@ -35,4 +35,4 @@ prism bb f 0 0 -1
 bfuse result ba bb
 
 
-checkprops result -s 152
+set square 152

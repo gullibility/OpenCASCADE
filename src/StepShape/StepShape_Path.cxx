@@ -17,8 +17,6 @@
 #include <StepShape_Path.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_Path,StepShape_TopologicalRepresentationItem)
-
 StepShape_Path::StepShape_Path ()  {}
 
 void StepShape_Path::Init(

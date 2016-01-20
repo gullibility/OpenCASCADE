@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_DimensionDisplayData,IGESData_IGESEntity)
-
 IGESDimen_DimensionDisplayData::IGESDimen_DimensionDisplayData ()    {  }
 
 

@@ -31,8 +31,6 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarDistance,DrawDim_PlanarDimension)
-
 //=======================================================================
 //function : Draw
 //purpose  : 

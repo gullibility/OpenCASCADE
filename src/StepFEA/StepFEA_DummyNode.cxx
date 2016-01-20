@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepFEA_DummyNode.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_DummyNode,StepFEA_NodeRepresentation)
-
 //=======================================================================
 //function : StepFEA_DummyNode
 //purpose  : 

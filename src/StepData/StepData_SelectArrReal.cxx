@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectArrReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectArrReal,StepData_SelectNamed)
-
 //  Definitions : cf Field
 #define myKindArrReal 8
 

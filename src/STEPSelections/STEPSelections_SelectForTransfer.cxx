@@ -20,8 +20,6 @@
 #include <Transfer_TransientProcess.hxx>
 #include <XSControl_TransferReader.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(STEPSelections_SelectForTransfer,XSControl_SelectForTransfer)
-
 //=======================================================================
 //function : STEPSelections_SelectForTransfer
 //purpose  : 

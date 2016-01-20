@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_GeometricallyBoundedSurfaceShapeRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_GeometricallyBoundedSurfaceShapeRepresentation,StepShape_ShapeRepresentation)
-
 StepShape_GeometricallyBoundedSurfaceShapeRepresentation::StepShape_GeometricallyBoundedSurfaceShapeRepresentation ()  {}
 

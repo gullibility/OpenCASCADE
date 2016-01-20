@@ -16,8 +16,6 @@
 #include <StepVisual_PlanarExtent.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PlanarExtent,StepGeom_GeometricRepresentationItem)
-
 StepVisual_PlanarExtent::StepVisual_PlanarExtent ()  {}
 
 void StepVisual_PlanarExtent::Init(

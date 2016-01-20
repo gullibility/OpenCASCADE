@@ -18,7 +18,6 @@ addsweep w
 #does'nt work
 buildsweep result -C -S
 
-checkprops result -s 1979.9 
-checkshape result
+set square 1979.9
 set 2dviewer 0
 

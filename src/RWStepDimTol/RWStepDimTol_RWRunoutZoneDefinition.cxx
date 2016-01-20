@@ -22,7 +22,6 @@
 #include <StepDimTol_RunoutZoneDefinition.hxx>
 #include <StepDimTol_RunoutZoneOrientation.hxx>
 #include <StepDimTol_ToleranceZone.hxx>
-#include <StepRepr_ShapeAspect.hxx>
 
 //=======================================================================
 //function : RWStepDimTol_RWRunoutZoneDefinition

@@ -26,8 +26,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_FlagNote,IGESData_IGESEntity)
-
 IGESDimen_FlagNote::IGESDimen_FlagNote ()    {  }
 
     void  IGESDimen_FlagNote::Init

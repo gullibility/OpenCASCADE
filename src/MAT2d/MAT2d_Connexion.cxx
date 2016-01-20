@@ -20,8 +20,6 @@
 #include <MAT2d_Connexion.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MAT2d_Connexion,MMgt_TShared)
-
 //=============================================================================
 //function :
 //purpose  :

@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_ClosedShell.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ClosedShell,StepShape_ConnectedFaceSet)
-
 StepShape_ClosedShell::StepShape_ClosedShell ()  {}
 

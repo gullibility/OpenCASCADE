@@ -17,8 +17,6 @@
 #include <StepShape_ValueQualifier.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_QualifiedRepresentationItem,StepRepr_RepresentationItem)
-
 StepShape_QualifiedRepresentationItem::StepShape_QualifiedRepresentationItem  ()    {  }
 
 void  StepShape_QualifiedRepresentationItem::Init

@@ -43,7 +43,7 @@ class TObj_TModel : public TDF_Attribute
   static Standard_EXPORT const Standard_GUID& GetID();
   
   //! Returns the ID of TObj_TModel attribute.
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
  public:
   //! Methods for setting and obtaining the Model object
@@ -59,16 +59,16 @@ class TObj_TModel : public TDF_Attribute
     
   //! Returns an new empty TObj_TModel attribute. It is used by the
   //! copy algorithm.
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
   //! Restores the backuped contents from <theWith> into this one. It is used 
   //! when aborting a transaction.
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& theWith) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& theWith);
   
   //! This method is used when copying an attribute from a source structure
   //! into a target structure.
   Standard_EXPORT void Paste (const Handle(TDF_Attribute)& theInto,
-                              const Handle(TDF_RelocationTable)& theRT) const Standard_OVERRIDE;
+                              const Handle(TDF_RelocationTable)& theRT) const;
   
  private:
   //! Fields
@@ -76,7 +76,7 @@ class TObj_TModel : public TDF_Attribute
   
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_TModel,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TObj_TModel, TDF_Attribute)
 };
 
 //! Define handle class for TObj_TModel

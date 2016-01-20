@@ -11,4 +11,4 @@ restore [locate_data_file pro13893.rle] a
 explode a e
 blend result a 1 a_9
 
-checkprops result -s 0
+set square 0

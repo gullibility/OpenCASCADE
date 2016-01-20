@@ -42,7 +42,7 @@ public:
   //! Returns an identification of the Signature (a word), given at
   //! initialization time
   //! Specialised to consider context as an InterfaceModel
-  Standard_EXPORT TCollection_AsciiString Text (const Handle(Standard_Transient)& ent, const Handle(Standard_Transient)& context) const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Text (const Handle(Standard_Transient)& ent, const Handle(Standard_Transient)& context) const;
   
   //! Returns the Signature for a Transient object. It is specific
   //! of each sub-class of Signature. For a Null Handle, it should
@@ -57,7 +57,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Interface_SignType,MoniTool_SignText)
+  DEFINE_STANDARD_RTTI(Interface_SignType,MoniTool_SignText)
 
 protected:
 

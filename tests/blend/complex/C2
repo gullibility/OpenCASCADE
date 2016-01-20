@@ -12,4 +12,4 @@ blend result a 0.01 a_16 0.02 a_9 0.03 a_14 0.01 a_15 0.02 a_22 0.03 a_17
 explode result sh
 renamevar result_1 result
 
-checkprops result -s 0.175426
+set square 0.175426

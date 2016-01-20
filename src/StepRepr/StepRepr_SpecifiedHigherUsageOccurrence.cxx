@@ -22,8 +22,6 @@
 #include <StepRepr_SpecifiedHigherUsageOccurrence.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_SpecifiedHigherUsageOccurrence,StepRepr_AssemblyComponentUsage)
-
 //=======================================================================
 //function : StepRepr_SpecifiedHigherUsageOccurrence
 //purpose  : 

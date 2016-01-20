@@ -20,8 +20,6 @@
 #include <TCollection_AsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_SignStatus,IFSelect_Signature)
-
 static char theval[10];
 
     IGESSelect_SignStatus::IGESSelect_SignStatus ()

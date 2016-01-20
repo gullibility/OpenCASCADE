@@ -15,8 +15,6 @@
 
 #include <StepDimTol_ProjectedZoneDefinition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ProjectedZoneDefinition,StepDimTol_ToleranceZoneDefinition)
-
 //=======================================================================
 //function : StepDimTol_ProjectedZoneDefinition
 //purpose  : 
@@ -37,6 +35,6 @@ void StepDimTol_ProjectedZoneDefinition::Init (const Handle(StepDimTol_Tolerance
                                                const Handle(StepBasic_LengthMeasureWithUnit)& theProjectionLength)
 {
   StepDimTol_ToleranceZoneDefinition::Init(theZone, theBoundaries);
-  myProjectionEnd = theProjectionEnd;
-  myProjectionLength = theProjectionLength;
+  projectionEnd = theProjectionEnd;
+  projectionLength = theProjectionLength;
 }

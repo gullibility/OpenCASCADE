@@ -88,7 +88,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean SortInGraph (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Interface_Graph& G) const Standard_OVERRIDE;
   
   //! Not called, defined only to remove a deferred method here
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Returns Text used to Sort Entity on its Signature or SignCounter
   Standard_EXPORT const TCollection_AsciiString& SignatureText() const;
@@ -99,12 +99,12 @@ public:
   //! Returns a text defining the criterium.
   //! (it refers to the text and exact flag to be matched, and is
   //! qualified by the Name provided by the Signature)
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExtractLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSignature,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectSignature,IFSelect_SelectExtract)
 
 protected:
 

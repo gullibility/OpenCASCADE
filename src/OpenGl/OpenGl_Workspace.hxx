@@ -16,6 +16,7 @@
 #ifndef _OpenGl_Workspace_Header
 #define _OpenGl_Workspace_Header
 
+#include <Graphic3d_PtrFrameBuffer.hxx>
 #include <Graphic3d_BufferType.hxx>
 
 #include <InterfaceGraphic_Graphic3d.hxx>
@@ -94,7 +95,7 @@ public:
   //! Checks whether the element can be rendered or not.
   //! @param theElement [in] the element to check.
   //! @return True if element can be rendered.
-  virtual Standard_Boolean CanRender (const OpenGl_Element* theElement) Standard_OVERRIDE;
+  virtual Standard_Boolean CanRender (const OpenGl_Element* theElement);
 
 private:
 
@@ -102,7 +103,7 @@ private:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_RaytraceFilter,OpenGl_RenderFilter)
+  DEFINE_STANDARD_RTTI(OpenGl_RaytraceFilter, OpenGl_RenderFilter)
 };
 
 class OpenGl_Workspace;
@@ -127,13 +128,13 @@ public:
 
   const Handle(OpenGl_Context)& GetGlContext() { return myGlContext; }
 
-  Standard_EXPORT Handle(OpenGl_FrameBuffer) FBOCreate (const Standard_Integer theWidth, const Standard_Integer theHeight);
+  Standard_EXPORT Graphic3d_PtrFrameBuffer FBOCreate (const Standard_Integer theWidth, const Standard_Integer theHeight);
 
-  Standard_EXPORT void FBORelease (Handle(OpenGl_FrameBuffer)& theFbo);
+  Standard_EXPORT void FBORelease (Graphic3d_PtrFrameBuffer theFBOPtr);
 
-  Standard_Boolean BufferDump (const Handle(OpenGl_FrameBuffer)& theFbo,
-                               Image_PixMap&                     theImage,
-                               const Graphic3d_BufferType&       theBufferType);
+  Standard_Boolean BufferDump (OpenGl_FrameBuffer*         theFBOPtr,
+                               Image_PixMap&               theImage,
+                               const Graphic3d_BufferType& theBufferType);
 
   Standard_EXPORT Standard_Integer Width()  const;
 
@@ -283,7 +284,7 @@ protected: //! @name fields related to status
 
 public: //! @name type definition
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Workspace,Standard_Transient)
+  DEFINE_STANDARD_RTTI(OpenGl_Workspace, Standard_Transient)
   DEFINE_STANDARD_ALLOC
 
 };

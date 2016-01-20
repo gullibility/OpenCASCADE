@@ -56,14 +56,14 @@ class TObj_LabelIterator : public TObj_ObjectIterator
   */
   
   //! Returns True if there is a current Item in the iteration.
-  virtual Standard_EXPORT Standard_Boolean More () const Standard_OVERRIDE
+  virtual Standard_EXPORT Standard_Boolean More () const
     { return !myNode.IsNull(); }
   
   //! Move to the next Item
-  virtual Standard_EXPORT void Next () Standard_OVERRIDE;
+  virtual Standard_EXPORT void Next ();
    
   //! Returns the current item
-  virtual Standard_EXPORT Handle(TObj_Object) Value () const Standard_OVERRIDE
+  virtual Standard_EXPORT Handle(TObj_Object) Value () const
     { return myObject; }
   
   //! Returns the label of the current item
@@ -99,7 +99,7 @@ class TObj_LabelIterator : public TObj_ObjectIterator
   
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_LabelIterator,TObj_ObjectIterator)
+  DEFINE_STANDARD_RTTI(TObj_LabelIterator, TObj_ObjectIterator)
 };
 
 //! Define handle class for TObj_LabelIterator

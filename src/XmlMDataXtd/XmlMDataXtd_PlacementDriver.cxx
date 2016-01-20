@@ -21,8 +21,6 @@
 #include <XmlMDataXtd_PlacementDriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataXtd_PlacementDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDataXtd_PlacementDriver
 //purpose  : Constructor

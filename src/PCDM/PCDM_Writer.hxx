@@ -38,12 +38,10 @@ public:
   
   Standard_EXPORT virtual void Write (const Handle(CDM_Document)& aDocument, const TCollection_ExtendedString& aFileName) = 0;
 
-  //! Write <theDocument> to theOStream
-  Standard_EXPORT virtual void Write (const Handle(CDM_Document)& theDocument, Standard_OStream& theOStream) = 0;
 
 
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_Writer,Standard_Transient)
+  DEFINE_STANDARD_RTTI(PCDM_Writer,Standard_Transient)
 
 protected:
 

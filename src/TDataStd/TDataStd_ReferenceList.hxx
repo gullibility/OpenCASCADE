@@ -62,22 +62,11 @@ public:
   //! Inserts the <value> before the first meet of <before_value>.
   Standard_EXPORT Standard_Boolean InsertBefore (const TDF_Label& value, const TDF_Label& before_value);
   
-  //! Inserts the label before the <index> position.
-  //! The indices start with 1 .. Extent().
-  Standard_EXPORT Standard_Boolean InsertBefore (const Standard_Integer index, const TDF_Label& before_value);
-  
   //! Inserts the <value> after the first meet of <after_value>.
   Standard_EXPORT Standard_Boolean InsertAfter (const TDF_Label& value, const TDF_Label& after_value);
   
-  //! Inserts the label after the <index> position.
-  //! The indices start with 1 .. Extent().
-  Standard_EXPORT Standard_Boolean InsertAfter (const Standard_Integer index, const TDF_Label& after_value);
-  
   //! Removes the first meet of the <value>.
   Standard_EXPORT Standard_Boolean Remove (const TDF_Label& value);
-  
-  //! Removes a label at "index" position.
-  Standard_EXPORT Standard_Boolean Remove (const Standard_Integer index);
   
   Standard_EXPORT void Clear();
   
@@ -87,13 +76,13 @@ public:
   
   Standard_EXPORT const TDF_LabelList& List() const;
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& With) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& With);
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& Into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& Into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual void References (const Handle(TDF_DataSet)& DS) const Standard_OVERRIDE;
   
@@ -102,7 +91,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TDataStd_ReferenceList,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TDataStd_ReferenceList,TDF_Attribute)
 
 protected:
 

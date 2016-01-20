@@ -18,17 +18,73 @@
 
 #include <Font_FontAspect.hxx>
 #include <Font_FTLibrary.hxx>
-#include <Font_Rect.hxx>
 #include <Graphic3d_HorizontalTextAlignment.hxx>
 #include <Graphic3d_VerticalTextAlignment.hxx>
 #include <Image_PixMap.hxx>
 #include <NCollection_String.hxx>
+#include <NCollection_Vec2.hxx>
 
 //! Wrapper over FreeType font.
 //! Notice that this class uses internal buffers for loaded glyphs
 //! and it is absolutely UNSAFE to load/read glyph from concurrent threads!
 class Font_FTFont : public Standard_Transient
 {
+
+public:
+
+  //! Auxiliary structure - rectangle definition
+  struct Rect
+  {
+    float Left;
+    float Right;
+    float Top;
+    float Bottom;
+
+    NCollection_Vec2<float> TopLeft() const
+    {
+      return NCollection_Vec2<float> (Left, Top);
+    }
+
+    NCollection_Vec2<float>& TopLeft (NCollection_Vec2<float>& theVec) const
+    {
+      theVec.x() = Left;
+      theVec.y() = Top;
+      return theVec;
+    }
+
+    NCollection_Vec2<float>& TopRight (NCollection_Vec2<float>& theVec) const
+    {
+      theVec.x() = Right;
+      theVec.y() = Top;
+      return theVec;
+    }
+
+    NCollection_Vec2<float>& BottomLeft (NCollection_Vec2<float>& theVec) const
+    {
+      theVec.x() = Left;
+      theVec.y() = Bottom;
+      return theVec;
+    }
+
+    NCollection_Vec2<float>& BottomRight (NCollection_Vec2<float>& theVec) const
+    {
+      theVec.x() = Right;
+      theVec.y() = Bottom;
+      return theVec;
+    }
+
+    float Width () const
+    {
+      return Right - Left;
+    }
+
+    float Height () const
+    {
+      return Top - Bottom;
+    }
+
+  };
+
 public:
 
   //! Create uninitialized instance.
@@ -130,7 +186,7 @@ public:
   }
 
   //! Retrieve glyph bitmap rectangle
-  inline void GlyphRect (Font_Rect& theRect) const
+  inline void GlyphRect (Font_FTFont::Rect& theRect) const
   {
     const FT_Bitmap& aBitmap = myFTFace->glyph->bitmap;
     theRect.Left   = float(myFTFace->glyph->bitmap_left);
@@ -142,9 +198,9 @@ public:
   //! Computes bounding box of the given text using plain-text formatter (Font_TextFormatter).
   //! Note that bounding box takes into account the text alignment options.
   //! Its corners are relative to the text alignment anchor point, their coordinates can be negative.
-  Standard_EXPORT Font_Rect BoundingBox (const NCollection_String&               theString,
-                                         const Graphic3d_HorizontalTextAlignment theAlignX,
-                                         const Graphic3d_VerticalTextAlignment   theAlignY);
+  Standard_EXPORT Rect BoundingBox (const NCollection_String&               theString,
+                                    const Graphic3d_HorizontalTextAlignment theAlignX,
+                                    const Graphic3d_VerticalTextAlignment   theAlignY);
 
 protected:
 
@@ -181,7 +237,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Font_FTFont,Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTI(Font_FTFont, Standard_Transient) // Type definition
 
 };
 

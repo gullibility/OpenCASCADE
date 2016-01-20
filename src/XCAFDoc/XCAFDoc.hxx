@@ -40,7 +40,6 @@ class XCAFDoc_DimTolTool;
 class XCAFDoc_LayerTool;
 class XCAFDoc_MaterialTool;
 class XCAFDoc_GraphNode;
-class XCAFDoc_Editor;
 
 
 //! Definition of general structure of DECAF document
@@ -78,10 +77,7 @@ public:
   Standard_EXPORT static Standard_GUID DimTolRefGUID();
 
   //! Return GUIDs for TreeNode representing specified types of Dimension
-  Standard_EXPORT static   Standard_GUID DimensionRefFirstGUID() ;
-
-  //! Return GUIDs for TreeNode representing specified types of Dimension
-  Standard_EXPORT static   Standard_GUID DimensionRefSecondGUID() ;
+  Standard_EXPORT static   Standard_GUID DimensionRefGUID() ;
 
   //! Return GUIDs for TreeNode representing specified types of GeomTolerance
   Standard_EXPORT static   Standard_GUID GeomToleranceRefGUID() ;
@@ -134,7 +130,6 @@ friend class XCAFDoc_DimTolTool;
 friend class XCAFDoc_LayerTool;
 friend class XCAFDoc_MaterialTool;
 friend class XCAFDoc_GraphNode;
-friend class XCAFDoc_Editor;
 
 };
 

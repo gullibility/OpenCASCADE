@@ -31,8 +31,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDataStd_DrawPresentation,TDF_Attribute)
-
 #ifndef _WIN32
 extern Draw_Viewer dout;
 #else

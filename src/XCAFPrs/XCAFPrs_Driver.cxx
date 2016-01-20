@@ -23,8 +23,6 @@
 #include <XCAFPrs_AISObject.hxx>
 #include <XCAFPrs_Driver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFPrs_Driver,TPrsStd_Driver)
-
 //=======================================================================
 //function : Update
 //purpose  : 

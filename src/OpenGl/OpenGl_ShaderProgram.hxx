@@ -68,7 +68,6 @@ enum OpenGl_StateVariable
   OpenGl_OCCT_BACK_MATERIAL,
   OpenGl_OCCT_COLOR,
 
-  OpenGl_OCCT_TEXTURE_TRSF2D,
   OpenGl_OCCT_POINT_SIZE,
 
   // DON'T MODIFY THIS ITEM (insert new items before it)
@@ -174,7 +173,7 @@ public:
   Standard_EXPORT Standard_Boolean Create (const Handle(OpenGl_Context)& theCtx);
 
   //! Destroys shader program.
-  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx);
 
   //! Attaches shader object to the program object.
   Standard_EXPORT Standard_Boolean AttachShader (const Handle(OpenGl_Context)&      theCtx,
@@ -550,7 +549,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_ShaderProgram,OpenGl_Resource)
+  DEFINE_STANDARD_RTTI (OpenGl_ShaderProgram, OpenGl_Resource)
   friend class OpenGl_ShaderManager;
 
 };

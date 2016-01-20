@@ -20,7 +20,5 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_OrderedGroup,IGESBasic_Group)
-
 IGESBasic_OrderedGroup::IGESBasic_OrderedGroup ()
       {  InitTypeAndForm(402,14);  }

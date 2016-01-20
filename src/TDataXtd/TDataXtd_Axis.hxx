@@ -62,20 +62,20 @@ public:
   
   Standard_EXPORT TDataXtd_Axis();
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with);
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual Standard_OStream& Dump (Standard_OStream& anOS) const Standard_OVERRIDE;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TDataXtd_Axis,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TDataXtd_Axis,TDF_Attribute)
 
 protected:
 

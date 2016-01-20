@@ -156,10 +156,10 @@ public:
   //! been any modification.
   //! Must be called if the view is shown.
   //! (Ex: DeIconification ) .
-  Standard_EXPORT virtual void Redraw() const;
+  Standard_EXPORT void Redraw() const;
 
   //! Updates layer of immediate presentations.
-  Standard_EXPORT virtual void RedrawImmediate() const;
+  Standard_EXPORT void RedrawImmediate() const;
 
   //! Invalidates view content but does not redraw it.
   Standard_EXPORT void Invalidate() const;
@@ -967,9 +967,6 @@ public:
   Standard_EXPORT const Handle(Graphic3d_Camera)& Camera() const;
 
   //! Returns current rendering parameters and effect settings.
-  //! By default it returns default parameters of current viewer.
-  //! To define view-specific settings use method V3d_View::ChangeRenderingParams().
-  //! @sa V3d_Viewer::DefaultRenderingParams()
   Standard_EXPORT const Graphic3d_RenderingParams& RenderingParams() const;
 
   //! Returns reference to current rendering parameters and effect settings.
@@ -1001,7 +998,7 @@ friend
   Standard_EXPORT void V3d_Viewer::SetViewOff (const Handle(V3d_View)& View);
 
 
-  DEFINE_STANDARD_RTTIEXT(V3d_View,MMgt_TShared)
+  DEFINE_STANDARD_RTTI(V3d_View,MMgt_TShared)
 
 protected:
 

@@ -257,7 +257,7 @@ void OCC_3dBaseDoc::OnFileExportBrep()
 
 void OCC_3dBaseDoc::OnObjectColor() 
 {
-	Handle(AIS_InteractiveObject) Current ;
+	Handle_AIS_InteractiveObject Current ;
 	COLORREF MSColor ;
 	Quantity_Color CSFColor ;
 

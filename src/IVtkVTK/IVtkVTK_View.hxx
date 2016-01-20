@@ -41,33 +41,33 @@ public:
   Standard_EXPORT virtual ~IVtkVTK_View();
 
   //! @return true if this is a perspective view, and false otherwise.
-  Standard_EXPORT virtual bool    IsPerspective() const Standard_OVERRIDE;
+  Standard_EXPORT virtual bool    IsPerspective() const;
 
   //! @return The focal distance of the view
-  Standard_EXPORT virtual double  GetDistance() const Standard_OVERRIDE;
+  Standard_EXPORT virtual double  GetDistance() const;
 
   //! @return The world coordinates of the view position
-  Standard_EXPORT virtual void    GetPosition (double& theX, double& theY, double& theZ) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void    GetPosition (double& theX, double& theY, double& theZ) const;
 
   //! @return The "view up" direction of the view
-  Standard_EXPORT virtual void    GetViewUp (double& theDx, double& theDy, double& theDz) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void    GetViewUp (double& theDx, double& theDy, double& theDz) const;
 
   //! @return The projection direction vector of this view
   Standard_EXPORT virtual void    GetDirectionOfProjection (double& theDx,
                                                             double& theDy,
-                                                            double& theDz) const Standard_OVERRIDE;
+                                                            double& theDz) const;
 
   //! @return Three doubles containing scale components of the view transformation
-  Standard_EXPORT virtual void    GetScale (double& theX, double& theY, double& theZ) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void    GetScale (double& theX, double& theY, double& theZ) const;
 
   //! @return The current view's zoom factor (for parallel projection)
-  Standard_EXPORT virtual double  GetParallelScale() const Standard_OVERRIDE;
+  Standard_EXPORT virtual double  GetParallelScale() const;
 
   //! @return The current view angle (for perspective projection)
-  Standard_EXPORT virtual double  GetViewAngle() const Standard_OVERRIDE;
+  Standard_EXPORT virtual double  GetViewAngle() const;
 
   //! @return Two doubles containing the display coordinates of the view window center 
-  Standard_EXPORT virtual void    GetViewCenter (double& theX, double& theY) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void    GetViewCenter (double& theX, double& theY) const;
 
   //! Gets window size in screen coordinates in pixels
   Standard_EXPORT virtual void    GetWindowSize (int& theX, int& theY) const Standard_OVERRIDE;
@@ -87,9 +87,9 @@ public:
   //! @param [in] theDisplayPnt 2d point of display coordinates
   //! @param [out] theWorldPnt 3d point of world coordinates
   //! @return true if conversion was successful, false otherwise
-  Standard_EXPORT virtual bool DisplayToWorld (const gp_XY& theDisplayPnt, gp_XYZ& theWorldPnt) const Standard_OVERRIDE;
+  Standard_EXPORT virtual bool    DisplayToWorld (const gp_XY& theDisplayPnt, gp_XYZ& theWorldPnt) const;
 
-  DEFINE_STANDARD_RTTIEXT(IVtkVTK_View,IVtk_IView)
+  DEFINE_STANDARD_RTTI(IVtkVTK_View, IVtk_IView)
 
 private:
   vtkRenderer* myRenderer;

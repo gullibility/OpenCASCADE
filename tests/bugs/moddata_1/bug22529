@@ -14,6 +14,5 @@ vinit
 vdisplay result
 vfit
 
-checkprops result -l 0.04 
-checksection result
+set length 0.04
 set only_screen 1

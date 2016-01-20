@@ -23,8 +23,6 @@
 #include <TDF_Attribute.hxx>
 #include <TDF_ListIteratorOfAttributeList.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_ExpressionDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_ExpressionDriver
 //purpose  : Constructor

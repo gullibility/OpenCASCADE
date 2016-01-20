@@ -34,7 +34,5 @@ if { $ed == 1 } {
 	}
     }
 }
-checkprops result -l 1424.94 
-checkshape result
-checksection result
+set length 1424.94
 set 2dviewer 0

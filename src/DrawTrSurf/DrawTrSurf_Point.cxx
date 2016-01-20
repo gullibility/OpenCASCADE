@@ -24,8 +24,6 @@
 #include <Standard_Stream.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Point,Draw_Drawable3D)
-
 //=======================================================================
 //function : DrawTrSurf_Point
 //purpose  : 

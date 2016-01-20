@@ -48,7 +48,7 @@ public:
     const Standard_Real                              theMinSize);
 
   //! Returns number of dicretization points.
-  virtual Standard_Integer NbPoints() const Standard_OVERRIDE
+  virtual Standard_Integer NbPoints() const
   {
     return myTool->NbPoints();
   }
@@ -61,9 +61,9 @@ public:
   virtual void Value(const Standard_Integer theIndex,
                      Standard_Real&         theParameter,
                      gp_Pnt&                thePoint,
-                     gp_Pnt2d&              theUV) Standard_OVERRIDE;
+                     gp_Pnt2d&              theUV);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_EdgeTessellator,BRepMesh_IEdgeTool)
+  DEFINE_STANDARD_RTTI(BRepMesh_EdgeTessellator, BRepMesh_IEdgeTool)
 
 private:
 

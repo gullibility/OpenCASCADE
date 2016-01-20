@@ -1,5 +1,9 @@
 puts "TODO OCC25917 ALL: Faulty shapes in variables faulty_1 to faulty_"
-puts "TODO OCC25917 ALL: Error : The area of result shape is"
+puts "TODO OCC25917 ALL: Error : The square of result shape is"
+if { [regexp {Debug mode} [dversion]] } {
+  puts "TODO OCC25917 ALL: TEST INCOMPLETE"
+  puts "TODO OCC25917 ALL: Tcl Exception"
+}
 
 puts "========================"
 puts " OCC472 "
@@ -18,6 +22,5 @@ checkshape b2
 
 bcut result b1 b2
 
-checkprops result -s 0 
-checkshape result
+set square 0
 set 2dviewer 0

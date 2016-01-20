@@ -40,8 +40,6 @@
 #include <TColStd_Array2OfReal.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Structure,MMgt_TShared)
-
 //=============================================================================
 //function : Graphic3d_Structure
 //purpose  :
@@ -438,12 +436,38 @@ Standard_Boolean Graphic3d_Structure::IsVisible() const
 }
 
 //=============================================================================
+//function : IsRotated
+//purpose  :
+//=============================================================================
+Standard_Boolean Graphic3d_Structure::IsRotated() const
+{
+  // A somewhat light test !
+  return myCStructure->Transformation[0][1] != 0.0
+      || myCStructure->Transformation[0][2] != 0.0
+      || myCStructure->Transformation[1][0] != 0.0
+      || myCStructure->Transformation[1][2] != 0.0
+      || myCStructure->Transformation[2][0] != 0.0
+      || myCStructure->Transformation[2][1] != 0.0;
+}
+
+//=============================================================================
 //function : IsTransformed
 //purpose  :
 //=============================================================================
 Standard_Boolean Graphic3d_Structure::IsTransformed() const
 {
-  return !myCStructure->Transformation.IsIdentity();
+  Standard_Boolean aResult = Standard_False;
+  for (Standard_Integer i = 0; i <= 3 && !aResult; ++i)
+  {
+    for (Standard_Integer j = 0; j <= 3 && !aResult; ++j)
+    {
+      if (i == j)
+        aResult = myCStructure->Transformation[i][j] != 1.0;
+      else
+        aResult = myCStructure->Transformation[i][j] != 0.0;
+    }
+  }
+  return aResult;
 }
 
 //=============================================================================
@@ -1477,6 +1501,15 @@ void Graphic3d_Structure::DisconnectAll (const Graphic3d_TypeOfConnection theTyp
 }
 
 //=============================================================================
+//function : Composition
+//purpose  :
+//=============================================================================
+Graphic3d_TypeOfComposition Graphic3d_Structure::Composition() const
+{
+  return myCStructure->Composition;
+}
+
+//=============================================================================
 //function : SetTransform
 //purpose  :
 //=============================================================================
@@ -1504,17 +1537,17 @@ void Graphic3d_Structure::SetTransform (const TColStd_Array2OfReal&       theMat
     Graphic3d_TransformError::Raise ("Transform : not a 4x4 matrix");
   }
 
-  const Standard_Boolean wasTransformed = IsTransformed();
   switch (theType)
   {
     case Graphic3d_TOC_REPLACE:
     {
+      myCStructure->Composition = Graphic3d_TOC_REPLACE;
       // Update of CStructure
       for (Standard_Integer i = 0; i <= 3; ++i)
       {
         for (Standard_Integer j = 0; j <= 3; ++j)
         {
-          myCStructure->Transformation.ChangeValue (i, j) = float (theMatrix (lr + i, lc + j));
+          myCStructure->Transformation[i][j] = float (theMatrix (lr + i, lc + j));
           aNewTrsf (i, j) = theMatrix (lr + i, lc + j);
         }
       }
@@ -1522,6 +1555,7 @@ void Graphic3d_Structure::SetTransform (const TColStd_Array2OfReal&       theMat
     }
     case Graphic3d_TOC_POSTCONCATENATE:
     {
+      myCStructure->Composition = Graphic3d_TOC_POSTCONCATENATE;
       // To simplify management of indices
       for (Standard_Integer i = 0; i <= 3; ++i)
       {
@@ -1539,7 +1573,7 @@ void Graphic3d_Structure::SetTransform (const TColStd_Array2OfReal&       theMat
           aNewTrsf (i, j) = 0.0;
           for (Standard_Integer k = 0; k <= 3; ++k)
           {
-            valueoldtrsf = myCStructure->Transformation.GetValue (i, k);
+            valueoldtrsf = myCStructure->Transformation[i][k];
             valuetrsf    = aMatrix44 (k, j);
             valuenewtrsf = aNewTrsf (i, j) + valueoldtrsf * valuetrsf;
             aNewTrsf (i, j) = valuenewtrsf;
@@ -1552,7 +1586,7 @@ void Graphic3d_Structure::SetTransform (const TColStd_Array2OfReal&       theMat
       {
         for (Standard_Integer j = 0; j <= 3; ++j)
         {
-          myCStructure->Transformation.ChangeValue (i, j) = float (aNewTrsf (i, j));
+          myCStructure->Transformation[i][j] = float (aNewTrsf (i, j));
         }
       }
       break;
@@ -1560,7 +1594,7 @@ void Graphic3d_Structure::SetTransform (const TColStd_Array2OfReal&       theMat
   }
 
   // If transformation, no validation of hidden already calculated parts
-  if (IsTransformed() || (!IsTransformed() && wasTransformed))
+  if (IsRotated())
   {
     ReCompute();
   }
@@ -1590,7 +1624,7 @@ void Graphic3d_Structure::Transform (TColStd_Array2OfReal& theMatrix) const
   {
     for (Standard_Integer j = 0; j <= 3; ++j)
     {
-      theMatrix (lr + i, lc + j) = myCStructure->Transformation.GetValue (i, j);
+      theMatrix (lr + i, lc + j) = myCStructure->Transformation[i][j];
     }
   }
 }
@@ -2217,7 +2251,7 @@ void Graphic3d_Structure::GraphicTransform (const TColStd_Array2OfReal& theMatri
   {
     for (Standard_Integer j = 0; j <= 3; ++j)
     {
-      myCStructure->Transformation.ChangeValue (i, j) = float (theMatrix (i, j));
+      myCStructure->Transformation[i][j] = float (theMatrix (i, j));
     }
   }
   myCStructure->UpdateTransformation();

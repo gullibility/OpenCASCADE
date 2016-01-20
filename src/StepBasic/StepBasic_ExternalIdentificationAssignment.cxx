@@ -21,8 +21,6 @@
 #include <StepBasic_IdentificationRole.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ExternalIdentificationAssignment,StepBasic_IdentificationAssignment)
-
 //=======================================================================
 //function : StepBasic_ExternalIdentificationAssignment
 //purpose  : 

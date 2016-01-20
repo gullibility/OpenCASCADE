@@ -73,7 +73,6 @@ public:
   
   Standard_EXPORT static void Commands_19 (Draw_Interpretor& DI);
 
-  Standard_EXPORT static void Commands_20 (Draw_Interpretor& DI);
 
 
 

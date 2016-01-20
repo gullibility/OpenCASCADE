@@ -7,5 +7,4 @@ restore [locate_data_file CTO904_cts17786b.rle] b
 bop a b
 bopsection result
 
-checkprops result -l 0.0976741
-checksection result
+set length 0.0976741

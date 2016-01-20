@@ -23,8 +23,6 @@
 #include <TDocStd_Document.hxx>
 #include <TDocStd_Owner.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_Owner,TDF_Attribute)
-
 //=======================================================================
 //function : GetID
 //purpose  : 

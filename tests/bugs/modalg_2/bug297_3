@@ -28,6 +28,5 @@ halfspace hs f $x $y $Zpoint
 box b 0 0 $Zbox 150 200 200
 
 bcut result b hs
-checkprops result -s 144000 
-checkshape result
+set square 144000
 set 2dviewer 0

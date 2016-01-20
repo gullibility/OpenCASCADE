@@ -29,8 +29,6 @@
 #include <StepData_WriterLib.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWStepAP214_ReadWriteModule,StepData_ReadWriteModule)
-
 //#include <Interface_Macros.hxx>
 #define DeclareAndCast(atype,result,start) \
 Handle(atype) result = Handle(atype)::DownCast (start)
@@ -297,7 +295,6 @@ Handle(atype) result = Handle(atype)::DownCast (start)
 #include <StepBasic_SecurityClassificationLevel.hxx>
 #include <StepRepr_ShapeAspect.hxx>
 #include <StepRepr_ShapeAspectRelationship.hxx>
-#include <StepRepr_FeatureForDatumTargetRelationship.hxx>
 #include <StepRepr_ShapeAspectTransition.hxx>
 #include <StepShape_ShapeDefinitionRepresentation.hxx>
 #include <StepShape_ShapeRepresentation.hxx>
@@ -689,7 +686,6 @@ Handle(atype) result = Handle(atype)::DownCast (start)
 #include <RWStepBasic_RWSecurityClassificationLevel.hxx>
 #include <RWStepRepr_RWShapeAspect.hxx>
 #include <RWStepRepr_RWShapeAspectRelationship.hxx>
-#include <RWStepRepr_RWFeatureForDatumTargetRelationship.hxx>
 #include <RWStepRepr_RWShapeAspectTransition.hxx>
 #include <RWStepShape_RWShapeDefinitionRepresentation.hxx>
 #include <RWStepShape_RWShapeRepresentation.hxx>
@@ -1318,8 +1314,6 @@ Handle(atype) result = Handle(atype)::DownCast (start)
 #include <RWStepRepr_RWCompShAspAndDatumFeatAndShAsp.hxx>
 #include <RWStepRepr_RWIntegerRepresentationItem.hxx>
 #include <RWStepRepr_RWValueRepresentationItem.hxx>
-#include <RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol.hxx>
-#include <RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol.hxx>
 
 #include <StepRepr_Apex.hxx>
 #include <StepRepr_CentreOfSymmetry.hxx>
@@ -1363,8 +1357,6 @@ Handle(atype) result = Handle(atype)::DownCast (start)
 #include <StepRepr_CompShAspAndDatumFeatAndShAsp.hxx>
 #include <StepRepr_IntegerRepresentationItem.hxx>
 #include <StepRepr_ValueRepresentationItem.hxx>
-#include <StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol.hxx>
-#include <StepDimTol_GeoTolAndGeoTolWthMaxTol.hxx>
 
 
 // -- General Declarations (Recognize, StepType) ---
@@ -1993,7 +1985,6 @@ static TCollection_AsciiString Reco_DatumSystem("DATUM_SYSTEM");
 static TCollection_AsciiString Reco_GeneralDatumReference("GENERAL_DATUM_REFERENCE");
 static TCollection_AsciiString Reco_IntegerRepresentationItem("INTEGER_REPRESENTATION_ITEM");
 static TCollection_AsciiString Reco_ValueRepresentationItem("VALUE_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_FeatureForDatumTargetRelationship("FEATURE_FOR_DATUM_TARGET_RELATIONSHIP");
 
 // -- Definition of the libraries --
 
@@ -2637,7 +2628,6 @@ RWStepAP214_ReadWriteModule::RWStepAP214_ReadWriteModule ()
   typenums->SetItem (Reco_GeneralDatumReference, 690);
   typenums->SetItem (Reco_IntegerRepresentationItem, 700);
   typenums->SetItem (Reco_ValueRepresentationItem, 701);
-  typenums->SetItem (Reco_FeatureForDatumTargetRelationship, 702);
 
 //    SHORT NAMES
 //    NB : la liste est celle de AP203
@@ -3370,32 +3360,6 @@ Standard_Integer RWStepAP214_ReadWriteModule::CaseStep
                (types(5).IsEqual(StepType(247)))) {
         return 693;
       }
-      else if (((types(1).IsEqual(StepType(609)) ||
-                 types(1).IsEqual(StepType(611)) ||
-                 types(1).IsEqual(StepType(612)) ||
-                 types(1).IsEqual(StepType(613)) ||
-                 types(1).IsEqual(StepType(614)) ||
-                 types(1).IsEqual(StepType(615))) &&
-                types(2).IsEqual(StepType(625)) &&
-                types(3).IsEqual(StepType(627)) &&
-                types(4).IsEqual(StepType(675)) &&
-                types(5).IsEqual(StepType(676)))
-                ||
-               (types(1).IsEqual(StepType(625)) &&
-                types(2).IsEqual(StepType(627)) &&
-                types(3).IsEqual(StepType(675)) &&
-                types(4).IsEqual(StepType(676)) &&
-                (types(5).IsEqual(StepType(616)) ||
-                 types(5).IsEqual(StepType(617)) ||
-                 types(5).IsEqual(StepType(618)) ||
-                 types(5).IsEqual(StepType(619)) ||
-                 types(5).IsEqual(StepType(620)) ||
-                 types(5).IsEqual(StepType(621)) ||
-                 types(5).IsEqual(StepType(622)) ||
-                 types(5).IsEqual(StepType(623)) ||
-                 types(5).IsEqual(StepType(624))))) {
-        return 705;
-      }
     }
     else if (NbComp == 4) {
       if ((types(1).IsEqual(StepType(161))) &&
@@ -3483,30 +3447,6 @@ Standard_Integer RWStepAP214_ReadWriteModule::CaseStep
                types(3).IsEqual(StepType(630)) &&
                types(4).IsEqual(StepType(258))) {
         return 698;
-      }
-      else if (((types(1).IsEqual(StepType(609)) ||
-                 types(1).IsEqual(StepType(611)) ||
-                 types(1).IsEqual(StepType(612)) ||
-                 types(1).IsEqual(StepType(613)) ||
-                 types(1).IsEqual(StepType(614)) ||
-                 types(1).IsEqual(StepType(615))) &&
-                types(2).IsEqual(StepType(625)) &&
-                types(3).IsEqual(StepType(675)) &&
-                types(4).IsEqual(StepType(676)))
-                ||
-               (types(1).IsEqual(StepType(625)) &&
-                types(2).IsEqual(StepType(675)) &&
-                types(3).IsEqual(StepType(676)) &&
-                (types(4).IsEqual(StepType(616)) ||
-                 types(4).IsEqual(StepType(617)) ||
-                 types(4).IsEqual(StepType(618)) ||
-                 types(4).IsEqual(StepType(619)) ||
-                 types(4).IsEqual(StepType(620)) ||
-                 types(4).IsEqual(StepType(621)) ||
-                 types(4).IsEqual(StepType(622)) ||
-                 types(4).IsEqual(StepType(623)) ||
-                 types(4).IsEqual(StepType(624))))) {
-        return 706;
       }
     }
     else if (NbComp == 3) {
@@ -3797,10 +3737,6 @@ Standard_Boolean RWStepAP214_ReadWriteModule::IsComplex
     case 698:
       return Standard_True;
     case 699:
-      return Standard_True;
-    case 705:
-      return Standard_True;
-    case 706:
       return Standard_True;
     default:
       return Standard_False;
@@ -4445,7 +4381,6 @@ const TCollection_AsciiString& RWStepAP214_ReadWriteModule::StepType
   case 690: return Reco_GeneralDatumReference;
   case 700: return Reco_IntegerRepresentationItem;
   case 701: return Reco_ValueRepresentationItem;
-  case 702: return Reco_FeatureForDatumTargetRelationship;
 
   default : return PasReco;
   }
@@ -4741,19 +4676,6 @@ Standard_Boolean RWStepAP214_ReadWriteModule::ComplexType(const Standard_Integer
       types.Append (StepType(470));
       types.Append (StepType(630));
       types.Append (StepType(258));
-      break;
-    case 705:
-      types.Append (StepType(625));
-      types.Append (StepType(627));
-      types.Append (StepType(675));
-      types.Append (StepType(676));
-      types.Append (StepType(625));
-      break;
-    case 706:
-      types.Append (StepType(625));
-      types.Append (StepType(675));
-      types.Append (StepType(676));
-      types.Append (StepType(625));
       break;
     }
   return Standard_True;
@@ -9175,27 +9097,6 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer CN,
     {
       DeclareAndCast(StepRepr_ValueRepresentationItem,anent,ent);
       RWStepRepr_RWValueRepresentationItem tool;
-      tool.ReadStep (data,num,ach,anent);
-    }
-    break;
-  case 702:
-    {
-      DeclareAndCast(StepRepr_FeatureForDatumTargetRelationship,anent,ent);
-      RWStepRepr_RWFeatureForDatumTargetRelationship tool;
-      tool.ReadStep (data,num,ach,anent);
-    }
-    break;
-  case 705:
-    {
-      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol,anent,ent);
-      RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol tool;
-      tool.ReadStep (data,num,ach,anent);
-    }
-    break;
-  case 706:
-    {
-      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthMaxTol,anent,ent);
-      RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol tool;
       tool.ReadStep (data,num,ach,anent);
     }
     break;
@@ -13897,27 +13798,6 @@ void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer CN,
     {
       DeclareAndCast(StepRepr_ValueRepresentationItem,anent,ent);
       RWStepRepr_RWValueRepresentationItem tool;
-      tool.WriteStep (SW,anent);
-    }
-    break;
-  case 702:
-    {
-      DeclareAndCast(StepRepr_FeatureForDatumTargetRelationship,anent,ent);
-      RWStepRepr_RWFeatureForDatumTargetRelationship tool;
-      tool.WriteStep (SW,anent);
-    }
-    break;
-  case 705:
-    {
-      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol,anent,ent);
-      RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol tool;
-      tool.WriteStep (SW,anent);
-    }
-    break;
-  case 706:
-    {
-      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthMaxTol,anent,ent);
-      RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol tool;
       tool.WriteStep (SW,anent);
     }
     break;

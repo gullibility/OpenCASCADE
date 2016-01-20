@@ -21,8 +21,6 @@
 #include <XmlMDataStd_NoteBookDriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDataStd_NoteBookDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDataStd_NoteBookDriver
 //purpose  : Constructor

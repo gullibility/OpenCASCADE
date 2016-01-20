@@ -23,12 +23,12 @@ Standard_OStream& Vrml_Group::Print(Standard_OStream& anOStream)
 {
   if ( myFlagPrint == 0 )
     {
-      anOStream  << "Group {\n";
+      anOStream  << "Group {" << endl;
       myFlagPrint = 1;
     } //End of if
   else 
     {
-     anOStream  << "}\n";
+     anOStream  << '}' << endl;
      myFlagPrint = 0;
     }
  return anOStream;

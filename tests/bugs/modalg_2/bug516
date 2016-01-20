@@ -19,6 +19,5 @@ if { [regexp {OUT} $cls] } {
     puts "CORRECT classification of the 3D-point with the Solid"
 }
 
-checkprops result -s 7752.98 
-checkshape result
+set square 7752.98
 set 2dviewer 0

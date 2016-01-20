@@ -7,4 +7,4 @@ restore [locate_data_file cts20769a.brep] b
 bop a b
 bopfuse result 
 
-checkprops result -s 92385.1
+set square 92385.1

@@ -64,11 +64,11 @@ public:
   
   //! Explores an entity, to take its contained Curves 3d
   //! Works recursively
-  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const;
   
   //! Returns a text defining the criterium : "Curves 3d" or
   //! "Basic Geometry"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExploreLabel() const;
   
   //! This method can be called from everywhere to get the curves
   //! as sub-elements of a given curve :
@@ -80,7 +80,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectBasicGeom,IFSelect_SelectExplore)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectBasicGeom,IFSelect_SelectExplore)
 
 protected:
 

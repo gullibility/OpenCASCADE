@@ -20,8 +20,6 @@
 #include <gp_Dir.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_SweptSurface,Geom_Surface)
-
 //=======================================================================
 //function : Continuity
 //purpose  : 

@@ -21,8 +21,6 @@
 #include <XmlMXCAFDoc_LayerToolDriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMXCAFDoc_LayerToolDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function :
 //purpose  : 

@@ -308,7 +308,7 @@ public:
   const OpenGl_GlFunctions* Functions() const { return myFuncs.operator->(); }
 
   //! Clean up errors stack for this GL context (glGetError() in loop).
-  Standard_EXPORT void ResetErrors (const bool theToPrintErrors = false);
+  Standard_EXPORT void ResetErrors();
 
   //! This method uses system-dependent API to retrieve information
   //! about GL context bound to the current thread.
@@ -421,19 +421,16 @@ public:
   Standard_Integer TextureWrapClamp() const { return myTexClamp; }
 
   //! @return maximum degree of anisotropy texture filter
-  Standard_Integer MaxDegreeOfAnisotropy() const { return myAnisoMax; }
+  Standard_EXPORT Standard_Integer MaxDegreeOfAnisotropy() const;
 
   //! @return value for GL_MAX_TEXTURE_SIZE
-  Standard_Integer MaxTextureSize() const { return myMaxTexDim; }
-
-  //! @return value for GL_MAX_SAMPLES
-  Standard_Integer MaxMsaaSamples() const { return myMaxMsaaSamples; }
+  Standard_EXPORT Standard_Integer MaxTextureSize() const;
 
   //! Get maximum number of clip planes supported by OpenGl.
   //! This value is implementation dependent. At least 6
   //! planes should be supported by OpenGl (see specs).
   //! @return value for GL_MAX_CLIP_PLANES
-  Standard_Integer MaxClipPlanes() const { return myMaxClipPlanes; }
+  Standard_EXPORT Standard_Integer MaxClipPlanes() const;
 
   //! Returns true if VBO is supported and permitted.
   inline bool ToUseVbo() const
@@ -557,9 +554,6 @@ public: //! @name methods to alter or retrieve current state
   //! Setup point size.
   Standard_EXPORT void SetPointSize (const Standard_ShortReal theSize);
 
-  //! Setup texture matrix to active GLSL program or to FFP global state using glMatrixMode (GL_TEXTURE).
-  Standard_EXPORT void SetTextureMatrix (const Handle(Graphic3d_TextureParams)& theParams);
-
   //! Bind default Vertex Array Object
   Standard_EXPORT void BindDefaultVao();
 
@@ -582,13 +576,6 @@ public: //! @name methods to alter or retrieve current state
   Standard_EXPORT void EnableFeatures() const;
 
   Standard_EXPORT void DisableFeatures() const;
-
-  //! Set resolution ratio.
-  //! Note that this method rounds @theRatio to nearest integer.
-  void SetResolutionRatio (const Standard_ShortReal theRatio)
-  {
-    myResolutionRatio = Max (1.0f, std::floor (theRatio + 0.5f));
-  }
 
 private:
 
@@ -635,7 +622,6 @@ public: //! @name extensions
   Standard_Boolean       hasTexRGBA8;    //!< always available on desktop; on OpenGL ES - since 3.0 or as extension GL_OES_rgb8_rgba8
   Standard_Boolean       arbNPTW;        //!< GL_ARB_texture_non_power_of_two
   Standard_Boolean       arbTexRG;       //!< GL_ARB_texture_rg
-  Standard_Boolean       arbTexFloat;    //!< GL_ARB_texture_float (on desktop OpenGL - since 3.0 or as extension GL_ARB_texture_float; on OpenGL ES - since 3.0)
   OpenGl_ArbTexBindless* arbTexBindless; //!< GL_ARB_bindless_texture
   OpenGl_ArbTBO*         arbTBO;         //!< GL_ARB_texture_buffer_object
   Standard_Boolean       arbTboRGB32;    //!< GL_ARB_texture_buffer_object_rgb32 (3-component TBO), in core since 4.0
@@ -691,7 +677,6 @@ private: // context info
   Standard_Integer myTexClamp;             //!< either GL_CLAMP_TO_EDGE (1.2+) or GL_CLAMP (1.1)
   Standard_Integer myMaxTexDim;            //!< value for GL_MAX_TEXTURE_SIZE
   Standard_Integer myMaxClipPlanes;        //!< value for GL_MAX_CLIP_PLANES
-  Standard_Integer myMaxMsaaSamples;       //!< value for GL_MAX_SAMPLES
   Standard_Integer myGlVerMajor;           //!< cached GL version major number
   Standard_Integer myGlVerMinor;           //!< cached GL version minor number
   Standard_Boolean myIsInitialized;        //!< flag indicates initialization state
@@ -703,18 +688,16 @@ private: // context info
 
 private: //! @name fields tracking current state
 
-  Handle(OpenGl_ShaderProgram) myActiveProgram;   //!< currently active GLSL program
-  Handle(OpenGl_Sampler)       myTexSampler;      //!< currently active sampler object
-  Handle(OpenGl_FrameBuffer)   myDefaultFbo;      //!< default Frame Buffer Object
-  Standard_Integer             myRenderMode;      //!< value for active rendering mode
-  Standard_Integer             myReadBuffer;      //!< current read buffer
-  Standard_Integer             myDrawBuffer;      //!< current draw buffer
-  unsigned int                 myDefaultVao;      //!< default Vertex Array Object
-  Standard_Boolean             myIsGlDebugCtx;    //!< debug context initialization state
-  TCollection_AsciiString      myVendor;          //!< Graphics Driver's vendor
-  TColStd_PackedMapOfInteger   myFilters[6];      //!< messages suppressing filter (for sources from GL_DEBUG_SOURCE_API_ARB to GL_DEBUG_SOURCE_OTHER_ARB)
-  Standard_ShortReal           myResolutionRatio; //!< scaling factor for parameters like text size
-                                                  //!< to be properly displayed on device (screen / printer)
+  Handle(OpenGl_ShaderProgram) myActiveProgram; //!< currently active GLSL program
+  Handle(OpenGl_Sampler)       myTexSampler;    //!< currently active sampler object
+  Handle(OpenGl_FrameBuffer)   myDefaultFbo;    //!< default Frame Buffer Object
+  Standard_Integer             myRenderMode;    //!< value for active rendering mode
+  Standard_Integer             myReadBuffer;    //!< current read buffer
+  Standard_Integer             myDrawBuffer;    //!< current draw buffer
+  unsigned int                 myDefaultVao;    //!< default Vertex Array Object
+  Standard_Boolean             myIsGlDebugCtx;  //!< debug context initialization state
+  TCollection_AsciiString      myVendor;        //!< Graphics Driver's vendor
+  TColStd_PackedMapOfInteger   myFilters[6];    //!< messages suppressing filter (for sources from GL_DEBUG_SOURCE_API_ARB to GL_DEBUG_SOURCE_OTHER_ARB)
 
 public:
 
@@ -730,7 +713,7 @@ private:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Context,Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_Context, Standard_Transient) // Type definition
 
   friend class OpenGl_Window;
 

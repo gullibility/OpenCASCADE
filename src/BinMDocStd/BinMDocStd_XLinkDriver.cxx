@@ -24,8 +24,6 @@
 #include <TDF_Attribute.hxx>
 #include <TDocStd_XLink.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDocStd_XLinkDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDocStd_XLinkDriver
 //purpose  : 

@@ -12,6 +12,5 @@ restore [locate_data_file OCC22989-edge-nosameparameter.brep] result
 
 sameparameter result
 
-checkprops result -l 85.0797 
-checksection result
+set length 85.0797
 set 3dviewer 0

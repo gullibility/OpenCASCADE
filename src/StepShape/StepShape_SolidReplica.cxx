@@ -18,8 +18,6 @@
 #include <StepShape_SolidReplica.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_SolidReplica,StepShape_SolidModel)
-
 StepShape_SolidReplica::StepShape_SolidReplica ()  {}
 
 void StepShape_SolidReplica::Init(

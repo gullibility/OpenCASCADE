@@ -43,7 +43,7 @@ public:
   Standard_EXPORT IGESBasic_SpecificModule();
   
   //! Specific Dump (own parameters) for IGESBasic
-  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const Standard_OVERRIDE;
+  Standard_EXPORT void OwnDump (const Standard_Integer CN, const Handle(IGESData_IGESEntity)& ent, const IGESData_IGESDumper& dumper, const Handle(Message_Messenger)& S, const Standard_Integer own) const;
   
   //! Performs non-ambiguous Corrections on Entities which support
   //! them (AssocGroupType,Hierarchy,Name,SingleParent)
@@ -52,7 +52,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESBasic_SpecificModule,IGESData_SpecificModule)
+  DEFINE_STANDARD_RTTI(IGESBasic_SpecificModule,IGESData_SpecificModule)
 
 protected:
 

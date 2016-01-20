@@ -34,8 +34,6 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_SplitCommonVertex,ShapeFix_Root)
-
 //=======================================================================
 //function : ShapeFix_SplitCommonVertex
 //purpose  : 

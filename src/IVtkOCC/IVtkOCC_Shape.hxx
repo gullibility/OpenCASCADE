@@ -40,7 +40,7 @@ public:
 
   IVtk_IdType GetSubShapeId (const IVtk_IShape::Handle&) const;
 
-  DEFINE_STANDARD_RTTIEXT(IVtkOCC_Shape,IVtk_IShape)
+  DEFINE_STANDARD_RTTI(IVtkOCC_Shape, IVtk_IShape)
 
   //! Get the wrapped original OCCT shape
   //! @return TopoDS_Shape the wrapped original OCCT shape
@@ -59,7 +59,7 @@ public:
   IVtk_IdType GetSubShapeId (const TopoDS_Shape& theSubShape) const;
 
   //! Get ids of sub-shapes composing a sub-shape with the given id
-  Standard_EXPORT IVtk_ShapeIdList GetSubIds (const IVtk_IdType) const Standard_OVERRIDE;
+  Standard_EXPORT IVtk_ShapeIdList GetSubIds (const IVtk_IdType) const;
 
   //! @brief Get a sub-shape by its local ID.
   //!

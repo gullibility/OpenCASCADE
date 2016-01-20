@@ -160,6 +160,8 @@ void BOPAlgo_WireSplitter::SplitBlock(const TopoDS_Face& myFace,
   const BOPCol_ListOfShape& myEdges=aCB.Shapes();
   //
   // 1.Filling mySmartMap
+  BOPTools_AlgoTools2D::BuildPCurveForEdgesOnPlane(myEdges, myFace);
+  //
   aIt.Initialize(myEdges);
   for(; aIt.More(); aIt.Next()) {
     const TopoDS_Edge& aE=(*(TopoDS_Edge *)&aIt.Value());

@@ -8,5 +8,4 @@ bop a b
 bopsection result
 
 
-checkprops result -l 348
-checksection result
+set length 348

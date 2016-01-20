@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_TrimmingMember.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_TrimmingMember,StepData_SelectReal)
-
 StepGeom_TrimmingMember::StepGeom_TrimmingMember  ()    {  }
 
     Standard_Boolean  StepGeom_TrimmingMember::HasName () const

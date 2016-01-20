@@ -25,5 +25,4 @@ if {${percent} > ${percent_max}} {
     puts "OCC817: OK"
 }
 set 2dviewer 0
-checkprops result -s 6000 
-checkshape result
+set square 6000

@@ -24,8 +24,6 @@
 #include <Standard_Mutex.hxx>
 #include <Standard_OStream.hxx>
 
-#include <errno.h>
-
 //=============================================
 // Standard_Mutex::Standard_Mutex
 //=============================================

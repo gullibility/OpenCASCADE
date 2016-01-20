@@ -49,16 +49,16 @@ public:
   
   //! Explores an entity, to take its contained PCurves
   //! An independant curve is IGNORED : only faces are explored
-  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Explore (const Standard_Integer level, const Handle(Standard_Transient)& ent, const Interface_Graph& G, Interface_EntityIterator& explored) const;
   
   //! Returns a text defining the criterium : "Basic PCurves" or
   //! "Global PCurves"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExploreLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectPCurves,IFSelect_SelectExplore)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectPCurves,IFSelect_SelectExplore)
 
 protected:
 

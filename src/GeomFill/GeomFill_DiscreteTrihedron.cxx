@@ -27,8 +27,6 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_HSequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DiscreteTrihedron,GeomFill_TrihedronLaw)
-
 static const Standard_Real TolConf = Precision::Confusion();
 
 //=======================================================================

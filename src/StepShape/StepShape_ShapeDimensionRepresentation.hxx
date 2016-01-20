@@ -37,7 +37,7 @@ public:
   Standard_EXPORT StepShape_ShapeDimensionRepresentation();
   
   //! Initialize all fields AP214
-  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& theName, const Handle(StepRepr_HArray1OfRepresentationItem)& theItems, const Handle(StepRepr_RepresentationContext)& theContextOfItems) Standard_OVERRIDE;
+  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& theName, const Handle(StepRepr_HArray1OfRepresentationItem)& theItems, const Handle(StepRepr_RepresentationContext)& theContextOfItems);
 
   //! Initialize all fields AP242
   Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& theName, const Handle(StepShape_HArray1OfShapeDimensionRepresentationItem)& theItems, const Handle(StepRepr_RepresentationContext)& theContextOfItems);
@@ -46,7 +46,7 @@ public:
   
   Standard_EXPORT Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) ItemsAP242() const;
   
-  DEFINE_STANDARD_RTTIEXT(StepShape_ShapeDimensionRepresentation,StepShape_ShapeRepresentation)
+  DEFINE_STANDARD_RTTI(StepShape_ShapeDimensionRepresentation,StepShape_ShapeRepresentation)
 private:
 
   Handle(StepShape_HArray1OfShapeDimensionRepresentationItem) itemsAP242;

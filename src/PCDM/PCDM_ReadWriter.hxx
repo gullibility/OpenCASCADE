@@ -76,14 +76,10 @@ public:
   //! a FileFormat information.
   Standard_EXPORT static TCollection_ExtendedString FileFormat (const TCollection_ExtendedString& aFileName);
 
-  //! tries  to get a format  from the stream.  returns an empty
-  //! string if the file could not be read or does not have
-  //! a FileFormat information.
-  Standard_EXPORT static TCollection_ExtendedString FileFormat (Standard_IStream& theIStream, Handle(Storage_Data)& theData);
 
 
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter,Standard_Transient)
+  DEFINE_STANDARD_RTTI(PCDM_ReadWriter,Standard_Transient)
 
 protected:
 

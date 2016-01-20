@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_Surface.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Surface,StepGeom_GeometricRepresentationItem)
-
 StepGeom_Surface::StepGeom_Surface ()  {}
 

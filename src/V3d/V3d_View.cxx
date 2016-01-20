@@ -103,8 +103,6 @@ To solve the problem (for lack of a better solution) I make 2 passes.
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_View,MMgt_TShared)
-
 #define V3d_FLAG_COMPUTATION   0x00000004
 
 // Perspective
@@ -137,8 +135,6 @@ V3d_View::V3d_View (const Handle(V3d_Viewer)& theViewer, const V3d_TypeOfView th
 
   myView->SetBackground         (theViewer->GetBackgroundColor());
   myView->SetGradientBackground (theViewer->GetGradientBackground());
-
-  ChangeRenderingParams() = theViewer->DefaultRenderingParams();
 
   // camera init
   Handle(Graphic3d_Camera) aCamera = new Graphic3d_Camera();
@@ -2942,11 +2938,11 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
                                      const V3d_StereoDumpOptions theStereoOptions)
 {
   // always prefer hardware accelerated offscreen buffer
-  Handle(Standard_Transient) aFBOPtr;
-  Handle(Standard_Transient) aPrevFBOPtr = myView->FBO();
+  Graphic3d_PtrFrameBuffer aFBOPtr = NULL;
+  Graphic3d_PtrFrameBuffer aPrevFBOPtr = myView->FBO();
   Standard_Integer aFBOVPSizeX (theWidth), aFBOVPSizeY (theHeight), aFBOSizeXMax (0), aFBOSizeYMax (0);
   Standard_Integer aPrevFBOVPSizeX (0), aPrevFBOVPSizeY (0), aPrevFBOSizeXMax (0), aPrevFBOSizeYMax (0);
-  if (!aPrevFBOPtr.IsNull())
+  if (aPrevFBOPtr != NULL)
   {
     myView->FBOGetDimensions (aPrevFBOPtr,
                               aPrevFBOVPSizeX, aPrevFBOVPSizeY,
@@ -2958,11 +2954,11 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
     }
   }
 
-  if (aFBOPtr.IsNull())
+  if (aFBOPtr == NULL)
   {
     // Try to create hardware accelerated buffer
     aFBOPtr = myView->FBOCreate (aFBOVPSizeX, aFBOVPSizeY);
-    if (!aFBOPtr.IsNull())
+    if (aFBOPtr != NULL)
     {
       myView->FBOGetDimensions (aFBOPtr,
                                 aFBOVPSizeX,  aFBOVPSizeY,
@@ -2977,7 +2973,7 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
 
   // If hardware accelerated buffer - try to use onscreen buffer
   // Results may be bad!
-  if (aFBOPtr.IsNull())
+  if (aFBOPtr == NULL)
   {
     // retrieve window sizes
     Standard_Integer aWinWidth, aWinHeight;
@@ -3067,7 +3063,7 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
   {
     myView->FBORelease (aFBOPtr);
   }
-  else if (!aPrevFBOPtr.IsNull())
+  else if (aPrevFBOPtr != NULL)
   {
     myView->FBOChangeViewport (aPrevFBOPtr, aPrevFBOVPSizeX, aPrevFBOVPSizeY);
   }
@@ -3193,10 +3189,10 @@ Standard_Boolean V3d_View::FitMinMax (const Handle(Graphic3d_Camera)& theCamera,
   // 4) Determine new zooming in view space.
 
   // 1. Determine normalized projection asymmetry (if any).
-  Standard_Real anAssymX = Tan (( aCamSide).Angle (aFrustumPlane (1).Axis().Direction()))
-                         - Tan ((-aCamSide).Angle (aFrustumPlane (2).Axis().Direction()));
-  Standard_Real anAssymY = Tan (( aCamUp)  .Angle (aFrustumPlane (3).Axis().Direction()))
-                         - Tan ((-aCamUp)  .Angle (aFrustumPlane (4).Axis().Direction()));
+  Standard_Real anAssymX = Tan ( aCamSide.Angle (aFrustumPlane (1).Axis().Direction()))
+                         - Tan (-aCamSide.Angle (aFrustumPlane (2).Axis().Direction()));
+  Standard_Real anAssymY = Tan ( aCamUp.Angle   (aFrustumPlane (3).Axis().Direction()))
+                         - Tan (-aCamUp.Angle   (aFrustumPlane (4).Axis().Direction()));
 
   // 2. Determine how far should be the frustum planes placed from center
   //    of bounding box, in order to match the bounding box closely.
@@ -3236,12 +3232,12 @@ Standard_Boolean V3d_View::FitMinMax (const Handle(Graphic3d_Camera)& theCamera,
   //                            \//
   //                            //
   //                      (frustum plane)
-  aFitDistance.ChangeValue (1) *= Sqrt(1 + Pow (Tan (  aCamSide .Angle (aFrustumPlane (1).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (2) *= Sqrt(1 + Pow (Tan ((-aCamSide).Angle (aFrustumPlane (2).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (3) *= Sqrt(1 + Pow (Tan (  aCamUp   .Angle (aFrustumPlane (3).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (4) *= Sqrt(1 + Pow (Tan ((-aCamUp)  .Angle (aFrustumPlane (4).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (5) *= Sqrt(1 + Pow (Tan (  aCamDir  .Angle (aFrustumPlane (5).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (6) *= Sqrt(1 + Pow (Tan ((-aCamDir) .Angle (aFrustumPlane (6).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (1) *= Sqrt(1 + Pow (Tan ( aCamSide.Angle (aFrustumPlane (1).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (2) *= Sqrt(1 + Pow (Tan (-aCamSide.Angle (aFrustumPlane (2).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (3) *= Sqrt(1 + Pow (Tan ( aCamUp.Angle   (aFrustumPlane (3).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (4) *= Sqrt(1 + Pow (Tan (-aCamUp.Angle   (aFrustumPlane (4).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (5) *= Sqrt(1 + Pow (Tan ( aCamDir.Angle  (aFrustumPlane (5).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (6) *= Sqrt(1 + Pow (Tan (-aCamDir.Angle  (aFrustumPlane (6).Axis().Direction())), 2.0));
 
   Standard_Real aViewSizeXv = aFitDistance (1) + aFitDistance (2);
   Standard_Real aViewSizeYv = aFitDistance (3) + aFitDistance (4);

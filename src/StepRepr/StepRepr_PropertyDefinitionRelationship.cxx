@@ -20,8 +20,6 @@
 #include <StepRepr_PropertyDefinitionRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRelationship,MMgt_TShared)
-
 //=======================================================================
 //function : StepRepr_PropertyDefinitionRelationship
 //purpose  : 

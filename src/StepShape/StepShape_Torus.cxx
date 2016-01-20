@@ -17,8 +17,6 @@
 #include <StepShape_Torus.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_Torus,StepGeom_GeometricRepresentationItem)
-
 StepShape_Torus::StepShape_Torus ()  {}
 
 void StepShape_Torus::Init(

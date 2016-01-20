@@ -17,7 +17,6 @@ bsection sec a b
 bfuse result a b
 checkshape -top result
 
-checkprops result -s 261265. 
-checkshape result
+set square 261265.
 set 2dviewer 0
 

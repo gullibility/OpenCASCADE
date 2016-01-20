@@ -41,7 +41,7 @@ public:
   
   //! Recognizes a kind of CurveElementFreedom select type
   //! return 0
-  Standard_EXPORT Standard_Integer CaseNum (const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer CaseNum (const Handle(Standard_Transient)& ent) const;
   
   //! Recognizes a items of select member CurveElementFreedomMember
   //! 1 -> EnumeratedCurveElementFreedom

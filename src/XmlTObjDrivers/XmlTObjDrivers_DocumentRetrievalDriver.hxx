@@ -36,11 +36,11 @@ class XmlTObjDrivers_DocumentRetrievalDriver :
   // Constructor
 
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers
-                        (const Handle(CDM_MessageDriver)& theMsgDriver) Standard_OVERRIDE;
+                        (const Handle(CDM_MessageDriver)& theMsgDriver);
 
  public:
   // Declaration of CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(XmlTObjDrivers_DocumentRetrievalDriver,XmlLDrivers_DocumentRetrievalDriver)
+  DEFINE_STANDARD_RTTI (XmlTObjDrivers_DocumentRetrievalDriver, XmlLDrivers_DocumentRetrievalDriver)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

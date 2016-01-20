@@ -17,8 +17,6 @@
 #include <StepShape_VertexLoop.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_VertexLoop,StepShape_Loop)
-
 StepShape_VertexLoop::StepShape_VertexLoop ()  {}
 
 void StepShape_VertexLoop::Init(

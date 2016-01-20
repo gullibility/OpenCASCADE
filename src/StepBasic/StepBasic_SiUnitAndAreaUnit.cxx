@@ -20,8 +20,6 @@
 #include <StepBasic_DimensionalExponents.hxx>
 #include <StepBasic_SiUnitAndAreaUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnitAndAreaUnit,StepBasic_SiUnit)
-
 StepBasic_SiUnitAndAreaUnit::StepBasic_SiUnitAndAreaUnit () 
 {
 }

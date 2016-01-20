@@ -20,8 +20,6 @@
 #include <TObj_Object.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_SequenceIterator,TObj_ObjectIterator)
-
 //=======================================================================
 //function : TObj_SequenceIterator
 //purpose  :

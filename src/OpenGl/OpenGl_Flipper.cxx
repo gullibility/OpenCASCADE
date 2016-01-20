@@ -66,6 +66,11 @@ void OpenGl_Flipper::Render (const Handle(OpenGl_Workspace)& theWorkspace) const
 {
   // Check if rendering is to be in immediate mode
   const Handle(OpenGl_Context)& aContext = theWorkspace->GetGlContext();
+
+#if !defined(GL_ES_VERSION_2_0)
+  GLint aCurrMode = GL_MODELVIEW;
+  glGetIntegerv (GL_MATRIX_MODE, &aCurrMode);
+
   if (!myIsEnabled)
   {
     // restore matrix state
@@ -73,6 +78,7 @@ void OpenGl_Flipper::Render (const Handle(OpenGl_Workspace)& theWorkspace) const
 
     // Apply since we probably in the middle of something.
     aContext->ApplyModelViewMatrix();
+
     return;
   }
 
@@ -134,4 +140,6 @@ void OpenGl_Flipper::Render (const Handle(OpenGl_Workspace)& theWorkspace) const
   // load transformed model-view matrix
   aContext->WorldViewState.SetCurrent (aMatrixMV);
   aContext->ApplyWorldViewMatrix();
+
+#endif
 }

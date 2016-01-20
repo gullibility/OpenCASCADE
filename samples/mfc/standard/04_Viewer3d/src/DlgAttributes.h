@@ -73,7 +73,7 @@ protected:
 	void SetMaterial (Graphic3d_NameOfMaterial Material);
 
 private:
-	Handle(AIS_InteractiveContext) myAISContext;
+	Handle_AIS_InteractiveContext myAISContext;
 	CResultDialog* myCResultDialog;
 };
 

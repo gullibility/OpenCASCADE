@@ -19,8 +19,6 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_HVertex,MMgt_TShared)
-
 Adaptor3d_HVertex::Adaptor3d_HVertex ()
 {}
 

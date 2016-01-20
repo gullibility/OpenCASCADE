@@ -23,8 +23,6 @@
 #include <TDataStd_IntegerArray.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_IntegerArrayDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_IntegerArrayDriver
 //purpose  : Constructor

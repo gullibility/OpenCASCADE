@@ -19,8 +19,6 @@
 
 
 
-IMPLEMENT_STANDARD_RTTIEXT(NCollection_AlignedAllocator,NCollection_BaseAllocator)
-
 //=======================================================================
 //function : NCollection_AlignedAllocator()
 //purpose  : Constructor

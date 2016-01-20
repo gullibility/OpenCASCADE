@@ -45,15 +45,15 @@ public:
   
   //! Selects the Single Views attached (in Directory Part) to
   //! input entities
-  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const Standard_OVERRIDE;
+  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const;
   
   //! Returns the label, with is "Single Views attached"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectSingleViewFrom,IFSelect_SelectDeduct)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectSingleViewFrom,IFSelect_SelectDeduct)
 
 protected:
 

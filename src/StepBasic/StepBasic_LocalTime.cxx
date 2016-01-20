@@ -16,8 +16,6 @@
 #include <StepBasic_CoordinatedUniversalTimeOffset.hxx>
 #include <StepBasic_LocalTime.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_LocalTime,MMgt_TShared)
-
 StepBasic_LocalTime::StepBasic_LocalTime ()  {}
 
 void StepBasic_LocalTime::Init(

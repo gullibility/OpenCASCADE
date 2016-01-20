@@ -17,8 +17,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_ProgressIndicator,MMgt_TShared)
-
 //=======================================================================
 //function : Message_ProgressIndicator
 //purpose  : 

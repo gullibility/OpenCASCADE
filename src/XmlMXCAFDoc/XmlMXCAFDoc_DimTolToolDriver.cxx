@@ -21,8 +21,6 @@
 #include <XmlMXCAFDoc_DimTolToolDriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMXCAFDoc_DimTolToolDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function :
 //purpose  : 

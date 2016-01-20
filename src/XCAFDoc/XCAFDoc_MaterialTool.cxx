@@ -27,8 +27,6 @@
 #include <XCAFDoc_MaterialTool.hxx>
 #include <XCAFDoc_ShapeTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_MaterialTool,TDF_Attribute)
-
 //=======================================================================
 //function : XCAFDoc_MaterialTool
 //purpose  : 

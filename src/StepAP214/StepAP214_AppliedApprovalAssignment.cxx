@@ -17,8 +17,6 @@
 #include <StepAP214_ApprovalItem.hxx>
 #include <StepBasic_Approval.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AppliedApprovalAssignment,StepBasic_ApprovalAssignment)
-
 StepAP214_AppliedApprovalAssignment::StepAP214_AppliedApprovalAssignment ()  {}
 
 void StepAP214_AppliedApprovalAssignment::Init(

@@ -47,12 +47,12 @@ public:
   
   //! Returns the Signature for a Transient object, as its Dynamic
   //! Type, with or without package name, according starting option
-  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SignType,IFSelect_Signature)
+  DEFINE_STANDARD_RTTI(IFSelect_SignType,IFSelect_Signature)
 
 protected:
 

@@ -31,8 +31,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_ArgCosh,Expr_UnaryExpression)
-
 Expr_ArgCosh::Expr_ArgCosh (const Handle(Expr_GeneralExpression)& exp)
 {
   CreateOperand(exp);

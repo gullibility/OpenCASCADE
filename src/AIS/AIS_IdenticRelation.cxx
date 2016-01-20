@@ -55,8 +55,6 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_IdenticRelation,AIS_Relation)
-
 // jfa 15/10/2000
 static Standard_Real Modulo2PI(const Standard_Real ANGLE)
 {

@@ -55,27 +55,27 @@ Vrml_Cube::Vrml_Cube(const Standard_Real aWidth,
 
  Standard_OStream& Vrml_Cube::Print(Standard_OStream& anOStream) const
 {
- anOStream  << "Cube {\n";
+ anOStream  << "Cube {" << endl;
 
  if ( Abs(myWidth - 2) > 0.0001 )
    {
-    anOStream  << "    width\t";
-    anOStream << myWidth << "\n";
+    anOStream  << "    width" << '\t';
+    anOStream << myWidth << endl;
    }
 
  if ( Abs(myHeight - 2) > 0.0001 )
    {
-    anOStream  << "    height\t";
-    anOStream << myHeight << "\n";
+    anOStream  << "    height" << '\t';
+    anOStream << myHeight << endl;
    }
 
  if ( Abs(myDepth - 2) > 0.0001 )
    {
-    anOStream  << "    depth\t";
-    anOStream << myDepth << "\n";
+    anOStream  << "    depth" << '\t';
+    anOStream << myDepth << endl;
    }
 
- anOStream  << "}\n";
+ anOStream  << '}' << endl;
  return anOStream;
 
 }

@@ -19,8 +19,6 @@
 #include <StepElement_CurveElementSectionDefinition.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_CurveElementSectionDefinition,MMgt_TShared)
-
 //=======================================================================
 //function : StepElement_CurveElementSectionDefinition
 //purpose  : 

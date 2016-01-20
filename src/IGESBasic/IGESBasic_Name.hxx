@@ -48,12 +48,12 @@ public:
   Standard_EXPORT Standard_Integer NbPropertyValues() const;
   
   //! returns the user defined Name
-  Standard_EXPORT Handle(TCollection_HAsciiString) Value() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TCollection_HAsciiString) Value() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESBasic_Name,IGESData_NameEntity)
+  DEFINE_STANDARD_RTTI(IGESBasic_Name,IGESData_NameEntity)
 
 protected:
 

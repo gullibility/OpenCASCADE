@@ -44,10 +44,7 @@ int  iges_lire (FILE* lefic, int *numsec, char ligne[100], int modefnes)
 
     ligne[0] = '\0'; 
     if(modefnes)
-    {
-      if (fgets(ligne,99,lefic) == NULL) /*for kept compatibility with fnes*/
-        return 0;
-    }
+      fgets(ligne,99,lefic); /*for kept compatibility with fnes*/
     else
     {
       /* PTV: 21.03.2002 it is neccessary for files that have only `\r` but no `\n` 
@@ -56,8 +53,7 @@ int  iges_lire (FILE* lefic, int *numsec, char ligne[100], int modefnes)
       {
       }
       
-      if (fgets(&ligne[1],80,lefic) == NULL)
-        return 0;
+      fgets(&ligne[1],80,lefic);
     }
     
     if (*numsec == 0 && ligne[72] != 'S' && ligne[79] == ' ')
@@ -65,17 +61,13 @@ int  iges_lire (FILE* lefic, int *numsec, char ligne[100], int modefnes)
       ligne[0] = '\0';
       
       if(modefnes)
-      {
-        if (fgets(ligne,99,lefic) == NULL) /*for kept compatibility with fnes*/
-          return 0;
-      }
+        fgets(ligne,99,lefic);/*for kept compatibility with fnes*/
       else
       {
         while ( fgets ( ligne, 2, lefic ) && ( ligne[0] == '\r' || ligne[0] == '\n' ) )
         {
         }
-        if (fgets(&ligne[1],80,lefic) == NULL)
-          return 0;
+        fgets(&ligne[1],80,lefic);
       }
     }
 

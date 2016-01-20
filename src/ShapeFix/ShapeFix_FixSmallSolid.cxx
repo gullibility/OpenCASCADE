@@ -34,8 +34,6 @@
 #include <TopTools_MapIteratorOfMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_FixSmallSolid,ShapeFix_Root)
-
 //=======================================================================
 //function : ShapeFix_FixSmallSolid
 //purpose  : Construct

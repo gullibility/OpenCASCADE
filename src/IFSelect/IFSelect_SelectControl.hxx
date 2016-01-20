@@ -67,12 +67,12 @@ public:
   
   //! Puts in an Iterator the Selections from which "me" depends
   //! That is to say, the list of Input Selections
-  Standard_EXPORT void FillIterator (IFSelect_SelectionIterator& iter) const Standard_OVERRIDE;
+  Standard_EXPORT void FillIterator (IFSelect_SelectionIterator& iter) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectControl,IFSelect_Selection)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectControl,IFSelect_Selection)
 
 protected:
 

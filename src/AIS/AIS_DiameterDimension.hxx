@@ -115,22 +115,22 @@ public:
   Standard_EXPORT void SetMeasuredGeometry (const TopoDS_Shape& theShape);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const;
   
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const;
 
-  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits);
 
-  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits);
 
-  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos);
 
-  Standard_EXPORT virtual const gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const gp_Pnt GetTextPosition() const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(AIS_DiameterDimension,AIS_Dimension)
+  DEFINE_STANDARD_RTTI(AIS_DiameterDimension, AIS_Dimension)
 
 protected:
 
@@ -143,19 +143,19 @@ protected:
   //! 2) The plane should inclide th ecircle center to be valid.
   Standard_EXPORT virtual void ComputeAnchorPoint();
 
-  Standard_EXPORT virtual void ComputePlane() Standard_OVERRIDE;
+  Standard_EXPORT virtual void ComputePlane();
 
   //! Checks if the center of the circle is on the plane.
-  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const;
 
-  Standard_EXPORT virtual Standard_Real ComputeValue() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Real ComputeValue() const;
 
   Standard_EXPORT virtual void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                                         const Handle(Prs3d_Presentation)& thePresentation,
-                                        const Standard_Integer theMode = 0) Standard_OVERRIDE;
+                                        const Standard_Integer theMode = 0);
 
   Standard_EXPORT virtual void ComputeFlyoutSelection (const Handle(SelectMgr_Selection)& theSelection,
-                                                       const Handle(SelectMgr_EntityOwner)& theEntityOwner) Standard_OVERRIDE;
+                                                       const Handle(SelectMgr_EntityOwner)& theEntityOwner);
 
 protected:
 

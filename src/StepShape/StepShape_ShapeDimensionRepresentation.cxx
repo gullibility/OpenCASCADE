@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepShape_ShapeDimensionRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ShapeDimensionRepresentation,StepShape_ShapeRepresentation)
-
 //=======================================================================
 //function : StepShape_ShapeDimensionRepresentation
 //purpose  : 

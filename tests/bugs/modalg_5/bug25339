@@ -12,7 +12,5 @@ axo
 fit
 renamevar r_1 result
 
-checkprops result -l 36.1042 
-checkshape result 
-checksection result
+set length 36.1042
 set only_screen_axo 1

@@ -15,5 +15,4 @@ btolx out
 bop obj out
 bopsection result
 
-checkprops result -l 1022.03
-checksection result
+set length 1022.03

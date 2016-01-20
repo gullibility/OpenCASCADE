@@ -43,18 +43,18 @@ public:
   //! Returns field Displacement
   inline Handle(StepBasic_LengthMeasureWithUnit) Displacement () const
   {
-    return myDisplacement;
+    return displacement;
   }
   
   //! Set field Displacement
   inline void SetDisplacement (const Handle(StepBasic_LengthMeasureWithUnit) &theDisplacement)
   {
-    myDisplacement = theDisplacement;
+    displacement = theDisplacement;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_UnequallyDisposedGeometricTolerance,StepDimTol_GeometricTolerance)
+  DEFINE_STANDARD_RTTI(StepDimTol_UnequallyDisposedGeometricTolerance, StepDimTol_GeometricTolerance)
 
 private: 
-  Handle(StepBasic_LengthMeasureWithUnit) myDisplacement;
+  Handle(StepBasic_LengthMeasureWithUnit) displacement;
 };
 #endif // _StepDimTol_UnequallyDisposedGeometricTolerance_HeaderFile

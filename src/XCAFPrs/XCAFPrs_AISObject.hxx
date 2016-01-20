@@ -36,7 +36,7 @@ protected:
   //! Redefined method to compute presentation.
   Standard_EXPORT virtual  void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                                          const Handle(Prs3d_Presentation)&           thePresentation,
-                                         const Standard_Integer                      theMode) Standard_OVERRIDE;
+                                         const Standard_Integer                      theMode);
 
   //! Set colors to drawer
   Standard_EXPORT void SetColors (const Handle(Prs3d_Drawer)& theDrawer,
@@ -54,7 +54,7 @@ private:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(XCAFPrs_AISObject,AIS_ColoredShape)
+  DEFINE_STANDARD_RTTI(XCAFPrs_AISObject, AIS_ColoredShape)
 
 };
 

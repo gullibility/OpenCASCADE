@@ -8,8 +8,6 @@ puts ""
 
 restore [locate_data_file bug24083_polyline.brep] result
 
-checkprops result -l 141421 
-checkshape result 
-checksection result
+set length 141421
 
 set 2dviewer 1

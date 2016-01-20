@@ -20,8 +20,6 @@
 #include <StepBasic_SolidAngleUnit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndSolidAngleUnit,StepBasic_ConversionBasedUnit)
-
 StepBasic_ConversionBasedUnitAndSolidAngleUnit::StepBasic_ConversionBasedUnitAndSolidAngleUnit ()
 {
 }

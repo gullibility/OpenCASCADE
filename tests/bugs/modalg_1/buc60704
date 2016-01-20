@@ -11,6 +11,5 @@ checkshape s
 
 bfuse result p s
 
-checkprops result -s 39.0889 
-checkshape result
+set square 39.0889
 set 2dviewer 0

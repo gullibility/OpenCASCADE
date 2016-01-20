@@ -19,8 +19,6 @@
 #include <StepBasic_Group.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Group,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_Group
 //purpose  : 

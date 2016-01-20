@@ -19,8 +19,6 @@
 #include <IGESGraph_HighLight.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_HighLight,IGESData_IGESEntity)
-
 IGESGraph_HighLight::IGESGraph_HighLight ()    {  }
 
 

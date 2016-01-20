@@ -68,20 +68,20 @@ public:
   
   Standard_EXPORT TDF_AttributeList& GetVariables();
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& With) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& With);
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& Into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& Into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual Standard_OStream& Dump (Standard_OStream& anOS) const Standard_OVERRIDE;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TDataStd_Relation,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(TDataStd_Relation,TDF_Attribute)
 
 protected:
 

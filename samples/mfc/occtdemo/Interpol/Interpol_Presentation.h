@@ -11,10 +11,10 @@
 
 #include <OCCDemo_Presentation.h>
 
-class Geom_BSplineCurve;
-#include <TColgp_HArray1OfPnt.hxx>
-#include <TColStd_Array1OfInteger.hxx>
-#include <TColStd_Array1OfReal.hxx>
+class Handle_Geom_BSplineCurve;
+class Handle_TColgp_HArray1OfPnt;
+class TColStd_Array1OfInteger;
+class TColStd_Array1OfReal;
 
 class Interpol_Presentation : public OCCDemo_Presentation
 {

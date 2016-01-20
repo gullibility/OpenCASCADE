@@ -56,13 +56,13 @@ public:
   void SetName (const TCollection_ExtendedString& theName) { myName = theName; }
   const TCollection_ExtendedString& Name() const { return myName; }
 
-  Standard_Boolean ToDrawName() const { return myToDrawName; }
+  const Standard_Boolean ToDrawName() const { return myToDrawName; }
   void SetDrawName (const Standard_Boolean theToDraw) { myToDrawName = theToDraw; }
 
-  Standard_Boolean ToDrawTickmarks() const { return myToDrawTickmarks; }
+  const Standard_Boolean ToDrawTickmarks() const { return myToDrawTickmarks; }
   void SetDrawTickmarks (const Standard_Boolean theToDraw) { myToDrawTickmarks = theToDraw; }
 
-  Standard_Boolean ToDrawValues() const { return myToDrawValues; }
+  const Standard_Boolean ToDrawValues() const { return myToDrawValues; }
   void SetDrawValues (const Standard_Boolean theToDraw) { myToDrawValues = theToDraw; }
 
   const Quantity_Color& NameColor() const { return myNameColor; }
@@ -74,16 +74,16 @@ public:
   //! Sets color of axis and values
   void SetColor (const Quantity_Color& theColor) { myColor = theColor; }
 
-  Standard_Integer TickmarksNumber() const { return myTickmarksNumber; }
+  const Standard_Integer TickmarksNumber() const { return myTickmarksNumber; }
   void SetTickmarksNumber (const Standard_Integer theValue) { myTickmarksNumber = theValue; }
 
-  Standard_Integer TickmarksLength() const { return myTickmarksLength; }
+  const Standard_Integer TickmarksLength() const { return myTickmarksLength; }
   void SetTickmarksLength (const Standard_Integer theValue) { myTickmarksLength = theValue; }
 
-  Standard_Integer ValuesOffset() const { return myValuesOffset; }
+  const Standard_Integer ValuesOffset() const { return myValuesOffset; }
   void SetValuesOffset (const Standard_Integer theValue) { myValuesOffset = theValue; }
 
-  Standard_Integer NameOffset() const { return myNameOffset; }
+  const Standard_Integer NameOffset() const { return myNameOffset; }
   void SetNameOffset (const Standard_Integer theValue) { myNameOffset = theValue; }
 
 protected:
@@ -163,16 +163,16 @@ public:
     return myAxes (theIndex);
   }
 
-  Standard_ShortReal ArrowsLength() const { return myArrowsLength; }
+  const Standard_ShortReal ArrowsLength() const { return myArrowsLength; }
   void SetArrowsLength (const Standard_ShortReal theValue) { myArrowsLength = theValue; }
 
   const Quantity_Color& GridColor() const { return myGridColor; }
   void SetGridColor (const Quantity_Color& theColor) {myGridColor = theColor; }
 
-  Standard_Boolean ToDrawGrid() const { return myToDrawGrid; }
+  const Standard_Boolean ToDrawGrid() const { return myToDrawGrid; }
   void SetDrawGrid (const Standard_Boolean theToDraw) { myToDrawGrid = theToDraw; }
 
-  Standard_Boolean ToDrawAxes() const { return myToDrawAxes; }
+  const Standard_Boolean ToDrawAxes() const { return myToDrawAxes; }
   void SetDrawAxes (const Standard_Boolean theToDraw) { myToDrawAxes = theToDraw; }
 
   const TCollection_AsciiString& NamesFont() const { return myNamesFont; }
@@ -181,7 +181,7 @@ public:
   Font_FontAspect NamesFontAspect() const { return myNamesStyle; }
   void SetNamesFontAspect (Font_FontAspect theAspect) { myNamesStyle = theAspect; }
 
-  Standard_Integer NamesSize() const { return myNamesSize; }
+  const Standard_Integer NamesSize() const { return myNamesSize; }
   void SetNamesSize (const Standard_Integer theValue) { myNamesSize = theValue; }
 
   const TCollection_AsciiString& ValuesFont () const { return myValuesFont; }
@@ -190,7 +190,7 @@ public:
   Font_FontAspect ValuesFontAspect() const { return myValuesStyle; }
   void SetValuesFontAspect (Font_FontAspect theAspect) { myValuesStyle = theAspect; }
 
-  Standard_Integer ValuesSize() const { return myValuesSize; }
+  const Standard_Integer ValuesSize() const { return myValuesSize; }
   void SetValuesSize (const Standard_Integer theValue) { myValuesSize = theValue; }
 
 public:

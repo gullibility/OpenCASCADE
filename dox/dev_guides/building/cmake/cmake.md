@@ -102,15 +102,13 @@ The following table enumerates the full list of environment variables used at co
 | 3RDPARTY_GL2PS_* | Path | Path to GL2PS binaries |
 | 3RDPARTY_TBB* | Path | Path to TBB binaries |
 | 3RDPARTY_VTK_* | Path | Path to VTK binaries |
-| BUILD_MODULE_<MODULE>| Boolean flag | Indicates whether the corresponding OCCT module should be built or not. It should be noted that some toolkits of a module can be built even if this module is not checked (this happens if some other modules depend on these toolkits). The main modules and their descriptions can be found in @ref user_guides |
+| BUILD_MODULE_<MODULE>| Boolean flag | Indicates whether the corresponding OCCT module should be built or not. It should be noted that some toolkits of a module can be built even if this module is not checked (this happens if some other modules depend on these toolkits). The main modules and their descriptions can be found in @ref occt_user_guides |
 | BUILD_LIBRARY_TYPE | String |  Specifies the type of library to be created. "Shared" libraries are linked dynamically and loaded at runtime. "Static" libraries are archives of object files for use when linking other targets |
 | BUILD_ADDITIONAL_TOOLKITS | String | Semicolon-separated individual toolkits to include into build process. If you want to build some particular libraries (toolkits) only, then you may uncheck all modules in the corresponding *BUILD_MODUE_\<MODULE\>* options and provide the list of necessary libraries here. Of course, all dependencies will be resolved automatically |
-| BUILD_YACCLEX | Boolean flag | Enables Flex/Bison lexical analyzers. OCCT source files relating to STEP reader and ExprIntrp functionality are generated automatically with Flex/Bison. Checking this options leads to automatic search of Flex/Bison binaries and regeneration of the mentioned files |
+| REBUILD_PLATFORM_DEPENDENT_CODE | Boolean flag | Enables Flex/Bison lexical analyzers. OCCT source files relating to STEP reader and ExprIntrp functionality are generated automatically with Flex/Bison. Checking this options leads to automatic search of Flex/Bison binaries and regeneration of the mentioned files |
 | BUILD_MODULE_OcctMfcSamples | Boolean flag | Indicates whether MFC samples should be built together with OCCT. This option is only relevant to Windows platforms |
 | BUILD_DOC_OcctOverview | Boolean flag | Indicates whether OCCT overview documentation project should be created together with OCCT. It is not built together with OCCT. Checking this options leads to automatic search of Doxygen binaries. Building of it will be call Doxygen command to generate the documentation in HTML format |
-| BUILD_PATCH | Path | Points to the directory recognized as a "patch" for OCCT. If specified, the files from this directory take precedence over the corresponding native OCCT sources. This way you are able to introduce patches to Open CASCADE Technology not affecting the original source distribution |
-| BUILD_WITH_DEBUG | Boolean flag | Points to the directory recognized as a 'patch' for OCCT. If specified, the files from this directory take precedence over the corresponding native
-OCCT sources. This way you are able to introduce patches to Open CASCADE Technology not affecting the original source distribution |
+| APPLY_OCCT_PATH_DIR | Boolean flag | Points to the directory recognized as a "patch" for OCCT. If specified, the files from this directory take precedence over the corresponding native OCCT sources. This way you are able to introduce patches to Open CASCADE Technology not affecting the original source distribution |
 | CMAKE_CONFIGURATION_TYPES | String | Semicolon-separated CMake configurations |
 | INSTALL_DIR | Path | Points to the installation directory |
 | INSTALL_FREETYPE | Boolean flag | Indicates whether Freetype binaries should be installed into the installation directory |
@@ -119,8 +117,8 @@ OCCT sources. This way you are able to introduce patches to Open CASCADE Technol
 | INSTALL_TBB | Boolean flag | Indicates whether TBB binaries should be installed into the installation directory |
 | INSTALL_VTK | Boolean flag | Indicates whether VTK binaries should be installed into the installation directory |
 | INSTALL_TCL | Boolean flag | Indicates whether TCL binaries should be installed into the installation directory |
-| INSTALL_TEST_CASES | Boolean flag | Indicates whether non-regression OCCT test scripts should be installed into the installation directory |
-| INSTALL_SAMPLES | Boolean flag | Indicates whether OCCT samples should be installed into the installation directory |
+| INSTALL_OCCT_TEST_CASES | Boolean flag | Indicates whether non-regression OCCT test scripts should be installed into the installation directory |
+| INSTALL_OCCT_SAMPLES | Boolean flag | Indicates whether OCCT samples should be installed into the installation directory |
 | INSTALL_DOC_OcctOverview | Boolean flag | Indicates whether OCCT overview documentation should be installed into the installation directory |
 
 **Note:** In those CMake options defining paths only the forward slashes ("/") are acceptable.

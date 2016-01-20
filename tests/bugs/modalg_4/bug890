@@ -18,6 +18,5 @@ if { [ catch { bfuse result a_1 a_2 } catch_result ] } {
    puts "Faulty OCC890 (case 3)"
 }
 
-checkprops result -s 1.8276e+06 
-checkshape result
+set square 1.8276e+06
 set 2dviewer 0

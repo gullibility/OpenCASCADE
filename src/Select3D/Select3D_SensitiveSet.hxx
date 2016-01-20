@@ -70,7 +70,7 @@ public:
   //! Must be called manually to build BVH tree for any sensitive set
   //! in case if its content was initialized not in a constructor,
   //! but element by element
-  Standard_EXPORT void BVH() Standard_OVERRIDE;
+  Standard_EXPORT void BVH();
 
   //! Marks BVH tree of the set as outdated. It will be rebuild
   //! at the next call of BVH()
@@ -91,7 +91,7 @@ public:
   Standard_EXPORT Standard_Integer GetLeafNodeSize() const;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Select3D_SensitiveSet,Select3D_SensitiveEntity)
+  DEFINE_STANDARD_RTTI(Select3D_SensitiveSet, Select3D_SensitiveEntity)
 
 protected:
 

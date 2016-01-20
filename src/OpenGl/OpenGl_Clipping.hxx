@@ -24,7 +24,6 @@
 #include <Standard_TypeDef.hxx>
 #include <OpenGl_Matrix.hxx>
 
-class OpenGl_Context;
 class OpenGl_Workspace;
 
 //! This class contains logics related to tracking and modification of clipping plane
@@ -108,18 +107,14 @@ public: //! @name clipping state modification commands
   //! to transform equation coordinates. The planes become enabled in the context.
   //! If the number of the passed planes exceeds capabilities of OpenGl, the last planes
   //! are simply ignored.
-  //!
-  //! Within FFP, method also temporarily resets ModelView matrix before calling glClipPlane().
-  //! Otherwise the method just redirects to addLazy().
-  //!
-  //! @param theGlCtx [in] context to access the matrices
-  //! @param theCoordSpace [in] the equation definition space
-  //! @param thePlanes [in/out] the list of planes to be added
+  //! @param thePlanes [in/out] the list of planes to be added.
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
-  Standard_EXPORT void add (const Handle(OpenGl_Context)&   theGlCtx,
-                            const EquationCoords&           theCoordSpace,
-                            Graphic3d_SequenceOfHClipPlane& thePlanes);
+  //! @param theCoordSpace [in] the equation definition space.
+  //! @param theWS [in] the workspace to access the matrices.
+  Standard_EXPORT void Add (Graphic3d_SequenceOfHClipPlane& thePlanes,
+                            const EquationCoords& theCoordSpace,
+                            const Handle(OpenGl_Workspace)& theWS);
 
   //! Add planes to the context clipping at the specified system of coordinates.
   //! This method assumes that appropriate matrix is already set in context state.
@@ -129,66 +124,71 @@ public: //! @name clipping state modification commands
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
   //! @param theCoordSpace [in] the equation definition space.
-  Standard_EXPORT void addLazy (const Handle(OpenGl_Context)&   theGlCtx,
-                                const EquationCoords&           theCoordSpace,
-                                Graphic3d_SequenceOfHClipPlane& thePlanes);
+  Standard_EXPORT void Add (Graphic3d_SequenceOfHClipPlane& thePlanes,
+                            const EquationCoords& theCoordSpace);
 
   //! Remove the passed set of clipping planes from the context state.
   //! @param thePlanes [in] the planes to remove from list.
-  Standard_EXPORT void Remove (const Handle(OpenGl_Context)&         theGlCtx,
-                               const Graphic3d_SequenceOfHClipPlane& thePlanes);
+  Standard_EXPORT void Remove (const Graphic3d_SequenceOfHClipPlane& thePlanes);
 
   //! Enable or disable clipping plane in the OpenGl context.
   //! @param thePlane [in] the plane to affect.
   //! @param theIsEnabled [in] the state of the plane.
-  Standard_EXPORT void SetEnabled (const Handle(OpenGl_Context)&      theGlCtx,
-                                   const Handle(Graphic3d_ClipPlane)& thePlane,
-                                   const Standard_Boolean             theIsEnabled);
+  Standard_EXPORT void SetEnabled (const Handle(Graphic3d_ClipPlane)& thePlane,
+                                   const Standard_Boolean theIsEnabled);
 
 public: //! @name Short-cuts
 
   //! Add planes to the context clipping at the view system of coordinates.
   //! If the number of the passed planes exceeds capabilities of OpenGl, the last planes
   //! are simply ignored.
-  //! @param theGlCtx [in] context to access the matrices
-  //! @param thePlanes [in/out] the list of planes to be added
+  //! @param thePlanes [in/out] the list of planes to be added.
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
-  inline void AddView (const Handle(OpenGl_Context)&   theGlCtx,
-                       Graphic3d_SequenceOfHClipPlane& thePlanes)
+  //! @param theWS [in] the workspace to access the matrices.
+  inline void AddView (Graphic3d_SequenceOfHClipPlane& thePlanes, const Handle(OpenGl_Workspace)& theWS)
   {
-    add (theGlCtx, EquationCoords_View, thePlanes);
+    Add (thePlanes, EquationCoords_View, theWS);
+  }
+
+  //! Add planes to the context clipping at the view system of coordinates.
+  //! If the number of the passed planes exceeds capabilities of OpenGl, the last planes
+  //! are simply ignored.
+  //! @param thePlanes [in/out] the list of planes to be added.
+  //! The list then provides information on which planes were really added to clipping state.
+  //! This list then can be used to fall back to previous state.
+  inline void AddView (Graphic3d_SequenceOfHClipPlane& thePlanes)
+  {
+    Add (thePlanes, EquationCoords_View);
   }
 
   //! Add planes to the context clipping at the world system of coordinates.
   //! If the number of the passed planes exceeds capabilities of OpenGl, the last planes
   //! are simply ignored.
-  //! @param theGlCtx [in] context to access the matrices
-  //! @param thePlanes [in/out] the list of planes to be added
+  //! @param thePlanes [in/out] the list of planes to be added.
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
-  inline void AddWorld (const Handle(OpenGl_Context)&   theGlCtx,
-                        Graphic3d_SequenceOfHClipPlane& thePlanes)
+  //! @param theWS [in] the workspace to access the matrices.
+  inline void AddWorld (Graphic3d_SequenceOfHClipPlane& thePlanes, const Handle(OpenGl_Workspace)& theWS)
   {
-    add (theGlCtx, EquationCoords_World, thePlanes);
+    Add (thePlanes, EquationCoords_World, theWS);
   }
 
   //! Add planes to the context clipping at the world system of coordinates.
   //! If the number of the passed planes exceeds capabilities of OpenGl, the last planes
   //! are simply ignored.
-  //! @param thePlanes [in/out] the list of planes to be added
+  //! @param thePlanes [in/out] the list of planes to be added.
   //! The list then provides information on which planes were really added to clipping state.
   //! This list then can be used to fall back to previous state.
-  inline void AddWorldLazy (const Handle(OpenGl_Context)&   theGlCtx,
-                            Graphic3d_SequenceOfHClipPlane& thePlanes)
+  inline void AddWorld (Graphic3d_SequenceOfHClipPlane& thePlanes)
   {
-    addLazy (theGlCtx, EquationCoords_World, thePlanes);
+    Add (thePlanes, EquationCoords_World);
   }
 
   //! Remove all of the planes from context state.
-  inline void RemoveAll (const Handle(OpenGl_Context)& theGlCtx)
+  inline void RemoveAll()
   {
-    Remove (theGlCtx, Planes());
+    Remove (Planes());
   }
 
 private:

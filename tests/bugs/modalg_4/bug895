@@ -47,6 +47,5 @@ if { ${status} == 0} {
   }
 }
 
-checkprops result -s 18.1614 
-checkshape result
+set square 18.1614
 set 3dviewer 1

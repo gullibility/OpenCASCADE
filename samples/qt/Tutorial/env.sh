@@ -1,17 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-export aSamplePath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ -e "${aSamplePath}/custom.sh" ]; then source "${aSamplePath}/custom.sh"; fi
 
-if [ -e "custom.sh" ]; then
-   source "custom.sh";
+if test "${CASROOT}" == ""; then
+   echo "Environment variable \"CASROOT\" not defined. Define it in \"custom.sh\" script."
+   exit 1
 fi
 
-if [ -e "${aSamplePath}/../../../env.sh" ]; then
-   source "${aSamplePath}/../../../env.sh";
+if test "${QTDIR}" == ""; then
+   echo "Environment variable \"QTDIR\" not defined. Define it in \"custom.sh\" script."
+   exit 1
 fi
 
-if test "${QT_DIR}" == ""; then
-   echo "Environment variable \"QT_DIR\" not defined. Define it in \"custom.sh\" script."
+if test `uname -s` == "Darwin" && test "${WOKHOME}" == ""; then
+   echo "Environment variable \"WOKHOME\" not defined. Define it in \"custom.sh\" script."
    exit 1
 fi
 
@@ -19,4 +21,7 @@ host=`uname -s`
 export STATION=$host
 export RES_DIR=${aSamplePath}/${STATION}/res
 
-export PATH=${QT_DIR}/bin:${PATH}
+export PATH=${QTDIR}/bin:${PATH}
+
+source $CASROOT/env.sh
+export CSF_OPT_INC="${CASROOT}/inc:${WOKHOME}/lib:${CSF_OPT_INC}"

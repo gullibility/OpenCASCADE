@@ -17,8 +17,6 @@ bsection result sh f
 
 checknbshapes result -edge 5 -m "SECTION operation"
 
-checkprops result -l 4.5 
-checkshape result
-checksection result
+set length 4.5
 set 2dviewer 0
 

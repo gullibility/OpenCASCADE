@@ -1,7 +1,7 @@
-// Created on: 2011-10-14 
+// Created on: 2011-10-14
 // Created by: Roman KOZLOV
-// Copyright (c) 2011-2014 OPEN CASCADE SAS 
-// 
+// Copyright (c) 2011-2014 OPEN CASCADE SAS
+//
 // This file is part of Open CASCADE Technology software library.
 //
 // This library is free software; you can redistribute it and/or modify it under
@@ -21,8 +21,6 @@
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(IVtkVTK_ShapeData,IVtk_IShapeData)
-
 const char* const IVtkVTK_ShapeData::ARRNAME_SUBSHAPE_IDS = "SUBSHAPE_IDS";
 
 const char* const IVtkVTK_ShapeData::ARRNAME_MESH_TYPES   = "MESH_TYPES";
@@ -32,20 +30,20 @@ const char* const IVtkVTK_ShapeData::ARRNAME_MESH_TYPES   = "MESH_TYPES";
 
 //================================================================
 // Function : Constructor
-// Purpose  : 
+// Purpose  :
 //================================================================
 IVtkVTK_ShapeData::IVtkVTK_ShapeData()
+ : myPolyData( vtkPolyData::New() )
 {
-  myPolyData = vtkSmartPointer<vtkPolyData>::New();
   myPolyData->Allocate();
   myPolyData->SetPoints (vtkPoints::New());
 
-  mySubShapeIDs = vtkSmartPointer<vtkIdTypeArray>::New();
+  mySubShapeIDs = vtkIdTypeArray::New();
   mySubShapeIDs->SetName (IVtkVTK_ShapeData::ARRNAME_SUBSHAPE_IDS);
   mySubShapeIDs->SetNumberOfComponents (1);
   myPolyData->GetCellData()->AddArray (mySubShapeIDs);
 
-  myMeshTypes = vtkSmartPointer<vtkIdTypeArray>::New();
+  myMeshTypes = vtkIdTypeArray::New();
   myMeshTypes->SetName (IVtkVTK_ShapeData::ARRNAME_MESH_TYPES);
   myMeshTypes->SetNumberOfComponents (1);
   myPolyData->GetCellData()->AddArray (myMeshTypes);
@@ -53,14 +51,14 @@ IVtkVTK_ShapeData::IVtkVTK_ShapeData()
 
 //================================================================
 // Function : Destructor
-// Purpose  : 
+// Purpose  :
 //================================================================
 IVtkVTK_ShapeData::~IVtkVTK_ShapeData()
 { }
 
 //================================================================
 // Function : InsertCoordinate
-// Purpose  : 
+// Purpose  :
 //================================================================
 IVtk_PointId IVtkVTK_ShapeData::InsertCoordinate (double theX,
                                                   double theY,
@@ -71,7 +69,7 @@ IVtk_PointId IVtkVTK_ShapeData::InsertCoordinate (double theX,
 
 //================================================================
 // Function : InsertVertex
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkVTK_ShapeData::InsertVertex (const IVtk_IdType theShapeID,
                                       const IVtk_PointId thePointId,
@@ -87,14 +85,14 @@ void IVtkVTK_ShapeData::InsertVertex (const IVtk_IdType theShapeID,
 
 //================================================================
 // Function : InsertLine
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkVTK_ShapeData::InsertLine (const IVtk_IdType   theShapeID,
                                     const IVtk_PointId  thePointId1,
                                     const IVtk_PointId  thePointId2,
                                     const IVtk_MeshType theMeshType)
 {
-  vtkIdType aPoints[2] = { thePointId1, thePointId2 };
+  vtkIdType aPoints[2] = { static_cast<vtkIdType>(thePointId1), static_cast<vtkIdType>(thePointId2) };
   myPolyData->InsertNextCell (VTK_LINE, 2, aPoints);
   const vtkIdType aShapeIDVTK = theShapeID;
   mySubShapeIDs->InsertNextTupleValue (&aShapeIDVTK);
@@ -104,7 +102,7 @@ void IVtkVTK_ShapeData::InsertLine (const IVtk_IdType   theShapeID,
 
 //================================================================
 // Function : InsertLine
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkVTK_ShapeData::InsertLine (const IVtk_IdType       theShapeID,
                                     const IVtk_PointIdList* thePointIds,
@@ -114,7 +112,7 @@ void IVtkVTK_ShapeData::InsertLine (const IVtk_IdType       theShapeID,
   {
     vtkIdList* anIdList = vtkIdList::New();
     // Fill the vtk id list by ids from IVtk_PointIdList.
-    IVtk_PointIdList::Iterator anIterOfIds = 
+    IVtk_PointIdList::Iterator anIterOfIds =
         IVtk_PointIdList::Iterator(*thePointIds);
     anIdList->Allocate(thePointIds->Extent());
     for(; anIterOfIds.More(); anIterOfIds.Next())
@@ -133,7 +131,7 @@ void IVtkVTK_ShapeData::InsertLine (const IVtk_IdType       theShapeID,
 
 //================================================================
 // Function : InsertTriangle
-// Purpose  : 
+// Purpose  :
 //================================================================
 void IVtkVTK_ShapeData::InsertTriangle (const IVtk_IdType   theShapeID,
                                         const IVtk_PointId  thePointId1,
@@ -141,7 +139,7 @@ void IVtkVTK_ShapeData::InsertTriangle (const IVtk_IdType   theShapeID,
                                         const IVtk_PointId  thePointId3,
                                         const IVtk_MeshType theMeshType)
 {
-  vtkIdType aPoints[3] = { thePointId1, thePointId2, thePointId3 };
+  vtkIdType aPoints[3] = { static_cast<vtkIdType>(thePointId1), static_cast<vtkIdType>(thePointId2), static_cast<vtkIdType>(thePointId3) };
   myPolyData->InsertNextCell (VTK_TRIANGLE, 3, aPoints);
   const vtkIdType aShapeIDVTK = theShapeID;
   mySubShapeIDs->InsertNextTupleValue (&aShapeIDVTK);

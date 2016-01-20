@@ -22,8 +22,6 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepExtrema_TriangleSet,Standard_Transient)
-
 //=======================================================================
 //function : BRepExtrema_TriangleSet
 //purpose  : Creates empty triangle set

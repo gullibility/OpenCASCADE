@@ -10,7 +10,6 @@ restore [locate_data_file bug23394_Circular_tube.brep] sh1
 
 thickshell result sh1 5
 
-checkprops result -s 128648 
-checkshape result
+set square 128648
 
 set 3dviewer 1

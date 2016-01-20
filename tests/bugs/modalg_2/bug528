@@ -19,6 +19,5 @@ if { [catch { bcut result c1 c2 } catch_result] } {
     puts "OCC528 OK:function BCUT works properly"
 }
 
-checkprops result -s 124.092 
-checkshape result
+set square 124.092
 set 2dviewer 0

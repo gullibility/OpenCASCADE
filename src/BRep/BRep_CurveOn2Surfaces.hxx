@@ -64,12 +64,12 @@ public:
   Standard_EXPORT virtual void Continuity (const GeomAbs_Shape C) Standard_OVERRIDE;
   
   //! Return a copy of this representation.
-  Standard_EXPORT Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BRep_CurveRepresentation) Copy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(BRep_CurveOn2Surfaces,BRep_CurveRepresentation)
+  DEFINE_STANDARD_RTTI(BRep_CurveOn2Surfaces,BRep_CurveRepresentation)
 
 protected:
 

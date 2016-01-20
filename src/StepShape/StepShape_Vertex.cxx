@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepShape_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_Vertex,StepShape_TopologicalRepresentationItem)
-
 StepShape_Vertex::StepShape_Vertex ()  {}
 

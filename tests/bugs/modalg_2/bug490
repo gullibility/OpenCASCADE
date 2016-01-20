@@ -18,6 +18,5 @@ if [catch {bfuse result a_1 a_2 } catch_result] {
 } else {
     puts "OCC490 : function FUSE works without hangs up "
 }
-checkprops result -s 2744.08 
-checkshape result
+set square 2744.08
 set 2dviewer 0

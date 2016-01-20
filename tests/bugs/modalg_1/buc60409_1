@@ -23,6 +23,5 @@ if { [regexp {Faulty} $che ] == 1 } {
 	bfuse result c s
     }
 }
-checkprops result -s 39.0894 
-checkshape result
+set square 39.0894
 set 2dviewer 0

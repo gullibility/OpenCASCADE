@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_ShapeAspectDerivingRelationship.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ShapeAspectDerivingRelationship,StepRepr_ShapeAspectRelationship)
-
 StepRepr_ShapeAspectDerivingRelationship::StepRepr_ShapeAspectDerivingRelationship  ()    {  }

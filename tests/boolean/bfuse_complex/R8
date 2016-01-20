@@ -8,4 +8,4 @@ restore [locate_data_file pro16769b.rle] tool
 bfuse result base tool
 fsameparameter result
 
-checkprops result -s 46778.2
+set square 46778.2

@@ -58,36 +58,36 @@ public:
   Standard_EXPORT TCollection_AsciiString GetName() const;
   
   //! Returns the number of variables of <me>.
-  Standard_EXPORT Standard_Integer NbOfVariables() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer NbOfVariables() const;
   
   //! Returns the variable denoted by <index> in <me>.
   //! Raises OutOfRange if <index> is greater than
   //! NbOfVariables of <me>, or less than or equal to zero.
-  Standard_EXPORT Handle(Expr_NamedUnknown) Variable (const Standard_Integer index) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expr_NamedUnknown) Variable (const Standard_Integer index) const;
   
   //! Computes the value of <me> with the given variables.
   //! Raises DimensionMismatch if Length(vars) is different from
   //! Length(values).
-  Standard_EXPORT Standard_Real Evaluate (const Expr_Array1OfNamedUnknown& vars, const TColStd_Array1OfReal& values) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real Evaluate (const Expr_Array1OfNamedUnknown& vars, const TColStd_Array1OfReal& values) const;
   
   //! Returns a copy of <me> with the same form.
-  Standard_EXPORT Handle(Expr_GeneralFunction) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expr_GeneralFunction) Copy() const;
   
   //! Returns Derivative of <me> for variable <var>.
-  Standard_EXPORT Handle(Expr_GeneralFunction) Derivative (const Handle(Expr_NamedUnknown)& var) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expr_GeneralFunction) Derivative (const Handle(Expr_NamedUnknown)& var) const;
   
   //! Returns Derivative of <me> for variable <var> with
   //! degree <deg>.
-  Standard_EXPORT Handle(Expr_GeneralFunction) Derivative (const Handle(Expr_NamedUnknown)& var, const Standard_Integer deg) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Expr_GeneralFunction) Derivative (const Handle(Expr_NamedUnknown)& var, const Standard_Integer deg) const;
   
   //! Tests if <me> and <func> are similar functions (same
   //! name and same used expression).
-  Standard_EXPORT Standard_Boolean IsIdentical (const Handle(Expr_GeneralFunction)& func) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsIdentical (const Handle(Expr_GeneralFunction)& func) const;
   
   //! Tests if <me> is linear on variable on range <index>
-  Standard_EXPORT Standard_Boolean IsLinearOnVariable (const Standard_Integer index) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsLinearOnVariable (const Standard_Integer index) const;
   
-  Standard_EXPORT TCollection_AsciiString GetStringName() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString GetStringName() const;
   
   //! Returns equivalent expression of <me>.
   Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
@@ -99,7 +99,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Expr_NamedFunction,Expr_GeneralFunction)
+  DEFINE_STANDARD_RTTI(Expr_NamedFunction,Expr_GeneralFunction)
 
 protected:
 

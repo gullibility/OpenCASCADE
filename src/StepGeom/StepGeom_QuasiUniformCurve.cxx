@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepGeom_QuasiUniformCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_QuasiUniformCurve,StepGeom_BSplineCurve)
-
 StepGeom_QuasiUniformCurve::StepGeom_QuasiUniformCurve ()  {}
 

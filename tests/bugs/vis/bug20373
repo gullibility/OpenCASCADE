@@ -29,7 +29,6 @@ if { ${tri} == 0 } {
    puts "OK ${BugNumber}"
 }
 
-checkprops result -s 9.92128e+06 
-checkshape result
+set square 9.92128e+06
 set 3dviewer 1
 

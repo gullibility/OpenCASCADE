@@ -63,7 +63,7 @@ static Standard_Boolean FoundCAFPlugin () {
 
  // Define Environment Variable 
 
-  const char *plugin, *casroot, *standard;
+  char *plugin, *casroot, *standard;
   plugin   = getenv("CSF_PluginDefaults");
   standard = getenv("CSF_StandardDefaults");
   casroot  = getenv("CASROOT");

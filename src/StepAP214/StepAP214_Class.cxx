@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepAP214_Class.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_Class,StepBasic_Group)
-
 //=======================================================================
 //function : StepAP214_Class
 //purpose  : 

@@ -39,8 +39,6 @@ if { [catch { mkoffset result a 1 -10 } status] } {
     }
 }
 
-checkprops result -l 932.825 
-checkshape result 
-checksection result
+set length 932.825
 set 2dviewer 0  
 

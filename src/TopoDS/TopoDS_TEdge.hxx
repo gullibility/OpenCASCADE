@@ -36,12 +36,12 @@ public:
 
   
   //! Returns  EDGE.
-  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
+  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TEdge,TopoDS_TShape)
+  DEFINE_STANDARD_RTTI(TopoDS_TEdge,TopoDS_TShape)
 
 protected:
 

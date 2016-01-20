@@ -52,13 +52,13 @@ class TObj_SequenceIterator : public TObj_ObjectIterator
   */
   
   //! Returns True if there is a current Item in the iteration.
-  virtual Standard_EXPORT Standard_Boolean More () const Standard_OVERRIDE;
+  virtual Standard_EXPORT Standard_Boolean More () const;
 
   //! Move to the next Item
-  virtual Standard_EXPORT void Next () Standard_OVERRIDE;
+  virtual Standard_EXPORT void Next ();
 
   //! Returns the current item
-  virtual Standard_EXPORT Handle(TObj_Object) Value () const Standard_OVERRIDE;
+  virtual Standard_EXPORT Handle(TObj_Object) Value () const;
 
  protected:
   /**
@@ -70,7 +70,7 @@ class TObj_SequenceIterator : public TObj_ObjectIterator
 
  public:
    //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_SequenceIterator,TObj_ObjectIterator)
+  DEFINE_STANDARD_RTTI(TObj_SequenceIterator, TObj_ObjectIterator)
 };
 
 //! Define handle class for TObj_SequenceIterator

@@ -18,7 +18,7 @@ bop b_1 b_2
 
 bopcut result
 
-checkprops result -s 53698.1
+set square 53698.1
 
 set 3dviewer 1
 

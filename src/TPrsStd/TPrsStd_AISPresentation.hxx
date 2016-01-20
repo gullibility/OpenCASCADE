@@ -27,15 +27,13 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Boolean.hxx>
 #include <TDF_Attribute.hxx>
-#include <TDataXtd_Presentation.hxx>
-#include <AIS_InteractiveContext.hxx>
-
 class AIS_InteractiveObject;
 class Standard_GUID;
 class TDF_Label;
 class TDF_Attribute;
 class TDF_RelocationTable;
 class TDF_AttributeDelta;
+
 
 class TPrsStd_AISPresentation;
 DEFINE_STANDARD_HANDLE(TPrsStd_AISPresentation, TDF_Attribute)
@@ -164,13 +162,13 @@ public:
   
   Standard_EXPORT void UnsetSelectionMode();
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with);
   
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual Handle(TDF_Attribute) BackupCopy() const Standard_OVERRIDE;
   
@@ -187,14 +185,18 @@ public:
   //! update AIS viewer according to delta
   Standard_EXPORT virtual Standard_Boolean AfterUndo (const Handle(TDF_AttributeDelta)& anAttDelta, const Standard_Boolean forceIt = Standard_False) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TPrsStd_AISPresentation,TDF_Attribute)
+
+
+
+  DEFINE_STANDARD_RTTI(TPrsStd_AISPresentation,TDF_Attribute)
+
+protected:
+
+
+
 
 private:
 
-  //! Returns attribute storing presentation data
-  Handle(TDataXtd_Presentation) getData () const;
-
-  Handle(AIS_InteractiveContext) getAISContext() const;
   
   //! Updates AIS_InteractiveObject stored in the attribute
   //! and applies the visualization settings
@@ -208,9 +210,29 @@ private:
   //! from AIS_InteractiveContext instead of simple erasing in the viewer
   Standard_EXPORT void AISErase (const Standard_Boolean remove = Standard_False);
 
-private:
+  Standard_GUID myDriverGUID;
+  Standard_Real myTransparency;
+  Quantity_NameOfColor myColor;
+  Graphic3d_NameOfMaterial myMaterial;
+  Standard_Real myWidth;
+  Standard_Integer myMode;
+  Standard_Integer mySelectionMode;
+  Standard_Boolean isDisplayed;
+  Standard_Boolean hasOwnColor;
+  Standard_Boolean hasOwnMaterial;
+  Standard_Boolean hasOwnTransparency;
+  Standard_Boolean hasOwnWidth;
+  Standard_Boolean hasOwnMode;
+  Standard_Boolean hasOwnSelectionMode;
   Handle(AIS_InteractiveObject) myAIS;
-  Handle(TDataXtd_Presentation) myData;
+
+
 };
+
+
+
+
+
+
 
 #endif // _TPrsStd_AISPresentation_HeaderFile

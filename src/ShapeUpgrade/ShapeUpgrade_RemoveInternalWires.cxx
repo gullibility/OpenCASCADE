@@ -33,8 +33,6 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_RemoveInternalWires,ShapeUpgrade_Tool)
-
 //=======================================================================
 //function : ShapeUpgrade_RemoveInternalWires
 //purpose  : 

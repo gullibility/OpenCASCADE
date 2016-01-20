@@ -32,8 +32,6 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_WireData,MMgt_TShared)
-
 //=======================================================================
 //function : ShapeExtend_WireData
 //purpose  : 

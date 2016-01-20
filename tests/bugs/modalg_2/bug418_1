@@ -18,6 +18,5 @@ checkshape -top sec
 bcut result part tool
 checkshape -top result
 
-checkprops result -s 273365. 
-checkshape result
+set square 273365.
 set 2dviewer 0

@@ -24,8 +24,6 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Surface,DrawTrSurf_Drawable)
-
 Standard_Real DrawTrSurf_SurfaceLimit = 400;
 
 

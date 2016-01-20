@@ -36,9 +36,6 @@
 #include <Graphic3d_TextureParams.hxx>
 #include <Graphic3d_TransformUtils.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Workspace,Standard_Transient)
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_RaytraceFilter,OpenGl_RenderFilter)
-
 #ifdef HAVE_GL2PS
   #include <gl2ps.h>
   /* OCC22216 NOTE: linker dependency can be switched off by undefining macro.
@@ -56,6 +53,11 @@ namespace
   static const OpenGl_AspectLine myDefaultAspectLine;
   static const OpenGl_AspectFace myDefaultAspectFace;
   static const OpenGl_AspectMarker myDefaultAspectMarker;
+
+  static const OpenGl_TextParam myDefaultTextParam =
+  {
+    16, Graphic3d_HTA_LEFT, Graphic3d_VTA_BOTTOM
+  };
 
   static const OpenGl_Matrix myDefaultMatrix =
   {
@@ -344,8 +346,21 @@ void OpenGl_Workspace::setTextureParams (Handle(OpenGl_Texture)&                
   }
 
 #if !defined(GL_ES_VERSION_2_0)
+  GLint aMatrixMode = GL_TEXTURE;
   if (myGlContext->core11 != NULL)
   {
+    glGetIntegerv (GL_MATRIX_MODE, &aMatrixMode);
+
+    // setup texture matrix
+    glMatrixMode (GL_TEXTURE);
+    OpenGl_Mat4 aTextureMat;
+    const Graphic3d_Vec2& aScale = aParams->Scale();
+    const Graphic3d_Vec2& aTrans = aParams->Translation();
+    Graphic3d_TransformUtils::Scale     (aTextureMat,  aScale.x(),  aScale.y(), 1.0f);
+    Graphic3d_TransformUtils::Translate (aTextureMat, -aTrans.x(), -aTrans.y(), 0.0f);
+    Graphic3d_TransformUtils::Rotate    (aTextureMat, -aParams->Rotation(), 0.0f, 0.0f, 1.0f);
+    glLoadMatrixf (aTextureMat);
+
     GLint anEnvMode = GL_MODULATE; // lighting mode
     if (!aParams->IsModulate())
     {
@@ -558,6 +573,12 @@ void OpenGl_Workspace::setTextureParams (Handle(OpenGl_Texture)&                
     default: break;
   }
 
+#if !defined(GL_ES_VERSION_2_0)
+  if (myGlContext->core11 != NULL)
+  {
+    glMatrixMode (aMatrixMode); // turn back active matrix
+  }
+#endif
   theTexture->SetParams (aParams);
 }
 
@@ -1087,39 +1108,45 @@ Standard_Boolean OpenGl_Workspace::IsCullingEnabled() const
 // function : FBOCreate
 // purpose  :
 // =======================================================================
-Handle(OpenGl_FrameBuffer) OpenGl_Workspace::FBOCreate (const Standard_Integer theWidth,
-                                                        const Standard_Integer theHeight)
+Graphic3d_PtrFrameBuffer OpenGl_Workspace::FBOCreate (const Standard_Integer theWidth,
+                                                      const Standard_Integer theHeight)
 {
   // activate OpenGL context
   if (!Activate())
-    return Handle(OpenGl_FrameBuffer)();
+    return NULL;
 
   // create the FBO
   const Handle(OpenGl_Context)& aCtx = GetGlContext();
-  Handle(OpenGl_FrameBuffer) aFrameBuffer = new OpenGl_FrameBuffer();
-  if (!aFrameBuffer->Init (aCtx, theWidth, theHeight, GL_RGBA8, GL_DEPTH24_STENCIL8, 0))
+  OpenGl_FrameBuffer* aFrameBuffer = new OpenGl_FrameBuffer();
+  if (!aFrameBuffer->Init (aCtx, theWidth, theHeight))
   {
     aFrameBuffer->Release (aCtx.operator->());
-    return Handle(OpenGl_FrameBuffer)();
+    delete aFrameBuffer;
+    return NULL;
   }
-  return aFrameBuffer;
+  return (Graphic3d_PtrFrameBuffer )aFrameBuffer;
 }
 
 // =======================================================================
 // function : FBORelease
 // purpose  :
 // =======================================================================
-void OpenGl_Workspace::FBORelease (Handle(OpenGl_FrameBuffer)& theFbo)
+void OpenGl_Workspace::FBORelease (Graphic3d_PtrFrameBuffer theFBOPtr)
 {
   // activate OpenGL context
   if (!Activate()
-   || theFbo.IsNull())
+   || theFBOPtr == NULL)
   {
     return;
   }
 
-  theFbo->Release (GetGlContext().operator->());
-  theFbo.Nullify();
+  // release the object
+  OpenGl_FrameBuffer* aFrameBuffer = (OpenGl_FrameBuffer*)theFBOPtr;
+  if (aFrameBuffer != NULL)
+  {
+    aFrameBuffer->Release (GetGlContext().operator->());
+  }
+  delete aFrameBuffer;
 }
 
 inline bool getDataFormat (const Image_PixMap& theData,
@@ -1206,9 +1233,9 @@ inline Standard_Size getAligned (const Standard_Size theNumber,
 // function : BufferDump
 // purpose  :
 // =======================================================================
-Standard_Boolean OpenGl_Workspace::BufferDump (const Handle(OpenGl_FrameBuffer)& theFbo,
-                                               Image_PixMap&                     theImage,
-                                               const Graphic3d_BufferType&       theBufferType)
+Standard_Boolean OpenGl_Workspace::BufferDump (OpenGl_FrameBuffer*         theFBOPtr,
+                                               Image_PixMap&               theImage,
+                                               const Graphic3d_BufferType& theBufferType)
 {
   GLenum aFormat, aType;
   if (theImage.IsEmpty()
@@ -1224,14 +1251,12 @@ Standard_Boolean OpenGl_Workspace::BufferDump (const Handle(OpenGl_FrameBuffer)&
   {
     return Standard_False;
   }
-#else
-  (void )theBufferType;
 #endif
 
   // bind FBO if used
-  if (!theFbo.IsNull() && theFbo->IsValid())
+  if (theFBOPtr != NULL && theFBOPtr->IsValid())
   {
-    theFbo->BindBuffer (GetGlContext());
+    theFBOPtr->BindBuffer (GetGlContext());
   }
   else
   {
@@ -1289,9 +1314,9 @@ Standard_Boolean OpenGl_Workspace::BufferDump (const Handle(OpenGl_FrameBuffer)&
   glPixelStorei (GL_PACK_ROW_LENGTH, 0);
 #endif
 
-  if (!theFbo.IsNull() && theFbo->IsValid())
+  if (theFBOPtr != NULL && theFBOPtr->IsValid())
   {
-    theFbo->UnbindBuffer (GetGlContext());
+    theFBOPtr->UnbindBuffer (GetGlContext());
   }
   else
   {

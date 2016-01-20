@@ -19,8 +19,6 @@
 #include <StepRepr_ParametricRepresentationContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepGeom_GeometricRepresentationContextAndParametricRepresentationContext,StepRepr_RepresentationContext)
-
 StepGeom_GeometricRepresentationContextAndParametricRepresentationContext::StepGeom_GeometricRepresentationContextAndParametricRepresentationContext ()  {}
 
 void StepGeom_GeometricRepresentationContextAndParametricRepresentationContext::Init(

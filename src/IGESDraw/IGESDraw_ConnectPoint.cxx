@@ -25,8 +25,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_ConnectPoint,IGESData_IGESEntity)
-
 IGESDraw_ConnectPoint::IGESDraw_ConnectPoint ()    {  }
 
 

@@ -33,7 +33,12 @@
 
 #include <gp_Pnt.hxx>
 
-#define EOL "\r\n"
+
+#ifdef WNT
+ #define EOL "\r\n"
+#else
+ #define EOL "\n"
+#endif
 
 // Initialization of global variable with an instance of this class
 OCCDemo_Presentation* OCCDemo_Presentation::Current = new Tesselate_Presentation;
@@ -122,7 +127,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
     "  TopLoc_Location aLocation;" EOL EOL
     
     "  // takes the triangulation of the face aFace:" EOL
-    "  Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aFace,aLocation);" EOL EOL
+    "  Handle_Poly_Triangulation aTr = BRep_Tool::Triangulation(aFace,aLocation);" EOL EOL
     
     "  if(!aTr.IsNull()) // if this triangulation is not NULL" EOL
     "  { " EOL
@@ -160,7 +165,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
     "    if(!aEdge.IsNull()) // if this edge is not NULL" EOL
     "    {" EOL
     "      // takes the polygon associated to the edge aEdge:" EOL
-    "      Handle(Poly_PolygonOnTriangulation) aPol = " EOL
+    "      Handle_Poly_PolygonOnTriangulation aPol = " EOL
     "        BRep_Tool::PolygonOnTriangulation(aEdge,aTr,aEdge.Location());" EOL EOL
     
     "      if(!aPol.IsNull()) // if this polygon is not NULL" EOL
@@ -197,7 +202,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
   Standard_Integer aNumOfNodes = 0;
   Standard_Integer aNumOfTriangles = 0;
   
-  Handle(AIS_InteractiveObject) aShowEdge,aShowFace,aShowShape;
+  Handle_AIS_InteractiveObject aShowEdge,aShowFace,aShowShape;
   
   TopExp_Explorer aExpFace,aExpEdge;
 
@@ -208,7 +213,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
     TopoDS_Face aFace = TopoDS::Face(aExpFace.Current());
     TopLoc_Location aLocation;
 
-    Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aFace,aLocation);
+    Handle_Poly_Triangulation aTr = BRep_Tool::Triangulation(aFace,aLocation);
 
     if(!aTr.IsNull())
     { 
@@ -232,7 +237,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
 
         if(!aEdge.IsNull())
         {
-          Handle(Poly_PolygonOnTriangulation) aPol = 
+          Handle_Poly_PolygonOnTriangulation aPol = 
             BRep_Tool::PolygonOnTriangulation(aEdge,aTr,aEdge.Location());
 
           if(!aPol.IsNull())
@@ -397,7 +402,7 @@ void Tesselate_Presentation::tesselateShape(const TopoDS_Shape& aShape)
 void Tesselate_Presentation::sample(const Standard_CString aFileName)
 {
   CString initfile(((OCC_App*) AfxGetApp())->GetInitDataDir());
-  initfile += "..\\..\\..\\Data\\";
+  initfile += "\\..\\..\\..\\samples\\mfc\\standard\\Data\\";
   initfile += aFileName;
 
 /*  

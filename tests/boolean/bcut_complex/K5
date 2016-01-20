@@ -10,4 +10,4 @@ checkshape -top sec
 bcut result part tool
 checkshape -top result
 
-checkprops result -s 273365
+set square 273365

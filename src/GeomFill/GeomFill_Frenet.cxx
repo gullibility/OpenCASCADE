@@ -32,8 +32,6 @@
 #include <TColStd_HArray1OfBoolean.hxx>
 
 #include <algorithm>
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Frenet,GeomFill_TrihedronLaw)
-
 static const Standard_Real NullTol = 1.e-10;
 static const Standard_Real MaxSingular = 1.e-5;
 

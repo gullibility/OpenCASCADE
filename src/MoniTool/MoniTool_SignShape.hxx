@@ -40,16 +40,16 @@ public:
   Standard_EXPORT MoniTool_SignShape();
   
   //! Returns "SHAPE"
-  Standard_EXPORT Standard_CString Name() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Name() const;
   
   //! Returns for a HShape, the string of its ShapeEnum
   //! The Model is absolutely useless (may be null)
-  Standard_EXPORT TCollection_AsciiString Text (const Handle(Standard_Transient)& ent, const Handle(Standard_Transient)& context) const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Text (const Handle(Standard_Transient)& ent, const Handle(Standard_Transient)& context) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_SignShape,MoniTool_SignText)
+  DEFINE_STANDARD_RTTI(MoniTool_SignShape,MoniTool_SignText)
 
 protected:
 

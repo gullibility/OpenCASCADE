@@ -17,8 +17,6 @@
 #include <StepBasic_ProductContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Product,MMgt_TShared)
-
 StepBasic_Product::StepBasic_Product ()  {}
 
 void StepBasic_Product::Init(

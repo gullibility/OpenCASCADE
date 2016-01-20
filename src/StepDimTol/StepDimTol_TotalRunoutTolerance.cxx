@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <StepDimTol_TotalRunoutTolerance.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_TotalRunoutTolerance,StepDimTol_GeometricToleranceWithDatumReference)
-
 //=======================================================================
 //function : StepDimTol_TotalRunoutTolerance
 //purpose  : 

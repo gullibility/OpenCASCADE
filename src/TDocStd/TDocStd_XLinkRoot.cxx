@@ -27,8 +27,6 @@
 #include <TDocStd_XLinkIterator.hxx>
 #include <TDocStd_XLinkRoot.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_XLinkRoot,TDF_Attribute)
-
 //=======================================================================
 //             CLASS METHODS
 //=======================================================================

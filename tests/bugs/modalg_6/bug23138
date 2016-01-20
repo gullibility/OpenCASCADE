@@ -12,6 +12,5 @@ restore [locate_data_file bug23138_thread.brep] t
 bop b t
 bopfuse result
 
-checkprops result -s 23233.2 
-checkshape result
+set square 23233.2
 set 2dviewer 1

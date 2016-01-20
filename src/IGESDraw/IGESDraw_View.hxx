@@ -62,13 +62,13 @@ public:
   Standard_EXPORT void Init (const Standard_Integer aViewNum, const Standard_Real aScale, const Handle(IGESGeom_Plane)& aLeftPlane, const Handle(IGESGeom_Plane)& aTopPlane, const Handle(IGESGeom_Plane)& aRightPlane, const Handle(IGESGeom_Plane)& aBottomPlane, const Handle(IGESGeom_Plane)& aBackPlane, const Handle(IGESGeom_Plane)& aFrontPlane);
   
   //! Returns True (for a single view)
-  Standard_EXPORT Standard_Boolean IsSingle() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean IsSingle() const;
   
   //! Returns 1 (single view)
-  Standard_EXPORT Standard_Integer NbViews() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer NbViews() const;
   
   //! For a single view, returns <me> whatever <num>
-  Standard_EXPORT Handle(IGESData_ViewKindEntity) ViewItem (const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(IGESData_ViewKindEntity) ViewItem (const Standard_Integer num) const;
   
   //! returns integer number identifying view orientation
   Standard_EXPORT Standard_Integer ViewNumber() const;
@@ -122,7 +122,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESDraw_View,IGESData_ViewKindEntity)
+  DEFINE_STANDARD_RTTI(IGESDraw_View,IGESData_ViewKindEntity)
 
 protected:
 

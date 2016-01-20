@@ -97,14 +97,25 @@ The official repository contains:
 
 @subsubsection occt_gitguide_2_1_1 Installation of Git for Windows
 
-  Download Git for Windows distributive from https://git-for-windows.github.io/
+  Download Git for Windows distributive from http://code.google.com/p/msysgit/downloads/list.
   During the installation:
 
-  * Check-in "Windows Explorer integration" options:
-    * "Git Bash Here";
-    * "Git GUI Here".
-  * To avoid a mess in your PATH, we recommend selecting "Run Git from Windows Prompt" in the environment settings dialog: 
+  * Select Windows Explorer integration options:
+    * Git Bash Here
+    * Git GUI Here
+    
+@image html OCCT_GitGuide_V2_image001.png
+@image latex OCCT_GitGuide_V2_image001.png
+
+  * To avoid a mess in your PATH, we recommend selecting ‘Run Git from Windows Prompt’ in the environment settings dialog: 
+  
+@image html OCCT_GitGuide_V2_image002.png
+@image latex OCCT_GitGuide_V2_image002.png
+
   * In "Configuring the line ending conversions" dialog, select "Checkout Windows-style, commit Unix style endings".
+  
+@image html OCCT_GitGuide_V2_image003.png
+@image latex OCCT_GitGuide_V2_image003.png
  
   Note that by default Git user interface is localized to the system default language. 
   If you prefer to work with the English interface, remove or rename .msg localization file 
@@ -117,12 +128,15 @@ The official repository contains:
   Download TortoiseGit distributive from http://code.google.com/p/tortoisegit/downloads/list. 
   Launch the installation.
 
- * Select your SSH client. Choose option 
-	  * "OpenSSH, Git default SSH Client" if you prefer to use command-line tools for SSH keys generation, or
-	  * "TortoisePLink, coming from Putty, integrates with Windows better" if you prefer to use GUI tool (PuttyGen, see 3.2).
- * Complete the installation.
+  * Select your SSH client. Choose OpenSSH if you prefer to use command-line tools 
+   for SSH keys generation, or TortoisePLink if you prefer to use GUI tool (PuttyGen, see 3.2):
+   
+@image html OCCT_GitGuide_V2_image004.png
+@image latex OCCT_GitGuide_V2_image004.png
+
+  * Complete the installation.
   
-  TortoiseGit integrates into Windows Explorer, thus it is possible to use context menu in Windows Explorer to access its functionality:  
+  TortoiseGit integrates to Windows Explorer, thus it is possible to use context menu in Windows Explorer to access its functionality:  
   
 @image html OCCT_GitGuide_V2_image005.png
 @image latex OCCT_GitGuide_V2_image005.png
@@ -236,10 +250,11 @@ The official repository contains:
 @subsection occt_gitguide_3_3 Adding public key in your account
 
 Log in on the portal http://dev.opencascade.org and click on **My account** link to the right. If you have a Contributor status, you will see **SSH keys** tab to the right. 
-
 Click on that tab, then click **Add a public key**, and paste the text of the public key (see above sections on how to generate the key) into the text box. 
-
-Click **Save** to input the key to the system. 
+  Click **Save** to input the key to the system. 
+  
+@image html OCCT_GitGuide_V2_image008.png
+@image latex OCCT_GitGuide_V2_image008.png  
 
   Note that a user can have several SSH keys. 
   You can distinguish between these keys by the Title field ID; by default it is taken from SSH key comment. 
@@ -320,6 +335,10 @@ In the console:
 In TortoiseGit: 
   * Go to the local copy of the repository. 
   * Right-click in the Explorer window, then choose **Git Create Branch**.
+  
+@image html OCCT_GitGuide_V2_image011.png
+@image latex OCCT_GitGuide_V2_image011.png
+
   * Select **Base On** Branch *remotes/origin/master*.  
 
 @image html OCCT_GitGuide_V2_image012.png
@@ -520,7 +539,7 @@ To rebase your branch into a single commit, you need to do the following:
 
   Use of TortoiseGit is recommended for convenient code review:
 
-  * Fetch the changes from the remote repository as described in @ref occt_gitguide_4_7 "Synchronizing with remote repository" section.   
+  * Fetch the changes from the remote repository as described in <a href="#occt_gitguide_4_7">Synchronizing with remote repository</a> section.   
   * Right-click on the repository, choose **TortoiseGit** -> **Show** log;
   * Locate the remote branch you need to review;
   * To review commits one-by-one, select each commit in the log. The list of changed files is shown at the bottom of the window; double-click on the file will open visual compare tool.

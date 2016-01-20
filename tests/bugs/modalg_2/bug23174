@@ -95,8 +95,7 @@ if { ${status} != 0 } {
    puts "OK ${BugNumber}"
 }
 renamevar f result
-checkprops result -s 47123.9 
-checkshape result
+set square 47123.9
 set 2dviewer 0
 
 

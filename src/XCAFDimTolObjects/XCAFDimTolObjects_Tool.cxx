@@ -173,11 +173,11 @@ Standard_Boolean XCAFDimTolObjects_Tool::GetRefDatum(const TopoDS_Shape& theShap
   myDimTolTool->ShapeTool()->Search(theShape, aShapeL);
   if(!aShapeL.IsNull())
   {
-    TDF_LabelSequence aDatumL;
+    TDF_Label aDatumL;
     if(myDimTolTool->GetRefDatumLabel(aShapeL, aDatumL))
     {
       Handle(XCAFDoc_Datum) aDatum;
-      if( aDatumL.First().FindAttribute(XCAFDoc_Datum::GetID(),aDatum)){
+      if( aDatumL.FindAttribute(XCAFDoc_Datum::GetID(),aDatum)){
         theDatumObject = aDatum->GetObject();
         return Standard_True;
       }

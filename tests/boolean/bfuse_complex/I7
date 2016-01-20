@@ -9,4 +9,4 @@ bfuse result a b
 
 
 
-checkprops result -s 81701.3
+set square 81701.3

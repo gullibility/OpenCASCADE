@@ -68,25 +68,25 @@ class VrmlData_WorldInfo : public VrmlData_Node
    * is not created, but rather the given one is modified.
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                        Clone   (const Handle(VrmlData_Node)& theOther) const Standard_OVERRIDE;
+                        Clone   (const Handle(VrmlData_Node)& theOther) const;
 
   /**
    * Read the Node from input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Read    (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                        Read    (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node to the Scene output.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Write   (const char * thePrefix) const Standard_OVERRIDE;
+                        Write   (const char * thePrefix) const;
 
   /**
    * Returns True if the node is default, then it would not be written.
    */
   Standard_EXPORT virtual Standard_Boolean
-                        IsDefault() const Standard_OVERRIDE;
+                        IsDefault() const;
 
  private:
   // ---------- PRIVATE FIELDS ----------
@@ -96,7 +96,7 @@ class VrmlData_WorldInfo : public VrmlData_Node
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTIEXT(VrmlData_WorldInfo,VrmlData_Node)
+DEFINE_STANDARD_RTTI (VrmlData_WorldInfo, VrmlData_Node)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

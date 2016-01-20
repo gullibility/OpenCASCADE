@@ -308,7 +308,7 @@ void BRepLib_FuseEdges::Faces(TopTools_DataMapOfShapeShape& theMapFac)
 //purpose  : 
 //=======================================================================
 
-Standard_Integer BRepLib_FuseEdges::NbVertices()
+const Standard_Integer BRepLib_FuseEdges::NbVertices()
 {
 
   Standard_NullObject_Raise_if(myShape.IsNull(),"FuseEdges : No Shape");

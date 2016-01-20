@@ -27,8 +27,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(QABugs_MyText,AIS_InteractiveObject)
-
 /*************************************************************************
 *
 * CONSTRUCTION/DESTRUCTION

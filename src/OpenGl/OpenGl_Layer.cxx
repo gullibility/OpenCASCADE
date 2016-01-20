@@ -64,7 +64,7 @@ void OpenGl_Layer::Add (const OpenGl_Structure* theStruct,
   }
   else if (!isForChangePriority)
   {
-    if (theStruct->TransformPersistence.Flags == Graphic3d_TMF_None)
+    if (!theStruct->TransformPersistence.Flags)
     {
       myBVHPrimitives.Add (theStruct);
     }
@@ -177,7 +177,7 @@ void OpenGl_Layer::renderTraverse (const Handle(OpenGl_Workspace)& theWorkspace)
         if (aStruct->IsAlwaysRendered())
           continue;
 
-        if (aStruct->TransformPersistence.Flags == Graphic3d_TMF_None)
+        if (!aStruct->TransformPersistence.Flags)
         {
           myBVHPrimitives.Add (aStruct);
         }
@@ -224,8 +224,7 @@ void OpenGl_Layer::renderTraverse (const Handle(OpenGl_Workspace)& theWorkspace)
 void OpenGl_Layer::traverse (OpenGl_BVHTreeSelector& theSelector) const
 {
   // handle a case when all objects are infinite
-  if (myBVHPrimitives        .Size() == 0
-   && myBVHPrimitivesTrsfPers.Size() == 0)
+  if (myBVHPrimitives.Size() == 0 && myBVHPrimitivesTrsfPers.Size() == 0)
     return;
 
   theSelector.CacheClipPtsProjections();
@@ -238,18 +237,20 @@ void OpenGl_Layer::traverse (OpenGl_BVHTreeSelector& theSelector) const
     if (isTrsfPers)
     {
       if (myBVHPrimitivesTrsfPers.Size() == 0)
+      {
         continue;
-
-      const OpenGl_Mat4& aProjection                = theSelector.ProjectionMatrix();
-      const OpenGl_Mat4& aWorldView                 = theSelector.WorldViewMatrix();
+      }
+      const OpenGl_Mat4& aProjection = theSelector.ProjectionMatrix();
+      const OpenGl_Mat4& aWorldView  = theSelector.WorldViewMatrix();
       const Graphic3d_WorldViewProjState& aWVPState = theSelector.WorldViewProjState();
       aBVHTree = myBVHPrimitivesTrsfPers.BVH (aProjection, aWorldView, aWVPState);
     }
     else
     {
       if (myBVHPrimitives.Size() == 0)
+      {
         continue;
-
+      }
       aBVHTree = myBVHPrimitives.BVH();
     }
 

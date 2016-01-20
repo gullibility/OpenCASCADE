@@ -43,8 +43,6 @@
 #include <TopoDS.hxx>
 #include <UnitsAPI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Axis,AIS_InteractiveObject)
-
 //=======================================================================
 //function : AIS_Axis
 //purpose  :
@@ -179,11 +177,8 @@ void AIS_Axis::Compute(const Handle(PrsMgr_PresentationManager3d)&,
     GeomAdaptor_Curve curv(myComponent);
     StdPrs_Curve::Add(aPresentation,curv,myDrawer);
   }
-  else
-  {
-    DsgPrs_XYZAxisPresentation::Add (aPresentation,myLineAspect,myDir,myVal,
-                                     myDrawer->DatumAspect()->ToDrawLabels() ? myText : "",
-                                     myPfirst, myPlast);
+  else {
+    DsgPrs_XYZAxisPresentation::Add(aPresentation,myLineAspect,myDir,myVal,myText,myPfirst,myPlast);
   }
 
 }

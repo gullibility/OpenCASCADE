@@ -21,8 +21,6 @@
 #include <StepShape_Vertex.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_Subedge,StepShape_Edge)
-
 //=======================================================================
 //function : StepShape_Subedge
 //purpose  : 

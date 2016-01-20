@@ -291,7 +291,7 @@ public:
   //! determines the first suitable record following a given one
   //! that is, skips SCOPE,ENDSCOPE and SUBLIST records
   //! Note : skips Header records, which are accessed separately
-  Standard_EXPORT Standard_Integer FindNextRecord (const Standard_Integer num) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer FindNextRecord (const Standard_Integer num) const;
   
   //! determines reference numbers in EntityNumber fields
   //! called by Prepare from StepReaderTool to prepare later using
@@ -318,7 +318,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepData_StepReaderData,Interface_FileReaderData)
+  DEFINE_STANDARD_RTTI(StepData_StepReaderData,Interface_FileReaderData)
 
 protected:
 

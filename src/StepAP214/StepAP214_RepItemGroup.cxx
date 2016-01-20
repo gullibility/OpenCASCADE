@@ -20,8 +20,6 @@
 #include <StepRepr_RepresentationItem.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepAP214_RepItemGroup,StepBasic_Group)
-
 //=======================================================================
 //function : StepAP214_RepItemGroup
 //purpose  : 

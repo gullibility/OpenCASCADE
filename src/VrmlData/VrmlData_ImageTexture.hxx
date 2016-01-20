@@ -55,19 +55,19 @@ class VrmlData_ImageTexture : public VrmlData_Texture
    * is not created, but rather the given one is modified.
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                        Clone   (const Handle(VrmlData_Node)& theOther)const Standard_OVERRIDE;
+                        Clone   (const Handle(VrmlData_Node)& theOther)const;
 
   /**
    * Read the Node from input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Read    (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                        Read    (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node to output stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Write   (const char * thePrefix) const Standard_OVERRIDE;
+                        Write   (const char * thePrefix) const;
 
  protected:
   // ---------- PROTECTED METHODS ----------
@@ -81,7 +81,7 @@ class VrmlData_ImageTexture : public VrmlData_Texture
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_ImageTexture,VrmlData_Texture)
+DEFINE_STANDARD_RTTI (VrmlData_ImageTexture, VrmlData_Texture)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

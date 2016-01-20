@@ -17,6 +17,5 @@ if [catch {featperform dprism result } catch_result] {
     puts "OCC424 OK (case 2): function FEATPERFORM works properly"
 }
 
-checkprops result -s 978236. 
-checkshape result
+set square 978236.
 set 2dviewer 0

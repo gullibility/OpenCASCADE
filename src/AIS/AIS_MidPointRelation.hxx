@@ -67,7 +67,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(AIS_MidPointRelation,AIS_Relation)
+  DEFINE_STANDARD_RTTI(AIS_MidPointRelation,AIS_Relation)
 
 protected:
 
@@ -81,7 +81,7 @@ private:
   
   Standard_EXPORT void Compute (const Handle(Prs3d_Projector)& aProjector, const Handle(Prs3d_Presentation)& aPresentation) Standard_OVERRIDE;
   
-  Standard_EXPORT void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode) Standard_OVERRIDE;
+  Standard_EXPORT void ComputeSelection (const Handle(SelectMgr_Selection)& aSelection, const Standard_Integer aMode);
   
   Standard_EXPORT void ComputeFaceFromPnt (const Handle(Prs3d_Presentation)& aprs, const Standard_Boolean first);
   

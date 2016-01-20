@@ -20,8 +20,6 @@
 #include <IGESData_LevelListEntity.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_LineWidening,IGESData_IGESEntity)
-
 IGESAppli_LineWidening::IGESAppli_LineWidening ()    {  }
 
 

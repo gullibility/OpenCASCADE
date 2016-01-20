@@ -11,6 +11,5 @@ checkshape a_1
 checkshape a_2
 
 bfuse result a_2 a_1
-checkprops result -s 191388 
-checkshape result
+set square 191388
 set 2dviewer 0

@@ -29,8 +29,6 @@
 #include <TCollection_ExtendedString.hxx>
 #include <TNaming_NamedShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinDrivers_DocumentRetrievalDriver,BinLDrivers_DocumentRetrievalDriver)
-
 //=======================================================================
 //function : BinDrivers_DocumentRetrievalDriver
 //purpose  : Constructor

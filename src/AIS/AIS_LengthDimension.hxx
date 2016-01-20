@@ -65,7 +65,7 @@ DEFINE_STANDARD_HANDLE (AIS_LengthDimension, AIS_Dimension)
 //! In case of face-edge, edge-vertex or face-face lengthes the automatic plane
 //! computing is allowed. For this plane the third point is found on the
 //! edge or on the face.
-//!
+//! 
 //! Please note that if the inappropriate geometry is defined
 //! or the distance between measured points is less than
 //! Precision::Confusion(), the dimension is invalid and its
@@ -80,6 +80,8 @@ public:
   //! @param theEdge [in] the edge (second shape).
   Standard_EXPORT AIS_LengthDimension (const TopoDS_Face& theFace,
                                        const TopoDS_Edge& theEdge);
+
+public:
 
   //! Construct length dimension between two faces.
   //! @param theFirstFace [in] the first face (first shape).
@@ -181,38 +183,38 @@ public:
                                           const TopoDS_Shape& theSecondShape);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const;
 
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const;
 
-  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetDisplayUnits (const TCollection_AsciiString& theUnits);
 
-  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetModelUnits (const TCollection_AsciiString& theUnits);
 
-  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition (const gp_Pnt& theTextPos);
 
-  Standard_EXPORT virtual const gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const gp_Pnt GetTextPosition() const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(AIS_LengthDimension,AIS_Dimension)
+  DEFINE_STANDARD_RTTI(AIS_LengthDimension, AIS_Dimension)
 
 protected:
 
   //! Checks if the plane includes first and second points to build dimension.
-  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean CheckPlane (const gp_Pln& thePlane) const;
 
   Standard_EXPORT virtual gp_Pln ComputePlane(const gp_Dir& theAttachDir) const;
 
-  Standard_EXPORT Standard_Real ComputeValue() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real ComputeValue() const;
 
   Standard_EXPORT virtual void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                                         const Handle(Prs3d_Presentation)& thePresentation,
-                                        const Standard_Integer theMode = 0) Standard_OVERRIDE;
+                                        const Standard_Integer theMode = 0);
 
   Standard_EXPORT virtual void ComputeFlyoutSelection (const Handle(SelectMgr_Selection)& theSelection,
-                                                       const Handle(SelectMgr_EntityOwner)& theEntityOwner) Standard_OVERRIDE;
+                                                       const Handle(SelectMgr_EntityOwner)& theEntityOwner);
 
 protected:
 

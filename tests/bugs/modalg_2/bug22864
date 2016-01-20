@@ -44,16 +44,16 @@ for {set i 0} {$i < ${Numbers}} {incr i} {
   close ${fp}
   #
   if {$i == 0} {
-	set Standard_Log ${Log}
+    set StandardLog ${Log}
   } else {
-	set info_result [string compare ${Log} ${Standard_Log}]
+    set info_result [string compare ${Log} ${StandardLog}]
     if {${info_result} == 0} {
-    	    # Log == Standard_Log
-    	    puts "Log == Standard_Log"
+      # Log == StandardLog
+      puts "Log == StandardLog"
     } else {
-    	    # Log != Standard_Log
+      # Log != StandardLog
       set status 1
-    	    puts "Log != Standard_Log"
+      puts "Log != StandardLog"
     }
   }
 }
@@ -66,6 +66,5 @@ if {${status} == 0} {
     puts "Faulty ${BugNumber}"
 }
 
-checkprops result -s 8464.91
-checkshape result
+set square 8464.91
 set 2dviewer 0

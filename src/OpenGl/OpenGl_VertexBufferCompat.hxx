@@ -44,7 +44,7 @@ public:
 
   //! Creates VBO name (id) if not yet generated.
   //! Data should be initialized by another method.
-  Standard_EXPORT bool Create (const Handle(OpenGl_Context)& theGlCtx) Standard_OVERRIDE;
+  Standard_EXPORT bool Create (const Handle(OpenGl_Context)& theGlCtx);
 
   //! Destroy object - will release memory if any.
   Standard_EXPORT virtual void Release (OpenGl_Context* theGlCtx) Standard_OVERRIDE;
@@ -85,7 +85,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_VertexBufferCompat,OpenGl_VertexBuffer) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_VertexBufferCompat, OpenGl_VertexBuffer) // Type definition
 
 };
 

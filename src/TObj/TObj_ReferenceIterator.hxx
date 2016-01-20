@@ -45,13 +45,13 @@ class TObj_ReferenceIterator : public TObj_LabelIterator
   */
   
   //! Shift iterator to the next object
-  virtual Standard_EXPORT void MakeStep() Standard_OVERRIDE;
+  virtual Standard_EXPORT void MakeStep();
 
   Handle(Standard_Type) myType; //!< Type of objects to iterate on
   
  public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_ReferenceIterator,TObj_LabelIterator)
+  DEFINE_STANDARD_RTTI(TObj_ReferenceIterator, TObj_LabelIterator)
 };
 
 //! Define handle class for TObj_ReferenceIterator

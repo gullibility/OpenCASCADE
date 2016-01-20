@@ -12,4 +12,4 @@ featperform lf result
 
 
 
-checkprops result -s 43.6826
+set square 43.6826

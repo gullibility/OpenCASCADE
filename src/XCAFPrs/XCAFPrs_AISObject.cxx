@@ -38,8 +38,6 @@
 #include <XCAFPrs_Style.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFPrs_AISObject,AIS_ColoredShape)
-
 //=======================================================================
 //function : XCAFPrs_AISObject
 //purpose  : 
@@ -48,8 +46,6 @@ IMPLEMENT_STANDARD_RTTIEXT(XCAFPrs_AISObject,AIS_ColoredShape)
 XCAFPrs_AISObject::XCAFPrs_AISObject (const TDF_Label& theLabel)
 : AIS_ColoredShape(TopoDS_Shape())
 {
-  // define plastic material by default for proper color reproduction
-  SetMaterial (Graphic3d_NOM_PLASTIC);
   myLabel = theLabel;
 }
 
@@ -119,6 +115,12 @@ void XCAFPrs_AISObject::Compute (const Handle(PrsMgr_PresentationManager3d)& the
                                  const Handle(Prs3d_Presentation)&           thePrs,
                                  const Standard_Integer                      theMode)
 {
+  thePrs->Clear();
+
+  // abv: 06 Mar 00: to have good colors
+  Handle(TPrsStd_AISPresentation) aPrs = Handle(TPrsStd_AISPresentation)::DownCast (GetOwner());
+  if (aPrs.IsNull() || !aPrs->HasOwnMaterial()) SetMaterial (Graphic3d_NOM_PLASTIC);
+
   TopoDS_Shape aShape;
   if (!XCAFDoc_ShapeTool::GetShape (myLabel, aShape) || aShape.IsNull()) return;
 

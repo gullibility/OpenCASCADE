@@ -22,7 +22,6 @@ TKShHealing
 TKOffset
 TKFeat
 TKCAF
-TKVCAF
 TKIGES
 TKXSBase
 TKMesh
@@ -32,6 +31,7 @@ TKSTEPBase
 TKXDESTEP
 TKXSDRAW
 TKSTL
+TKVoxel
 CSF_gdi32
 CSF_advapi32
 CSF_user32

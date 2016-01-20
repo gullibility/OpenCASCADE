@@ -40,26 +40,18 @@ public:
   Standard_EXPORT StepDimTol_CommonDatum();
   
   //! Initialize all fields (own and inherited)
-  Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)& theShapeAspect_Name,
-                            const Handle(TCollection_HAsciiString)& theShapeAspect_Description,
-                            const Handle(StepRepr_ProductDefinitionShape)& theShapeAspect_OfShape,
-                            const StepData_Logical                  theShapeAspect_ProductDefinitional,
-                            const Handle(TCollection_HAsciiString)& theDatum_Name,
-                            const Handle(TCollection_HAsciiString)& theDatum_Description,
-                            const Handle(StepRepr_ProductDefinitionShape)& theDatum_OfShape,
-                            const StepData_Logical                  theDatum_ProductDefinitional,
-                            const Handle(TCollection_HAsciiString)& theDatum_Identification);
+  Standard_EXPORT void Init (const Handle(TCollection_HAsciiString)& aShapeAspect_Name, const Handle(TCollection_HAsciiString)& aShapeAspect_Description, const Handle(StepRepr_ProductDefinitionShape)& aShapeAspect_OfShape, const StepData_Logical aShapeAspect_ProductDefinitional, const Handle(TCollection_HAsciiString)& aDatum_Name, const Handle(TCollection_HAsciiString)& aDatum_Description, const Handle(StepRepr_ProductDefinitionShape)& aDatum_OfShape, const StepData_Logical aDatum_ProductDefinitional, const Handle(TCollection_HAsciiString)& aDatum_Identification);
   
   //! Returns data for supertype Datum
   Standard_EXPORT Handle(StepDimTol_Datum) Datum() const;
   
   //! Set data for supertype Datum
-  Standard_EXPORT void SetDatum (const Handle(StepDimTol_Datum)& theDatum);
+  Standard_EXPORT void SetDatum (const Handle(StepDimTol_Datum)& Datum);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_CommonDatum,StepRepr_CompositeShapeAspect)
+  DEFINE_STANDARD_RTTI(StepDimTol_CommonDatum,StepRepr_CompositeShapeAspect)
 
 protected:
 
@@ -69,7 +61,7 @@ protected:
 private:
 
 
-  Handle(StepDimTol_Datum) myDatum;
+  Handle(StepDimTol_Datum) theDatum;
 
 
 };

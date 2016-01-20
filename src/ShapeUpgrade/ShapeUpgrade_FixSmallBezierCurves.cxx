@@ -44,8 +44,6 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_FixSmallBezierCurves,ShapeUpgrade_FixSmallCurves)
-
 ShapeUpgrade_FixSmallBezierCurves::ShapeUpgrade_FixSmallBezierCurves()
 {
 }

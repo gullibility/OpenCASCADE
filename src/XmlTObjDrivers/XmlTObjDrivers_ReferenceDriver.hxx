@@ -31,13 +31,13 @@ class XmlTObjDrivers_ReferenceDriver : public XmlMDF_ADriver
                          (const Handle(CDM_MessageDriver)& theMessageDriver);
   // constructor
 
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   // Creates a new attribute
 
   Standard_EXPORT Standard_Boolean Paste
                          (const XmlObjMgt_Persistent&  Source,
                           const Handle(TDF_Attribute)& Target,
-                          XmlObjMgt_RRelocationTable&  RelocTable) const Standard_OVERRIDE;
+                          XmlObjMgt_RRelocationTable&  RelocTable) const;
   // Translate the contents of <aSource> and put it
   // into <aTarget>, using the relocation table
   // <aRelocTable> to keep the sharings.
@@ -45,7 +45,7 @@ class XmlTObjDrivers_ReferenceDriver : public XmlMDF_ADriver
   Standard_EXPORT void Paste
                          (const Handle(TDF_Attribute)& Source,
                           XmlObjMgt_Persistent&        Target,
-                          XmlObjMgt_SRelocationTable&  RelocTable) const Standard_OVERRIDE;
+                          XmlObjMgt_SRelocationTable&  RelocTable) const;
   // Translate the contents of <aSource> and put it
   // into <aTarget>, using the relocation table
   // <aRelocTable> to keep the sharings.
@@ -55,7 +55,7 @@ class XmlTObjDrivers_ReferenceDriver : public XmlMDF_ADriver
 
  public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(XmlTObjDrivers_ReferenceDriver,XmlMDF_ADriver)
+  DEFINE_STANDARD_RTTI(XmlTObjDrivers_ReferenceDriver, XmlMDF_ADriver)
 };
 
 // Define handle class

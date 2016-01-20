@@ -34,8 +34,6 @@
 #include <TDF_Label.hxx>
 #include <TDF_RelocationTable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_NamedData,TDF_Attribute)
-
 #ifdef _WIN32
 #define EXCEPTION ...
 #else

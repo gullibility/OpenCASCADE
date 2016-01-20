@@ -17,8 +17,6 @@
 #include <StepVisual_PlanarExtent.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CompositeTextWithExtent,StepVisual_CompositeText)
-
 StepVisual_CompositeTextWithExtent::StepVisual_CompositeTextWithExtent ()  {}
 
 void StepVisual_CompositeTextWithExtent::Init(

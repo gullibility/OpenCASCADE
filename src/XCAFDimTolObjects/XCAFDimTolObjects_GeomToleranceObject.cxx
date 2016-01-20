@@ -13,8 +13,6 @@
 
 #include <XCAFDimTolObjects_GeomToleranceObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDimTolObjects_GeomToleranceObject,Standard_Transient)
-
 //=======================================================================
 //function : XCAFDimTolObjects_GeomTolerance
 //purpose  : 
@@ -22,7 +20,6 @@ IMPLEMENT_STANDARD_RTTIEXT(XCAFDimTolObjects_GeomToleranceObject,Standard_Transi
 
 XCAFDimTolObjects_GeomToleranceObject::XCAFDimTolObjects_GeomToleranceObject()
 {
-  myHasAxis = Standard_False;
 }
 
 //=======================================================================
@@ -40,8 +37,6 @@ XCAFDimTolObjects_GeomToleranceObject::XCAFDimTolObjects_GeomToleranceObject(con
   myValueOfZoneModif = theObj->myValueOfZoneModif;
   myModifiers = theObj->myModifiers;
   myMaxValueModif = theObj->myMaxValueModif;
-  myAxis = theObj->GetAxis();
-  myHasAxis = Standard_False;
 }
 
 //=======================================================================
@@ -212,35 +207,4 @@ void XCAFDimTolObjects_GeomToleranceObject::SetMaxValueModifier (const Standard_
 Standard_Real XCAFDimTolObjects_GeomToleranceObject::GetMaxValueModifier()  const
 {
   return myMaxValueModif;
-}
-
-//=======================================================================
-//function :
-//purpose  : 
-//=======================================================================
-
-void XCAFDimTolObjects_GeomToleranceObject::SetAxis (const gp_Ax2 theAxis) 
-{
-  myAxis = theAxis;
-  myHasAxis = Standard_True;
-}
-
-//=======================================================================
-//function :
-//purpose  : 
-//=======================================================================
-
-gp_Ax2 XCAFDimTolObjects_GeomToleranceObject::GetAxis()  const
-{
-  return myAxis;
-}
-
-//=======================================================================
-//function :
-//purpose  : 
-//=======================================================================
-
-Standard_Boolean XCAFDimTolObjects_GeomToleranceObject::HasAxis () const 
-{
-  return myHasAxis;
 }

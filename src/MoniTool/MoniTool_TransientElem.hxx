@@ -56,7 +56,7 @@ public:
   //! Specific testof equallity : defined as False if <other> has
   //! not the same true Type, else contents are compared (by
   //! C++ operator ==)
-  Standard_EXPORT Standard_Boolean Equates (const Handle(MoniTool_Element)& other) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Equates (const Handle(MoniTool_Element)& other) const;
   
   //! Returns the Type of the Value. By default, returns the
   //! DynamicType of <me>, but can be redefined
@@ -69,7 +69,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_TransientElem,MoniTool_Element)
+  DEFINE_STANDARD_RTTI(MoniTool_TransientElem,MoniTool_Element)
 
 protected:
 

@@ -37,7 +37,6 @@ class Storage_InternalData : public MMgt_TShared
 
 public:
 
-  Standard_EXPORT Handle(Storage_HPArray) ReadArray() {return myReadArray;}
   
   Standard_EXPORT Storage_InternalData();
   
@@ -47,7 +46,7 @@ public:
 friend class Storage_Schema;
 
 
-  DEFINE_STANDARD_RTTIEXT(Storage_InternalData,MMgt_TShared)
+  DEFINE_STANDARD_RTTI(Storage_InternalData,MMgt_TShared)
 
 protected:
 

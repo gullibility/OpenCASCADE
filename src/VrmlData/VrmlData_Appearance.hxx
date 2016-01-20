@@ -83,24 +83,24 @@ class VrmlData_Appearance : public VrmlData_Node
    * is not created, but rather the given one is modified.<p>
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                                Clone       (const Handle(VrmlData_Node)&)const Standard_OVERRIDE;
+                                Clone       (const Handle(VrmlData_Node)&)const;
   /**
    * Read the node from input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                                Read        (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                                Read        (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node from input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                                Write       (const char * thePrefix) const Standard_OVERRIDE;
+                                Write       (const char * thePrefix) const;
 
   /**
    * Returns True if the node is default, so that it should not be written.
    */
   Standard_EXPORT virtual Standard_Boolean
-                                IsDefault       () const Standard_OVERRIDE;
+                                IsDefault       () const;
 
  protected:
   // ---------- PROTECTED METHODS ----------
@@ -116,7 +116,7 @@ class VrmlData_Appearance : public VrmlData_Node
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_Appearance,VrmlData_Node)
+DEFINE_STANDARD_RTTI (VrmlData_Appearance, VrmlData_Node)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

@@ -48,12 +48,12 @@ public:
   Standard_EXPORT virtual void Polygon3D (const Handle(Poly_Polygon3D)& P) Standard_OVERRIDE;
   
   //! Return a copy of this representation.
-  Standard_EXPORT Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BRep_CurveRepresentation) Copy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(BRep_Polygon3D,BRep_CurveRepresentation)
+  DEFINE_STANDARD_RTTI(BRep_Polygon3D,BRep_CurveRepresentation)
 
 protected:
 

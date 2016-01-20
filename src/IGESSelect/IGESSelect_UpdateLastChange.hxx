@@ -49,16 +49,16 @@ public:
   //! Specific action : only <target> is used : the system Date
   //! is set to Global Section Item n0 25. Also sets IGES Version
   //! (Item n0 23) to IGES5 if it was older.
-  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const Standard_OVERRIDE;
+  Standard_EXPORT void Performing (IFSelect_ContextModif& ctx, const Handle(IGESData_IGESModel)& target, Interface_CopyTool& TC) const;
   
   //! Returns a text which is
   //! "Update IGES Header Last Change Date"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_UpdateLastChange,IGESSelect_ModelModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_UpdateLastChange,IGESSelect_ModelModifier)
 
 protected:
 

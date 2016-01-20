@@ -26,7 +26,6 @@
 #include <OSD_Process.hxx>
 #include <OSD_Path.hxx>
 #include <OSD.hxx>
-#include <OSD_File.hxx>
 
 #include <string.h>
 #include <tcl.h>
@@ -67,33 +66,52 @@ namespace {
     cout << flush;
   }
 
-  int capture_start (OSD_File& theTmpFile, int std_fd)
+  FILE* capture_start (int std_fd, int *save_fd, char*& tmp_name)
   {
-    theTmpFile.BuildTemporary();
-    if (theTmpFile.Failed())
+    *save_fd = 0;
+
+    // open temporary files
+  #if defined(_WIN32)
+    // use _tempnam() to decrease chances of failure (tmpfile() creates 
+    // file in root folder and will fail if it is write protected), see #24132
+    static const char* tmpdir = getenv("TEMP");
+    static char prefix[256] = ""; // prefix for temporary files, initialize once per process using pid
+    if (prefix[0] == '\0')
+      sprintf (prefix, "drawtmp%d_", (int)OSD_Process().ProcessId());
+    tmp_name = _tempnam (tmpdir, prefix);
+    FILE* aTmpFile = (tmp_name != NULL ? fopen (tmp_name, "w+b") : tmpfile());
+  #else
+    tmp_name = NULL;
+    FILE* aTmpFile = tmpfile();
+  #endif
+    int fd_tmp = (aTmpFile != NULL ? fileno (aTmpFile) : -1);
+    if (fd_tmp < 0)
     {
       cerr << "Error: cannot create temporary file for capturing console output" << endl;
-      return -1;
+      fclose (aTmpFile);
+      return NULL;
     }
 
     // remember current file descriptors of standard stream, and replace it by temporary
-    return theTmpFile.Capture(std_fd);
+    (*save_fd) = dup(std_fd);
+    dup2(fd_tmp, std_fd);
+    return aTmpFile;
   }
 
-  void capture_end (OSD_File* tmp_file, int std_fd, int save_fd, Standard_OStream &log, Standard_Boolean doEcho)
+  void capture_end (FILE* tmp_file, int std_fd, int save_fd, char* tmp_name, Standard_OStream &log, Standard_Boolean doEcho)
   {
-    if (!tmp_file)
+    if (! tmp_file)
       return;
 
     // restore normal descriptors of console stream
-    dup2(save_fd, std_fd);
+    dup2 (save_fd, std_fd);
     close(save_fd);
 
     // extract all output and copy it to log and optionally to cout
     const int BUFSIZE = 2048;
-    TCollection_AsciiString buf;
-    tmp_file->Rewind();
-    while (tmp_file->ReadLine (buf, BUFSIZE) > 0)
+    char buf[BUFSIZE];
+    rewind(tmp_file);
+    while (fgets (buf, BUFSIZE, tmp_file) != NULL)
     {
       log << buf;
       if (doEcho) 
@@ -101,13 +119,12 @@ namespace {
     }
 
     // close temporary file
-    tmp_file->Close();
+    fclose (tmp_file);
 
     // remove temporary file if this is not done by the system
-    if (tmp_file->Exists())
-      tmp_file->Remove();
+    if (tmp_name)
+      remove (tmp_name);
   }
-
 };
 
 // MKV 29.03.05
@@ -140,13 +157,15 @@ static Standard_Integer CommandCmd
   flush_standard_streams();
 
   // capture cout and cerr to log
-  OSD_File aFile_out, aFile_err;
-  int fd_err_save = -1;
-  int fd_out_save = -1;
+  char *err_name = NULL, *out_name = NULL;
+  FILE * aFile_err = NULL;
+  FILE * aFile_out = NULL;
+  int fd_err_save = 0;
+  int fd_out_save = 0;
   if (doLog)
   {
-    fd_out_save = capture_start (aFile_out, STDOUT_FILENO);
-    fd_err_save = capture_start (aFile_err, STDERR_FILENO);
+    aFile_out = capture_start (STDOUT_FILENO, &fd_out_save, out_name);
+    aFile_err = capture_start (STDERR_FILENO, &fd_err_save, err_name);
   }
 
   // run command
@@ -199,8 +218,8 @@ static Standard_Integer CommandCmd
   // end capturing cout and cerr 
   if (doLog) 
   {
-    capture_end (&aFile_err, STDERR_FILENO, fd_err_save, di.Log(), doEcho);
-    capture_end (&aFile_out, STDOUT_FILENO, fd_out_save, di.Log(), doEcho);
+    capture_end (aFile_err, STDERR_FILENO, fd_err_save, err_name, di.Log(), doEcho);
+    capture_end (aFile_out, STDOUT_FILENO, fd_out_save, out_name, di.Log(), doEcho);
   }
 
   // log command result

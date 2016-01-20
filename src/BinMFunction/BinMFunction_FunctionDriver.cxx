@@ -24,8 +24,6 @@
 #include <TDF_Attribute.hxx>
 #include <TFunction_Function.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMFunction_FunctionDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMFunction_FunctionDriver
 //purpose  : 

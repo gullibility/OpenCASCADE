@@ -57,26 +57,26 @@ class VrmlData_Coordinate : public VrmlData_ArrayVec3d
    * is not created, but rather the given one is modified.
    */
   Standard_EXPORT virtual Handle(VrmlData_Node)
-                        Clone     (const Handle(VrmlData_Node)& theOther)const Standard_OVERRIDE;
+                        Clone     (const Handle(VrmlData_Node)& theOther)const;
 
   /**
    * Read the Node from input stream.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Read      (VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+                        Read      (VrmlData_InBuffer& theBuffer);
 
   /**
    * Write the Node to the Scene output.
    */
   Standard_EXPORT virtual VrmlData_ErrorStatus
-                        Write     (const char * thePrefix) const Standard_OVERRIDE;
+                        Write     (const char * thePrefix) const;
 
  private:
   // ---------- PRIVATE FIELDS ----------
 
  public:
 // Declaration of CASCADE RTTI
-DEFINE_STANDARD_RTTI_INLINE(VrmlData_Coordinate,VrmlData_ArrayVec3d)
+DEFINE_STANDARD_RTTI (VrmlData_Coordinate, VrmlData_ArrayVec3d)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx

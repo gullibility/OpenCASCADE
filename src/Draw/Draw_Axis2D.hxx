@@ -46,12 +46,12 @@ public:
   
   Standard_EXPORT Draw_Axis2D(const gp_Ax22d& A, const Draw_Color& col, const Standard_Integer Size = 5);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Axis2D,Draw_Drawable2D)
+  DEFINE_STANDARD_RTTI(Draw_Axis2D,Draw_Drawable2D)
 
 protected:
 

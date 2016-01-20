@@ -24,8 +24,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Dispatch,MMgt_TShared)
-
 void  IFSelect_Dispatch::SetRootName
   (const Handle(TCollection_HAsciiString)& name)
 {

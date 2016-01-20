@@ -45,15 +45,15 @@ public:
   
   //! Selects the Entities which are attached to the Drawing(s)
   //! present in the Input
-  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const Standard_OVERRIDE;
+  Standard_EXPORT Interface_EntityIterator RootResult (const Interface_Graph& G) const;
   
   //! Returns the label, with is "Entities attached to Drawing"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectFromDrawing,IFSelect_SelectDeduct)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectFromDrawing,IFSelect_SelectDeduct)
 
 protected:
 

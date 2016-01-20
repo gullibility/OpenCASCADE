@@ -13,7 +13,7 @@
 // commercial license or contractual agreement.
 
 
-#include <Adaptor2d_OffsetCurve.hxx>
+#include <Adaptor3d_OffsetCurve.hxx>
 #include <ElCLib.hxx>
 #include <GccEnt_BadQualifier.hxx>
 #include <GccEnt_QualifiedCirc.hxx>
@@ -21,6 +21,7 @@
 #include <Geom2dAdaptor_HCurve.hxx>
 #include <Geom2dGcc_Circ2d2TanRadGeo.hxx>
 #include <Geom2dGcc_CurveTool.hxx>
+#include <Geom2dGcc_CurveToolGeo.hxx>
 #include <Geom2dGcc_QCurve.hxx>
 #include <Geom2dInt_GInter.hxx>
 #include <gp_Ax2d.hxx>
@@ -183,11 +184,11 @@ pararg2(1,aNbSolMAX)
       IntRes2d_Domain D1;
       for (Standard_Integer jcote2 = 1 ; jcote2 <= nbrcote2 ; jcote2++) {
         Handle(Geom2dAdaptor_HCurve) HCu2 = new Geom2dAdaptor_HCurve(Cu2);
-        Adaptor2d_OffsetCurve C2(HCu2,cote2(jcote2));
-        firstparam = Max(C2.FirstParameter(),thefirst);
-        lastparam  = Min(C2.LastParameter(),thelast);
-        IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol,
-                           C2.Value(lastparam), lastparam, Tol);
+        Adaptor3d_OffsetCurve C2(HCu2,cote2(jcote2));
+        firstparam = Max(Geom2dGcc_CurveToolGeo::FirstParameter(C2),thefirst);
+        lastparam  = Min(Geom2dGcc_CurveToolGeo::LastParameter(C2),thelast);
+        IntRes2d_Domain D2(Geom2dGcc_CurveToolGeo::Value(C2,firstparam),firstparam,Tol,
+          Geom2dGcc_CurveToolGeo::Value(C2,lastparam),lastparam,Tol);
         Geom2dInt_TheIntConicCurveOfGInter Intp(Line,D1,C2,D2,Tol,Tol);
         if (Intp.IsDone()) {
           if (!Intp.IsEmpty()) {
@@ -367,11 +368,11 @@ pararg2(1,aNbSolMAX)
       D1.SetEquivalentParameters(0.,2.*M_PI);
       for (Standard_Integer jcote2 = 1 ; jcote2 <= nbrcote2 ; jcote2++) {
         Handle(Geom2dAdaptor_HCurve) HCu2 = new Geom2dAdaptor_HCurve(Cu2);
-        Adaptor2d_OffsetCurve C2(HCu2,cote2(jcote2));
-        firstparam = Max(C2.FirstParameter(),thefirst);
-        lastparam  = Min(C2.LastParameter(),thelast);
-        IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol,
-                           C2.Value(lastparam), lastparam, Tol);
+        Adaptor3d_OffsetCurve C2(HCu2,cote2(jcote2));
+        firstparam = Max(Geom2dGcc_CurveToolGeo::FirstParameter(C2),thefirst);
+        lastparam  = Min(Geom2dGcc_CurveToolGeo::LastParameter(C2),thelast);
+        IntRes2d_Domain D2(Geom2dGcc_CurveToolGeo::Value(C2,firstparam),firstparam,Tol,
+          Geom2dGcc_CurveToolGeo::Value(C2,lastparam),lastparam,Tol);
         Intp.Perform(Circ,D1,C2,D2,Tol,Tol);
         if (Intp.IsDone()) {
           if (!Intp.IsEmpty()) {
@@ -499,11 +500,11 @@ pararg2(1,aNbSolMAX)
     Geom2dInt_TheIntConicCurveOfGInter Intp;
     for (Standard_Integer jcote1 = 1 ; jcote1 <= nbrcote1 ; jcote1++) {
       Handle(Geom2dAdaptor_HCurve) HCu1 = new Geom2dAdaptor_HCurve(Cu1);
-      Adaptor2d_OffsetCurve Cu2(HCu1,cote1(jcote1));
-      firstparam = Max(Cu2.FirstParameter(),thefirst);
-      lastparam  = Min(Cu2.LastParameter(),thelast);
-      IntRes2d_Domain D2(Cu2.Value(firstparam), firstparam, Tol,
-                         Cu2.Value(lastparam), lastparam, Tol);
+      Adaptor3d_OffsetCurve Cu2(HCu1,cote1(jcote1));
+      firstparam = Max(Geom2dGcc_CurveToolGeo::FirstParameter(Cu2),thefirst);
+      lastparam  = Min(Geom2dGcc_CurveToolGeo::LastParameter(Cu2),thelast);
+      IntRes2d_Domain D2(Geom2dGcc_CurveToolGeo::Value(Cu2,firstparam),firstparam,Tol,
+        Geom2dGcc_CurveToolGeo::Value(Cu2,lastparam),lastparam,Tol);
       Intp.Perform(Circ,D1,Cu2,D2,Tol,Tol);
       if (Intp.IsDone()) {
         if (!Intp.IsEmpty()) {
@@ -540,8 +541,8 @@ pararg2(1,aNbSolMAX)
 //            tangent vector and vector between points in two curves must
 //            be equal to zero).
 //=======================================================================
-static void PrecRoot(const Adaptor2d_OffsetCurve& theC1,
-                     const Adaptor2d_OffsetCurve& theC2,
+static void PrecRoot(const Adaptor3d_OffsetCurve& theC1,
+                     const Adaptor3d_OffsetCurve& theC2,
                      const Standard_Real theU0,
                      const Standard_Real theV0,
                      Standard_Real& theUfinal,
@@ -596,8 +597,8 @@ where u_{0} and v_{0} are initial values or values computed on previous iteratio
 
   Standard_Real aSQDistPrev = RealFirst();
 
-  theC1.D2(aU, aPu, aD1u, aD2u);
-  theC2.D2(aV, aPv, aD1v, aD2v);
+  Geom2dGcc_CurveToolGeo::D2(theC1, aU, aPu, aD1u, aD2u);
+  Geom2dGcc_CurveToolGeo::D2(theC2, aV, aPv, aD1v, aD2v);
 
   const Standard_Real aCrProd = Abs(aD1u.Crossed(aD1v));
   if(aCrProd*aCrProd > 1.0e-6*
@@ -689,8 +690,8 @@ where u_{0} and v_{0} are initial values or values computed on previous iteratio
       aV += aStepV;
     }
 
-    theC1.D2(aU, aPu, aD1u, aD2u);
-    theC2.D2(aV, aPv, aD1v, aD2v);
+    Geom2dGcc_CurveToolGeo::D2(theC1, aU, aPu, aD1u, aD2u);
+    Geom2dGcc_CurveToolGeo::D2(theC2, aV, aPv, aD1v, aD2v);
   }
   while(aNbIter <= aNbIterMax);
 }
@@ -738,10 +739,10 @@ pararg2(1,aNbSolMAX)
   //========================================================================
 
   Standard_Real Tol = Abs(Tolerance);
-#ifdef OCCT_DEBUG
-  const Standard_Real thefirst = -100000.;
-  const Standard_Real thelast  =  100000.;
-#endif
+  Standard_Real thefirst = -100000.;
+  Standard_Real thelast  =  100000.;
+  Standard_Real firstparam;
+  Standard_Real lastparam;
   gp_Dir2d dirx(1.,0.);
   TColStd_Array1OfReal cote1(1,2);
   TColStd_Array1OfReal cote2(1,2);
@@ -832,21 +833,27 @@ pararg2(1,aNbSolMAX)
     Geom2dInt_GInter Intp;
     for (Standard_Integer jcote1 = 1 ; jcote1 <= nbrcote1 ; jcote1++) {
       Handle(Geom2dAdaptor_HCurve) HCu1 = new Geom2dAdaptor_HCurve(Cu1); 
-      Adaptor2d_OffsetCurve C1(HCu1,cote1(jcote1));
+      Adaptor3d_OffsetCurve C1(HCu1,cote1(jcote1));
+      firstparam = Max(Geom2dGcc_CurveToolGeo::FirstParameter(C1),thefirst);
+      lastparam  = Min(Geom2dGcc_CurveToolGeo::LastParameter(C1),thelast);
 #ifdef OCCT_DEBUG
-      Standard_Real firstparam = Max(C1.FirstParameter(), thefirst);
-      Standard_Real lastparam = Min(C1.LastParameter(), thelast);
-      IntRes2d_Domain D2C1(C1.Value(firstparam),firstparam,Tol,
-        C1.Value(lastparam),lastparam,Tol);
+      IntRes2d_Domain D2C1(Geom2dGcc_CurveToolGeo::Value(C1,firstparam),firstparam,Tol,
+        Geom2dGcc_CurveToolGeo::Value(C1,lastparam),lastparam,Tol);
+#else
+      Geom2dGcc_CurveToolGeo::Value(C1,firstparam);
+      Geom2dGcc_CurveToolGeo::Value(C1,lastparam);
 #endif
       for (Standard_Integer jcote2 = 1 ; jcote2 <= nbrcote2 ; jcote2++) {
         Handle(Geom2dAdaptor_HCurve) HCu2 = new Geom2dAdaptor_HCurve(Cu2);
-        Adaptor2d_OffsetCurve C2(HCu2,cote2(jcote2));
+        Adaptor3d_OffsetCurve C2(HCu2,cote2(jcote2));
+        firstparam = Max(Geom2dGcc_CurveToolGeo::FirstParameter(C2),thefirst);
+        lastparam  = Min(Geom2dGcc_CurveToolGeo::LastParameter(C2),thelast);
 #ifdef OCCT_DEBUG
-        firstparam = Max(C2.FirstParameter(), thefirst);
-        lastparam  = Min(C2.LastParameter(),thelast);
-        IntRes2d_Domain D2C2(C2.Value(firstparam),firstparam,Tol,
-          C2.Value(lastparam),lastparam,Tol);
+        IntRes2d_Domain D2C2(Geom2dGcc_CurveToolGeo::Value(C2,firstparam),firstparam,Tol,
+          Geom2dGcc_CurveToolGeo::Value(C2,lastparam),lastparam,Tol);
+#else
+        Geom2dGcc_CurveToolGeo::Value(C2,firstparam);
+        Geom2dGcc_CurveToolGeo::Value(C2,lastparam);
 #endif
         Intp.Perform(C1,C2,Tol,Tol);
         if (Intp.IsDone()) {
@@ -864,10 +871,10 @@ pararg2(1,aNbSolMAX)
               Standard_Real aU2 = aU0+Precision::PApproximation();
               Standard_Real aV2 = aV0+Precision::PApproximation();
 
-              gp_Pnt2d P11 = C1.Value(aU1);
-              gp_Pnt2d P12 = C2.Value(aV1);
-              gp_Pnt2d P21 = C1.Value(aU2);
-              gp_Pnt2d P22 = C2.Value(aV2);
+              gp_Pnt2d P11 = Geom2dGcc_CurveToolGeo::Value(C1,aU1);
+              gp_Pnt2d P12 = Geom2dGcc_CurveToolGeo::Value(C2,aV1);
+              gp_Pnt2d P21 = Geom2dGcc_CurveToolGeo::Value(C1,aU2);
+              gp_Pnt2d P22 = Geom2dGcc_CurveToolGeo::Value(C2,aV2);
 
               Standard_Real aDist1112 = P11.SquareDistance(P12);
               Standard_Real aDist1122 = P11.SquareDistance(P22);
@@ -882,7 +889,7 @@ pararg2(1,aNbSolMAX)
               }
 
               NbrSol++;
-              gp_Pnt2d Center(C1.Value(aU0));
+              gp_Pnt2d Center(Geom2dGcc_CurveToolGeo::Value(C1, aU0));
               cirsol(NbrSol) = gp_Circ2d(gp_Ax2d(Center,dirx),Radius);
               //             =======================================================
               qualifier1(NbrSol) = Qualified1.Qualifier();

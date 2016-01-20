@@ -774,7 +774,7 @@ TCollection_ExtendedString TCollection_ExtendedString::Token
 // ----------------------------------------------------------------------------
 // ToExtString
 // ----------------------------------------------------------------------------
-Standard_ExtString TCollection_ExtendedString::ToExtString() const
+const Standard_ExtString TCollection_ExtendedString::ToExtString() const
 {
   if(mystring) return mystring;
   return NULL_EXTSTRING;

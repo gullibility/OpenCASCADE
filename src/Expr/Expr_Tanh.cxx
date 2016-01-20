@@ -30,8 +30,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Expr_Tanh,Expr_UnaryExpression)
-
 Expr_Tanh::Expr_Tanh(const Handle(Expr_GeneralExpression)& exp)
 {
   CreateOperand(exp);

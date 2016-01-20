@@ -19,8 +19,6 @@
 #include <TopOpeBRepDS_SolidSurfaceInterference.hxx>
 #include <TopOpeBRepDS_Transition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_SolidSurfaceInterference,TopOpeBRepDS_Interference)
-
 //=======================================================================
 //function : TopOpeBRepDS_SolidSurfaceInterference
 //purpose  : 

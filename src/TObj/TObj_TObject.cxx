@@ -22,8 +22,6 @@
 #include <TDF_ChildIterator.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_TObject,TDF_Attribute)
-
 //=======================================================================
 //function : TObj_TObject
 //purpose  : 

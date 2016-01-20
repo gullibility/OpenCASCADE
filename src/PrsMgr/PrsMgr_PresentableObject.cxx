@@ -32,8 +32,6 @@
 #include <TColStd_ListIteratorOfListOfInteger.hxx>
 #include <TColStd_MapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentableObject,MMgt_TShared)
-
 //=======================================================================
 //function : PrsMgr_PresentableObject
 //purpose  :
@@ -519,7 +517,7 @@ void PrsMgr_PresentableObject::SetMutable (const Standard_Boolean theIsMutable)
 // function : IsMutable
 // purpose  :
 // =======================================================================
-Standard_Boolean PrsMgr_PresentableObject::IsMutable() const
+const Standard_Boolean PrsMgr_PresentableObject::IsMutable() const
 {
   return myIsMutable;
 }

@@ -10,10 +10,3 @@ TKMesh
 TKService
 TKTopAlgo
 TKV3d
-vtkCommonCore
-vtkRenderingCore
-vtkRenderingOpenGL
-vtkRenderingFreeType
-vtkRenderingFreeTypeOpenGL
-vtkFiltersGeneral
-vtkInteractionStyle

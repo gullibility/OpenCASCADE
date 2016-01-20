@@ -23,8 +23,6 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDraw_Planar,IGESData_IGESEntity)
-
 IGESDraw_Planar::IGESDraw_Planar ()    {  }
 
 

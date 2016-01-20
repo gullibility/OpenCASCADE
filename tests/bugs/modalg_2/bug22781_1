@@ -10,7 +10,5 @@ set BugNumber OCC22781
 
 restore [locate_data_file OCC22781-BeforeCont.brep] result
 
-checkprops result -l 5.82393 
-checkshape result 
-checksection result
+set length 5.82393
 set 3dviewer 0

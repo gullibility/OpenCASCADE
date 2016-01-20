@@ -79,15 +79,15 @@ public:
   
   //! Returns True for an Entity which is recognized by the Actor,
   //! either the precised one, or the one defined by TransferReader
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Returns a text defining the criterium : "Recognized for Transfer [(current actor)]"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExtractLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(XSControl_SelectForTransfer,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(XSControl_SelectForTransfer,IFSelect_SelectExtract)
 
 protected:
 

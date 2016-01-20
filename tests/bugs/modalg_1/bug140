@@ -21,6 +21,5 @@ explode sh so
 renamevar sh_1 result 
 fsameparameter result
 
-checkprops result -s 3.65424e+06 
-checkshape result
+set square 3.65424e+06
 set 2dviewer 0

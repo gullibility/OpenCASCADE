@@ -23,8 +23,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_SelectDrawingFrom,IFSelect_SelectDeduct)
-
 IGESSelect_SelectDrawingFrom::IGESSelect_SelectDrawingFrom ()    {  }
 
 

@@ -239,12 +239,8 @@ Standard_Real     ATanh(const Standard_Real Value)
 #ifdef OCCT_DEBUG
     cout << "Illegal agument in ATanh" << endl ;
 #endif
-  }
-#if __QNX__
-  return std::atanh(Value);
-#else
-  return atanh(Value);
-#endif
+  } 
+  return atanh(Value); 
 }
 
 //-------------------------------------------------------------------
@@ -257,12 +253,8 @@ Standard_Real     ACosh (const Standard_Real Value)
 #ifdef OCCT_DEBUG
     cout << "Illegal agument in ACosh" << endl ;
 #endif
-  }
-#if __QNX__
-  return std::acosh(Value);
-#else
-  return acosh(Value);
-#endif
+  } 
+  return acosh(Value); 
 }
 
 //-------------------------------------------------------------------

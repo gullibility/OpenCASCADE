@@ -23,8 +23,6 @@
 #include <iomanip>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(NCollection_IncAllocator,NCollection_BaseAllocator)
-
 namespace
 {
 

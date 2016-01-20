@@ -22,8 +22,6 @@
 #include <Standard_TypeMismatch.hxx>
 
 #include <string.h>
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Failure,Standard_Transient)
-
 static Standard_CString allocate_message(const Standard_CString AString)
 {
   Standard_CString aStr = 0;

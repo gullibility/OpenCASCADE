@@ -23,11 +23,11 @@ class OpenGl_IndexBuffer : public OpenGl_VertexBuffer
 public:
 
   Standard_EXPORT OpenGl_IndexBuffer();
-  Standard_EXPORT virtual GLenum GetTarget() const Standard_OVERRIDE;
+  Standard_EXPORT virtual GLenum GetTarget() const;
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_IndexBuffer,OpenGl_VertexBuffer) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_IndexBuffer, OpenGl_VertexBuffer) // Type definition
 
 };
 

@@ -24,7 +24,6 @@
 #include <OpenGl_View.hxx>
 
 #include <Font_FontMgr.hxx>
-#include <Font_FTFont.hxx>
 #include <Graphic3d_TransformUtils.hxx>
 #include <TCollection_HAsciiString.hxx>
 
@@ -383,16 +382,16 @@ void OpenGl_Text::StringSize (const Handle(OpenGl_Context)& theCtx,
     }
     else if (aCharThis == ' ')
     {
-      aWidth += aFont->FTFont()->AdvanceX (aCharThis, aCharNext);
+      aWidth += aFont->AdvanceX (aCharThis, aCharNext);
       continue;
     }
     else if (aCharThis == '\t')
     {
-      aWidth += aFont->FTFont()->AdvanceX (' ', aCharNext) * 8.0f;
+      aWidth += aFont->AdvanceX (' ', aCharNext) * 8.0f;
       continue;
     }
 
-    aWidth += aFont->FTFont()->AdvanceX (aCharThis, aCharNext);
+    aWidth += aFont->AdvanceX (aCharThis, aCharNext);
   }
   theWidth = Max (theWidth, aWidth);
 
@@ -542,8 +541,6 @@ void OpenGl_Text::setupMatrix (const Handle(OpenGl_PrinterContext)& thePrintCtx,
         // as it is better for keeping text/3d graphics proportions
         Graphic3d_TransformUtils::Scale<GLdouble> (aModViewMat, aTextScaley, aTextScaley, aTextScaley);
       }
-    #else
-      (void )thePrintCtx;
     #endif
       Graphic3d_TransformUtils::Scale<GLdouble> (aModViewMat, myScaleHeight, myScaleHeight, myScaleHeight);
     }
@@ -662,7 +659,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont (const Handle(OpenGl_Context)& theCtx,
           aMsg += "Font '";
           aMsg += theAspect.FontName();
           aMsg += "' - initialization of GL resources has failed!";
-          theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH, aMsg);
+          theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
           aFontFt.Nullify();
           aFont->Release (theCtx.operator->());
           aFont = new OpenGl_Font (aFontFt, theKey);
@@ -675,7 +672,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont (const Handle(OpenGl_Context)& theCtx,
         aMsg += theAspect.FontName();
         aMsg += "' is broken or has incompatible format! File path: ";
         aMsg += aRequestedFont->FontPath()->ToCString();
-        theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH, aMsg);
+        theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
         aFontFt.Nullify();
         aFont = new OpenGl_Font (aFontFt, theKey);
       }
@@ -686,7 +683,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont (const Handle(OpenGl_Context)& theCtx,
       aMsg += "Font '";
       aMsg += theAspect.FontName();
       aMsg += "' is not found in the system!";
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH, aMsg);
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
       aFont = new OpenGl_Font (aFontFt, theKey);
     }
 
@@ -736,7 +733,7 @@ void OpenGl_Text::render (const Handle(OpenGl_PrinterContext)& thePrintCtx,
     aFormatter.SetupAlignment (myParams.HAlign, myParams.VAlign);
     aFormatter.Reset();
 
-    aFormatter.Append (myString, *myFont->FTFont().operator->());
+    aFormatter.Append (myString, *myFont->FTFont());
     aFormatter.Format();
 
     OpenGl_TextBuilder aBuilder;

@@ -30,8 +30,6 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESDefs_GenericData,IGESData_IGESEntity)
-
 IGESDefs_GenericData::IGESDefs_GenericData ()    {  }
 
 

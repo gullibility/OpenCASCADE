@@ -27,7 +27,6 @@ class StepRepr_HArray1OfShapeAspect;
 
 class StepDimTol_RunoutZoneDefinition;
 DEFINE_STANDARD_HANDLE(StepDimTol_RunoutZoneDefinition, StepDimTol_ToleranceZoneDefinition)
-
 //! Representation of STEP entity ToleranceZoneDefinition
 class StepDimTol_RunoutZoneDefinition : public StepDimTol_ToleranceZoneDefinition
 {
@@ -45,18 +44,18 @@ public:
   //! Returns field Orientation
   inline Handle(StepDimTol_RunoutZoneOrientation) Orientation () const
   {
-    return myOrientation;
+    return orientation;
   }
   
   //! Set field Orientation
   inline void SetOrientation (const Handle(StepDimTol_RunoutZoneOrientation) &theOrientation)
   {
-    myOrientation = theOrientation;
+    orientation = theOrientation;
   }
   
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_RunoutZoneDefinition,StepDimTol_ToleranceZoneDefinition)
+  DEFINE_STANDARD_RTTI(StepDimTol_ToleranceZoneDefinition, StepDimTol_ToleranceZoneDefinition)
 
 private: 
-  Handle(StepDimTol_RunoutZoneOrientation) myOrientation;
+  Handle(StepDimTol_RunoutZoneOrientation) orientation;
 };
 #endif // _StepDimTol_RunoutToleranceZone_HeaderFile

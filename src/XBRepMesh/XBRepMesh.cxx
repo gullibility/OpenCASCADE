@@ -30,11 +30,10 @@ Standard_Integer XBRepMesh::Discret(
   Standard_Integer iErr;
   //
   iErr=0;
-  BRepMesh_IncrementalMesh* anAlgo = new BRepMesh_IncrementalMesh;
-  anAlgo->ChangeParameters().Deflection = theDeflection;
-  anAlgo->ChangeParameters().Angle = theAngle;
-  anAlgo->SetShape(theShape);
-  theAlgo = anAlgo;
+  theAlgo=new BRepMesh_IncrementalMesh;
+  theAlgo->SetDeflection(theDeflection);
+  theAlgo->SetAngle(theAngle);
+  theAlgo->SetShape(theShape);
 
   return iErr;
 }

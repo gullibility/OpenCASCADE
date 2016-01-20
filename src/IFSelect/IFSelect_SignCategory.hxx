@@ -42,12 +42,12 @@ public:
   
   //! Returns the Signature for a Transient object, as its Category
   //! recorded in the model
-  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Value (const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SignCategory,IFSelect_Signature)
+  DEFINE_STANDARD_RTTI(IFSelect_SignCategory,IFSelect_Signature)
 
 protected:
 

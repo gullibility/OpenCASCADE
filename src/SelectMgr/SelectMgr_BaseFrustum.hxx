@@ -158,11 +158,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsClipped (const Graphic3d_SequenceOfHClipPlane& thePlanes,
                                                       const Standard_Real theDepth);
 
-  //! Valid for point selection only!
-  //! Computes depth range for global (defined for the whole view) clipping planes.
-  Standard_EXPORT virtual void SetViewClipping (const Graphic3d_SequenceOfHClipPlane& /*thePlanes*/) {};
-
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_BaseFrustum,Standard_Transient)
+  DEFINE_STANDARD_RTTI(SelectMgr_BaseFrustum, Standard_Transient)
 
 protected:
   Standard_Integer    myPixelTolerance;      //!< Pixel tolerance

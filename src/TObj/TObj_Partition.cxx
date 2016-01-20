@@ -23,7 +23,6 @@
 #include <TDataStd_Name.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_Partition,TObj_Object)
 IMPLEMENT_TOBJOCAF_PERSISTENCE(TObj_Partition)
 
 //=======================================================================

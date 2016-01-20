@@ -35,7 +35,6 @@ checkshape fuse1
 
 bfuse result fuse1 ff
 
-checkprops result -s 125.664 
-checkshape result
+set square 125.664
 set 3dviewer 1
 

@@ -8,7 +8,6 @@ checkshape a
 
 mkplane result a
 
-checkprops result -s 40303.1 
-checkshape result
+set square 40303.1
 set 2dviewer 0
 

@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepRepr_ValueRange.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ValueRange,StepRepr_CompoundRepresentationItem)
-
 StepRepr_ValueRange::StepRepr_ValueRange  ()    {  }

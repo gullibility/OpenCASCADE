@@ -13,5 +13,4 @@ updatetolerance b 1
 bop a b
 bopsection result
 
-checkprops result -l 523.479
-checksection result
+set length 523.479

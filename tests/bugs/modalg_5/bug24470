@@ -21,7 +21,7 @@ bfillds
 bbuild result
 checkshape result
 
-checkprops result -s 595443 
+set square 595443
 set 2dviewer 1
 
 

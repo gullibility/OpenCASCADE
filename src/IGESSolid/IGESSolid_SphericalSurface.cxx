@@ -23,8 +23,6 @@
 #include <IGESSolid_SphericalSurface.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSolid_SphericalSurface,IGESData_IGESEntity)
-
 IGESSolid_SphericalSurface::IGESSolid_SphericalSurface ()    {  }
 
 

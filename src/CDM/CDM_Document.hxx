@@ -366,18 +366,12 @@ Standard_OStream& operator << (Standard_OStream& anOStream);
   //! returns Boolean from Standard
   Standard_EXPORT virtual void Update();
 
-  Standard_EXPORT Handle(CDM_Reference) Reference (const Standard_Integer aReferenceIdentifier) const;
-
-  Standard_EXPORT void SetModifications (const Standard_Integer Modifications);
-
-  Standard_EXPORT void SetReferenceCounter (const Standard_Integer aReferenceCounter);
-
 friend class CDM_Reference;
 friend class CDM_ReferenceIterator;
 friend class CDM_Application;
 
 
-  DEFINE_STANDARD_RTTIEXT(CDM_Document,Standard_Transient)
+  DEFINE_STANDARD_RTTI(CDM_Document,Standard_Transient)
 
 protected:
 
@@ -399,7 +393,9 @@ private:
   //! the manager returned by  this method will be
   //! used to search for the following resource items.
   Standard_EXPORT Handle(Resource_Manager) StorageResource();
-
+  
+  Standard_EXPORT Handle(CDM_Reference) Reference (const Standard_Integer aReferenceIdentifier) const;
+  
   Standard_EXPORT void ComputePresentation();
   
   Standard_EXPORT void UnvalidPresentation();
@@ -409,6 +405,10 @@ private:
   Standard_EXPORT void AddFromReference (const Handle(CDM_Reference)& aReference);
   
   Standard_EXPORT void RemoveFromReference (const Standard_Integer aReferenceIdentifier);
+  
+  Standard_EXPORT void SetModifications (const Standard_Integer Modifications);
+  
+  Standard_EXPORT void SetReferenceCounter (const Standard_Integer aReferenceCounter);
 
   TColStd_SequenceOfExtendedString myComments;
   TCollection_ExtendedString myPresentation;

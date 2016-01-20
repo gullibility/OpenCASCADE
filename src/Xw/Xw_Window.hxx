@@ -16,7 +16,7 @@
 #ifndef _Xw_Window_H__
 #define _Xw_Window_H__
 
-#if !defined(_WIN32) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX)) && !defined(__ANDROID__) && !defined(__QNX__)
+#if !defined(_WIN32) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX)) && !defined(__ANDROID__)
 
 #include <Aspect_Window.hxx>
 
@@ -59,7 +59,7 @@ public:
                              const Aspect_FBConfig theFBConfig = NULL);
 
   //! Destroies the Window and all resourses attached to it
-  Standard_EXPORT virtual void Destroy() Standard_OVERRIDE;
+  Standard_EXPORT virtual void Destroy();
 
   ~Xw_Window()
   {
@@ -131,7 +131,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Xw_Window,Aspect_Window)
+  DEFINE_STANDARD_RTTI(Xw_Window, Aspect_Window)
 
 };
 

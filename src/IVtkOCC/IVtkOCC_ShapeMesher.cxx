@@ -46,8 +46,6 @@
 #include <TopExp.hxx>
 #include <TopExp_Explorer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IVtkOCC_ShapeMesher,IVtk_IShapeMesher)
-
 // Handle implementation
 
 

@@ -20,8 +20,6 @@
 #include <Graphic3d_Camera.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(IVtkOCC_ViewerSelector,SelectMgr_ViewerSelector)
-
 //============================================================================
 // Method:  Constructor
 // Purpose:

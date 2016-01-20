@@ -21,8 +21,6 @@
 #include <StepRepr_Representation.hxx>
 #include <StepRepr_RepresentedDefinition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_MaterialPropertyRepresentation,StepRepr_PropertyDefinitionRepresentation)
-
 //=======================================================================
 //function : StepRepr_MaterialPropertyRepresentation
 //purpose  : 

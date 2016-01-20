@@ -15,6 +15,5 @@ checkshape b
 bop a b
 bopfuse result
 
-checkprops result -s 420.355 
-checkshape result
+set square 420.355
 set 2dviewer 1

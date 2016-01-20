@@ -16,8 +16,6 @@
 #include <StepBasic_LengthMeasureWithUnit.hxx>
 #include <StepRepr_ReprItemAndLengthMeasureWithUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ReprItemAndLengthMeasureWithUnit,StepRepr_ReprItemAndMeasureWithUnit)
-
 //=======================================================================
 //function : StepRepr_ReprItemAndLengthMeasureWithUnit
 //purpose  : 

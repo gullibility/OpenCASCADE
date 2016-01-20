@@ -24,8 +24,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_NodalResults,IGESData_IGESEntity)
-
 IGESAppli_NodalResults::IGESAppli_NodalResults ()    {  }
 
 

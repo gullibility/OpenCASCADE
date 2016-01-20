@@ -15,4 +15,4 @@ bcut result po1 pr3
 
 
 
-checkprops result -s 98000
+set square 98000

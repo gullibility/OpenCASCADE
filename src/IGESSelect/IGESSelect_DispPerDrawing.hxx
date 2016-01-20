@@ -48,11 +48,11 @@ public:
   Standard_EXPORT IGESSelect_DispPerDrawing();
   
   //! Returns as Label, "One File per Drawing"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
   
   //! Computes the list of produced Packets. Packets are computed
   //! by a ViewSorter (SortDrawings with also frames).
-  Standard_EXPORT void Packets (const Interface_Graph& G, IFGraph_SubPartsIterator& packs) const Standard_OVERRIDE;
+  Standard_EXPORT void Packets (const Interface_Graph& G, IFGraph_SubPartsIterator& packs) const;
   
   //! Returns True, because of entities attached to no view.
   Standard_EXPORT virtual Standard_Boolean CanHaveRemainder() const Standard_OVERRIDE;
@@ -64,7 +64,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_DispPerDrawing,IFSelect_Dispatch)
+  DEFINE_STANDARD_RTTI(IGESSelect_DispPerDrawing,IFSelect_Dispatch)
 
 protected:
 

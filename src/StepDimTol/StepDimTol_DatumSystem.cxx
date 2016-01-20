@@ -17,8 +17,6 @@
 
 #include <StepDimTol_HArray1OfDatumReferenceCompartment.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_DatumSystem,StepRepr_ShapeAspect)
-
 //=======================================================================
 //function : StepDimTol_DatumSystem
 //purpose  : 
@@ -40,6 +38,6 @@ void StepDimTol_DatumSystem::Init (const Handle(TCollection_HAsciiString)& theNa
                                    const Handle(StepDimTol_HArray1OfDatumReferenceCompartment)& theConstituents)
 {
   StepRepr_ShapeAspect::Init(theName, theDescription, theOfShape, theProductDefinitional);
-  myConstituents = theConstituents;
+  constituents = theConstituents;
 }
     

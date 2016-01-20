@@ -18,21 +18,21 @@
 //              gestion automatique de l'origine et de l'orientation
 //              avec la methode ArrangeWires
 // Modified:	Mon Jan 19 10:11:56 1998
-//              traitement des cas particuliers cylindre, cone, plan 
+//              traitement des cas particuliers cylindre, cone, plan
 //              (methodes DetectKPart et CreateKPart)
 // Modified:	Mon Feb 23 09:28:46 1998
 //              traitement des sections avec nombre d'elements different
 //              + quelques ameliorations pour les cas particuliers
 //              + cas de la derniere section ponctuelle
 // Modified:	Mon Apr  6 15:47:44 1998
-//              traitement des cas particuliers deplace dans BRepFill 
+//              traitement des cas particuliers deplace dans BRepFill
 // Modified:	Thu Apr 30 15:24:17 1998
-//              separation sections fermees / sections ouvertes + debug 
+//              separation sections fermees / sections ouvertes + debug
 // Modified:	Fri Jul 10 11:23:35 1998
 //              surface de CreateSmoothed par concatenation,approximation
 //              et segmentation (PRO13924, CTS21295)
 // Modified:	Tue Jul 21 16:48:35 1998
-//              pb de ratio (BUC60281) 
+//              pb de ratio (BUC60281)
 // Modified:	Thu Jul 23 11:38:36 1998
 //              sections bouclantes
 // Modified:	Fri Aug 28 10:13:44 1998
@@ -185,7 +185,7 @@ static Standard_Boolean IsSameOriented(const TopoDS_Shape& aFace,
 
 //=======================================================================
 //function : MakeSolid
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 static TopoDS_Solid MakeSolid(TopoDS_Shell& shell, const TopoDS_Wire& wire1,
@@ -199,7 +199,7 @@ static TopoDS_Solid MakeSolid(TopoDS_Shell& shell, const TopoDS_Wire& wire1,
 
   if (!B)
   {
-    // It is necessary to close the extremities 
+    // It is necessary to close the extremities
     B =  PerformPlan(wire1, presPln, face1);
     if (B) {
       B =  PerformPlan(wire2, presPln, face2);
@@ -220,14 +220,14 @@ static TopoDS_Solid MakeSolid(TopoDS_Shell& shell, const TopoDS_Wire& wire1,
   }
 
   TopoDS_Solid solid;
-  BB.MakeSolid(solid); 
+  BB.MakeSolid(solid);
   BB.Add(solid, shell);
 
   // verify the orientation the solid
   BRepClass3d_SolidClassifier clas3d(solid);
   clas3d.PerformInfinitePoint(Precision::Confusion());
   if (clas3d.State() == TopAbs_IN) {
-    BB.MakeSolid(solid); 
+    BB.MakeSolid(solid);
     TopoDS_Shape aLocalShape = shell.Reversed();
     BB.Add(solid, TopoDS::Shell(aLocalShape));
     //    B.Add(solid, TopoDS::Shell(newShell.Reversed()));
@@ -240,7 +240,7 @@ static TopoDS_Solid MakeSolid(TopoDS_Shell& shell, const TopoDS_Wire& wire1,
 
 //=======================================================================
 //function : BRepOffsetAPI_ThruSections
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 BRepOffsetAPI_ThruSections::BRepOffsetAPI_ThruSections(const Standard_Boolean isSolid, const Standard_Boolean ruled,
@@ -249,19 +249,19 @@ myIsSolid(isSolid), myIsRuled(ruled), myPres3d(pres3d)
 {
   myWCheck = Standard_True;
   //----------------------------
-  myParamType = Approx_ChordLength; 
-  myDegMax    = 8; 
+  myParamType = Approx_ChordLength;
+  myDegMax    = 8;
   myContinuity = GeomAbs_C2;
-  myCritWeights[0] = .4; 
-  myCritWeights[1] = .2; 
-  myCritWeights[2] = .4; 
+  myCritWeights[0] = .4;
+  myCritWeights[1] = .2;
+  myCritWeights[2] = .4;
   myUseSmoothing = Standard_False;
 }
 
 
 //=======================================================================
 //function : Init
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::Init(const Standard_Boolean isSolid, const Standard_Boolean ruled,
@@ -272,12 +272,12 @@ void BRepOffsetAPI_ThruSections::Init(const Standard_Boolean isSolid, const Stan
   myPres3d = pres3d;
   myWCheck = Standard_True;
   //----------------------------
-  myParamType = Approx_ChordLength; 
-  myDegMax    = 6; 
+  myParamType = Approx_ChordLength;
+  myDegMax    = 6;
   myContinuity = GeomAbs_C2;
-  myCritWeights[0] = .4; 
-  myCritWeights[1] = .2; 
-  myCritWeights[2] = .4; 
+  myCritWeights[0] = .4;
+  myCritWeights[1] = .2;
+  myCritWeights[2] = .4;
   myUseSmoothing = Standard_False;
 
 }
@@ -285,7 +285,7 @@ void BRepOffsetAPI_ThruSections::Init(const Standard_Boolean isSolid, const Stan
 
 //=======================================================================
 //function : AddWire
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::AddWire(const TopoDS_Wire& wire)
@@ -295,7 +295,7 @@ void BRepOffsetAPI_ThruSections::AddWire(const TopoDS_Wire& wire)
 
 //=======================================================================
 //function : AddVertex
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::AddVertex(const TopoDS_Vertex& aVertex)
@@ -318,7 +318,7 @@ void BRepOffsetAPI_ThruSections::AddVertex(const TopoDS_Vertex& aVertex)
 
 //=======================================================================
 //function : CheckCompatibility
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::CheckCompatibility(const Standard_Boolean check)
@@ -329,7 +329,7 @@ void BRepOffsetAPI_ThruSections::CheckCompatibility(const Standard_Boolean check
 
 //=======================================================================
 //function : Build
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::Build()
@@ -404,7 +404,7 @@ void BRepOffsetAPI_ThruSections::Build()
 
 //=======================================================================
 //function : CreateRuled
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::CreateRuled()
@@ -426,16 +426,16 @@ void BRepOffsetAPI_ThruSections::CreateRuled()
 
     if (vClosed) {
 
-      TopoDS_Solid solid;      
+      TopoDS_Solid solid;
       BRep_Builder B;
-      B.MakeSolid(solid); 
+      B.MakeSolid(solid);
       B.Add(solid, shell);
 
       // verify the orientation of the solid
       BRepClass3d_SolidClassifier clas3d(solid);
       clas3d.PerformInfinitePoint(Precision::Confusion());
       if (clas3d.State() == TopAbs_IN) {
-        B.MakeSolid(solid); 
+        B.MakeSolid(solid);
         TopoDS_Shape aLocalShape = shell.Reversed();
         B.Add(solid, TopoDS::Shell(aLocalShape));
         //	B.Add(solid, TopoDS::Shell(shell.Reversed()));
@@ -534,7 +534,7 @@ void BRepOffsetAPI_ThruSections::CreateRuled()
 
 //=======================================================================
 //function : CreateSmoothed
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::CreateSmoothed()
@@ -623,6 +623,12 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
   Standard_Integer nbPnts = 21;
   TColgp_Array2OfPnt points(1, nbPnts, 1, nbSects);
 
+  fprintf(stdout,"TotalSurf is about to be called\n");
+  fprintf(stdout,"Number Sects: %d\n",nbSects);
+  fprintf(stdout,"Number Edges: %d\n",nbEdges);
+  fprintf(stdout,"w1Point: %d\n",w1Point);
+  fprintf(stdout,"w1Point: %d\n",w2Point);
+  fprintf(stdout,"vClosed: %d\n",vClosed);
   // concatenate each section to get a total surface that will be segmented
   Handle(Geom_BSplineSurface) TS;
   TS = TotalSurf(shapes,nbSects,nbEdges,w1Point,w2Point,vClosed);
@@ -632,7 +638,7 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
   }
 
   TopoDS_Shape firstEdge;
-  for (i=1; i<=nbEdges; i++) {  
+  for (i=1; i<=nbEdges; i++) {
 
     // segmentation of TS
     Handle(Geom_BSplineSurface) surface;
@@ -804,14 +810,14 @@ void BRepOffsetAPI_ThruSections::CreateSmoothed()
     if (vClosed) {
 
       TopoDS_Solid solid;
-      B.MakeSolid(solid); 
+      B.MakeSolid(solid);
       B.Add(solid, shell);
 
       // verify the orientation the solid
       BRepClass3d_SolidClassifier clas3d(solid);
       clas3d.PerformInfinitePoint(Precision::Confusion());
       if (clas3d.State() == TopAbs_IN) {
-        B.MakeSolid(solid); 
+        B.MakeSolid(solid);
         TopoDS_Shape aLocalShape = shell.Reversed();
         B.Add(solid, TopoDS::Shell(aLocalShape));
         //	B.Add(solid, TopoDS::Shell(shell.Reversed()));
@@ -881,7 +887,7 @@ static Handle(Geom_BSplineCurve) EdgeToBSpline (const TopoDS_Edge& theEdge)
       Standard_NullObject::Raise("Null 3D curve in edge");
 
     // convert its part used by edge to bspline; note that if edge curve is bspline,
-    // conversion made via trimmed curve is still needed -- it will copy it, segment 
+    // conversion made via trimmed curve is still needed -- it will copy it, segment
     // as appropriate, and remove periodicity if it is periodic (deadly for approximator)
     Handle(Geom_TrimmedCurve) aTrimCurve = new Geom_TrimmedCurve (aCurve, aFirst, aLast);
 
@@ -918,7 +924,7 @@ static Handle(Geom_BSplineCurve) EdgeToBSpline (const TopoDS_Edge& theEdge)
 
 //=======================================================================
 //function : TotalSurf
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::
@@ -961,7 +967,7 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::
 
   for (j=jdeb; j<=jfin; j++) {
 
-    // case of looping sections 
+    // case of looping sections
     if (j==jfin && vClosed) {
       section.AddCurve(BS1);
     }
@@ -974,10 +980,10 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::
       // initialization
       GeomConvert_CompCurveToBSplineCurve CompBS(curvBS);
 
-      for (i=2; i<=NbEdges; i++) {  
+      for (i=2; i<=NbEdges; i++) {
         // read the edge
         TopoDS_Edge aNextEdge = TopoDS::Edge (shapes((j-1)*NbEdges+i));
-        Standard_Real aTolV = Precision::Confusion();  
+        Standard_Real aTolV = Precision::Confusion();
         TopExp::Vertices(aNextEdge,vf,vl);
         aTolV = Max(aTolV, BRep_Tool::Tolerance(vf));
         aTolV = Max(aTolV, BRep_Tool::Tolerance(vl));
@@ -1032,14 +1038,14 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::
   if(myUseSmoothing) {
     anApprox.SetCriteriumWeight(myCritWeights[0], myCritWeights[1], myCritWeights[2]);
     anApprox.PerformSmoothing(line, section);
-  } 
+  }
   else {
     anApprox.SetParType(myParamType);
     anApprox.Perform(line, section, SpApprox);
   }
 
   if(anApprox.IsDone()) {
-    surface = 
+    surface =
       new Geom_BSplineSurface(anApprox.SurfPoles(), anApprox.SurfWeights(),
       anApprox.SurfUKnots(), anApprox.SurfVKnots(),
       anApprox.SurfUMults(), anApprox.SurfVMults(),
@@ -1052,7 +1058,7 @@ Handle(Geom_BSplineSurface) BRepOffsetAPI_ThruSections::
 
 //=======================================================================
 //function : FirstShape
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 const TopoDS_Shape& BRepOffsetAPI_ThruSections::FirstShape() const
@@ -1062,7 +1068,7 @@ const TopoDS_Shape& BRepOffsetAPI_ThruSections::FirstShape() const
 
 //=======================================================================
 //function : LastShape
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 const TopoDS_Shape& BRepOffsetAPI_ThruSections::LastShape() const
@@ -1072,7 +1078,7 @@ const TopoDS_Shape& BRepOffsetAPI_ThruSections::LastShape() const
 
 //=======================================================================
 //function : GeneratedFace
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 TopoDS_Shape BRepOffsetAPI_ThruSections::GeneratedFace(const TopoDS_Shape& edge) const
@@ -1093,7 +1099,7 @@ TopoDS_Shape BRepOffsetAPI_ThruSections::GeneratedFace(const TopoDS_Shape& edge)
 //           the  optimization.
 //=======================================================================
 //
-void BRepOffsetAPI_ThruSections::CriteriumWeight(Standard_Real& W1, Standard_Real& W2, Standard_Real& W3) const 
+void BRepOffsetAPI_ThruSections::CriteriumWeight(Standard_Real& W1, Standard_Real& W2, Standard_Real& W3) const
 {
   W1 = myCritWeights[0];
   W2 = myCritWeights[1];
@@ -1101,7 +1107,7 @@ void BRepOffsetAPI_ThruSections::CriteriumWeight(Standard_Real& W1, Standard_Rea
 }
 //=======================================================================
 //function : SetCriteriumWeight
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::SetCriteriumWeight(const Standard_Real W1, const Standard_Real W2, const Standard_Real W3)
@@ -1113,7 +1119,7 @@ void BRepOffsetAPI_ThruSections::SetCriteriumWeight(const Standard_Real W1, cons
 }
 //=======================================================================
 //function : SetContinuity
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::SetContinuity (const GeomAbs_Shape TheCont)
@@ -1123,7 +1129,7 @@ void BRepOffsetAPI_ThruSections::SetContinuity (const GeomAbs_Shape TheCont)
 
 //=======================================================================
 //function : Continuity
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 GeomAbs_Shape BRepOffsetAPI_ThruSections::Continuity () const
@@ -1133,7 +1139,7 @@ GeomAbs_Shape BRepOffsetAPI_ThruSections::Continuity () const
 
 //=======================================================================
 //function : SetParType
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::SetParType (const Approx_ParametrizationType ParType)
@@ -1143,7 +1149,7 @@ void BRepOffsetAPI_ThruSections::SetParType (const Approx_ParametrizationType Pa
 
 //=======================================================================
 //function : ParType
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 Approx_ParametrizationType BRepOffsetAPI_ThruSections::ParType () const
@@ -1153,7 +1159,7 @@ Approx_ParametrizationType BRepOffsetAPI_ThruSections::ParType () const
 
 //=======================================================================
 //function : SetMaxDegree
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections:: SetMaxDegree(const Standard_Integer MaxDeg)
@@ -1163,7 +1169,7 @@ void BRepOffsetAPI_ThruSections:: SetMaxDegree(const Standard_Integer MaxDeg)
 
 //=======================================================================
 //function : MaxDegree
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 Standard_Integer  BRepOffsetAPI_ThruSections::MaxDegree () const
@@ -1173,7 +1179,7 @@ Standard_Integer  BRepOffsetAPI_ThruSections::MaxDegree () const
 
 //=======================================================================
 //function : SetSmoothing
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void BRepOffsetAPI_ThruSections::SetSmoothing(const Standard_Boolean UseVar)
@@ -1183,7 +1189,7 @@ void BRepOffsetAPI_ThruSections::SetSmoothing(const Standard_Boolean UseVar)
 
 //=======================================================================
 //function : UseSmoothing
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 Standard_Boolean BRepOffsetAPI_ThruSections::UseSmoothing () const

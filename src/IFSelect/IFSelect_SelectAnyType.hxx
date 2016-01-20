@@ -46,12 +46,12 @@ public:
   //! Returns True for an Entity (model->Value(num)) which is kind
   //! of the choosen type, given by the method TypeForMatch.
   //! Criterium is IsKind.
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SelectAnyType,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(IFSelect_SelectAnyType,IFSelect_SelectExtract)
 
 protected:
 

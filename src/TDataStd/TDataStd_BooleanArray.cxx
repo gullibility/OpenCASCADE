@@ -21,8 +21,6 @@
 #include <TDF_Label.hxx>
 #include <TDF_RelocationTable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_BooleanArray,TDF_Attribute)
-
 static Standard_Integer DegreeOf2(const Standard_Integer degree)
 {
   switch (degree)

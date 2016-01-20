@@ -12,7 +12,6 @@ restore [locate_data_file BUC60895.brep] result
 fsameparameter result
 checkshape result
 
-checkprops result -l 12.6012 
-checksection result
+set length 12.6012
 set 2dviewer 0
 

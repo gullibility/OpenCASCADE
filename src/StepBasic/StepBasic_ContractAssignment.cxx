@@ -20,8 +20,6 @@
 #include <StepBasic_Contract.hxx>
 #include <StepBasic_ContractAssignment.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ContractAssignment,MMgt_TShared)
-
 //=======================================================================
 //function : StepBasic_ContractAssignment
 //purpose  : 

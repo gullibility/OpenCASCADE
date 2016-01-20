@@ -15,6 +15,4 @@
 
 #include <StepRepr_Tangent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_Tangent,StepRepr_DerivedShapeAspect)
-
 StepRepr_Tangent::StepRepr_Tangent ()    {  }

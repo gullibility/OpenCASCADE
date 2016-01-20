@@ -21,8 +21,6 @@
 #include <TCollection_AsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectSent,IFSelect_SelectExtract)
-
 IFSelect_SelectSent::IFSelect_SelectSent
   (const Standard_Integer sentcount, const Standard_Boolean atleast)
       {  thecnt = sentcount;  thelst = atleast;  }

@@ -27,8 +27,6 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_TypedValue,MMgt_TShared)
-
 // Not Used :
 //static  char defmess[30];
 static Handle(Dico_DictionaryOfTransient) libtv()

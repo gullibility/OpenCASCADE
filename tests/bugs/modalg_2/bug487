@@ -24,8 +24,7 @@ explode result sh
 
 renamevar result_1 result
 
-checkprops result -s 6265.68 
-checkshape result
+set square 6265.68
 set 3dviewer 1
 
 

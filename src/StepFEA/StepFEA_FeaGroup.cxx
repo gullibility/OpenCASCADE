@@ -20,8 +20,6 @@
 #include <StepFEA_FeaModel.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaGroup,StepBasic_Group)
-
 //=======================================================================
 //function : StepFEA_FeaGroup
 //purpose  : 

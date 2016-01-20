@@ -18,8 +18,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectModelRoots,IFSelect_SelectBase)
-
 IFSelect_SelectModelRoots::IFSelect_SelectModelRoots ()    {  }
 
     Interface_EntityIterator  IFSelect_SelectModelRoots::RootResult

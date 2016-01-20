@@ -60,17 +60,17 @@ public:
   //! Returns True if <ent> is an IGES Entity with Level Number
   //! admits the criterium (= value if single level, or one of the
   //! attached level numbers = value if level list)
-  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Sort (const Standard_Integer rank, const Handle(Standard_Transient)& ent, const Handle(Interface_InterfaceModel)& model) const;
   
   //! Returns the Selection criterium :
   //! "IGES Entity, Level Number admits <nn>" (if nn > 0) or
   //! "IGES Entity attached to no Level" (if nn = 0)
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString ExtractLabel() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectLevelNumber,IFSelect_SelectExtract)
+  DEFINE_STANDARD_RTTI(IGESSelect_SelectLevelNumber,IFSelect_SelectExtract)
 
 protected:
 

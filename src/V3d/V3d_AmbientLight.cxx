@@ -17,8 +17,6 @@
 
 #include <V3d_AmbientLight.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_AmbientLight,V3d_Light)
-
 // =======================================================================
 // function : V3d_AmbientLight
 // purpose  :

@@ -20,8 +20,6 @@
 #include <IGESGraph_LineFontDefTemplate.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESGraph_LineFontDefTemplate,IGESData_LineFontEntity)
-
 IGESGraph_LineFontDefTemplate::IGESGraph_LineFontDefTemplate ()    {  }
 
 

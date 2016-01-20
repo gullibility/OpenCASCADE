@@ -12,6 +12,5 @@ explode sh e
 
 fillet result sh 5 sh_18
 
-checkprops result -s 64281.8 
-checkshape result
+set square 64281.8
 set 2dviewer 0

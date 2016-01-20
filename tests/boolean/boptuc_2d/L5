@@ -2,7 +2,6 @@ restore [locate_data_file case_7_shell.brep] a
 restore [locate_data_file case_7_edge3.brep] b
 bop a b
 boptuc result
-checkprops result -l 710.965
-checksection result
+set length 710.965
 set nbsh_v 8
 set nbsh_e 4

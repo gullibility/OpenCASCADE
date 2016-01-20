@@ -25,7 +25,6 @@
 class Standard_Transient;
 class StepShape_PrecisionQualifier;
 class StepShape_TypeQualifier;
-class StepShape_ValueFormatTypeQualifier;
 
 
 //! Added for Dimensional Tolerances
@@ -49,9 +48,6 @@ public:
   
   //! Returns Value as TypeQualifier
   Standard_EXPORT Handle(StepShape_TypeQualifier) TypeQualifier() const;
-
-  //! Returns Value as ValueFormatTypeQualifier
-  Standard_EXPORT Handle(StepShape_ValueFormatTypeQualifier) ValueFormatTypeQualifier() const;
 
 
 

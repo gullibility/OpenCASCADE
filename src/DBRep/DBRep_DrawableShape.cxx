@@ -60,8 +60,6 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DBRep_DrawableShape,Draw_Drawable3D)
-
 static Standard_Real IsoRatio = 1.001;
 
 static Standard_Integer MaxPlotCount = 5; // To avoid huge recursive calls in
@@ -575,7 +573,6 @@ void  DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
 	      case GeomAbs_Hyperbola :
 	      case GeomAbs_BezierCurve :
 	      case GeomAbs_BSplineCurve :
-	      case GeomAbs_OffsetCurve :
 	      case GeomAbs_OtherCurve :
 		for (j = 1; j <= myDiscret/2; j++) {
 		  Handle(DBRep_Face) aLocalFace = F;	
@@ -700,7 +697,6 @@ void  DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
 	case GeomAbs_Hyperbola :
 	case GeomAbs_BezierCurve :
 	case GeomAbs_BSplineCurve :
-	case GeomAbs_OffsetCurve :
 	case GeomAbs_OtherCurve :
 	  for (j = 1; j <= myDiscret/2; j++) {
 	    Handle(DBRep_Edge) aLocaLEdge(E);
@@ -839,11 +835,7 @@ void DBRep_DrawableShape::DisplayHiddenLines(Draw_Display& dis)
   if (!strcmp(dout.GetType(id),"PERS")) focal = dout.Focal(id);
   Standard_Real Ang,Def;
   HLRBRep::PolyHLRAngleAndDeflection(myAng,Ang,Def);
-  BRepMesh_FastDiscret::Parameters aMeshParams;
-  aMeshParams.Relative = Standard_True;
-  aMeshParams.Deflection = Def;
-  aMeshParams.Angle = Ang;
-  BRepMesh_IncrementalMesh MESH(myShape, aMeshParams);
+  BRepMesh_IncrementalMesh MESH(myShape, Def, Standard_True, Ang);
   Standard_Boolean recompute = Standard_True;
   // find if the view must be recomputed
   DBRep_ListIteratorOfListOfHideData it(myHidData);

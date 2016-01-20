@@ -16,8 +16,6 @@
 #include <NCollection_WinHeapAllocator.hxx>
 #include <Standard_OutOfMemory.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(NCollection_WinHeapAllocator,NCollection_BaseAllocator)
-
 #if(defined(_WIN32) || defined(__WIN32__))
   #include <windows.h>
 #endif
@@ -39,8 +37,6 @@ NCollection_WinHeapAllocator::NCollection_WinHeapAllocator
   ULONG aHeapInfo = 2;
   HeapSetInformation (myHeapH, HeapCompatibilityInformation,
                       &aHeapInfo, sizeof(aHeapInfo));
-#else
-  (void )theInitSizeBytes;
 #endif
 }
 

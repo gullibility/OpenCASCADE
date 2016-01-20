@@ -21,8 +21,6 @@
 #include <TCollection_AsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectRange,IFSelect_SelectExtract)
-
 IFSelect_SelectRange::IFSelect_SelectRange ()    {  }
 
     void  IFSelect_SelectRange::SetRange

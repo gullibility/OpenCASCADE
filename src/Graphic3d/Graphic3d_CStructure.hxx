@@ -129,7 +129,8 @@ public:
 
   CALL_DEF_COLOR HighlightColor;
 
-  Graphic3d_Mat4           Transformation;
+  float Transformation[4][4];
+  Graphic3d_TypeOfComposition Composition;
 
   int   ContainsFacet;
 
@@ -160,7 +161,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_CStructure,Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTI(Graphic3d_CStructure, Standard_Transient) // Type definition
 
 };
 

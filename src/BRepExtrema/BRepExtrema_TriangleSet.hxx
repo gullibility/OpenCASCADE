@@ -39,16 +39,16 @@ public:
 public: //! @name methods implementing BVH set interface
 
   //! Returns total number of triangles.
-  Standard_Integer Size() const Standard_OVERRIDE;
+  Standard_Integer Size() const;
 
   //! Returns AABB of the given triangle.
-  BVH_Box<Standard_Real, 3> Box (const Standard_Integer theIndex) const Standard_OVERRIDE;
+  BVH_Box<Standard_Real, 3> Box (const Standard_Integer theIndex) const;
 
   //! Returns centroid position along specified axis.
-  Standard_Real Center (const Standard_Integer theIndex, const Standard_Integer theAxis) const Standard_OVERRIDE;
+  Standard_Real Center (const Standard_Integer theIndex, const Standard_Integer theAxis) const;
 
   //! Swaps indices of two specified triangles.
-  void Swap (const Standard_Integer theIndex1, const Standard_Integer theIndex2) Standard_OVERRIDE;
+  void Swap (const Standard_Integer theIndex1, const Standard_Integer theIndex2);
 
 public:
 
@@ -80,7 +80,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(BRepExtrema_TriangleSet,Standard_Transient)
+  DEFINE_STANDARD_RTTI(BRepExtrema_TriangleSet, Standard_Transient)
 
 };
 

@@ -18,8 +18,6 @@
 #include <OpenGl_LineAttributes.hxx>
 #include <OpenGl_Context.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_LineAttributes,OpenGl_Resource)
-
 static const unsigned int myInteriors[TEL_HS_USER_DEF_START][32] =
 {
   //TEL_HS_SOLID
@@ -545,8 +543,6 @@ void OpenGl_LineAttributes::Init (const Handle(OpenGl_Context)& theGlCtx)
     glPolygonStipple ((const GLubyte* )myInteriors[i < nbi ? i : 0]);
     glEndList();
   }
-#else
-  (void )theGlCtx;
 #endif
 }
 
@@ -557,11 +553,6 @@ void OpenGl_LineAttributes::Init (const Handle(OpenGl_Context)& theGlCtx)
 void OpenGl_LineAttributes::SetTypeOfHatch (const int theType) const
 {
 #if !defined(GL_ES_VERSION_2_0)
-  if (myPatternBase == 0)
-  {
-    return;
-  }
-
   if (theType != 0)
   {
     glCallList ((GLuint )myPatternBase + (GLuint )theType);
@@ -569,7 +560,5 @@ void OpenGl_LineAttributes::SetTypeOfHatch (const int theType) const
   }
   else
     glDisable (GL_POLYGON_STIPPLE);
-#else
-  (void )theType;
 #endif
 }

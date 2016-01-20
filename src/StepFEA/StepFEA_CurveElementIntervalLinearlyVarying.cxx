@@ -20,8 +20,6 @@
 #include <StepFEA_CurveElementIntervalLinearlyVarying.hxx>
 #include <StepFEA_CurveElementLocation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementIntervalLinearlyVarying,StepFEA_CurveElementInterval)
-
 //=======================================================================
 //function : StepFEA_CurveElementIntervalLinearlyVarying
 //purpose  : 

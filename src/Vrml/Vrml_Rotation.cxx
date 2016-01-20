@@ -38,18 +38,18 @@ Vrml_Rotation::Vrml_Rotation(const Vrml_SFRotation& aRotation)
 
  Standard_OStream& Vrml_Rotation::Print(Standard_OStream& anOStream) const
 {
- anOStream  << "Rotation {\n";
+ anOStream  << "Rotation {" << endl;
 
  if ( Abs(myRotation.RotationX() - 0) > 0.0001 || 
      Abs(myRotation.RotationY() - 0) > 0.0001 || 
      Abs(myRotation.RotationZ() - 1) > 0.0001 ||
      Abs(myRotation.Angle() - 0) > 0.0001 ) 
    {
-    anOStream  << "    rotation\t";
-    anOStream << myRotation.RotationX() << " " << myRotation.RotationY() << " ";
-    anOStream << myRotation.RotationZ() << " " << myRotation.Angle() << "\n";
+    anOStream  << "    rotation" << '\t';
+    anOStream << myRotation.RotationX() << ' ' << myRotation.RotationY() << ' ';
+    anOStream << myRotation.RotationZ() << ' ' << myRotation.Angle() << endl;
    }
 
- anOStream  << "}\n";
+ anOStream  << '}' << endl;
  return anOStream;
 }

@@ -11,4 +11,4 @@ buildevol
 explode P Sh
 copy P_1 result
 
-checkprops result -s 485351
+set square 485351

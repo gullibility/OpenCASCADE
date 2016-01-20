@@ -24,6 +24,5 @@ if { ${aStatus} != 0 } {
    puts "OK ${BugNumber}"
 }
 
-checkprops result -s 0.38266 
-checkshape result
+set square 0.38266
 set 3dviewer 0

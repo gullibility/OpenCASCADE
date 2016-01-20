@@ -40,13 +40,13 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(HeaderSection_HeaderRecognizer,StepData_FileRecognizer)
+  DEFINE_STANDARD_RTTI(HeaderSection_HeaderRecognizer,StepData_FileRecognizer)
 
 protected:
 
   
   //! Recognizes data types of Header STEP Standard
-  Standard_EXPORT void Eval (const TCollection_AsciiString& key) Standard_OVERRIDE;
+  Standard_EXPORT void Eval (const TCollection_AsciiString& key);
 
 
 

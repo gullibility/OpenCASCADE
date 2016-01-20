@@ -29,8 +29,7 @@ if { [regexp {Faulty} $che ] == 1 } {
     }
 }
 
-checkprops result -s 35009.9 
-checkshape result
+set square 35009.9
 set 2dviewer 0
 
 

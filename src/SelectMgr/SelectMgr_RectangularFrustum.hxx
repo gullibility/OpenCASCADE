@@ -17,7 +17,6 @@
 #define _SelectMgr_RectangularFrustum_HeaderFile
 
 #include <SelectMgr_Frustum.hxx>
-#include <SelectMgr_ViewClipRange.hxx>
 
 //! This class contains representation of rectangular selecting frustum, created in case
 //! of point and box selection, and algorithms for overlap detection between selecting
@@ -34,7 +33,7 @@ class SelectMgr_RectangularFrustum : public SelectMgr_Frustum<4>
 {
 public:
 
-  SelectMgr_RectangularFrustum() : myScale (1.0) {};
+  SelectMgr_RectangularFrustum() {};
 
   //! Builds volume according to the point and given pixel tolerance
   Standard_EXPORT virtual void Build (const gp_Pnt2d& thePoint) Standard_OVERRIDE;
@@ -107,10 +106,6 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsClipped (const Graphic3d_SequenceOfHClipPlane& thePlanes,
                                                       const Standard_Real theDepth) Standard_OVERRIDE;
 
-  //! Valid for point selection only!
-  //! Computes depth range for global (defined for the whole view) clipping planes.
-  Standard_EXPORT virtual void SetViewClipping (const Graphic3d_SequenceOfHClipPlane& thePlanes) Standard_OVERRIDE;
-
   //! A set of helper functions that return rectangular selecting frustum data
   inline const gp_Pnt* GetVertices() const { return myVertices; }
 
@@ -127,14 +122,6 @@ protected:
                                                  const gp_Pnt& thePntOnPlane,
                                                  Standard_Real& theDepth);
 
-  //! Computes valid depth range for the given clipping planes
-  Standard_EXPORT void computeClippingRange (const Graphic3d_SequenceOfHClipPlane& thePlanes,
-                                             Standard_Real& theDepthMin,
-                                             Standard_Real& theDepthMax);
-
-  //! Returns false if theDepth must be clipped by current view clip range
-  Standard_EXPORT Standard_Boolean isViewClippingOk (const Standard_Real theDepth) const;
-
 private:
 
   void cacheVertexProjections (SelectMgr_RectangularFrustum* theFrustum);
@@ -147,12 +134,10 @@ private:
 
 private:
 
-  gp_Pnt                  myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
-  gp_Pnt                  myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
-  gp_Vec                  myViewRayDir;
-  gp_Pnt2d                myMousePos;                  //!< Mouse coordinates
-  Standard_Real           myScale;                     //!< Scale factor of applied transformation, if there was any
-  SelectMgr_ViewClipRange myViewClipRange;
+  gp_Pnt   myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
+  gp_Pnt   myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
+  gp_Vec   myViewRayDir;
+  gp_Pnt2d myMousePos;                  //!< Mouse coordinates
 };
 
 #endif // _SelectMgr_RectangularFrustum_HeaderFile

@@ -15,6 +15,4 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_PhysicallyModeledProductDefinition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PhysicallyModeledProductDefinition,StepBasic_ProductDefinition)
-
 StepBasic_PhysicallyModeledProductDefinition::StepBasic_PhysicallyModeledProductDefinition  ()    {  }

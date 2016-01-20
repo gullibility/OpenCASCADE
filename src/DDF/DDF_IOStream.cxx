@@ -162,7 +162,7 @@ Storage_Error DDF_IOStream::Close()
 //purpose  : 
 //=======================================================================
 
-Standard_CString DDF_IOStream::MagicNumber()
+const Standard_CString DDF_IOStream::MagicNumber()
 { return MAGICNUMBER; }
 
 //=======================================================================
@@ -700,15 +700,6 @@ void DDF_IOStream::ReadInfo(Standard_Integer& nbObj,
     userInfo.Append(line);
     line.Clear();
   }
-}
-
-//=======================================================================
-//function : ReadCompleteInfo
-//purpose  : 
-//=======================================================================
-void DDF_IOStream::ReadCompleteInfo( Standard_IStream& /*theIStream*/, Handle(Storage_Data)& /*theData*/ )
-{
-
 }
 
 //=======================================================================

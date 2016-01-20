@@ -33,12 +33,12 @@ class CDM_COutMessageDriver : public CDM_MessageDriver
 public:
 
   
-  Standard_EXPORT void Write (const Standard_ExtString aString) Standard_OVERRIDE;
+  Standard_EXPORT void Write (const Standard_ExtString aString);
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(CDM_COutMessageDriver,CDM_MessageDriver)
+  DEFINE_STANDARD_RTTI(CDM_COutMessageDriver,CDM_MessageDriver)
 
 protected:
 

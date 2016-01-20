@@ -39,15 +39,15 @@ public:
     TopoDS_TShell();
   
   //! Returns SHELL.
-  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const Standard_OVERRIDE;
+  Standard_EXPORT TopAbs_ShapeEnum ShapeType() const;
   
   //! Returns an empty TShell.
-  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TopoDS_TShape) EmptyCopy() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TShell,TopoDS_TShape)
+  DEFINE_STANDARD_RTTI(TopoDS_TShell,TopoDS_TShape)
 
 protected:
 

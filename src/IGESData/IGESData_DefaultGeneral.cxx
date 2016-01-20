@@ -30,8 +30,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_DefaultGeneral,IGESData_GeneralModule)
-
 IGESData_DefaultGeneral::IGESData_DefaultGeneral ()
 {  Interface_GeneralLib::SetGlobal(this, IGESData::Protocol());  }
 

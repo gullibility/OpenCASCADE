@@ -66,16 +66,16 @@ public:
   Standard_EXPORT Handle(TColStd_HSequenceOfHAsciiString) Lines() const;
   
   //! Sends the comment lines to the file (Start Section)
-  Standard_EXPORT void Perform (IFSelect_ContextWrite& ctx, IGESData_IGESWriter& writer) const Standard_OVERRIDE;
+  Standard_EXPORT void Perform (IFSelect_ContextWrite& ctx, IGESData_IGESWriter& writer) const;
   
   //! Returns specific Label, which is
   //! "Add <nn> Comment Lines (Start Section)"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT TCollection_AsciiString Label() const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_AddFileComment,IGESSelect_FileModifier)
+  DEFINE_STANDARD_RTTI(IGESSelect_AddFileComment,IGESSelect_FileModifier)
 
 protected:
 

@@ -6,4 +6,4 @@ prism pcy pc_2 0 0 10
 bop pc pcy
 bopcommon result
 
-checkprops result -s 919.56
+set square 919.56

@@ -23,8 +23,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESBasic_ExternalRefFileIndex,IGESData_IGESEntity)
-
 IGESBasic_ExternalRefFileIndex::IGESBasic_ExternalRefFileIndex ()    {  }
 
     void  IGESBasic_ExternalRefFileIndex::Init

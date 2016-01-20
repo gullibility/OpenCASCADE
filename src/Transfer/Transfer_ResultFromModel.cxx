@@ -25,8 +25,6 @@
 #include <Transfer_ResultFromTransient.hxx>
 #include <Transfer_TransientProcess.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_ResultFromModel,MMgt_TShared)
-
 Transfer_ResultFromModel::Transfer_ResultFromModel ()
       {  themnum = 0;  themchk = Interface_CheckAny;  }
 

@@ -24,8 +24,6 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_ReferenceDriver,XmlMDF_ADriver)
-
 //=======================================================================
 //function : XmlMDF_ReferenceDriver
 //purpose  : Constructor

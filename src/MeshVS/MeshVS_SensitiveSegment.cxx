@@ -18,8 +18,6 @@
 #include <SelectBasics_EntityOwner.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_SensitiveSegment,Select3D_SensitiveSegment)
-
 //=======================================================================
 // name    : MeshVS_SensitiveSegment::MeshVS_SensitiveSegment
 // Purpose :

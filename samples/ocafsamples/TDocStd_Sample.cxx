@@ -18,11 +18,11 @@
 #include <TDF_Label.hxx>
 #include <TDocStd_Application.hxx>
 #include <TDocStd_Document.hxx>
-#include <TDocStd_XLinkTool.hxx> 
-#include <CDF_Session.hxx> 
+#include <TDocStd_XLinkTool.hxx>
+#include <CDF_Session.hxx>
 
 // ====================================================================================
-// This sample contains template for typical actions with OCAF document at application 
+// This sample contains template for typical actions with OCAF document at application
 // level (store / retrieve)
 // ====================================================================================
 
@@ -30,10 +30,10 @@
 static void Sample()
 {
 
-  
-  //...Creating application 
 
-  Handle(TDocStd_Application) app; 
+  //...Creating application
+
+  Handle(TDocStd_Application) app;
 
   // the application is now handled by the CDF_Session variable
 
@@ -42,29 +42,29 @@ static void Sample()
 
 
   if (!CDF_Session::Exists()) {
-    Handle(CDF_Session) S = CDF_Session::CurrentSession();  
-    if (!S->HasCurrentApplication())  
+    Handle(CDF_Session) S = CDF_Session::CurrentSession();
+    if (!S->HasCurrentApplication())
     Standard_DomainError::Raise("DDocStd::Find no applicative session");
     app = Handle(TDocStd_Application)::DownCast(S->CurrentApplication());
   }
   else {
     // none active application
   }
-  
-  //...Creating the new document (document conatins a framework) 
+
+  //...Creating the new document (document conatins a framework)
 
   Handle(TDocStd_Document) doc;
   app->NewDocument("Standard", doc);
-  
-  //...Getting application to which the document belongs
-
-  app =  Handle(TDocStd_Application)::DownCast(doc->Application());
-
 
   //...Getting application to which the document belongs
 
   app =  Handle(TDocStd_Application)::DownCast(doc->Application());
- 
+
+
+  //...Getting application to which the document belongs
+
+  app =  Handle(TDocStd_Application)::DownCast(doc->Application());
+
 
   //...Getting data framework from document
 
@@ -72,7 +72,7 @@ static void Sample()
 
   //...Retrieving the document from a label of its framework
 
-  TDF_Label label; 
+  TDF_Label label;
   doc =  TDocStd_Document::Get(label);
 
   //... Filling document with data
@@ -94,7 +94,7 @@ static void Sample()
 
   //Coping content of a document to another document with possibility update copy in future
 
-  Handle(TDocStd_Document) doc1;  
+  Handle(TDocStd_Document) doc1;
   Handle(TDocStd_Document) doc2;
 
 
@@ -109,7 +109,7 @@ static void Sample()
 
   //...Something is chaneged in source document
 
-  //Updating copy in target document 
+  //Updating copy in target document
 
   XLinkTool.UpdateLink(target);
 
@@ -117,7 +117,7 @@ static void Sample()
 
   XLinkTool.Copy(target, source); //Now target document has a copy of source document, there is no link between
                                   //the copy  and original
-  
-  
+
+
 }
 #endif

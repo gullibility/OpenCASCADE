@@ -34,7 +34,7 @@ public:
   Standard_EXPORT virtual ~OpenGl_PointSprite();
 
   //! Destroy object - will release GPU memory if any.
-  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx);
 
   //! @return true if this is display list bitmap
   inline Standard_Boolean IsDisplayList() const
@@ -56,7 +56,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_PointSprite,OpenGl_Texture) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_PointSprite, OpenGl_Texture) // Type definition
 
 };
 

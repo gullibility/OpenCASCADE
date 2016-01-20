@@ -18,8 +18,6 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignType,IFSelect_Signature)
-
 static Standard_CString nulsign = "";
 
 

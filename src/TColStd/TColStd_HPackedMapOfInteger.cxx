@@ -17,8 +17,6 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TColStd_HPackedMapOfInteger,MMgt_TShared)
-
 //! Constructor of empty map
 TColStd_HPackedMapOfInteger::TColStd_HPackedMapOfInteger (const Standard_Integer NbBuckets)
 {

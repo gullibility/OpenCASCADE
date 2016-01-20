@@ -17,8 +17,6 @@
 #include <StepBasic_DocumentUsageConstraint.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentUsageConstraint,MMgt_TShared)
-
 StepBasic_DocumentUsageConstraint::StepBasic_DocumentUsageConstraint  ()    {  }
 
 void  StepBasic_DocumentUsageConstraint::Init

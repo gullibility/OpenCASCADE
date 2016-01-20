@@ -19,8 +19,6 @@
 #include <StepShape_ConnectedEdgeSet.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ConnectedEdgeSet,StepShape_TopologicalRepresentationItem)
-
 //=======================================================================
 //function : StepShape_ConnectedEdgeSet
 //purpose  : 

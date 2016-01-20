@@ -34,8 +34,6 @@
 #include <TDF_Label.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDF_Browser,Draw_Drawable3D)
-
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Communication convention with tcl:
 // tcl waits for a string of characters, being an information list.

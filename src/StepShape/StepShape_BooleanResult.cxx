@@ -17,8 +17,6 @@
 #include <StepShape_BooleanResult.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_BooleanResult,StepGeom_GeometricRepresentationItem)
-
 StepShape_BooleanResult::StepShape_BooleanResult ()  {}
 
 void StepShape_BooleanResult::Init(

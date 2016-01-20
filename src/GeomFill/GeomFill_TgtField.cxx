@@ -20,8 +20,6 @@
 #include <Law_BSpline.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TgtField,MMgt_TShared)
-
 //=======================================================================
 //function : IsScalable
 //purpose  : 

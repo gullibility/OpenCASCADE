@@ -67,8 +67,6 @@
 #include <TopTools_MapIteratorOfMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TNaming_Naming,TDF_Attribute)
-
 // #include <TNaming_NCollections.hxx>
 typedef NCollection_Map<TopoDS_Shape> TNaming_MapOfShape; 
 typedef TNaming_MapOfShape::Iterator TNaming_MapIteratorOfMapOfShape;

@@ -56,7 +56,7 @@ public:
   
     Standard_Boolean DisplayHidden() const;
   
-  Standard_EXPORT void DrawOn (Draw_Display& D) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& D) const;
   
     Standard_Boolean Debug() const;
   
@@ -65,7 +65,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_DrawablePolyEdgeTool,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(HLRTest_DrawablePolyEdgeTool,Draw_Drawable3D)
 
 protected:
 

@@ -18,8 +18,6 @@
 #include <StepShape_Vertex.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_EdgeCurve,StepShape_Edge)
-
 StepShape_EdgeCurve::StepShape_EdgeCurve ()  {}
 
 void StepShape_EdgeCurve::Init(

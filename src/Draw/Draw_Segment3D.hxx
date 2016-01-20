@@ -40,7 +40,7 @@ public:
   
   Standard_EXPORT Draw_Segment3D(const gp_Pnt& p1, const gp_Pnt& p2, const Draw_Color& col);
   
-  Standard_EXPORT void DrawOn (Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn (Draw_Display& dis) const;
   
   Standard_EXPORT const gp_Pnt& First() const;
   
@@ -53,7 +53,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Draw_Segment3D,Draw_Drawable3D)
+  DEFINE_STANDARD_RTTI(Draw_Segment3D,Draw_Drawable3D)
 
 protected:
 

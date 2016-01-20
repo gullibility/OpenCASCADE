@@ -72,14 +72,10 @@ public:
   Standard_EXPORT const IntTools_SequenceOfPntOn2Faces& Points() const;
   
 
-  //! Returns tolerance reached during approximation,
-  //! and possibly increased to cover more area due to a small angle between surfaces.
+  //! Returns tolerance reached during approximation.
   //! If approximation was not done, returns zero.
   Standard_EXPORT Standard_Real TolReached3d() const;
-
-  //! Returns tolerance reached during approximation, without any increase.
-  //! If approximation was not done, returns zero.
-  Standard_EXPORT Standard_Real TolReal() const;
+  
 
   //! Returns tolerance reached during approximation.
   //! If approximation was not done, returns zero.
@@ -96,7 +92,7 @@ public:
 
   //! Returns True if faces are tangent
   Standard_EXPORT Standard_Boolean TangentFaces() const;
-
+  
 
   //! Provides post-processing the result lines.
   //! <bToSplit> - the flag.
@@ -121,10 +117,7 @@ public:
 protected:
 
   
-  Standard_EXPORT void MakeCurve (const Standard_Integer Index,
-                                  const Handle(Adaptor3d_TopolTool)& D1,
-                                  const Handle(Adaptor3d_TopolTool)& D2,
-                                  const Standard_Real theToler);
+  Standard_EXPORT void MakeCurve (const Standard_Integer Index, const Handle(Adaptor3d_TopolTool)& D1, const Handle(Adaptor3d_TopolTool)& D2);
   
   Standard_EXPORT void ComputeTolReached3d();
   
@@ -145,7 +138,6 @@ private:
   Standard_Integer myNbrestr;
   Standard_Real myTolReached2d;
   Standard_Real myTolReached3d;
-  Standard_Real myTolReal;
   Standard_Boolean myApprox;
   Standard_Boolean myApprox1;
   Standard_Boolean myApprox2;

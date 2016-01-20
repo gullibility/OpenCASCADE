@@ -34,6 +34,7 @@
 //#include <ctype.h>
 
 const int XML_MIN_BUFFER = 10;
+const int FILE_NONVALUE  = -1;
 
 typedef enum {
   STATE_WAITING = 0,
@@ -62,10 +63,32 @@ static Standard_Boolean isName          (const char             * aString,
 //purpose  : Constructor (file descriptor)
 //=======================================================================
 
-LDOM_XmlReader::LDOM_XmlReader (
+LDOM_XmlReader::LDOM_XmlReader (const int                       theFileDes,
                                 const Handle(LDOM_MemManager)&  theDocument,
                                 TCollection_AsciiString&        theErrorString)
 : myEOF      (Standard_False),
+  myFileDes  (theFileDes),
+  myIStream  (cin),  // just a placeholder, myIStream will never be used anyway
+  myError    (theErrorString),
+  myDocument (theDocument),
+  myElement  (NULL),
+  myLastChild(NULL), 
+  myPtr      (&myBuffer[0]),
+  myEndPtr   (&myBuffer[0])
+{
+}
+
+//=======================================================================
+//function : LDOM_XmlReader()
+//purpose  : Constructor (istream)
+//=======================================================================
+
+LDOM_XmlReader::LDOM_XmlReader (istream&                        theInput,
+                                const Handle(LDOM_MemManager)&  theDocument,
+                                TCollection_AsciiString&        theErrorString)
+: myEOF      (Standard_False),
+  myFileDes  (FILE_NONVALUE),
+  myIStream  (theInput),
   myError    (theErrorString),
   myDocument (theDocument),
   myElement  (NULL),
@@ -80,8 +103,8 @@ LDOM_XmlReader::LDOM_XmlReader (
 //purpose  : Read a record from XML file
 //=======================================================================
 
-LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord (Standard_IStream& theIStream,
-                                        LDOM_OSStream& theData)
+LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord
+                                        (LDOM_OSStream& theData)
 {
   theData.Clear();
   myError.Clear();
@@ -113,9 +136,14 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord (Standard_IStream& theIStr
       // Read the full buffer and reset start and end buffer pointers
         myPtr    = &myBuffer[0];
         Standard_Size aNBytes;
-          theIStream.read (&myBuffer[aBytesRest],
+        if (myFileDes != FILE_NONVALUE)
+          aNBytes = read (myFileDes, &myBuffer[aBytesRest],
                           XML_BUFFER_SIZE - aBytesRest);
-          aNBytes = (Standard_Size)theIStream.gcount();
+        else {
+          myIStream.read (&myBuffer[aBytesRest],
+                          XML_BUFFER_SIZE - aBytesRest);
+          aNBytes = (Standard_Size)myIStream.gcount();
+        }
         if (aNBytes == 0)
           myEOF = Standard_True;                  // END-OF-FILE
         myEndPtr = &myBuffer[aBytesRest + aNBytes];

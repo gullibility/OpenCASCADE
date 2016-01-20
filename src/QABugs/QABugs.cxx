@@ -35,7 +35,6 @@ void QABugs::Commands(Draw_Interpretor& theCommands) {
   QABugs::Commands_17(theCommands);
   QABugs::Commands_18(theCommands);
   QABugs::Commands_19(theCommands);
-  QABugs::Commands_20(theCommands);
 
   return;
 }

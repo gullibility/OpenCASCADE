@@ -50,8 +50,6 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Chamf2dDimension,AIS_Relation)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

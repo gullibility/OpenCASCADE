@@ -12,7 +12,6 @@ restore [locate_data_file bug24360_Face_2.brep] b2
 bop b1 b2
 bopfuse result
 
-checkprops result -s 92255.4 -eps 0.1
-checkshape result
+set square 92255.4
 set 2dviewer 1
 

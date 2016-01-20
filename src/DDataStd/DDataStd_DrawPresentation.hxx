@@ -66,15 +66,15 @@ public:
   
   Standard_EXPORT Handle(Draw_Drawable3D) GetDrawable() const;
   
-  Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
+  Standard_EXPORT const Standard_GUID& ID() const;
   
-  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const;
   
-  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with) Standard_OVERRIDE;
+  Standard_EXPORT void Restore (const Handle(TDF_Attribute)& with);
   
   //! call backs for viewer updating
   //! ==============================
-  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const Standard_OVERRIDE;
+  Standard_EXPORT void Paste (const Handle(TDF_Attribute)& into, const Handle(TDF_RelocationTable)& RT) const;
   
   Standard_EXPORT virtual void AfterAddition() Standard_OVERRIDE;
   
@@ -94,7 +94,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(DDataStd_DrawPresentation,TDF_Attribute)
+  DEFINE_STANDARD_RTTI(DDataStd_DrawPresentation,TDF_Attribute)
 
 protected:
 

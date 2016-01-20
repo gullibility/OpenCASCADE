@@ -19,8 +19,6 @@
 #include <Standard_Type.hxx>
 #include <TopLoc_Location.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectBasics_EntityOwner,MMgt_TShared)
-
 //========================================
 // Function : Create
 // Purpose  : 

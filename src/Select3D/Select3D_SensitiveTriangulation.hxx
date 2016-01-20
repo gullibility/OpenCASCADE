@@ -111,7 +111,7 @@ public:
   inline const TopLoc_Location& GetInitLocation() const;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Select3D_SensitiveTriangulation,Select3D_SensitiveSet)
+  DEFINE_STANDARD_RTTI(Select3D_SensitiveTriangulation, Select3D_SensitiveSet)
 
 protected:
 
@@ -141,6 +141,7 @@ private:
   gp_Pnt                           myCDG3D;              //!< Center of the whole triangulation
   Handle(TColStd_HArray1OfInteger) myFreeEdges;
   Standard_Boolean                 mySensType;            //!< Type of sensitivity: boundary or interior
+  Standard_Integer                 myDetectedTr;
   Standard_Integer                 myPrimitivesNb;       //!< Amount of free edges or triangles depending on sensitivity type
   Handle(TColStd_HArray1OfInteger) myBVHPrimIndexes;     //!< Indexes of edges or triangles for BVH build
   mutable Select3D_BndBox3d        myBndBox;             //!< Bounding box of the whole triangulation

@@ -32,8 +32,6 @@
 #include <TColStd_HSequenceOfReal.hxx>
 #include <TColStd_ListIteratorOfListOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve2d,ShapeUpgrade_SplitCurve)
-
 //=======================================================================
 //function : ShapeUpgrade_SplitCurve2d
 //purpose  : 

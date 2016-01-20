@@ -18,7 +18,5 @@ if { [regexp {A self-intersecting wire.} $aList] } {
    puts "Faulty ${BugNumber}"
 }
 
-checkprops result -l 579.551
-checksection result
-checkshape result
+set length 579.551
 set 3dviewer 0

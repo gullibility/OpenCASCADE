@@ -41,15 +41,15 @@ public:
   Standard_EXPORT IGESSelect_Activator();
   
   //! Executes a Command Line for IGESSelect
-  Standard_EXPORT IFSelect_ReturnStatus Do (const Standard_Integer number, const Handle(IFSelect_SessionPilot)& pilot) Standard_OVERRIDE;
+  Standard_EXPORT IFSelect_ReturnStatus Do (const Standard_Integer number, const Handle(IFSelect_SessionPilot)& pilot);
   
   //! Sends a short help message for IGESSelect commands
-  Standard_EXPORT Standard_CString Help (const Standard_Integer number) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString Help (const Standard_Integer number) const;
 
 
 
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_Activator,IFSelect_Activator)
+  DEFINE_STANDARD_RTTI(IGESSelect_Activator,IFSelect_Activator)
 
 protected:
 

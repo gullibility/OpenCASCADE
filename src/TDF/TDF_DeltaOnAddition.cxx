@@ -24,8 +24,6 @@
 #include <TDF_DeltaOnAddition.hxx>
 #include <TDF_Label.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_DeltaOnAddition,TDF_AttributeDelta)
-
 //=======================================================================
 //function : TDF_DeltaOnAddition
 //purpose  : 

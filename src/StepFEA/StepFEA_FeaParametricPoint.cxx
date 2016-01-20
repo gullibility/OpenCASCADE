@@ -19,8 +19,6 @@
 #include <StepFEA_FeaParametricPoint.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaParametricPoint,StepGeom_Point)
-
 //=======================================================================
 //function : StepFEA_FeaParametricPoint
 //purpose  : 

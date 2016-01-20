@@ -19,8 +19,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Printer,Message_Printer)
-
 //=======================================================================
 //function : Draw_Printer
 //purpose  : 

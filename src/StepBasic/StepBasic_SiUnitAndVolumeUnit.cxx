@@ -20,8 +20,6 @@
 #include <StepBasic_SiUnitAndVolumeUnit.hxx>
 #include <StepBasic_VolumeUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnitAndVolumeUnit,StepBasic_SiUnit)
-
 StepBasic_SiUnitAndVolumeUnit::StepBasic_SiUnitAndVolumeUnit()
 {
 }

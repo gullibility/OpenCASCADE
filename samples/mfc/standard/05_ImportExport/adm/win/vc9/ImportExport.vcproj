@@ -54,8 +54,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CASROOT)/inc"
-				PreprocessorDefinitions="NDEBUG;_WINDOWS;WINVER=0x0500"
+				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CSF_OPT_INC)"
+				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;WNT;CSFDB;WINVER=0x0500"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -82,11 +82,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TKVCAF.lib TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
+				AdditionalDependencies="TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
 				OutputFile="../../../../win32\vc9\bin/ImportExport.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\..\win32\vc9\lib,$(CASROOT)/win32/vc9/lib"
+				AdditionalLibraryDirectories="..\..\..\..\win32\vc9\lib,$(CSF_OPT_LIB32)"
 				ProgramDatabaseFile="../../../../win32\vc9\bin/ImportExport.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
@@ -150,8 +150,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CASROOT)/inc"
-				PreprocessorDefinitions="NDEBUG;_WINDOWS;WINVER=0x0500"
+				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CSF_OPT_INC)"
+				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;WNT;CSFDB;WINVER=0x0500"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -178,11 +178,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TKVCAF.lib TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
+				AdditionalDependencies="TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
 				OutputFile="../../../../win64\vc9\bin/ImportExport.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\..\win64\vc9\lib,$(CASROOT)/win64/vc9/lib"
+				AdditionalLibraryDirectories="..\..\..\..\win64\vc9\lib,$(CSF_OPT_LIB64)"
 				ProgramDatabaseFile="../../../../win64\vc9\bin/ImportExport.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
@@ -245,8 +245,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CASROOT)/inc"
-				PreprocessorDefinitions="_DEBUG;_WINDOWS;WINVER=0x0500"
+				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CSF_OPT_INC)"
+				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;WNT;CSFDB;WINVER=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -273,11 +273,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TKVCAF.lib TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib FWOSPlugin.lib TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
+				AdditionalDependencies="TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib FWOSPlugin.lib TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
 				OutputFile="../../../../win32\vc9\bind/ImportExport.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\..\win32\vc9\libd,$(CASROOT)/win32/vc9/libd"
+				AdditionalLibraryDirectories="..\..\..\..\win32\vc9\libd,$(CSF_OPT_LIB32D)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../../../win32\vc9\bind/ImportExport.pdb"
 				SubSystem="2"
@@ -341,8 +341,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CASROOT)/inc"
-				PreprocessorDefinitions="_DEBUG;_WINDOWS;WINVER=0x0500"
+				AdditionalIncludeDirectories="..\..\..\,..\..\..\src,..\..\..\..\Common,$(CSF_OPT_INC)"
+				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;WNT;CSFDB;WINVER=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -369,11 +369,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TKVCAF.lib TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
+				AdditionalDependencies="TKVrml.lib TKStl.lib TKBrep.lib TKIGES.lib TKShHealing.lib TKStep.lib TKXSBase.lib  FWOSPlugin.lib  TKBool.lib TKCAF.lib TKCDF.lib TKernel.lib TKFeat.lib TKFillet.lib TKG2d.lib TKG3d.lib TKGeomAlgo.lib TKGeomBase.lib TKHLR.lib TKMath.lib TKOffset.lib  TKPrim.lib TKService.lib TKTopAlgo.lib TKV3d.lib TKOpenGl.lib mfcsample.lib"
 				OutputFile="../../../../win64\vc9\bind/ImportExport.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\..\win64\vc9\libd,$(CASROOT)/win64/vc9/libd"
+				AdditionalLibraryDirectories="..\..\..\..\win64\vc9\libd,$(CSF_OPT_LIB64D)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../../../win64\vc9\bind/ImportExport.pdb"
 				SubSystem="2"
@@ -413,6 +413,10 @@
 			>
             <File
 				RelativePath="..\..\..\src\ColoredShapes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\FSD_Archive.cxx"
 				>
 			</File>
 			<File
@@ -650,6 +654,10 @@
 			>
             <File
 				RelativePath="..\..\..\src\ColoredShapes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\FSD_Archive.hxx"
 				>
 			</File>
 			<File

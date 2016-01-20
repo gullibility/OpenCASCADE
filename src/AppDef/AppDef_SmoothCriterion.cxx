@@ -21,5 +21,3 @@
 #include <Standard_DomainError.hxx>
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(AppDef_SmoothCriterion,MMgt_TShared)

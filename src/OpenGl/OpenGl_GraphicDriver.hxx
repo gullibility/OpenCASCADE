@@ -37,6 +37,7 @@
 #include <Graphic3d_TypeOfComposition.hxx>
 #include <Graphic3d_ExportFormat.hxx>
 #include <Graphic3d_SortType.hxx>
+#include <Graphic3d_PtrFrameBuffer.hxx>
 #include <Graphic3d_Array1OfVertex.hxx>
 #include <Graphic3d_Array2OfVertex.hxx>
 #include <Graphic3d_BufferType.hxx>
@@ -103,7 +104,7 @@ public:
   //! Perform initialization of default OpenGL context.
   Standard_EXPORT Standard_Boolean InitContext();
 
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   //! Initialize default OpenGL context using existing one.
   //! @param theEglDisplay EGL connection to the Display
   //! @param theEglContext EGL rendering context
@@ -113,8 +114,8 @@ public:
                                                    void*                   theEglConfig);
 #endif
 
-  Standard_EXPORT Standard_Integer InquireLightLimit () Standard_OVERRIDE;
-  Standard_EXPORT Standard_Integer InquireViewLimit () Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer InquireLightLimit ();
+  Standard_EXPORT Standard_Integer InquireViewLimit ();
 
 public:
 
@@ -135,11 +136,11 @@ public:
                                  const Standard_ShortReal       theHeight,
                                  Standard_ShortReal&            theWidth,
                                  Standard_ShortReal&            theAscent,
-                                 Standard_ShortReal&            theDescent) const Standard_OVERRIDE;
+                                 Standard_ShortReal&            theDescent) const;
 
-  Standard_EXPORT Standard_Integer InquirePlaneLimit() Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer InquirePlaneLimit();
 
-  Standard_EXPORT Standard_ShortReal DefaultTextHeight() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_ShortReal DefaultTextHeight() const;
 
   Standard_EXPORT Standard_Boolean ViewExists (const Handle(Aspect_Window)& theWindow, Handle(Graphic3d_CView)& theView) Standard_OVERRIDE;
 
@@ -185,12 +186,12 @@ public:
   //! VBO usage can be forbidden by this method even if it is supported by GL driver.
   //! Notice that disabling of VBO will cause rendering performance degradation.
   //! Warning! This method should be called only before any primitives are displayed in GL scene!
-  Standard_EXPORT void EnableVBO (const Standard_Boolean theToTurnOn) Standard_OVERRIDE;
+  Standard_EXPORT void EnableVBO (const Standard_Boolean theToTurnOn);
 
   //! Returns information about GPU memory usage.
   //! Please read OpenGl_Context::MemoryInfo() for more description.
   Standard_EXPORT Standard_Boolean MemoryInfo (Standard_Size&           theFreeBytes,
-                                               TCollection_AsciiString& theInfo) const Standard_OVERRIDE;
+                                               TCollection_AsciiString& theInfo) const;
 
 public:
 
@@ -198,7 +199,7 @@ public:
   //! Could return NULL-handle if no window created by this driver.
   Standard_EXPORT const Handle(OpenGl_Context)& GetSharedContext() const;
 
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   Aspect_Display          getRawGlDisplay() const { return myEglDisplay; }
   Aspect_RenderingContext getRawGlContext() const { return myEglContext;  }
   void*                   getRawGlConfig()  const { return myEglConfig; }
@@ -206,12 +207,12 @@ public:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_GraphicDriver,Graphic3d_GraphicDriver)
+  DEFINE_STANDARD_RTTI(OpenGl_GraphicDriver, Graphic3d_GraphicDriver)
 
 protected:
 
   Standard_Boolean        myIsOwnContext; //!< indicates that shared context has been created within OpenGl_GraphicDriver
-#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
+#if defined(HAVE_EGL) || defined(__ANDROID__)
   Aspect_Display          myEglDisplay;   //!< EGL connection to the Display : EGLDisplay
   Aspect_RenderingContext myEglContext;   //!< EGL rendering context         : EGLContext
   void*                   myEglConfig;    //!< EGL configuration             : EGLConfig
@@ -233,7 +234,7 @@ public:
   OpenGl_StateCounter* GetStateCounter() const { return &myStateCounter; }
 
   //! Returns unique ID for primitive arrays.
-  Standard_Size GetNextPrimitiveArrayUID() const { return myUIDGenerator.Increment(); }
+  const Standard_Size GetNextPrimitiveArrayUID() const { return myUIDGenerator.Increment(); }
 
 protected:
 

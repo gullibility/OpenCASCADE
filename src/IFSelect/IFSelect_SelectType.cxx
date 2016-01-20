@@ -17,8 +17,6 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectType,IFSelect_SelectAnyType)
-
 IFSelect_SelectType::IFSelect_SelectType ()
       {  thetype = STANDARD_TYPE(Standard_Transient);  }
 

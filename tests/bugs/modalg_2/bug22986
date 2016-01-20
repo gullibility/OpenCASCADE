@@ -23,6 +23,5 @@ if { [llength [explode result f]] != 3 } {
     puts "${BugNumber}  OK"
 }
 
-checkprops result -s 414 
-checkshape result
+set square 414
 set 3dviewer 0

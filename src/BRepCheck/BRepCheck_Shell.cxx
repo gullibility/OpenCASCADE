@@ -37,8 +37,6 @@
 #include <TopTools_MapIteratorOfMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepCheck_Shell,BRepCheck_Result)
-
 //=======================================================================
 //function : Propagate
 //purpose  : 

@@ -2,5 +2,4 @@ restore [locate_data_file GEN747.rle] a
 explode a
 bsection result a_1 a_2
 
-checkprops result -l 72.4212
-checksection result
+set length 72.4212

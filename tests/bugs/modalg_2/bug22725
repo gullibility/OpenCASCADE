@@ -21,8 +21,7 @@ if { [catch { thrusections result ${issolid} ${isruled} w1 w2 } catch_result] } 
    puts "Faulty ${BugNumber} : thrusections is wrong"
 }
 
-checkprops result -s 11010.6 
-checkshape result
+set square 11010.6
 
 checknbshapes result -vertex 2 -edge 3 -wire 1 -face 1 -shell 1 -solid 0 -compsolid 0 -compound 0 -shape 8
 set 3dviewer 1

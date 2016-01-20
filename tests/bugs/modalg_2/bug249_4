@@ -15,8 +15,6 @@ puts [bop a b]
 puts [bopfuse result]
 
 checknbshapes result -vertex 6 -edge 5
-checkprops result -l 0 
-checkshape result 
-checksection result
+set length 0
 set 2dviewer 2
  

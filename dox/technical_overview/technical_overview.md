@@ -208,6 +208,10 @@ For more details see @ref occt_user_guides__visualization "Visualization User's 
 
 The visualization of OCCT topological shapes by means of VTK library provided by VIS component is described in a separate @ref occt_user_guides__vis "VTK Integration Services" User's Guide.
 
+Open CASCADE Technology also supports voxel representation providing basic data containers and visualization of voxels as colored or grayscale bricks.
+
+See @ref occt_user_guides__voxels_wp "Voxels User's Guide" for more information.
+
 See also: our <a href="http://www.opencascade.com/content/tutorial-learning">E-learning & Training</a> offerings.
 
 
@@ -285,7 +289,10 @@ OCAF differs from any other CAD framework in the organization of application dat
 
 OCAF organizes and embeds these attributes in a document. OCAF documents, in their turn, are managed by an OCAF application.
 
-For more details see @ref occt_user_guides__ocaf "OCAF User's Guide". 
+For more details see @ref occt_user_guides__ocaf "OCAF User's Guide" and the OCAF white papers:
+* @ref occt_user_guides__ocaf_wp "Application Framework"
+* @ref occt_user_guides__ocaf_tree_wp "Distribution of Data through OCAF Tree"
+* @ref occt_user_guides__ocaf_functionmechanism_wp "Application Framework Function Mechanism"
 
 See also: our <a href="http://www.opencascade.com/content/tutorial-learning">E-learning & Training</a> offerings.
 

@@ -22,8 +22,6 @@
 #include <Standard_Type.hxx>
 #include <TopLoc_Location.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_EntityOwner,SelectBasics_EntityOwner)
-
 //==================================================
 // Function: 
 // Purpose :
@@ -163,18 +161,4 @@ Standard_Boolean SelectMgr_EntityOwner::IsForcedHilight () const
 void SelectMgr_EntityOwner::SetZLayer (const Standard_Integer )
 {
   //
-}
-
-//=======================================================================
-//function : UpdateHighlightTrsf
-//purpose  :
-//=======================================================================
-void SelectMgr_EntityOwner::UpdateHighlightTrsf (const Handle(V3d_Viewer)& theViewer,
-                                                 const Handle(PrsMgr_PresentationManager3d)& theManager,
-                                                 const Standard_Integer theDispMode)
-{
-  if (mySelectable == NULL)
-    return;
-
-  theManager->UpdateHighlightTrsf (theViewer, mySelectable, theDispMode);
 }

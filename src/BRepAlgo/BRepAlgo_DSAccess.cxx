@@ -443,12 +443,12 @@ const TopTools_ListOfShape& BRepAlgo_DSAccess::SectionVertex
 (const TopoDS_Shape& F,
  const TopoDS_Shape& E)
 {
-  myListOfVertex.Clear();
-  if(F.ShapeType() != TopAbs_FACE || E.ShapeType() != TopAbs_EDGE)
-    return myListOfVertex;
+  TopTools_ListOfShape Result;
+  Result.Clear();
+  if(F.ShapeType() != TopAbs_FACE) return myEmptyListOfShape;
+  if(E.ShapeType() != TopAbs_EDGE) return myEmptyListOfShape;
   Standard_Integer iF = myHDS->Shape(F), iE = myHDS->Shape(E);
-  if((iF == 0) || (iE == 0))
-    return myListOfVertex;
+  if((iF == 0) || (iE == 0)) return myEmptyListOfShape;
 
   const TopOpeBRepDS_DataStructure& DS = myHDS->DS();
   const TopOpeBRepDS_ListOfInterference& LI = 
@@ -464,12 +464,13 @@ const TopTools_ListOfShape& BRepAlgo_DSAccess::SectionVertex
       goodKind  = I->GeometryType();
       goodIndex = I->Geometry();
       if(goodKind == TopOpeBRepDS_VERTEX)
-	myListOfVertex.Append(myHDS->Shape(goodIndex));
+	Result.Append(myHDS->Shape(goodIndex));
       else 
 	if (goodKind == TopOpeBRepDS_POINT)
-	  myListOfVertex.Append(myHB->NewVertex(goodIndex));
+	  Result.Append(myHB->NewVertex(goodIndex));
     }
   }
+  myListOfVertex = Result;
   return myListOfVertex;
 }
 

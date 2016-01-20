@@ -21,8 +21,6 @@
 #include <MAT_SequenceOfArc.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MAT_BasicElt,MMgt_TShared)
-
 //========================================================================
 // function:
 // purpose :

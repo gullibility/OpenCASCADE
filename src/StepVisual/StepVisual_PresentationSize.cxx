@@ -17,8 +17,6 @@
 #include <StepVisual_PresentationSize.hxx>
 #include <StepVisual_PresentationSizeAssignmentSelect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationSize,MMgt_TShared)
-
 StepVisual_PresentationSize::StepVisual_PresentationSize ()  {}
 
 void StepVisual_PresentationSize::Init(

@@ -41,31 +41,20 @@ class TransferBRep_ShapeMapper : public Transfer_Finder
 public:
 
   
-  //! Creates a Mapper with a Value. This Value can then not be
-  //! changed. It is used by the Hasher to compute the HashCode,
-  //! which will then be stored for an immediate reading.
   Standard_EXPORT TransferBRep_ShapeMapper(const TopoDS_Shape& akey);
   
-  //! Returns the contained value
   Standard_EXPORT const TopoDS_Shape& Value() const;
   
-  //! Specific testof equallity : defined as False if <other> has
-  //! not the same true Type, else contents are compared (by
-  //! C++ operator ==)
-  Standard_EXPORT Standard_Boolean Equates (const Handle(Transfer_Finder)& other) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Equates (const Handle(Transfer_Finder)& other) const;
   
-  //! Returns the Type of the Value. By default, returns the
-  //! DynamicType of <me>, but can be redefined
   Standard_EXPORT virtual Handle(Standard_Type) ValueType() const Standard_OVERRIDE;
   
-  //! Returns the name of the Type of the Value. Default is name
-  //! of ValueType, unless it is for a non-handled object
   Standard_EXPORT virtual Standard_CString ValueTypeName() const Standard_OVERRIDE;
 
 
 
 
-  DEFINE_STANDARD_RTTI_INLINE(TransferBRep_ShapeMapper,Transfer_Finder)
+  DEFINE_STANDARD_RTTI(TransferBRep_ShapeMapper,Transfer_Finder)
 
 protected:
 

@@ -20,8 +20,6 @@
 #include <TopoDS_TShape.hxx>
 #include <TopoDS_TWire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TWire,TopoDS_TShape)
-
 //=======================================================================
 //function : ShapeType
 //purpose  : 

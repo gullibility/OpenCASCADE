@@ -15,7 +15,5 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_TimeMeasureWithUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_TimeMeasureWithUnit,StepBasic_MeasureWithUnit)
-
 StepBasic_TimeMeasureWithUnit::StepBasic_TimeMeasureWithUnit ()  {}
 

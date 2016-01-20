@@ -75,7 +75,7 @@ public:
   Standard_EXPORT virtual void Build() Standard_OVERRIDE;
   
   //! Returns the  TopoDS  Shape of the bottom of the prism.
-  Standard_EXPORT TopoDS_Shape FirstShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoDS_Shape FirstShape();
   
   //! Returns the TopoDS Shape of the top of the prism.
   //! In the case of a finite prism, FirstShape returns the
@@ -83,7 +83,7 @@ public:
   //! otherwise, the copy of S belonging to the prism.
   //! LastShape returns the copy of S translated by V at the
   //! time of construction.
-  Standard_EXPORT TopoDS_Shape LastShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoDS_Shape LastShape();
   
   //! Returns ListOfShape from TopTools.
   Standard_EXPORT virtual const TopTools_ListOfShape& Generated (const TopoDS_Shape& S) Standard_OVERRIDE;

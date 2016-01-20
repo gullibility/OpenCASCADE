@@ -15,8 +15,6 @@
 #include <Standard_Type.hxx>
 #include <Vrml_AsciiText.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_AsciiText,MMgt_TShared)
-
 Vrml_AsciiText::Vrml_AsciiText()
 {
     TCollection_AsciiString tmpS("");
@@ -82,42 +80,42 @@ Standard_OStream& Vrml_AsciiText::Print(Standard_OStream& anOStream) const
 {
  Standard_Integer i;
 
- anOStream  << "AsciiText {\n";
+ anOStream  << "AsciiText {" << endl;
 
  i = myString->Lower();
 
  if ( myString->Length() != 1 || myString->Value(i) != "" )
    {
-    anOStream  << "    string [\n\t";
+    anOStream  << "    string [" << endl << '\t';
 
     for ( i = myString->Lower(); i <= myString->Upper(); i++ )
 	{
 	 anOStream << '"' << myString->Value(i) << '"';
 	 if ( i < myString->Length() )
-	    anOStream  << ",\n\t";
+	    anOStream  << ',' << endl << '\t';
         }
-    anOStream  << " ]\n";
+    anOStream  << " ]" << endl;
    }
 
  if ( Abs(mySpacing - 1 ) > 0.0001 )
    {
-    anOStream  << "    spacing\t\t";
-    anOStream << mySpacing << "\n";
+    anOStream  << "    spacing" << "\t\t";
+    anOStream << mySpacing << endl;
    }
 
   switch ( myJustification )
     {
-     case Vrml_LEFT: break; // anOStream  << "    justification\t LEFT";
-     case Vrml_CENTER:        anOStream  << "    justification\tCENTER\n"; break;
-     case Vrml_RIGHT: anOStream  << "    justification\tRIGHT\n"; break; 
+     case Vrml_LEFT: break; // anOStream  << "    justification" << "\t LEFT";
+     case Vrml_CENTER:        anOStream  << "    justification" << "\tCENTER" << endl; break;
+     case Vrml_RIGHT: anOStream  << "    justification" << "\tRIGHT" << endl; break; 
     }
 
  if ( Abs(myWidth - 0 ) > 0.0001 )
    {
-    anOStream  << "    width\t\t";
-    anOStream << myWidth << "\n";
+    anOStream  << "    width" << "\t\t";
+    anOStream << myWidth << endl;
    }
 
- anOStream  << "}\n";
+ anOStream  << '}' << endl;
  return anOStream;
 }

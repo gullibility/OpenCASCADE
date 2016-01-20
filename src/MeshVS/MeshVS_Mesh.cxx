@@ -61,8 +61,6 @@
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_Mesh,AIS_InteractiveObject)
-
 //================================================================
 // Function : Constructor MeshVS_Mesh
 // Purpose  :

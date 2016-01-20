@@ -4,6 +4,7 @@
 ## Comment : From CV tests serie page 60
 ## ======================================
 
+puts "TODO OCC23524 ALL: Error : The offset is not valid"
 puts "TODO ?OCC26556 ALL: ERROR. offsetperform operation not done."
 
 restore [locate_data_file CCV_2_d1_gsw.rle] s
@@ -11,6 +12,7 @@ explode s F
 catch {offsetcompshape result s -2 s_17}
 
 #real volume of result shape is unknow yet
-checkprops result -v 534256
+
+set volume 534256
 
 

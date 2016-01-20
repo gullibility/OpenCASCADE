@@ -20,8 +20,6 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DummySensitiveEntity,SelectBasics_SensitiveEntity)
-
 //================================================================
 // Function : Constructor MeshVS_DummySensitiveEntity
 // Purpose  :

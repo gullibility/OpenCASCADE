@@ -17,8 +17,7 @@ if [catch { openoffset r w 1 -0.2 i } ] {
 } else {
   renamevar r_1 result
 
-  checkprops result -l 0.272485 
-  checksection result
+  set length 0.272485
 
   set nbshapes_expected "
 Number of shapes in shape

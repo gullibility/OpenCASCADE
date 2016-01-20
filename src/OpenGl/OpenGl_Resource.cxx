@@ -16,7 +16,5 @@
 #include <OpenGl_Resource.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Resource,Standard_Transient)
-
 OpenGl_Resource::OpenGl_Resource() {}
 OpenGl_Resource::~OpenGl_Resource() {}

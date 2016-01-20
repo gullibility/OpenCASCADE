@@ -118,11 +118,8 @@ static int deja = 0;
   Standard_Boolean header = Standard_False;
   for(;;) {
     ligne[0] = '\0';
-    if (fgets(ligne,200,lefic) == NULL
-     || feof(lefic) != 0)
-    {
-      break;
-    }
+    fgets(ligne,200,lefic);
+    if (feof(lefic)) break;
     if (ligne[0] == '\0') continue;
 //  D abord ligne initiale ?
     if (!header)

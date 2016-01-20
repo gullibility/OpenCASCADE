@@ -27,6 +27,5 @@ if { ${catch_status} != 0 } {
    puts "OK ${BugNumber}"
 }
 
-checkprops result -s 220000
-checkshape result
+set square 220000
 set 2dviewer 0

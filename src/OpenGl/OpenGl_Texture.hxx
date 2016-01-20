@@ -49,11 +49,6 @@ struct OpenGl_TextureFormatSelector<GLubyte>
         return GL_NONE;
     }
   }
-
-  static GLint DataType()
-  {
-    return GL_UNSIGNED_BYTE;
-  }
 };
 
 template<>
@@ -74,11 +69,6 @@ struct OpenGl_TextureFormatSelector<GLushort>
       default:
         return GL_NONE;
     }
-  }
-
-  static GLint DataType()
-  {
-    return GL_UNSIGNED_SHORT;
   }
 };
 
@@ -101,119 +91,7 @@ struct OpenGl_TextureFormatSelector<GLfloat>
         return GL_NONE;
     }
   }
-
-  static GLint DataType()
-  {
-    return GL_FLOAT;
-  }
 };
-
-template<>
-struct OpenGl_TextureFormatSelector<GLuint>
-{
-  static GLint Internal (GLuint theChannels)
-  {
-    switch (theChannels)
-    {
-      case 1:
-        return GL_RED;
-      case 2:
-        return GL_RG;
-      case 3:
-        return GL_RGB;
-      case 4:
-        return GL_RGBA;
-      default:
-        return GL_NONE;
-    }
-  }
-
-  static GLint DataType()
-  {
-    return GL_UNSIGNED_INT;
-  }
-};
-
-//! Only unsigned formats are available in OpenGL ES 2.0
-#if !defined(GL_ES_VERSION_2_0)
-template<>
-struct OpenGl_TextureFormatSelector<GLbyte>
-{
-  static GLint Internal (GLuint theChannels)
-  {
-    switch (theChannels)
-    {
-      case 1:
-        return GL_R8_SNORM;
-      case 2:
-        return GL_RG8_SNORM;
-      case 3:
-        return GL_RGB8_SNORM;
-      case 4:
-        return GL_RGBA8_SNORM;
-      default:
-        return GL_NONE;
-    }
-  }
-
-  static GLint DataType()
-  {
-    return GL_BYTE;
-  }
-};
-
-template<>
-struct OpenGl_TextureFormatSelector<GLshort>
-{
-  static GLint Internal (GLuint theChannels)
-  {
-    switch (theChannels)
-    {
-      case 1:
-        return GL_R16_SNORM;
-      case 2:
-        return GL_RG16_SNORM;
-      case 3:
-        return GL_RGB16_SNORM;
-      case 4:
-        return GL_RGBA16_SNORM;
-      default:
-        return GL_NONE;
-    }
-  }
-
-  static GLint DataType()
-  {
-    return GL_SHORT;
-  }
-};
-
-template<>
-struct OpenGl_TextureFormatSelector<GLint>
-{
-  static GLint Internal (GLuint theChannels)
-  {
-    switch (theChannels)
-    {
-      case 1:
-        return GL_RED_SNORM;
-      case 2:
-        return GL_RG_SNORM;
-      case 3:
-        return GL_RGB_SNORM;
-      case 4:
-        return GL_RGBA_SNORM;
-      default:
-        return GL_NONE;
-    }
-  }
-
-  static GLint DataType()
-  {
-    return GL_INT;
-  }
-};
-#endif
 
 //! Stores parameters of OpenGL texture format.
 class OpenGl_TextureFormat
@@ -246,36 +124,25 @@ public:
     return myInternal;
   }
 
-  //! Returns OpenGL data type of the pixel data.
-  inline GLint DataType() const
-  {
-    return myDataType;
-  }
-
   //! Returns texture format for specified type and number of channels.
   template<class T, int N>
   static OpenGl_TextureFormat Create()
   {
-    return OpenGl_TextureFormat (N,
-                                 OpenGl_TextureFormatSelector<T>::Internal(N),
-                                 OpenGl_TextureFormatSelector<T>::DataType());
+    return OpenGl_TextureFormat (N, OpenGl_TextureFormatSelector<T>::Internal (N));
   }
 
 private:
 
   //! Creates new texture format.
   OpenGl_TextureFormat (const GLint theChannels,
-                        const GLint theInternal,
-                        const GLint theDataType)
+                        const GLint theInternal)
   : myInternal (theInternal),
-    myChannels (theChannels),
-    myDataType (theDataType) {}
+    myChannels (theChannels) {}
 
 private:
 
   GLint myInternal; //!< OpenGL internal format of the pixel data
   GLint myChannels; //!< Number of channels for each pixel (from 1 to 4)
-  GLint myDataType; //!< OpenGL data type of input pixel data
 
 };
 
@@ -353,7 +220,7 @@ public:
   Standard_EXPORT bool Create (const Handle(OpenGl_Context)& theCtx);
 
   //! Destroy object - will release GPU memory if any.
-  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Release (OpenGl_Context* theCtx);
 
   //! Bind this Texture to specified unit.
   Standard_EXPORT void Bind (const Handle(OpenGl_Context)& theCtx,
@@ -380,13 +247,6 @@ public:
                              const Graphic3d_TypeOfTexture theType,
                              const Image_PixMap*           theImage = NULL);
 
-  //! Initialize the 2D multisampling texture using glTexImage2DMultisample().
-  Standard_EXPORT bool Init2DMultisample (const Handle(OpenGl_Context)& theCtx,
-                                          const GLsizei                 theNbSamples,
-                                          const GLint                   theTextFormat,
-                                          const GLsizei                 theSizeX,
-                                          const GLsizei                 theSizeY);
-
   //! Allocates texture rectangle with specified format and size.
   //! \note Texture data is not initialized (will contain trash).
   Standard_EXPORT bool InitRectangle (const Handle(OpenGl_Context)& theCtx,
@@ -394,18 +254,8 @@ public:
                                       const Standard_Integer        theSizeY,
                                       const OpenGl_TextureFormat&   theFormat);
 
-  //! Initializes 3D texture rectangle with specified format and size.
-  Standard_EXPORT bool Init3D (const Handle(OpenGl_Context)& theCtx,
-                               const GLint                   theTextFormat,
-                               const GLenum                  thePixelFormat,
-                               const GLenum                  theDataType,
-                               const Standard_Integer        theSizeX,
-                               const Standard_Integer        theSizeY,
-                               const Standard_Integer        theSizeZ,
-                               const void*                   thePixels);
-
   //! @return true if texture was generated within mipmaps
-  Standard_EXPORT Standard_Boolean HasMipmaps() const;
+  Standard_EXPORT const Standard_Boolean HasMipmaps() const;
 
   //! @return assigned texture parameters (not necessary applied)
   Standard_EXPORT const Handle(Graphic3d_TextureParams)& GetParams() const;
@@ -423,10 +273,9 @@ public:
 protected:
 
   GLuint           myTextureId;  //!< GL resource ID
-  GLenum           myTarget;     //!< GL_TEXTURE_1D/GL_TEXTURE_2D/GL_TEXTURE_3D
+  GLenum           myTarget;     //!< GL_TEXTURE_1D/GL_TEXTURE_2D
   GLsizei          mySizeX;      //!< texture width
   GLsizei          mySizeY;      //!< texture height
-  GLsizei          mySizeZ;      //!< texture depth
   GLenum           myTextFormat; //!< texture format - GL_RGB, GL_RGBA,...
   Standard_Boolean myHasMipmaps; //!< flag indicates that texture was uploaded with mipmaps
   bool             myIsAlpha;    //!< indicates alpha format
@@ -435,7 +284,7 @@ protected:
 
 public:
 
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Texture,OpenGl_Resource) // Type definition
+  DEFINE_STANDARD_RTTI(OpenGl_Texture, OpenGl_Resource) // Type definition
 
 };
 

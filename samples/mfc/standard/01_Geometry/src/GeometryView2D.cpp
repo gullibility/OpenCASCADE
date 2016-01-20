@@ -117,7 +117,6 @@ void CGeometryView2D::OnLButtonUp(UINT nFlags, CPoint point)
   }
   else // if ( Ctrl )
   {
-    const Handle(AIS_InteractiveContext)& aContext = GetDocument()->GetISessionContext();
     switch (myCurrentMode)
     {
     case CurAction2d_Nothing :
@@ -131,7 +130,7 @@ void CGeometryView2D::OnLButtonUp(UINT nFlags, CPoint point)
           GetDocument()->InputEvent2D     (point.x,point.y,myV2dView);
       } else
       {
-        drawRectangle (myXmin,myYmin,myXmax,myYmax,aContext,Standard_False);
+        DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_False);
         myXmax=point.x;  
         myYmax=point.y;
         if (nFlags & MK_SHIFT)
@@ -146,7 +145,7 @@ void CGeometryView2D::OnLButtonUp(UINT nFlags, CPoint point)
       break;
     case CurAction2d_WindowZooming :
       myXmax=point.x;         myYmax=point.y;
-      drawRectangle (myXmin,myYmin,myXmax,myYmax,aContext,Standard_False);
+      DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_False,LongDash);
       if ((abs(myXmin-myXmax)>ValZWMin) || (abs(myYmin-myYmax)>ValZWMin))
         // Test if the zoom window is greater than a minimale window.
       {
@@ -222,14 +221,14 @@ void CGeometryView2D::OnMouseMove(UINT nFlags, CPoint point)
     }
     else // if ( Ctrl )
     {
-      const Handle(AIS_InteractiveContext)& aContext = GetDocument()->GetISessionContext();
       switch (myCurrentMode)
       {
       case CurAction2d_Nothing :
+        DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_False);
         myXmax = point.x; 
         myYmax = point.y;	
         GetDocument()->DragEvent2D(myXmax,myYmax,0,myV2dView);
-        drawRectangle (myXmin,myYmin,myXmax,myYmax, aContext);
+        DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_True);
         break;
       case CurAction2d_DynamicZooming :
         myV2dView->Zoom(myXmax,myYmax,point.x,point.y); 
@@ -238,7 +237,8 @@ void CGeometryView2D::OnMouseMove(UINT nFlags, CPoint point)
         break;
       case CurAction2d_WindowZooming :
         myXmax = point.x; myYmax = point.y;	
-        drawRectangle (myXmin,myYmin,myXmax,myYmax, aContext);
+        DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_False,LongDash);
+        DrawRectangle2D(myXmin,myYmin,myXmax,myYmax,Standard_True,LongDash);
         break;
       case CurAction2d_DynamicPanning :
         myV2dView->Pan(point.x-myXmax,myYmax-point.y); // Realize the panning

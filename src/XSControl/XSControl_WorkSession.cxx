@@ -45,8 +45,6 @@
 #include <XSControl_Vars.hxx>
 #include <XSControl_WorkSession.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_WorkSession,IFSelect_WorkSession)
-
 // tpent
 //=======================================================================
 //function : XSControl_WorkSession

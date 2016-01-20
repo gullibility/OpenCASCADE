@@ -15,8 +15,6 @@
 
 #include <BVH_BuildThread.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BVH_BuildThread,Standard_Transient)
-
 // =======================================================================
 // function : BVH_BuildThread
 // purpose  : Creates new BVH build thread

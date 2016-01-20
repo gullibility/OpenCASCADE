@@ -20,8 +20,6 @@
 #include <TDF_RelocationTable.hxx>
 #include <XCAFDoc_DimTol.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_DimTol,TDF_Attribute)
-
 //=======================================================================
 //function : XCAFDoc_DimTol
 //purpose  : 

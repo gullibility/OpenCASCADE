@@ -24,8 +24,6 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Direction,Geom_Vector)
-
 typedef Geom_Direction         Direction;
 typedef Geom_Vector            Vector;
 typedef gp_Ax1  Ax1;

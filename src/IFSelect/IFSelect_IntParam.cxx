@@ -16,8 +16,6 @@
 #include <Interface_Static.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_IntParam,MMgt_TShared)
-
 IFSelect_IntParam::IFSelect_IntParam ()
       {  theval = 0;  }
 

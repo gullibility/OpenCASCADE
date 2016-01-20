@@ -66,11 +66,11 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsMultiple() const Standard_OVERRIDE;
   
   //! Returns the Type permitted for Results, i.e. here Transient
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(Standard_Type) ResultType() const;
   
   //! Returns the Name of the Type which characterizes the Result
   //! Here, returns "(list)"
-  Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
+  Standard_EXPORT Standard_CString ResultTypeName() const;
   
   //! Adds a new Item to the Multiple Result
   Standard_EXPORT void AddResult (const Handle(Standard_Transient)& res);
@@ -92,7 +92,7 @@ public:
 
 
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_MultipleBinder,Transfer_Binder)
+  DEFINE_STANDARD_RTTI(Transfer_MultipleBinder,Transfer_Binder)
 
 protected:
 

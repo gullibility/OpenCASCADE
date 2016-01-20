@@ -14,10 +14,8 @@
 // commercial license or contractual agreement.
 
 #include <OpenGl_Clipping.hxx>
-
 #include <OpenGl_GlCore11.hxx>
 #include <OpenGl_Workspace.hxx>
-#include <OpenGl_Context.hxx>
 
 #if defined(GL_ES_VERSION_2_0)
   // id does not matter for GLSL-based clipping, just for consistency
@@ -50,56 +48,42 @@ void OpenGl_Clipping::Init (const Standard_Integer theMaxPlanes)
 }
 
 // =======================================================================
-// function : add
+// function : Add
 // purpose  :
 // =======================================================================
-void OpenGl_Clipping::add (const Handle(OpenGl_Context)&   theGlCtx,
-                           const EquationCoords&           theCoordSpace,
-                           Graphic3d_SequenceOfHClipPlane& thePlanes)
+void OpenGl_Clipping::Add (Graphic3d_SequenceOfHClipPlane& thePlanes,
+                           const EquationCoords& theCoordSpace,
+                           const Handle(OpenGl_Workspace)& theWS)
 {
-  const bool toUseFfp = theGlCtx->core11 != NULL
-                     && theGlCtx->caps->ffpEnable;
-  if (!toUseFfp)
-  {
-    addLazy (theGlCtx, theCoordSpace, thePlanes);
-    return;
-  }
+  Handle(OpenGl_Context) aContext = theWS->GetGlContext();
 
   if (EquationCoords_View == theCoordSpace)
   {
-    theGlCtx->WorldViewState.Push();
-    theGlCtx->WorldViewState.SetIdentity();
+    aContext->WorldViewState.Push();
+    aContext->WorldViewState.SetIdentity();
   }
 
   // Set either identity or pure view matrix.
-  theGlCtx->ApplyWorldViewMatrix();
+  aContext->ApplyWorldViewMatrix();
 
-  addLazy (theGlCtx, theCoordSpace, thePlanes);
+  Add (thePlanes, theCoordSpace);
 
   if (EquationCoords_View == theCoordSpace)
   {
-    theGlCtx->WorldViewState.Pop();
+    aContext->WorldViewState.Pop();
   }
 
   // Restore combined model-view matrix.
-  theGlCtx->ApplyModelViewMatrix();
+  aContext->ApplyModelViewMatrix();
+
 }
 
 // =======================================================================
-// function : addLazy
+// function : Add
 // purpose  :
 // =======================================================================
-void OpenGl_Clipping::addLazy (const Handle(OpenGl_Context)&   theGlCtx,
-                               const EquationCoords&           theCoordSpace,
-                               Graphic3d_SequenceOfHClipPlane& thePlanes)
+void OpenGl_Clipping::Add (Graphic3d_SequenceOfHClipPlane& thePlanes, const EquationCoords& theCoordSpace)
 {
-#if !defined(GL_ES_VERSION_2_0)
-  const bool toUseFfp = theGlCtx->core11 != NULL
-                     && theGlCtx->caps->ffpEnable;
-#else
-  (void )theGlCtx;
-#endif
-
   Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt (thePlanes);
   while (aPlaneIt.More() && myEmptyPlaneIds->HasFree())
   {
@@ -115,11 +99,8 @@ void OpenGl_Clipping::addLazy (const Handle(OpenGl_Context)&   theGlCtx,
     myPlaneStates.Bind (aPlane, PlaneProps (theCoordSpace, anID, Standard_True));
 
   #if !defined(GL_ES_VERSION_2_0)
-    if (toUseFfp)
-    {
-      ::glEnable ((GLenum)anID);
-      theGlCtx->core11->glClipPlane ((GLenum)anID, aPlane->GetEquation());
-    }
+    ::glEnable ((GLenum)anID);
+    ::glClipPlane ((GLenum)anID, aPlane->GetEquation());
   #endif
     if (aPlane->IsCapping())
     {
@@ -146,16 +127,8 @@ void OpenGl_Clipping::addLazy (const Handle(OpenGl_Context)&   theGlCtx,
 // function : Remove
 // purpose  :
 // =======================================================================
-void OpenGl_Clipping::Remove (const Handle(OpenGl_Context)&         theGlCtx,
-                              const Graphic3d_SequenceOfHClipPlane& thePlanes)
+void OpenGl_Clipping::Remove (const Graphic3d_SequenceOfHClipPlane& thePlanes)
 {
-#if !defined(GL_ES_VERSION_2_0)
-  const bool toUseFfp = theGlCtx->core11 != NULL
-                     && theGlCtx->caps->ffpEnable;
-#else
-  (void )theGlCtx;
-#endif
-
   Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt (thePlanes);
   for (; aPlaneIt.More(); aPlaneIt.Next())
   {
@@ -170,10 +143,7 @@ void OpenGl_Clipping::Remove (const Handle(OpenGl_Context)&         theGlCtx,
     if (aProps.IsEnabled)
     {
     #if !defined(GL_ES_VERSION_2_0)
-      if (toUseFfp)
-      {
-        ::glDisable ((GLenum)anID);
-      }
+      glDisable ((GLenum)anID);
     #endif
       if (aPlane->IsCapping())
       {
@@ -209,9 +179,8 @@ void OpenGl_Clipping::Remove (const Handle(OpenGl_Context)&         theGlCtx,
 // function : SetEnabled
 // purpose  :
 // =======================================================================
-void OpenGl_Clipping::SetEnabled (const Handle(OpenGl_Context)&      theGlCtx,
-                                  const Handle(Graphic3d_ClipPlane)& thePlane,
-                                  const Standard_Boolean             theIsEnabled)
+void OpenGl_Clipping::SetEnabled (const Handle(Graphic3d_ClipPlane)& thePlane,
+                                  const Standard_Boolean theIsEnabled)
 {
   if (!Contains (thePlane))
   {
@@ -226,18 +195,11 @@ void OpenGl_Clipping::SetEnabled (const Handle(OpenGl_Context)&      theGlCtx,
 
 #if !defined(GL_ES_VERSION_2_0)
   GLenum anID = (GLenum)aProps.ContextID;
-  const bool toUseFfp = theGlCtx->core11 != NULL
-                     && theGlCtx->caps->ffpEnable;
-#else
-  (void )theGlCtx;
 #endif
   if (theIsEnabled)
   {
   #if !defined(GL_ES_VERSION_2_0)
-    if (toUseFfp)
-    {
-      ::glEnable (anID);
-    }
+    glEnable (anID);
   #endif
     if (thePlane->IsCapping())
     {
@@ -251,10 +213,7 @@ void OpenGl_Clipping::SetEnabled (const Handle(OpenGl_Context)&      theGlCtx,
   else
   {
   #if !defined(GL_ES_VERSION_2_0)
-    if (toUseFfp)
-    {
-      ::glDisable (anID);
-    }
+    glDisable (anID);
   #endif
     if (thePlane->IsCapping())
     {

@@ -29,15 +29,12 @@
 #include <OpenGl_FrameBuffer.hxx>
 #include <OpenGl_Sampler.hxx>
 #include <OpenGl_ShaderManager.hxx>
-#include <Graphic3d_TransformUtils.hxx>
 
 #include <Message_Messenger.hxx>
 
 #include <NCollection_Vector.hxx>
 
 #include <Standard_ProgramError.hxx>
-
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Context,Standard_Transient)
 
 #if defined(HAVE_EGL)
   #include <EGL/egl.h>
@@ -105,7 +102,6 @@ OpenGl_Context::OpenGl_Context (const Handle(OpenGl_Caps)& theCaps)
 #endif
   arbNPTW  (Standard_False),
   arbTexRG (Standard_False),
-  arbTexFloat (Standard_False),
   arbTexBindless (NULL),
   arbTBO (NULL),
   arbTboRGB32 (Standard_False),
@@ -129,7 +125,6 @@ OpenGl_Context::OpenGl_Context (const Handle(OpenGl_Caps)& theCaps)
   myTexClamp   (GL_CLAMP_TO_EDGE),
   myMaxTexDim  (1024),
   myMaxClipPlanes (6),
-  myMaxMsaaSamples(0),
   myGlVerMajor (0),
   myGlVerMinor (0),
   myIsInitialized (Standard_False),
@@ -143,8 +138,7 @@ OpenGl_Context::OpenGl_Context (const Handle(OpenGl_Caps)& theCaps)
   myReadBuffer (0),
   myDrawBuffer (0),
   myDefaultVao (0),
-  myIsGlDebugCtx (Standard_False),
-  myResolutionRatio (1.0f)
+  myIsGlDebugCtx (Standard_False)
 {
   // system-dependent fields
 #if defined(HAVE_EGL)
@@ -246,7 +240,7 @@ OpenGl_Context::~OpenGl_Context()
   {
     // reset callback
     void* aPtr = NULL;
-    glGetPointerv (GL_DEBUG_CALLBACK_USER_PARAM, &aPtr);
+    glGetPointerv (GL_DEBUG_CALLBACK_USER_PARAM_ARB, &aPtr);
     if (aPtr == this)
     {
       arbDbg->glDebugMessageCallbackARB (NULL, NULL);
@@ -278,6 +272,33 @@ void OpenGl_Context::forcedRelease()
     myUnusedResources->First()->Release (this);
     myUnusedResources->RemoveFirst();
   }
+}
+
+// =======================================================================
+// function : MaxDegreeOfAnisotropy
+// purpose  :
+// =======================================================================
+Standard_Integer OpenGl_Context::MaxDegreeOfAnisotropy() const
+{
+  return myAnisoMax;
+}
+
+// =======================================================================
+// function : MaxTextureSize
+// purpose  :
+// =======================================================================
+Standard_Integer OpenGl_Context::MaxTextureSize() const
+{
+  return myMaxTexDim;
+}
+
+// =======================================================================
+// function : MaxClipPlanes
+// purpose  :
+// =======================================================================
+Standard_Integer OpenGl_Context::MaxClipPlanes() const
+{
+  return myMaxClipPlanes;
 }
 
 #if !defined(GL_ES_VERSION_2_0)
@@ -425,7 +446,7 @@ Standard_Boolean OpenGl_Context::MakeCurrent()
   if (eglMakeCurrent ((EGLDisplay )myDisplay, (EGLSurface )myWindow, (EGLSurface )myWindow, (EGLContext )myGContext) != EGL_TRUE)
   {
     // if there is no current context it might be impossible to use glGetError() correctly
-    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH,
+    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB,
                  "eglMakeCurrent() has failed!");
     myIsInitialized = Standard_False;
     return Standard_False;
@@ -457,7 +478,7 @@ Standard_Boolean OpenGl_Context::MakeCurrent()
       aMsg += (Standard_ExtString )aMsgBuff;
       LocalFree (aMsgBuff);
     }
-    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM, GL_DEBUG_TYPE_ERROR, (unsigned int )anErrorCode, GL_DEBUG_SEVERITY_HIGH, aMsg);
+    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB, GL_DEBUG_TYPE_ERROR_ARB, (unsigned int )anErrorCode, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
     myIsInitialized = Standard_False;
     return Standard_False;
   }
@@ -471,7 +492,7 @@ Standard_Boolean OpenGl_Context::MakeCurrent()
   if (!glXMakeCurrent ((Display* )myDisplay, (GLXDrawable )myWindow, (GLXContext )myGContext))
   {
     // if there is no current context it might be impossible to use glGetError() correctly
-    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH,
+    PushMessage (GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB,
                  "glXMakeCurrent() has failed!");
     myIsInitialized = Standard_False;
     return Standard_False;
@@ -741,42 +762,11 @@ Standard_Boolean OpenGl_Context::Init (const Aspect_Drawable         theWindow,
 // function : ResetErrors
 // purpose  :
 // =======================================================================
-void OpenGl_Context::ResetErrors (const bool theToPrintErrors)
+void OpenGl_Context::ResetErrors()
 {
-  int aPrevErr = 0;
-  int anErr    = ::glGetError();
-  if (!theToPrintErrors)
+  while (glGetError() != GL_NO_ERROR)
   {
-    for (; anErr != GL_NO_ERROR && aPrevErr != anErr; aPrevErr = anErr, anErr = ::glGetError())
-    {
-      //
-    }
-    return;
-  }
-
-  for (; anErr != GL_NO_ERROR && aPrevErr != anErr; aPrevErr = anErr, anErr = ::glGetError())
-  {
-    TCollection_ExtendedString anErrId;
-    switch (anErr)
-    {
-      case GL_INVALID_ENUM:      anErrId = "GL_INVALID_ENUM";      break;
-      case GL_INVALID_VALUE:     anErrId = "GL_INVALID_VALUE";     break;
-      case GL_INVALID_OPERATION: anErrId = "GL_INVALID_OPERATION"; break;
-    #ifdef GL_STACK_OVERFLOW
-      case GL_STACK_OVERFLOW:    anErrId = "GL_STACK_OVERFLOW";    break;
-      case GL_STACK_UNDERFLOW:   anErrId = "GL_STACK_UNDERFLOW";   break;
-    #endif
-      case GL_OUT_OF_MEMORY:     anErrId = "GL_OUT_OF_MEMORY";     break;
-      case GL_INVALID_FRAMEBUFFER_OPERATION:
-        anErrId = "GL_INVALID_FRAMEBUFFER_OPERATION";
-        break;
-      default:
-        anErrId = TCollection_ExtendedString("#") + anErr;
-        break;
-    }
-
-    const TCollection_ExtendedString aMsg = TCollection_ExtendedString ("Unhandled GL error: ") + anErrId;
-    PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
+    //
   }
 }
 
@@ -883,27 +873,27 @@ void OpenGl_Context::ReadGlVersion (Standard_Integer& theGlVerMajor,
 static Standard_CString THE_DBGMSG_UNKNOWN = "UNKNOWN";
 static Standard_CString THE_DBGMSG_SOURCES[] =
 {
-  ".OpenGL",    // GL_DEBUG_SOURCE_API
-  ".WinSystem", // GL_DEBUG_SOURCE_WINDOW_SYSTEM
-  ".GLSL",      // GL_DEBUG_SOURCE_SHADER_COMPILER
-  ".3rdParty",  // GL_DEBUG_SOURCE_THIRD_PARTY
-  "",           // GL_DEBUG_SOURCE_APPLICATION
-  ".Other"      // GL_DEBUG_SOURCE_OTHER
+  ".OpenGL",    // GL_DEBUG_SOURCE_API_ARB
+  ".WinSystem", // GL_DEBUG_SOURCE_WINDOW_SYSTEM_ARB
+  ".GLSL",      // GL_DEBUG_SOURCE_SHADER_COMPILER_ARB
+  ".3rdParty",  // GL_DEBUG_SOURCE_THIRD_PARTY_ARB
+  "",           // GL_DEBUG_SOURCE_APPLICATION_ARB
+  ".Other"      // GL_DEBUG_SOURCE_OTHER_ARB
 };
 
 static Standard_CString THE_DBGMSG_TYPES[] =
 {
-  "Error",           // GL_DEBUG_TYPE_ERROR
-  "Deprecated",      // GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR
-  "Undef. behavior", // GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR
-  "Portability",     // GL_DEBUG_TYPE_PORTABILITY
-  "Performance",     // GL_DEBUG_TYPE_PERFORMANCE
-  "Other"            // GL_DEBUG_TYPE_OTHER
+  "Error",           // GL_DEBUG_TYPE_ERROR_ARB
+  "Deprecated",      // GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB
+  "Undef. behavior", // GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB
+  "Portability",     // GL_DEBUG_TYPE_PORTABILITY_ARB
+  "Performance",     // GL_DEBUG_TYPE_PERFORMANCE_ARB
+  "Other"            // GL_DEBUG_TYPE_OTHER_ARB
 };
 
-static Standard_CString THE_DBGMSG_SEV_HIGH   = "High";   // GL_DEBUG_SEVERITY_HIGH
-static Standard_CString THE_DBGMSG_SEV_MEDIUM = "Medium"; // GL_DEBUG_SEVERITY_MEDIUM
-static Standard_CString THE_DBGMSG_SEV_LOW    = "Low";    // GL_DEBUG_SEVERITY_LOW
+static Standard_CString THE_DBGMSG_SEV_HIGH   = "High";   // GL_DEBUG_SEVERITY_HIGH_ARB
+static Standard_CString THE_DBGMSG_SEV_MEDIUM = "Medium"; // GL_DEBUG_SEVERITY_MEDIUM_ARB
+static Standard_CString THE_DBGMSG_SEV_LOW    = "Low";    // GL_DEBUG_SEVERITY_LOW_ARB
 
 #if !defined(GL_ES_VERSION_2_0)
 //! Callback for GL_ARB_debug_output extension
@@ -931,29 +921,29 @@ void OpenGl_Context::PushMessage (const unsigned int theSource,
                                   const TCollection_ExtendedString& theMessage)
 {
   if (caps->suppressExtraMsg
-   && theSource >= GL_DEBUG_SOURCE_API
-   && theSource <= GL_DEBUG_SOURCE_OTHER
-   && myFilters[theSource - GL_DEBUG_SOURCE_API].Contains (theId))
+   && theSource >= GL_DEBUG_SOURCE_API_ARB
+   && theSource <= GL_DEBUG_SOURCE_OTHER_ARB
+   && myFilters[theSource - GL_DEBUG_SOURCE_API_ARB].Contains (theId))
   {
     return;
   }
 
-  Standard_CString& aSrc = (theSource >= GL_DEBUG_SOURCE_API
-                        && theSource <= GL_DEBUG_SOURCE_OTHER)
-                         ? THE_DBGMSG_SOURCES[theSource - GL_DEBUG_SOURCE_API]
+  Standard_CString& aSrc = (theSource >= GL_DEBUG_SOURCE_API_ARB
+                        && theSource <= GL_DEBUG_SOURCE_OTHER_ARB)
+                         ? THE_DBGMSG_SOURCES[theSource - GL_DEBUG_SOURCE_API_ARB]
                          : THE_DBGMSG_UNKNOWN;
-  Standard_CString& aType = (theType >= GL_DEBUG_TYPE_ERROR
-                         && theType <= GL_DEBUG_TYPE_OTHER)
-                          ? THE_DBGMSG_TYPES[theType - GL_DEBUG_TYPE_ERROR]
+  Standard_CString& aType = (theType >= GL_DEBUG_TYPE_ERROR_ARB
+                         && theType <= GL_DEBUG_TYPE_OTHER_ARB)
+                          ? THE_DBGMSG_TYPES[theType - GL_DEBUG_TYPE_ERROR_ARB]
                           : THE_DBGMSG_UNKNOWN;
-  Standard_CString& aSev = theSeverity == GL_DEBUG_SEVERITY_HIGH
+  Standard_CString& aSev = theSeverity == GL_DEBUG_SEVERITY_HIGH_ARB
                          ? THE_DBGMSG_SEV_HIGH
-                         : (theSeverity == GL_DEBUG_SEVERITY_MEDIUM
+                         : (theSeverity == GL_DEBUG_SEVERITY_MEDIUM_ARB
                           ? THE_DBGMSG_SEV_MEDIUM
                           : THE_DBGMSG_SEV_LOW);
-  Message_Gravity aGrav = theSeverity == GL_DEBUG_SEVERITY_HIGH
+  Message_Gravity aGrav = theSeverity == GL_DEBUG_SEVERITY_HIGH_ARB
                         ? Message_Alarm
-                        : (theSeverity == GL_DEBUG_SEVERITY_MEDIUM
+                        : (theSeverity == GL_DEBUG_SEVERITY_MEDIUM_ARB
                          ? Message_Warning
                          : Message_Info);
 
@@ -974,9 +964,9 @@ void OpenGl_Context::PushMessage (const unsigned int theSource,
 Standard_Boolean OpenGl_Context::ExcludeMessage (const unsigned int theSource,
                                                  const unsigned int theId)
 {
-  return theSource >= GL_DEBUG_SOURCE_API
-      && theSource <= GL_DEBUG_SOURCE_OTHER
-      && myFilters[theSource - GL_DEBUG_SOURCE_API].Add (theId);
+  return theSource >= GL_DEBUG_SOURCE_API_ARB
+      && theSource <= GL_DEBUG_SOURCE_OTHER_ARB
+      && myFilters[theSource - GL_DEBUG_SOURCE_API_ARB].Add (theId);
 }
 
 // =======================================================================
@@ -986,9 +976,9 @@ Standard_Boolean OpenGl_Context::ExcludeMessage (const unsigned int theSource,
 Standard_Boolean OpenGl_Context::IncludeMessage (const unsigned int theSource,
                                                  const unsigned int theId)
 {
-  return theSource >= GL_DEBUG_SOURCE_API
-      && theSource <= GL_DEBUG_SOURCE_OTHER
-      && myFilters[theSource - GL_DEBUG_SOURCE_API].Remove (theId);
+  return theSource >= GL_DEBUG_SOURCE_API_ARB
+      && theSource <= GL_DEBUG_SOURCE_OTHER_ARB
+      && myFilters[theSource - GL_DEBUG_SOURCE_API_ARB].Remove (theId);
 }
 
 // =======================================================================
@@ -1008,10 +998,10 @@ void OpenGl_Context::checkWrongVersion (const Standard_Integer theGlVerMajor,
     + myGlVerMajor  + "." + myGlVerMinor
     + " but does not export required functions for "
     + theGlVerMajor + "." + theGlVerMinor;
-  PushMessage (GL_DEBUG_SOURCE_APPLICATION,
-               GL_DEBUG_TYPE_ERROR,
+  PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
+               GL_DEBUG_TYPE_ERROR_ARB,
                0,
-               GL_DEBUG_SEVERITY_HIGH,
+               GL_DEBUG_SEVERITY_HIGH_ARB,
                aMsg);
 }
 
@@ -1024,7 +1014,6 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
   // read version
   myGlVerMajor = 0;
   myGlVerMinor = 0;
-  myMaxMsaaSamples = 0;
   ReadGlVersion (myGlVerMajor, myGlVerMinor);
   myVendor = (const char* )::glGetString (GL_VENDOR);
 
@@ -1037,7 +1026,7 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
   {
     // Buffer detailed info: Buffer object 1 (bound to GL_ARRAY_BUFFER_ARB, usage hint is GL_STATIC_DRAW)
     // will use VIDEO memory as the source for buffer object operations.
-    ExcludeMessage (GL_DEBUG_SOURCE_API, 131185);
+    ExcludeMessage (GL_DEBUG_SOURCE_API_ARB, 131185);
   }
   if (IsGlGreaterEqual (3, 0))
   {
@@ -1121,13 +1110,6 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
   {
     arbFBOBlit = (OpenGl_ArbFBOBlit* )(&(*myFuncs));
   }
-  if (IsGlGreaterEqual (3, 1)
-   && FindProc ("glTexStorage2DMultisample", myFuncs->glTexStorage2DMultisample))
-  {
-    // MSAA RenderBuffers have been defined in OpenGL ES 3.0,
-    // but MSAA Textures - only in OpenGL ES 3.1+
-    ::glGetIntegerv (GL_MAX_SAMPLES, &myMaxMsaaSamples);
-  }
 
   hasUintIndex = IsGlGreaterEqual (3, 0)
               || CheckExtension ("GL_OES_element_index_uint");
@@ -1139,30 +1121,17 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
   {
     hasHighp = Standard_True;
   }
-
-  arbTexFloat = IsGlGreaterEqual (3, 0)
-             && FindProc ("glTexImage3D", myFuncs->glTexImage3D);
-
-  const Standard_Boolean hasTexBuffer32  = IsGlGreaterEqual (3, 2) && FindProc ("glTexBuffer", myFuncs->glTexBuffer);
-  const Standard_Boolean hasExtTexBuffer = CheckExtension ("GL_EXT_texture_buffer") && FindProc ("glTexBufferEXT", myFuncs->glTexBuffer);
-
-  if (hasTexBuffer32 || hasExtTexBuffer)
-  {
-    arbTBO = reinterpret_cast<OpenGl_ArbTBO*> (myFuncs.get());
-  }
 #else
 
   myTexClamp = IsGlGreaterEqual (1, 2) ? GL_CLAMP_TO_EDGE : GL_CLAMP;
 
   hasTexRGBA8 = Standard_True;
-  arbNPTW     = CheckExtension ("GL_ARB_texture_non_power_of_two");
-  arbTexFloat = IsGlGreaterEqual (3, 0)
-             || CheckExtension ("GL_ARB_texture_float");
-  extBgra     = CheckExtension ("GL_EXT_bgra");
-  extAnis     = CheckExtension ("GL_EXT_texture_filter_anisotropic");
-  extPDS      = CheckExtension ("GL_EXT_packed_depth_stencil");
-  atiMem      = CheckExtension ("GL_ATI_meminfo");
-  nvxMem      = CheckExtension ("GL_NVX_gpu_memory_info");
+  arbNPTW = CheckExtension ("GL_ARB_texture_non_power_of_two");
+  extBgra = CheckExtension ("GL_EXT_bgra");
+  extAnis = CheckExtension ("GL_EXT_texture_filter_anisotropic");
+  extPDS  = CheckExtension ("GL_EXT_packed_depth_stencil");
+  atiMem  = CheckExtension ("GL_ATI_meminfo");
+  nvxMem  = CheckExtension ("GL_NVX_gpu_memory_info");
 
   GLint aStereo = GL_FALSE;
   glGetIntegerv (GL_STEREO, &aStereo);
@@ -1267,7 +1236,7 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
       arbDbg->glDebugMessageCallbackARB (debugCallbackWrap, this);
       if (caps->contextSyncDebug)
       {
-        ::glEnable (GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        ::glEnable (GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
       }
     }
   }
@@ -2113,10 +2082,10 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
       + "Error! OpenGL context reports version "
       + myGlVerMajor  + "." + myGlVerMinor
       + " but reports wrong GLSL version";
-    PushMessage (GL_DEBUG_SOURCE_APPLICATION,
-                 GL_DEBUG_TYPE_ERROR,
+    PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
+                 GL_DEBUG_TYPE_ERROR_ARB,
                  0,
-                 GL_DEBUG_SEVERITY_HIGH,
+                 GL_DEBUG_SEVERITY_HIGH_ARB,
                  aMsg);
     myGlVerMajor = 1;
     myGlVerMinor = 5;
@@ -2145,24 +2114,6 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
     return;
   }
 
-  // MSAA RenderBuffers have been defined in OpenGL 3.0,
-  // but MSAA Textures - only in OpenGL 3.2+
-  if (!has32
-   && CheckExtension ("GL_ARB_texture_multisample")
-   && FindProcShort (glTexImage2DMultisample))
-  {
-    GLint aNbColorSamples = 0, aNbDepthSamples = 0;
-    ::glGetIntegerv (GL_MAX_COLOR_TEXTURE_SAMPLES, &aNbColorSamples);
-    ::glGetIntegerv (GL_MAX_DEPTH_TEXTURE_SAMPLES, &aNbDepthSamples);
-    myMaxMsaaSamples = Min (aNbColorSamples, aNbDepthSamples);
-  }
-  if (!has43
-   && CheckExtension ("GL_ARB_texture_storage_multisample")
-   && FindProcShort (glTexStorage2DMultisample))
-  {
-    //
-  }
-
   if (!has31)
   {
     checkWrongVersion (3, 1);
@@ -2189,7 +2140,6 @@ void OpenGl_Context::init (const Standard_Boolean theIsCoreProfile)
   {
     core32back = (OpenGl_GlCore32Back* )(&(*myFuncs));
   }
-  ::glGetIntegerv (GL_MAX_SAMPLES, &myMaxMsaaSamples);
 
   if (!has33)
   {
@@ -2624,59 +2574,12 @@ void OpenGl_Context::SetLineWidth (const Standard_ShortReal theWidth)
   if (core11 != NULL)
   {
     // glLineWidth() is still defined within Core Profile, but has no effect with values != 1.0f
-    core11fwd->glLineWidth (theWidth * myResolutionRatio);
+    core11fwd->glLineWidth (theWidth);
   }
 #ifdef HAVE_GL2PS
   if (IsFeedback())
   {
     gl2psLineWidth (theWidth);
-  }
-#endif
-}
-
-// =======================================================================
-// function : SetTextureMatrix
-// purpose  :
-// =======================================================================
-void OpenGl_Context::SetTextureMatrix (const Handle(Graphic3d_TextureParams)& theParams)
-{
-  if (theParams.IsNull())
-  {
-    return;
-  }
-  else if (!myActiveProgram.IsNull())
-  {
-    const GLint aUniLoc = myActiveProgram->GetStateLocation (OpenGl_OCCT_TEXTURE_TRSF2D);
-    if (aUniLoc == OpenGl_ShaderProgram::INVALID_LOCATION)
-    {
-      return;
-    }
-
-    // pack transformation parameters
-    OpenGl_Vec4 aTrsf[2];
-    aTrsf[0].xy() = theParams->Translation();
-    aTrsf[0].zw() = theParams->Scale();
-    aTrsf[1].x()  = std::sin (-theParams->Rotation() * static_cast<float> (M_PI / 180.0));
-    aTrsf[1].y()  = std::cos (-theParams->Rotation() * static_cast<float> (M_PI / 180.0));
-    myActiveProgram->SetUniform (this, aUniLoc, 2, aTrsf);
-    return;
-  }
-
-#if !defined(GL_ES_VERSION_2_0)
-  if (core11 != NULL)
-  {
-    GLint aMatrixMode = GL_TEXTURE;
-    ::glGetIntegerv (GL_MATRIX_MODE, &aMatrixMode);
-
-    core11->glMatrixMode (GL_TEXTURE);
-    OpenGl_Mat4 aTextureMat;
-    const Graphic3d_Vec2& aScale = theParams->Scale();
-    const Graphic3d_Vec2& aTrans = theParams->Translation();
-    Graphic3d_TransformUtils::Scale     (aTextureMat,  aScale.x(),  aScale.y(), 1.0f);
-    Graphic3d_TransformUtils::Translate (aTextureMat, -aTrans.x(), -aTrans.y(), 0.0f);
-    Graphic3d_TransformUtils::Rotate    (aTextureMat, -theParams->Rotation(), 0.0f, 0.0f, 1.0f);
-    core11->glLoadMatrixf (aTextureMat);
-    core11->glMatrixMode (aMatrixMode);
   }
 #endif
 }

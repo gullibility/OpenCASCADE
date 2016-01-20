@@ -19,8 +19,6 @@
 #include <Standard_GUID.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_TNameContainer,TDF_Attribute)
-
 //=======================================================================
 //function : TObj_TNameContainer
 //purpose  : 

@@ -5,4 +5,4 @@ blend result s 2*SCALE1 s_2
 explode result sh
 tcopy result_1 result 
 
-checkprops result -s 87763.8
+set square 87763.8

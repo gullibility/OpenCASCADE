@@ -3,5 +3,4 @@ plane p 0 0 0 1 0 0
 mkface f p
 bsection result a f
 
-checkprops result -l 18981.2
-checksection result
+set length 20674.3

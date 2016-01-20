@@ -46,7 +46,7 @@ public:
   //! Returns bounding box of object
   Standard_EXPORT virtual void BoundingBox (Bnd_Box& theBndBox) Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(IVtkOCC_SelectableObject,SelectMgr_SelectableObject)
+  DEFINE_STANDARD_RTTI(IVtkOCC_SelectableObject, SelectMgr_SelectableObject)
 
 private: 
 
@@ -55,7 +55,7 @@ private:
   //! @param [in] selection container for sensitive primitives
   //! @param [in] mode Selection mode
   void ComputeSelection (const Handle(SelectMgr_Selection)& theSelection,
-                         const Standard_Integer theMode) Standard_OVERRIDE;
+                         const Standard_Integer theMode);
 
   const Bnd_Box& BoundingBox();
 

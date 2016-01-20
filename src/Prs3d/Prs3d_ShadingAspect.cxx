@@ -19,8 +19,6 @@
 #include <Quantity_Color.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Prs3d_ShadingAspect,Prs3d_BasicAspect)
-
 //=======================================================================
 //function : Prs3d_ShadingAspect
 //purpose  : 

@@ -98,7 +98,6 @@ Extrema_FuncExtPC::Extrema_FuncExtPC (const Pnt& P,
   {
   case GeomAbs_BezierCurve:
   case GeomAbs_BSplineCurve:
-  case GeomAbs_OffsetCurve:
   case GeomAbs_OtherCurve:
     myMaxDerivOrder = MaxOrder;
     myTol = SearchOfTolerance();
@@ -126,7 +125,6 @@ void Extrema_FuncExtPC::Initialize(const Curve& C)
   {
   case GeomAbs_BezierCurve:
   case GeomAbs_BSplineCurve:
-  case GeomAbs_OffsetCurve:
   case GeomAbs_OtherCurve:
     myMaxDerivOrder = MaxOrder;
     myTol = SearchOfTolerance();

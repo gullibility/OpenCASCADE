@@ -16,8 +16,6 @@
 #include <StepBasic_DocumentType.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentType,MMgt_TShared)
-
 StepBasic_DocumentType::StepBasic_DocumentType  ()    {  }
 
 void  StepBasic_DocumentType::Init (const Handle(TCollection_HAsciiString)& apdt)

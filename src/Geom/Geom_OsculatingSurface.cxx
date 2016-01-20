@@ -30,8 +30,6 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_OsculatingSurface,MMgt_TShared)
-
 //=======================================================================
 //function : Geom_OffsetOsculatingSurface
 //purpose  : 
@@ -39,7 +37,6 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_OsculatingSurface,MMgt_TShared)
 Geom_OsculatingSurface::Geom_OsculatingSurface()
   : myAlong(1,4)
 {
-  myAlong.Init(Standard_False);
 }
 //=======================================================================
 //function : Geom_OffsetOsculatingSurface

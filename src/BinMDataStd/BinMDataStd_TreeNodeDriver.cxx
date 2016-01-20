@@ -22,8 +22,6 @@
 #include <TDataStd_TreeNode.hxx>
 #include <TDF_Attribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_TreeNodeDriver,BinMDF_ADriver)
-
 //=======================================================================
 //function : BinMDataStd_TreeNodeDriver
 //purpose  : Constructor

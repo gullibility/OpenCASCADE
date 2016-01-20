@@ -15,8 +15,7 @@ settolerance s 1.e-7
 
 fixshape result s
 
-checkprops result -s 123446
-checkshape result
+set square 123446
 
 checknbshapes result -vertex 33 -edge 52 -wire 23 -face 21 -shell 1 -solid 1 -compsolid 0 -compound 1 -shape 132
 set 2dviewer 1

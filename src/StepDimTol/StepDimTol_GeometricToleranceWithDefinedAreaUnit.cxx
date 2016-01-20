@@ -15,8 +15,6 @@
 
 #include <StepDimTol_GeometricToleranceWithDefinedAreaUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithDefinedAreaUnit,StepDimTol_GeometricToleranceWithDefinedUnit)
-
 //=======================================================================
 //function : StepDimTol_GeometricToleranceWithDefinedAreaUnit
 //purpose  : 
@@ -38,14 +36,14 @@ void StepDimTol_GeometricToleranceWithDefinedAreaUnit::
         const StepDimTol_GeometricToleranceTarget &theTolerancedShapeAspect,
         const Handle(StepBasic_LengthMeasureWithUnit) &theUnitSize,
         const StepDimTol_AreaUnitType theUnitType,
-        const Standard_Boolean theHasSecondUnitSize,
+        const Standard_Boolean hasSecondUnitSize,
         const Handle(StepBasic_LengthMeasureWithUnit) &theSecondUnitSize)
 {
   StepDimTol_GeometricToleranceWithDefinedUnit::
   Init(theName, theDescription, theMagnitude, theTolerancedShapeAspect, theUnitSize);
-  myAreaType = theUnitType;
-  if (theHasSecondUnitSize)
-    mySecondUnitSize = theSecondUnitSize;
+  areaType = theUnitType;
+  if (hasSecondUnitSize)
+    secondUnitSize = theSecondUnitSize;
   else
-    mySecondUnitSize.Nullify();
+    secondUnitSize.Nullify();
 }

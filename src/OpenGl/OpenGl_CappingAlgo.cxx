@@ -22,8 +22,6 @@
 #include <OpenGl_Structure.hxx>
 #include <Graphic3d_GraphicDriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_CappingAlgoFilter,OpenGl_RenderFilter)
-
 namespace
 {
 #if !defined(GL_ES_VERSION_2_0)
@@ -39,8 +37,8 @@ namespace
 // function : RenderCapping
 // purpose  :
 // =======================================================================
-void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)& theWorkspace,
-                                        const OpenGl_Structure&         theStructure)
+void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)&  theWorkspace,
+                                        const Graphic3d_SequenceOfGroup& theGroups)
 {
   const Handle(OpenGl_Context)& aContext = theWorkspace->GetGlContext();
 
@@ -96,7 +94,7 @@ void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)& theWorks
     {
       const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
       const Standard_Boolean isOn = (aPlane == aRenderPlane);
-      aContext->ChangeClipping().SetEnabled (aContext, aPlane, isOn);
+      aContext->ChangeClipping().SetEnabled (aPlane, isOn);
     }
 
     glClear (GL_STENCIL_BUFFER_BIT);
@@ -112,8 +110,13 @@ void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)& theWorks
     glStencilFunc (GL_ALWAYS, 1, 0x01);
     glStencilOp (GL_KEEP, GL_INVERT, GL_INVERT);
 
-    // render closed primitives
-    theStructure.renderClosedGeometry (theWorkspace);
+    for (OpenGl_Structure::GroupIterator aGroupIt (theGroups); aGroupIt.More(); aGroupIt.Next())
+    {
+      if (aGroupIt.Value()->IsClosed())
+      {
+        aGroupIt.Value()->Render (theWorkspace);
+      }
+    }
 
     // override material, cull back faces
     theWorkspace->SetAspectFace (&theWorkspace->FrontCulling());
@@ -124,7 +127,7 @@ void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)& theWorks
     {
       const Handle(Graphic3d_ClipPlane)& aPlane = aPlaneIt.Value();
       const Standard_Boolean isOn = (aPlane != aRenderPlane);
-      aContext->ChangeClipping().SetEnabled (aContext, aPlane, isOn);
+      aContext->ChangeClipping().SetEnabled (aPlane, isOn);
     }
 
     // render capping plane using the generated stencil mask
@@ -146,7 +149,7 @@ void OpenGl_CappingAlgo::RenderCapping (const Handle(OpenGl_Workspace)& theWorks
   // enable clipping
   for (aCappingIt.Init (aContextPlanes); aCappingIt.More(); aCappingIt.Next())
   {
-    aContext->ChangeClipping().SetEnabled (aContext, aCappingIt.Value(), Standard_True);
+    aContext->ChangeClipping().SetEnabled (aCappingIt.Value(), Standard_True);
   }
 
   // restore rendering aspects

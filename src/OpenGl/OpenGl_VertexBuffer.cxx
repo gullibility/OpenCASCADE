@@ -18,8 +18,6 @@
 #include <Standard_Assert.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_VertexBuffer,OpenGl_Resource)
-
 // =======================================================================
 // function : OpenGl_VertexBuffer
 // purpose  :

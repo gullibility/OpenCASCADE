@@ -22,8 +22,6 @@
 #include <TopLoc_Location.hxx>
 #include <XCAFDoc_Location.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_Location,TDF_Attribute)
-
 //=======================================================================
 //function : Constructor
 //purpose  : 

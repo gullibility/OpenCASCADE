@@ -17,8 +17,6 @@
 #include <TColgp_HArray1OfPnt.hxx>
 
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDimTolObjects_DimensionObject,Standard_Transient)
-
 //=======================================================================
 //function : XCAFDimTolObjects_DimensionObject
 //purpose  : 
@@ -100,16 +98,9 @@ XCAFDimTolObjects_DimensionType XCAFDimTolObjects_DimensionObject::GetType()  co
 //=======================================================================
 Standard_Real XCAFDimTolObjects_DimensionObject::GetValue ()  const
 {
-  if (myVal.IsNull())
-    return 0;
-
-  // Simple value or value with Plus_Minus_Tolerance
-  if (myVal->Length() == 1 || myVal->Length() == 3) {
+  if(!myVal.IsNull() && (myVal->Length() == 1 || myVal->Length() == 3))
+  {
     return myVal->Value(1);
-  }
-  // Range
-  if (myVal->Length() == 2) {
-    return (myVal->Value(1) + myVal->Value(2)) / 2;
   }
   return 0;
 }
@@ -322,10 +313,10 @@ Standard_Boolean XCAFDimTolObjects_DimensionObject::GetClassOfTolerance (Standar
   XCAFDimTolObjects_DimensionFormVariance& theFormVariance,
   XCAFDimTolObjects_DimensionGrade& theGrade)  const
 {
-  theFormVariance = myFormVariance;
   if(myFormVariance != XCAFDimTolObjects_DimensionFormVariance_None)
   {
     theHole = myIsHole;
+    theFormVariance = myFormVariance;
     theGrade = myGrade;
     return Standard_True;
   }
