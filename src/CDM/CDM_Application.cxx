@@ -27,7 +27,7 @@
 
 //=======================================================================
 //function : SetDocumentVersion
-//purpose  : 
+//purpose  :
 //=======================================================================
 void CDM_Application::SetDocumentVersion
                         (const Handle(CDM_Document)& aDocument,
@@ -38,7 +38,7 @@ void CDM_Application::SetDocumentVersion
 
 //=======================================================================
 //function : SetReferenceCounter
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void CDM_Application::SetReferenceCounter
@@ -50,7 +50,7 @@ void CDM_Application::SetReferenceCounter
 
 //=======================================================================
 //function : MessageDriver
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 Handle(CDM_MessageDriver) CDM_Application::MessageDriver()
@@ -62,7 +62,7 @@ Handle(CDM_MessageDriver) CDM_Application::MessageDriver()
 
 //=======================================================================
 //function : Write
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void CDM_Application::Write(const Standard_ExtString aString)
@@ -72,7 +72,7 @@ void CDM_Application::Write(const Standard_ExtString aString)
 
 //=======================================================================
 //function : BeginOfUpdate
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void CDM_Application::BeginOfUpdate (const Handle(CDM_Document)& aDocument)
@@ -84,20 +84,20 @@ void CDM_Application::BeginOfUpdate (const Handle(CDM_Document)& aDocument)
 
 //=======================================================================
 //function : EndOfUpdate
-//purpose  : 
+//purpose  :
 //=======================================================================
 
 void CDM_Application::EndOfUpdate
                         (const Handle(CDM_Document)&       aDocument,
-                         const Standard_Boolean            Status,
+                         const Standard_Boolean            CDMStatus,
                          const TCollection_ExtendedString& /*ErrorString*/)
 {
   TCollection_ExtendedString message;
-  if (Status) 
+  if (CDMStatus)
     message="Updated:";
   else
     message="Error during updating:";
-      
+
   message+=aDocument->Presentation();
   Write(message.ToExtString());
 }
