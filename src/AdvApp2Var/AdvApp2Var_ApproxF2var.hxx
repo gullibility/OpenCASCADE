@@ -52,7 +52,7 @@ Standard_EXPORT static int mma2fnc_(integer *ndimen,
 				    doublereal *tabdec, 
 				    doublereal *errmax, 
 				    doublereal *errmoy, 
-				    integer *iercod);
+				    integer *iercod) __attribute__((optnone));
 
 
 Standard_EXPORT static int mma2roo_(integer *nbpntu, 
