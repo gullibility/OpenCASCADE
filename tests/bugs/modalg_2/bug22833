@@ -29,5 +29,6 @@ if { ${status} != 0 } {
    puts "OK ${BugNumber}"
 }
 
-set square 63427.2
-set 3dviewer 1
+checkprops result -s 63427.2 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

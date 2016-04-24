@@ -1,0 +1,5 @@
+<map id="Interface_CopyMap" name="Interface_CopyMap">
+<area shape="rect" id="node2" href="$class_interface___copy_control.html" title="This deferred class describes the services required by CopyTool to work. They are very simple and cor..." alt="" coords="5,155,155,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="25,80,135,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="13,5,147,32"/>
+</map>

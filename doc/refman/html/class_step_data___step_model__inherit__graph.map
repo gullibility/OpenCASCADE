@@ -1,0 +1,5 @@
+<map id="StepData_StepModel" name="StepData_StepModel">
+<area shape="rect" id="node2" href="$class_interface___interface_model.html" title="Defines an (Indexed) Set of data corresponding to a complete Transfer by a File Interface, i.e. File Header and Transient Entities (Objects) contained in a File. Contained Entities are identified in the Model by unique and consecutive Numbers. " alt="" coords="5,155,168,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="31,80,141,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="19,5,153,32"/>
+</map>

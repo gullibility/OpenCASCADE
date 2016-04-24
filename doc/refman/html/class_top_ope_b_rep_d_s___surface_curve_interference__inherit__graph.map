@@ -1,0 +1,5 @@
+<map id="TopOpeBRepDS_SurfaceCurveInterference" name="TopOpeBRepDS_SurfaceCurveInterference">
+<area shape="rect" id="node2" href="$class_top_ope_b_rep_d_s___interference.html" title="An interference is the description of the attachment of a new geometry on a geometry. For example an intersection point on an Edge or on a Curve. " alt="" coords="10,155,200,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="50,80,160,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="38,5,172,32"/>
+</map>

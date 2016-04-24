@@ -1,0 +1,9 @@
+<map id="V3d_Light" name="V3d_Light">
+<area shape="rect" id="node4" href="$class_v3d___ambient_light.html" title="Creation of an ambient light source in a viewer. " alt="" coords="24,229,152,256"/>
+<area shape="rect" id="node5" href="$class_v3d___position_light.html" title="Base class for Positional, Spot and Directional Light classes. " alt="" coords="177,229,303,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="109,80,219,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="97,5,231,32"/>
+<area shape="rect" id="node6" href="$class_v3d___directional_light.html" title="Directional light source for a viewer. " alt="" coords="5,304,147,331"/>
+<area shape="rect" id="node7" href="$class_v3d___positional_light.html" title="Creation and modification of an isolated (positional) light source. " alt="" coords="171,304,308,331"/>
+<area shape="rect" id="node8" href="$class_v3d___spot_light.html" title="Creation and modification of a spot. " alt="" coords="333,304,440,331"/>
+</map>

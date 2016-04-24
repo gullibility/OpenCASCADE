@@ -15,12 +15,14 @@
 
 #include <Xw_Window.hxx>
 
-#if !defined(_WIN32) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX)) && !defined(__ANDROID__)
+#if !defined(_WIN32) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX)) && !defined(__ANDROID__) && !defined(__QNX__)
 
 #include <Aspect_Convert.hxx>
 #include <Aspect_WindowDefinitionError.hxx>
 
 #include <GL/glx.h>
+
+IMPLEMENT_STANDARD_RTTIEXT(Xw_Window,Aspect_Window)
 
 namespace
 {
@@ -227,10 +229,10 @@ Xw_Window::Xw_Window (const Handle(Aspect_DisplayConnection)& theXDisplay,
 }
 
 // =======================================================================
-// function : Destroy
+// function : ~Xw_Window
 // purpose  :
 // =======================================================================
-void Xw_Window::Destroy()
+Xw_Window::~Xw_Window()
 {
   if (myIsOwnWin && myXWindow != 0 && !myDisplay.IsNull())
   {

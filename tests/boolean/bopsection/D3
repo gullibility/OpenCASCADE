@@ -7,4 +7,6 @@ bop m2_o m2_t
 
 bopsection result
 
-set length 67.466
+checkprops result -l 67.466
+checksection result
+checkview -display result -2d -otherwise { m2_o m2_t } -l -path ${imagedir}/${test_image}.png

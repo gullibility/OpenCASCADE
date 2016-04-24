@@ -1,0 +1,6 @@
+<map id="StepShape_DimensionalSize" name="StepShape_DimensionalSize">
+<area shape="rect" id="node4" href="$class_step_shape___angular_size.html" title="Representation of STEP entity AngularSize. " alt="" coords="5,237,168,264"/>
+<area shape="rect" id="node5" href="$class_step_shape___dimensional_size_with_path.html" title="Representation of STEP entity DimensionalSizeWithPath. " alt="" coords="193,230,383,271"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="131,80,241,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="119,5,253,32"/>
+</map>

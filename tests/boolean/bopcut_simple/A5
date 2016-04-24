@@ -4,4 +4,5 @@ box b2  0     0     0     0.5   1     0.5
 bop b1 b2
 bopcut result
 
-set square 5.5
+checkprops result -s 5.5
+checkview -display result -2d -otherwise { b1 b2 } -s -path ${imagedir}/${test_image}.png

@@ -27,6 +27,8 @@
 #include <Storage_Data.hxx>
 #include <UTL.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReferenceIterator,Standard_Transient)
+
 #ifdef _MSC_VER
 # include <tchar.h>
 #endif  // _MSC_VER
@@ -119,14 +121,14 @@ Handle(CDM_MetaData) PCDM_ReferenceIterator::MetaData(const Standard_Boolean ) c
     chr = dir.Value ( i );
     
     switch ( chr ) {
-      
-    case _TEXT( '|' ):
-      dirRet += _TEXT( "/" );
+
+    case '|':
+      dirRet += "/";
       break;
-      
-    case _TEXT( '^' ):
-      
-      dirRet += _TEXT( ".." );
+
+    case '^':
+
+      dirRet += "..";
       break;
       
     default:

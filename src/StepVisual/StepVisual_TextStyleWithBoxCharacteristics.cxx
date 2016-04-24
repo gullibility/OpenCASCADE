@@ -18,15 +18,9 @@
 #include <StepVisual_TextStyleWithBoxCharacteristics.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_TextStyleWithBoxCharacteristics,StepVisual_TextStyle)
+
 StepVisual_TextStyleWithBoxCharacteristics::StepVisual_TextStyleWithBoxCharacteristics ()  {}
-
-void StepVisual_TextStyleWithBoxCharacteristics::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepVisual_TextStyleForDefinedFont)& aCharacterAppearance)
-{
-
-	StepVisual_TextStyle::Init(aName, aCharacterAppearance);
-}
 
 void StepVisual_TextStyleWithBoxCharacteristics::Init(
 	const Handle(TCollection_HAsciiString)& aName,

@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+		0DCB132810520AE8177A0FC7 = {isa = PBXBuildFile; fileRef = 021F0E2904EE108810E010A9 ;};
+		12C815B60D280161061C15AC = {isa = PBXBuildFile; fileRef = 0EAE138905A9183B0C9309EC ;};
+
+		04680303179D15001108046C = {isa = PBXBuildFile; fileRef = 12B703051241115911E708BA ; };
+		054E004407500C2A098E16C3 = {isa = PBXBuildFile; fileRef = 12CB080415A10664131617B9 ; };
+
+		0B90111C09DC17E6147D15E4 = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libFWOSPlugin.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		021F0E2904EE108810E010A9 = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FWOSDriver.cxx; path = ../../../src/FWOSDriver/FWOSDriver.cxx; sourceTree = "<group>"; };
+		0EAE138905A9183B0C9309EC = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FWOSDriver_DriverFactory.cxx; path = ../../../src/FWOSDriver/FWOSDriver_DriverFactory.cxx; sourceTree = "<group>"; };
+
+		12B703051241115911E708BA = {isa = PBXFileReference; lastKnownFileType = file; name = libTKernel.dylib; path = libTKernel.dylib; sourceTree = "<group>"; };
+		12CB080415A10664131617B9 = {isa = PBXFileReference; lastKnownFileType = file; name = libTKCDF.dylib; path = libTKCDF.dylib; sourceTree = "<group>"; };
+
+		0E05033217300B8F105A0EFD = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04680303179D15001108046C ,
+				054E004407500C2A098E16C3 ,
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		098402D0191918FA140204E9 = {
+			isa = PBXGroup;
+			children = (
+				021F0E2904EE108810E010A9 ,
+				0EAE138905A9183B0C9309EC ,
+			);
+			name = FWOSDriver;
+			sourceTree = "<group>";
+		};
+
+		125612851490093007750183 = {
+			isa = PBXGroup;
+			children = (
+				12B703051241115911E708BA ,
+				12CB080415A10664131617B9 ,
+
+				108513D415E3041404C41107 ,
+				0B90111C09DC17E6147D15E4 ,
+			);
+			sourceTree = "<group>";
+		};
+		108513D415E3041404C41107 = {
+			isa = PBXGroup;
+			children = (
+				098402D0191918FA140204E9 ,
+			);
+			name = "Source files";
+			sourceTree = "<group>";
+		};
+
+		07A010FF03DC03E90BC70F12 = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		00DC0E8A0F3610D407D20E69 = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15800B0017C1080E110A0728 ;
+			buildPhases = (
+				0AE504F514F6161E0950176E ,
+				0E05033217300B8F105A0EFD ,
+				07A010FF03DC03E90BC70F12 ,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FWOSPlugin;
+			productName = FWOSPlugin;
+			productReference = 0B90111C09DC17E6147D15E4 ;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+
+		04A217E309E704EE17491419 = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 0743062D097811BE15BC0E70 ;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 125612851490093007750183;
+			productRefGroup = 125612851490093007750183;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00DC0E8A0F3610D407D20E69 ,
+			);
+		};
+
+		0AE504F514F6161E0950176E = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DCB132810520AE8177A0FC7 ,
+				12C815B60D280161061C15AC ,
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		0BA9030A15B100C1001214E5 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "$(CSF_OPT_LNK64D)"; 
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		08B000BD12500BEF04B1164B = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "$(CSF_OPT_LNK64)";
+			};
+			name = Release;
+		};
+		11AD0B1F088805B9162A1273 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OCC_CONVERT_SIGNALS ,
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../inc,
+					/usr/local/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc,
+					"$(CSF_OPT_INC)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr,
+					/usr/lib,
+					/Users/mnt/tools/WOK680/site/../3rdparty/mac64/gl2ps/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/lib,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/adm/mac/xcd/build/Release,
+				);
+				OTHER_CFLAGS = (
+					"$(CSF_OPT_CMPL)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = " ../../../inc /usr/local/include /Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include /Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype /Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include /Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc";
+				WRAPPER_EXTENSION = dylib;
+			};
+			name = Debug;
+		};
+		056806CF04CD14CE178B0315 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OCC_CONVERT_SIGNALS ,
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../inc,
+					/usr/local/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc,
+					"$(CSF_OPT_INC)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr,
+					/usr/lib,
+					/Users/mnt/tools/WOK680/site/../3rdparty/mac64/gl2ps/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/lib,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/adm/mac/xcd/build/Release,
+				);
+				OTHER_CFLAGS = (
+					"$(CSF_OPT_CMPL)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = " ../../../inc /usr/local/include /Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include /Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype /Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include /Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc";
+				WRAPPER_EXTENSION = dylib;
+			};
+			name = Release;
+		};
+
+		0743062D097811BE15BC0E70 = {
+			isa = XCConfigurationList;
+		buildConfigurations = (
+				0BA9030A15B100C1001214E5 ,
+				08B000BD12500BEF04B1164B ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15800B0017C1080E110A0728 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11AD0B1F088805B9162A1273 ,
+				056806CF04CD14CE178B0315 ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+	};
+	rootObject = 04A217E309E704EE17491419 ;
+}

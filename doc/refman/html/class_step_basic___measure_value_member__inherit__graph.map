@@ -1,0 +1,6 @@
+<map id="StepBasic_MeasureValueMember" name="StepBasic_MeasureValueMember">
+<area shape="rect" id="node2" href="$class_step_data___select_real.html" title="A SelectReal is a SelectMember specialised for a basic real type in a select which also accepts entit..." alt="" coords="41,229,188,256"/>
+<area shape="rect" id="node3" href="$class_step_data___select_member.html" title="The general form for a Select Member. A Select Member can, either define a value of a basic type (suc..." alt="" coords="31,155,197,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="59,80,169,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="47,5,181,32"/>
+</map>

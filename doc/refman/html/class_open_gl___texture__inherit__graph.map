@@ -1,0 +1,5 @@
+<map id="OpenGl_Texture" name="OpenGl_Texture">
+<area shape="rect" id="node4" href="$class_open_gl___point_sprite.html" title="Point sprite resource. On modern hardware it will be texture with extra parameters. On ancient hardware sprites will be drawn using bitmaps. " alt="" coords="5,229,141,256"/>
+<area shape="rect" id="node2" href="$class_open_gl___resource.html" title="Interface for OpenGl resource with following meaning: " alt="" coords="9,80,137,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,5,140,32"/>
+</map>

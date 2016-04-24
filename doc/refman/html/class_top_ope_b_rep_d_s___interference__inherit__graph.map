@@ -1,0 +1,10 @@
+<map id="TopOpeBRepDS_Interference" name="TopOpeBRepDS_Interference">
+<area shape="rect" id="node4" href="$class_top_ope_b_rep_d_s___curve_point_interference.html" title="An interference with a parameter. " alt="" coords="596,5,849,32"/>
+<area shape="rect" id="node5" href="$class_top_ope_b_rep_d_s___shape_shape_interference.html" title="Interference. " alt="" coords="590,56,855,83"/>
+<area shape="rect" id="node8" href="$class_top_ope_b_rep_d_s___solid_surface_interference.html" title="Interference. " alt="" coords="624,107,821,149"/>
+<area shape="rect" id="node9" href="$class_top_ope_b_rep_d_s___surface_curve_interference.html" title="an interference with a 2d curve " alt="" coords="623,173,823,214"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,85,301,112"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,85,141,112"/>
+<area shape="rect" id="node6" href="$class_top_ope_b_rep_d_s___edge_vertex_interference.html" title="An interference with a parameter (ShapeShapeInterference). " alt="" coords="904,31,1163,57"/>
+<area shape="rect" id="node7" href="$class_top_ope_b_rep_d_s___face_edge_interference.html" title="ShapeShapeInterference. " alt="" coords="908,81,1159,108"/>
+</map>

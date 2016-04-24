@@ -1,0 +1,12 @@
+<map id="StepRepr_DerivedShapeAspect" name="StepRepr_DerivedShapeAspect">
+<area shape="rect" id="node5" href="$class_step_repr___apex.html" title="Added for Dimensional Tolerances. " alt="" coords="855,5,969,32"/>
+<area shape="rect" id="node6" href="$class_step_repr___centre_of_symmetry.html" title="Added for Dimensional Tolerances. " alt="" coords="815,56,1009,83"/>
+<area shape="rect" id="node7" href="$class_step_repr___extension.html" title="Added for Dimensional Tolerances. " alt="" coords="841,107,983,133"/>
+<area shape="rect" id="node8" href="$class_step_repr___geometric_alignment.html" title="Added for Dimensional Tolerances. " alt="" coords="811,157,1013,184"/>
+<area shape="rect" id="node9" href="$class_step_repr___parallel_offset.html" title="Added for Dimensional Tolerances. " alt="" coords="832,208,992,235"/>
+<area shape="rect" id="node10" href="$class_step_repr___perpendicular_to.html" title="Added for Dimensional Tolerances. " alt="" coords="824,259,1000,285"/>
+<area shape="rect" id="node11" href="$class_step_repr___tangent.html" title="Added for Dimensional Tolerances. " alt="" coords="847,309,977,336"/>
+<area shape="rect" id="node2" href="$class_step_repr___shape_aspect.html" title="StepRepr_ShapeAspect" alt="" coords="350,157,511,184"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,157,301,184"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,157,141,184"/>
+</map>

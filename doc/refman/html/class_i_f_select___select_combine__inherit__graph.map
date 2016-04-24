@@ -1,0 +1,7 @@
+<map id="IFSelect_SelectCombine" name="IFSelect_SelectCombine">
+<area shape="rect" id="node5" href="$class_i_f_select___select_intersection.html" title="A SelectIntersection filters the Entities issued from several other Selections as Intersection of res..." alt="" coords="5,304,187,331"/>
+<area shape="rect" id="node6" href="$class_i_f_select___select_union.html" title="A SelectUnion cumulates the Entities issued from several other Selections (union of results : &quot;OR&quot; op..." alt="" coords="211,304,357,331"/>
+<area shape="rect" id="node2" href="$class_i_f_select___selection.html" title="A Selection allows to define a set of Interface Entities. Entities to be put on an output file should..." alt="" coords="124,155,255,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="134,80,244,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="122,5,256,32"/>
+</map>

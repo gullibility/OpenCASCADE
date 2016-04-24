@@ -21,5 +21,7 @@ if { [regexp {OK} $che] != 1 } {
     renamevar result_1 result
 }
 
-set length 11.2406
-set 2dviewer 0
+checkprops result -l 11.2406 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

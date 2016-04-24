@@ -1,0 +1,7 @@
+<map id="BRepAlgoAPI_Common" name="BRepAlgoAPI_Common">
+<area shape="rect" id="node2" href="$class_b_rep_algo_a_p_i___boolean_operation.html" title="The abstract class BooleanOperation is the root class of Boolean Operations (see Overview). Boolean Operations algorithm is divided onto two parts. " alt="" coords="5,304,216,331"/>
+<area shape="rect" id="node3" href="$class_b_rep_algo_a_p_i___builder_algo.html" title="The clsss contains API level of General Fuse algorithm. " alt="" coords="23,229,197,256"/>
+<area shape="rect" id="node4" href="$class_b_rep_algo_a_p_i___algo.html" title="provides the root interface for algorithms " alt="" coords="43,155,177,181"/>
+<area shape="rect" id="node5" href="$class_b_rep_builder_a_p_i___make_shape.html" title="This is the root class for all shape constructions. It stores the result. " alt="" coords="15,80,205,107"/>
+<area shape="rect" id="node6" href="$class_b_rep_builder_a_p_i___command.html" title="Root class for all commands in BRepBuilderAPI. " alt="" coords="20,5,201,32"/>
+</map>

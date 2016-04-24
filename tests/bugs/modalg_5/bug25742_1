@@ -46,7 +46,8 @@ if { $z > ${max_time} } {
     puts "Elapsed time of bbuild is less than ${max_time} seconds - OK"
 }
 
-set square 280627
+checkprops result -s 280627 
+checkshape result
 
 set nbshapes_expected "
 Number of shapes in shape
@@ -61,5 +62,4 @@ Number of shapes in shape
  SHAPE     : 61
 "
 checknbshapes result -ref "${nbshapes_expected}" -t -m "Partition of 2 shapes"
-
-set 3dviewer 1
+checkview -display result -3d -path ${imagedir}/${test_image}.png

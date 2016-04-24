@@ -1,0 +1,7 @@
+<map id="StepRepr_RepresentationRelationship" name="StepRepr_RepresentationRelationship">
+<area shape="rect" id="node4" href="$class_step_repr___shape_representation_relationship.html" title="StepRepr_ShapeRepresentation\lRelationship" alt="" coords="22,230,228,271"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="70,80,180,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="58,5,192,32"/>
+<area shape="rect" id="node5" href="$class_step_repr___representation_relationship_with_transformation.html" title="StepRepr_RepresentationRelationship\lWithTransformation" alt="" coords="5,321,245,362"/>
+<area shape="rect" id="node6" href="$class_step_repr___shape_representation_relationship_with_transformation.html" title="StepRepr_ShapeRepresentation\lRelationshipWithTransformation" alt="" coords="22,411,228,453"/>
+</map>

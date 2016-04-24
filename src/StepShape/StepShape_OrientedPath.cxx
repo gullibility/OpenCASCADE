@@ -18,15 +18,9 @@
 #include <StepShape_OrientedPath.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_OrientedPath,StepShape_Path)
+
 StepShape_OrientedPath::StepShape_OrientedPath ()  {}
-
-void StepShape_OrientedPath::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepShape_HArray1OfOrientedEdge)& aEdgeList)
-{
-
-	StepShape_Path::Init(aName, aEdgeList);
-}
 
 void StepShape_OrientedPath::Init(
 	const Handle(TCollection_HAsciiString)& aName,

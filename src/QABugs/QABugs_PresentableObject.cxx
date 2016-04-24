@@ -27,6 +27,8 @@
 #include <QABugs_PresentableObject.hxx>
 #include <Standard_Type.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(QABugs_PresentableObject,AIS_InteractiveObject)
+
 QABugs_PresentableObject::QABugs_PresentableObject(const PrsMgr_TypeOfPresentation3d theTypeOfPresentation3d)
      :AIS_InteractiveObject(theTypeOfPresentation3d)
 {
@@ -36,7 +38,7 @@ void QABugs_PresentableObject::Compute(const Handle(PrsMgr_PresentationManager3d
 				const Handle(Prs3d_Presentation)& thePrs,
 				const Standard_Integer theMode)
 {
-  Handle(Graphic3d_Structure) aStructure = Handle(Graphic3d_Structure)::DownCast (thePrs);
+  Handle(Graphic3d_Structure) aStructure (thePrs);
   Handle(Graphic3d_Group)     aGroup     = aStructure->NewGroup();
   Handle(Prs3d_ShadingAspect) anAspect = myDrawer->ShadingAspect();
   Graphic3d_MaterialAspect aMat = anAspect->Aspect()->FrontMaterial();

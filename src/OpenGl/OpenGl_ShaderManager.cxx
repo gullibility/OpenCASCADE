@@ -31,16 +31,27 @@
 
 
 
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderManager,Standard_Transient)
+
 namespace
 {
 
 #define EOL "\n"
 
-//! Definition of VertColor varying.
+//! Definition of TexCoord varying.
 const char THE_VARY_TexCoord_OUT[] =
-  EOL"THE_SHADER_OUT vec2 TexCoord;";
+  EOL"THE_SHADER_OUT vec4 TexCoord;";
 const char THE_VARY_TexCoord_IN[] =
-  EOL"THE_SHADER_IN  vec2 TexCoord;";
+  EOL"THE_SHADER_IN  vec4 TexCoord;";
+//! Compute TexCoord value in Vertex Shader
+const char THE_VARY_TexCoord_Trsf[] =
+  EOL"  float aRotSin = occTextureTrsf_RotationSin();"
+  EOL"  float aRotCos = occTextureTrsf_RotationCos();"
+  EOL"  vec2  aTex2   = (occTexCoord.xy + occTextureTrsf_Translation()) * occTextureTrsf_Scale();"
+  EOL"  vec2  aCopy   = aTex2;"
+  EOL"  aTex2.x = aCopy.x * aRotCos - aCopy.y * aRotSin;"
+  EOL"  aTex2.y = aCopy.x * aRotSin + aCopy.y * aRotCos;"
+  EOL"  TexCoord = vec4(aTex2, occTexCoord.zw);";
 
 //! Auxiliary function to transform normal
 const char THE_FUNC_transformNormal[] =
@@ -174,6 +185,35 @@ const char THE_FUNC_directionalLight[] =
   EOL
   EOL"  Diffuse  += occLight_Diffuse  (theId).rgb * aNdotL;"
   EOL"  Specular += occLight_Specular (theId).rgb * aSpecl;"
+  EOL"}";
+
+//! The same as THE_FUNC_directionalLight but for the light with zero index
+//! (avoids limitations on some mobile devices).
+const char THE_FUNC_directionalLightFirst[] =
+  EOL"void directionalLightFirst (in vec3 theNormal,"
+  EOL"                            in vec3 theView,"
+  EOL"                            in bool theIsFront)"
+  EOL"{"
+  EOL"  vec3 aLight = normalize (occLightSources[1].xyz);"
+  EOL"  if (occLight_IsHeadlight (0) == 0)"
+  EOL"  {"
+  EOL"    aLight = vec3 (occWorldViewMatrix * occModelWorldMatrix * vec4 (aLight, 0.0));"
+  EOL"  }"
+  EOL
+  EOL"  vec3 aHalf = normalize (aLight + theView);"
+  EOL
+  EOL"  vec3  aFaceSideNormal = theIsFront ? theNormal : -theNormal;"
+  EOL"  float aNdotL = max (0.0, dot (aFaceSideNormal, aLight));"
+  EOL"  float aNdotH = max (0.0, dot (aFaceSideNormal, aHalf ));"
+  EOL
+  EOL"  float aSpecl = 0.0;"
+  EOL"  if (aNdotL > 0.0)"
+  EOL"  {"
+  EOL"    aSpecl = pow (aNdotH, theIsFront ? occFrontMaterial_Shininess() : occBackMaterial_Shininess());"
+  EOL"  }"
+  EOL
+  EOL"  Diffuse  += occLightSources[0].rgb * aNdotL;"
+  EOL"  Specular += occLightSources[0].rgb * aSpecl;"
   EOL"}";
 
 //! Process clipping planes in Fragment Shader.
@@ -965,7 +1005,7 @@ static void PushAspectMarker (const Handle(OpenGl_Context)&       theCtx,
                           5, aParams);
 }
 
-}; // nameless namespace
+} // nameless namespace
 
 // =======================================================================
 // function : PushMaterialState
@@ -984,21 +1024,22 @@ void OpenGl_ShaderManager::PushMaterialState (const Handle(OpenGl_ShaderProgram)
     return;
   }
 
-  if (typeid (*aState.Aspect()) == typeid (OpenGl_AspectFace))
+  const OpenGl_Element* anAspect = aState.Aspect();
+  if (typeid (*anAspect) == typeid (OpenGl_AspectFace))
   {
-    PushAspectFace   (myContext, theProgram, dynamic_cast<const OpenGl_AspectFace*> (aState.Aspect()));
+    PushAspectFace   (myContext, theProgram, dynamic_cast<const OpenGl_AspectFace*> (anAspect));
   }
-  else if (typeid (*aState.Aspect()) == typeid (OpenGl_AspectLine))
+  else if (typeid (*anAspect) == typeid (OpenGl_AspectLine))
   {
-    PushAspectLine   (myContext, theProgram, dynamic_cast<const OpenGl_AspectLine*> (aState.Aspect()));
+    PushAspectLine   (myContext, theProgram, dynamic_cast<const OpenGl_AspectLine*> (anAspect));
   }
-  else if (typeid (*aState.Aspect()) == typeid (OpenGl_AspectText))
+  else if (typeid (*anAspect) == typeid (OpenGl_AspectText))
   {
-    PushAspectText   (myContext, theProgram, dynamic_cast<const OpenGl_AspectText*> (aState.Aspect()));
+    PushAspectText   (myContext, theProgram, dynamic_cast<const OpenGl_AspectText*> (anAspect));
   }
-  else if (typeid (*aState.Aspect()) == typeid (OpenGl_AspectMarker))
+  else if (typeid (*anAspect) == typeid (OpenGl_AspectMarker))
   {
-    PushAspectMarker (myContext, theProgram, dynamic_cast<const OpenGl_AspectMarker*> (aState.Aspect()));
+    PushAspectMarker (myContext, theProgram, dynamic_cast<const OpenGl_AspectMarker*> (anAspect));
   }
 
   theProgram->UpdateState (OpenGl_MATERIALS_STATE, aState.Index());
@@ -1026,8 +1067,8 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFont()
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
   TCollection_AsciiString aSrcVert = TCollection_AsciiString()
-     + THE_VARY_TexCoord_OUT
-     + EOL"void main()"
+     + EOL"THE_SHADER_OUT vec2 TexCoord;"
+       EOL"void main()"
        EOL"{"
        EOL"  TexCoord = occTexCoord.st;"
        EOL"  gl_Position = occProjectionMatrix * occWorldViewMatrix * occModelWorldMatrix * occVertex;"
@@ -1043,7 +1084,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFont()
 #endif
 
   TCollection_AsciiString aSrcFrag = TCollection_AsciiString() +
-     + THE_VARY_TexCoord_IN
+     + EOL"THE_SHADER_IN vec2 TexCoord;"
      + aSrcGetAlpha
      + EOL"void main()"
        EOL"{"
@@ -1162,6 +1203,10 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
       {
         aSrcGetAlpha = EOL"float getAlpha(void) { return occTexture2D(occActiveSampler, gl_PointCoord).r; }";
       }
+      else if (myContext->IsGlGreaterEqual (2, 1))
+      {
+        aProgramSrc->SetHeader ("#version 120"); // gl_PointCoord has been added since GLSL 1.2
+      }
     #endif
 
       aSrcFragGetColor = aSrcGetAlpha
@@ -1185,6 +1230,13 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
         EOL"  vec4 aColor = getColor();"
         EOL"  if (aColor.a <= 0.1) discard;"
         EOL"  occFragColor = aColor;";
+    #if !defined(GL_ES_VERSION_2_0)
+      if (myContext->core11 != NULL
+       && myContext->IsGlGreaterEqual (2, 1))
+      {
+        aProgramSrc->SetHeader ("#version 120"); // gl_PointCoord has been added since GLSL 1.2
+      }
+    #endif
     }
   }
   else
@@ -1193,11 +1245,10 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
     {
       aSrcVertExtraOut  += THE_VARY_TexCoord_OUT;
       aSrcFragExtraOut  += THE_VARY_TexCoord_IN;
-      aSrcVertExtraMain +=
-        EOL"  TexCoord = occTexCoord.st;";
+      aSrcVertExtraMain += THE_VARY_TexCoord_Trsf;
 
       aSrcFragGetColor =
-        EOL"vec4 getColor(void) { return occTexture2D(occActiveSampler, TexCoord.st); }";
+        EOL"vec4 getColor(void) { return occTexture2D(occActiveSampler, TexCoord.st / TexCoord.w); }";
     }
     else if ((theBits & OpenGl_PO_TextureEnv) != 0)
     {
@@ -1211,7 +1262,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
         EOL"  vec3 aNormal   = transformNormal (occNormal);"
         EOL"  vec3 aReflect  = reflect (normalize (aPosition.xyz), aNormal);"
         EOL"  aReflect.z += 1.0;"
-        EOL"  TexCoord = aReflect.xy * inversesqrt (dot (aReflect, aReflect)) * 0.5 + vec2 (0.5);";
+        EOL"  TexCoord = vec4(aReflect.xy * inversesqrt (dot (aReflect, aReflect)) * 0.5 + vec2 (0.5), 0.0, 1.0);";
 
       aSrcFragGetColor =
         EOL"vec4 getColor(void) { return occTexture2D (occActiveSampler, TexCoord.st); }";
@@ -1241,22 +1292,27 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
   TCollection_AsciiString aSrcVertEndMain;
   if ((theBits & OpenGl_PO_StippleLine) != 0)
   {
-    bool hasCaps = false;
+    bool hasGlslBitOps = false;
   #if defined(GL_ES_VERSION_2_0)
     if (myContext->IsGlGreaterEqual (3, 0))
     {
       aProgramSrc->SetHeader ("#version 300 es");
-      hasCaps = true;
+      hasGlslBitOps = true;
     }
   #else
-    if (myContext->core32 != NULL)
+    if (myContext->IsGlGreaterEqual (3, 0))
     {
-      aProgramSrc->SetHeader ("#version 150");
-      hasCaps = true;
+      aProgramSrc->SetHeader ("#version 130");
+      hasGlslBitOps = true;
+    }
+    else if(myContext->CheckExtension("GL_EXT_gpu_shader4"))
+    {
+      aProgramSrc->SetHeader ("#extension GL_EXT_gpu_shader4 : enable");
+      hasGlslBitOps = true;
     }
   #endif
 
-    if (hasCaps)
+    if (hasGlslBitOps)
     {
       aSrcVertExtraOut +=
         EOL"THE_SHADER_OUT vec2 ScreenSpaceCoord;";
@@ -1279,8 +1335,8 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
     {
       const TCollection_ExtendedString aWarnMessage =
         "Warning: stipple lines in GLSL will be ignored.";
-      myContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-        GL_DEBUG_TYPE_PORTABILITY_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB, aWarnMessage);
+      myContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+        GL_DEBUG_TYPE_PORTABILITY, 0, GL_DEBUG_SEVERITY_HIGH, aWarnMessage);
     }
   }
 
@@ -1327,7 +1383,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramFlat (Handle(OpenGl_Shad
 // =======================================================================
 TCollection_AsciiString OpenGl_ShaderManager::stdComputeLighting (const Standard_Boolean theHasVertColor)
 {
-  bool aLightsMap[Graphic3d_TOLS_SPOT + 1] = { false, false, false, false };
+  Standard_Integer aLightsMap[Graphic3d_TOLS_SPOT + 1] = { 0, 0, 0, 0 };
   TCollection_AsciiString aLightsFunc, aLightsLoop;
   const OpenGl_ListOfLight* aLights = myLightSourceState.LightSources();
   if (aLights != NULL)
@@ -1350,21 +1406,29 @@ TCollection_AsciiString OpenGl_ShaderManager::stdComputeLighting (const Standard
           aLightsLoop = aLightsLoop + EOL"    spotLight (" + anIndex + ", theNormal, theView, aPoint, theIsFront);";
           break;
       }
-
-      bool& aTypeBit = aLightsMap[aLightIter.Value().Type];
-      if (aTypeBit)
-      {
-        continue;
-      }
-
-      aTypeBit = true;
-      switch (aLightIter.Value().Type)
-      {
-        case Graphic3d_TOLS_AMBIENT:     break;
-        case Graphic3d_TOLS_DIRECTIONAL: aLightsFunc += THE_FUNC_directionalLight; break;
-        case Graphic3d_TOLS_POSITIONAL:  aLightsFunc += THE_FUNC_pointLight;       break;
-        case Graphic3d_TOLS_SPOT:        aLightsFunc += THE_FUNC_spotLight;        break;
-      }
+      aLightsMap[aLightIter.Value().Type] += 1;
+    }
+    const Standard_Integer aNbLoopLights = aLightsMap[Graphic3d_TOLS_DIRECTIONAL]
+                                         + aLightsMap[Graphic3d_TOLS_POSITIONAL]
+                                         + aLightsMap[Graphic3d_TOLS_SPOT];
+    if (aLightsMap[Graphic3d_TOLS_DIRECTIONAL] == 1
+     && aNbLoopLights == 1)
+    {
+      // use the version with hard-coded first index
+      aLightsLoop = EOL"    directionalLightFirst(theNormal, theView, theIsFront);";
+      aLightsFunc += THE_FUNC_directionalLightFirst;
+    }
+    else if (aLightsMap[Graphic3d_TOLS_DIRECTIONAL] > 0)
+    {
+      aLightsFunc += THE_FUNC_directionalLight;
+    }
+    if (aLightsMap[Graphic3d_TOLS_POSITIONAL] > 0)
+    {
+      aLightsFunc += THE_FUNC_pointLight;
+    }
+    if (aLightsMap[Graphic3d_TOLS_SPOT] > 0)
+    {
+      aLightsFunc += THE_FUNC_spotLight;
     }
   }
 
@@ -1432,6 +1496,13 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramGouraud (Handle(OpenGl_S
         EOL"  vec4 aColor = gl_FrontFacing ? FrontColor : BackColor;"
         EOL"  return occTexture2D(occActiveSampler, gl_PointCoord) * aColor;"
         EOL"}";
+    #if !defined(GL_ES_VERSION_2_0)
+      if (myContext->core11 != NULL
+       && myContext->IsGlGreaterEqual (2, 1))
+      {
+        aProgramSrc->SetHeader ("#version 120"); // gl_PointCoord has been added since GLSL 1.2
+      }
+    #endif
     }
   }
   else
@@ -1440,14 +1511,13 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramGouraud (Handle(OpenGl_S
     {
       aSrcVertExtraOut  += THE_VARY_TexCoord_OUT;
       aSrcFragExtraOut  += THE_VARY_TexCoord_IN;
-      aSrcVertExtraMain +=
-        EOL"  TexCoord = occTexCoord.st;";
+      aSrcVertExtraMain += THE_VARY_TexCoord_Trsf;
 
       aSrcFragGetColor =
         EOL"vec4 getColor(void)"
         EOL"{"
         EOL"  vec4 aColor = gl_FrontFacing ? FrontColor : BackColor;"
-        EOL"  return occTexture2D(occActiveSampler, TexCoord.st) * aColor;"
+        EOL"  return occTexture2D(occActiveSampler, TexCoord.st / TexCoord.w) * aColor;"
         EOL"}";
     }
   }
@@ -1552,6 +1622,13 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramPhong (Handle(OpenGl_Sha
         EOL"  vec4 aColor = " thePhongCompLight ";"
         EOL"  return occTexture2D(occActiveSampler, gl_PointCoord) * aColor;"
         EOL"}";
+    #if !defined(GL_ES_VERSION_2_0)
+      if (myContext->core11 != NULL
+       && myContext->IsGlGreaterEqual (2, 1))
+      {
+        aProgramSrc->SetHeader ("#version 120"); // gl_PointCoord has been added since GLSL 1.2
+      }
+    #endif
     }
   }
   else
@@ -1560,14 +1637,13 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramPhong (Handle(OpenGl_Sha
     {
       aSrcVertExtraOut  += THE_VARY_TexCoord_OUT;
       aSrcFragExtraOut  += THE_VARY_TexCoord_IN;
-      aSrcVertExtraMain +=
-        EOL"  TexCoord = occTexCoord.st;";
+      aSrcVertExtraMain += THE_VARY_TexCoord_Trsf;
 
       aSrcFragGetColor =
         EOL"vec4 getColor(void)"
         EOL"{"
         EOL"  vec4 aColor = " thePhongCompLight ";"
-        EOL"  return occTexture2D(occActiveSampler, TexCoord.st) * aColor;"
+        EOL"  return occTexture2D(occActiveSampler, TexCoord.st / TexCoord.w) * aColor;"
         EOL"}";
     }
   }

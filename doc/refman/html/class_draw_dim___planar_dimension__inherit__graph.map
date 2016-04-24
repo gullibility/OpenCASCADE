@@ -1,0 +1,10 @@
+<map id="DrawDim_PlanarDimension" name="DrawDim_PlanarDimension">
+<area shape="rect" id="node6" href="$class_draw_dim___planar_angle.html" title="DrawDim_PlanarAngle" alt="" coords="954,5,1105,32"/>
+<area shape="rect" id="node7" href="$class_draw_dim___planar_diameter.html" title="DrawDim_PlanarDiameter" alt="" coords="944,56,1115,83"/>
+<area shape="rect" id="node8" href="$class_draw_dim___planar_distance.html" title="PlanarDistance point/point PlanarDistance point/line PlanarDistance line/line. " alt="" coords="945,107,1114,133"/>
+<area shape="rect" id="node9" href="$class_draw_dim___planar_radius.html" title="DrawDim_PlanarRadius" alt="" coords="950,157,1109,184"/>
+<area shape="rect" id="node2" href="$class_draw_dim___dimension.html" title="Dimension between planes and cylinder. " alt="" coords="526,81,669,108"/>
+<area shape="rect" id="node3" href="$class_draw___drawable3_d.html" title="Draw_Drawable3D" alt="" coords="350,81,477,108"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,81,301,108"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,81,141,108"/>
+</map>

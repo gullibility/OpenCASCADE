@@ -20,6 +20,8 @@
 #include <SelectMgr_EntityOwner.hxx>
 #include <Standard_Type.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_AttributeFilter,SelectMgr_Filter)
+
 AIS_AttributeFilter::AIS_AttributeFilter():
 hasC(Standard_False),
 hasW(Standard_False){}
@@ -45,10 +47,10 @@ Standard_Boolean AIS_AttributeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& 
   
   Standard_Boolean okstat = Standard_True;
   if( hasC && aSelectable->HasColor() )
-    okstat =  (myCol == Handle(AIS_InteractiveObject)::DownCast (anObj)->Color());
+    okstat = (myCol == aSelectable->Color());
 
   if( hasW && aSelectable->HasWidth() )
-    okstat =  (myWid == Handle(AIS_InteractiveObject)::DownCast (anObj)->Width()) && okstat;
+    okstat = (myWid == aSelectable->Width()) && okstat;
 
   return okstat;
 }

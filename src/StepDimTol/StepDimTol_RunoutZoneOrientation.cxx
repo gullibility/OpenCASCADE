@@ -15,6 +15,8 @@
 
 #include <StepDimTol_RunoutZoneOrientation.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_RunoutZoneOrientation,MMgt_TShared)
+
 //=======================================================================
 //function : StepDimTol_RunoutZoneOrientation
 //purpose  : 
@@ -31,5 +33,5 @@ void StepDimTol_RunoutZoneOrientation::Init(
   const Handle(StepBasic_PlaneAngleMeasureWithUnit)& theAngle)
 {
   // --- class own fields ---
-  angle = theAngle;
+  myAngle = theAngle;
 }

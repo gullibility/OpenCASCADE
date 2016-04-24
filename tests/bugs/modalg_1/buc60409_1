@@ -23,5 +23,6 @@ if { [regexp {Faulty} $che ] == 1 } {
 	bfuse result c s
     }
 }
-set square 39.0894
-set 2dviewer 0
+checkprops result -s 39.0894 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

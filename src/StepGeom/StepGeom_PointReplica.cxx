@@ -18,14 +18,9 @@
 #include <StepGeom_PointReplica.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_PointReplica,StepGeom_Point)
+
 StepGeom_PointReplica::StepGeom_PointReplica ()  {}
-
-void StepGeom_PointReplica::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_PointReplica::Init(
 	const Handle(TCollection_HAsciiString)& aName,

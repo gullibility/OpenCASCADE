@@ -1,0 +1,12 @@
+<map id="Transfer_Binder" name="Transfer_Binder">
+<area shape="rect" id="node4" href="$class_transfer___multiple_binder.html" title="Allows direct binding between a starting Object and the Result of its transfer, when it can be made o..." alt="" coords="540,5,697,32"/>
+<area shape="rect" id="node5" href="$class_transfer___simple_binder_of_transient.html" title="An adapted instantiation of SimpleBinder for Transient Result, i.e. ResultType can be computed from t..." alt="" coords="509,56,728,83"/>
+<area shape="rect" id="node7" href="$class_transfer___transient_list_binder.html" title="This binder binds several (a list of) Transients with a starting entity, when this entity itself corr..." alt="" coords="525,107,712,133"/>
+<area shape="rect" id="node8" href="$class_transfer___void_binder.html" title="a VoidBinder is used to bind a starting item with a status, error or warning messages, but no result It is interpreted by TransferProcess, which admits a VoidBinder to be over&#45;written, and copies its check to the new Binder " alt="" coords="549,157,688,184"/>
+<area shape="rect" id="node9" href="$class_transfer_b_rep___binder_of_shape.html" title="Allows direct binding between a starting Object and the Result of its transfer when it is Unique..." alt="" coords="521,208,716,235"/>
+<area shape="rect" id="node11" href="$class_transfer_b_rep___shape_list_binder.html" title="This binder binds several (a list of) shapes with a starting entity, when this entity itself correspo..." alt="" coords="517,259,720,285"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,132,301,159"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,132,141,159"/>
+<area shape="rect" id="node6" href="$class_transfer___binder_of_transient_integer.html" title="This type of Binder allows to attach as result, besides a Transient Object, an Integer Value..." alt="" coords="777,49,956,90"/>
+<area shape="rect" id="node10" href="$class_transfer_b_rep___shape_binder.html" title="A ShapeBinder is a BinderOfShape with some additional services to cast the Result under various kinds..." alt="" coords="776,208,957,235"/>
+</map>

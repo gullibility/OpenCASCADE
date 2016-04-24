@@ -25,6 +25,8 @@ if { [catch { stepread $filepath a * } catch_result] } {
     }
 }
 
-set length 453.679
-set 3dviewer 0
+checkprops result -l 453.679 
+checkshape result 
+checksection result
+checkview -display result -3d -path ${imagedir}/${test_image}.png
 

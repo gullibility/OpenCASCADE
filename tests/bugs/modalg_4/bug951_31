@@ -38,6 +38,6 @@ if { $ve != 0 || $ed != 0 || $wi != 0 || $fa != 0 || $sh != 0 || $so != 0 || $cm
     puts ""
 }
 
-set square 560.908
-set 3dviewer 1
-
+checkprops result -s 560.908 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

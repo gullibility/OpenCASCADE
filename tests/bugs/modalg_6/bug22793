@@ -18,7 +18,8 @@ tolerance v
 bop p v
 bopcut result
 
-set square 1.89516e+07
+checkprops result -s 1.89516e+07 
+checkshape result
 
 set nbshapes_expected "
 Number of shapes in result
@@ -34,4 +35,4 @@ Number of shapes in result
 "
 checknbshapes result -ref ${nbshapes_expected} -t -m "Result obtained by Boolean cut operation"
 
-set 2dviewer 1
+checkview -display result -2d -path ${imagedir}/${test_image}.png

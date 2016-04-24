@@ -1,4 +1,4 @@
-#puts "TODO OCC12345 ALL: Error : The length of result shape is"
+#puts "TODO OCC27024 ALL: Error : The length of result shape is"
 
 puts "============="
 puts "BUC60462"
@@ -18,5 +18,7 @@ if { $cs != 0 } {
     puts "Faulty : Section is incorrect"
 }
 
-set length 282.421
-set 2dviewer 0
+checkprops result -l 282.421
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

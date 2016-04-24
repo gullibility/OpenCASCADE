@@ -128,7 +128,8 @@ options:\n\
                         (enabled by default)\n\
         -surf_def_off   disables control of deflection of mesh from real\n\
                         surface (enabled by default)\n\
-        -parallel       enables parallel execution (switched off by default)\n";
+        -parallel       enables parallel execution (switched off by default)\n\
+        -adaptive       enables adaptive computation of minimal value in parametric space\n";
     return 0;
   }
 
@@ -146,6 +147,7 @@ options:\n\
   Standard_Boolean isInParallel    = Standard_False;
   Standard_Boolean isIntVertices   = Standard_True;
   Standard_Boolean isControlSurDef = Standard_True;
+  Standard_Boolean isAdaptiveMin   = Standard_False;
 
   if (nbarg > 3)
   {
@@ -165,6 +167,8 @@ options:\n\
         isIntVertices = Standard_False;
       else if (aOpt == "-surf_def_off")
         isControlSurDef = Standard_False;
+      else if (aOpt == "-adaptive")
+        isAdaptiveMin   = Standard_True;
       else if (i < nbarg)
       {
         Standard_Real aVal = Draw::Atof(argv[i++]);
@@ -181,16 +185,17 @@ options:\n\
   di << "Incremental Mesh, multi-threading "
      << (isInParallel ? "ON" : "OFF") << "\n";
 
-  BRepMesh_IncrementalMesh aMesher;
-  aMesher.SetShape     (aShape);
-  aMesher.SetDeflection(aLinDeflection);
-  aMesher.SetRelative  (isRelative);
-  aMesher.SetAngle     (aAngDeflection);
-  aMesher.SetParallel  (isInParallel);
-  aMesher.SetMinSize   (aMinSize);
-  aMesher.SetInternalVerticesMode(isIntVertices);
-  aMesher.SetControlSurfaceDeflection(isControlSurDef);
-  aMesher.Perform();
+  BRepMesh_FastDiscret::Parameters aMeshParams;
+  aMeshParams.Deflection = aLinDeflection;
+  aMeshParams.Angle = aAngDeflection;
+  aMeshParams.Relative =  isRelative;
+  aMeshParams.InParallel = isInParallel;
+  aMeshParams.MinSize = aMinSize;
+  aMeshParams.InternalVerticesMode = isIntVertices;
+  aMeshParams.ControlSurfaceDeflection = isControlSurDef;
+  aMeshParams.AdaptiveMin = isAdaptiveMin;
+  
+  BRepMesh_IncrementalMesh aMesher (aShape, aMeshParams);
 
   di << "Meshing statuses: ";
   Standard_Integer statusFlags = aMesher.GetStatusFlags();
@@ -228,6 +233,155 @@ options:\n\
 }
 
 //=======================================================================
+//function : tessellate
+//purpose  : 
+//=======================================================================
+static Standard_Integer tessellate (Draw_Interpretor& /*di*/, Standard_Integer nbarg, const char** argv)
+{
+  if (nbarg != 5)
+  {
+    std::cerr << "Builds regular triangulation with specified number of triangles\n"
+                 "    Usage: tessellate result {surface|face} nbu nbv\n"
+                 "    Triangulation is put into the face with natural bounds (result);\n"
+                 "    it will have 2*nbu*nbv triangles and (nbu+1)*(nbv+1) nodes";
+    return 1;
+  }
+
+  const char *aResName = argv[1];
+  const char *aSrcName = argv[2];
+  int aNbU = Draw::Atoi (argv[3]);
+  int aNbV = Draw::Atoi (argv[4]);
+
+  if (aNbU <= 0 || aNbV <= 0)
+  {
+    std::cerr << "Error: Arguments nbu and nbv must be both greater than 0\n";
+    return 1;
+  }
+
+  Handle(Geom_Surface) aSurf = DrawTrSurf::GetSurface(aSrcName);
+  double aUMin, aUMax, aVMin, aVMax;
+  if (! aSurf.IsNull())
+  {
+    aSurf->Bounds (aUMin, aUMax, aVMin, aVMax);
+  }
+  else
+  {
+    TopoDS_Shape aShape = DBRep::Get(aSrcName);
+    if (aShape.IsNull() || aShape.ShapeType() != TopAbs_FACE)
+    {
+      std::cerr << "Error: " << aSrcName << " is not a face\n";
+      return 1;
+    }
+    TopoDS_Face aFace = TopoDS::Face (aShape);
+    aSurf = BRep_Tool::Surface (aFace);
+    if (aSurf.IsNull())
+    {
+      std::cerr << "Error: Face " << aSrcName << " has no surface\n";
+      return 1;
+    }
+
+    BRepTools::UVBounds (aFace, aUMin, aUMax, aVMin, aVMax);
+  }
+  if (Precision::IsInfinite (aUMin) || Precision::IsInfinite (aUMax) || 
+      Precision::IsInfinite (aVMin) || Precision::IsInfinite (aVMax))
+  {
+    std::cerr << "Error: surface has infinite parametric range, aborting\n";
+    return 1;
+  }
+
+  BRepBuilderAPI_MakeFace aFaceMaker (aSurf, aUMin, aUMax, aVMin, aVMax, Precision::Confusion());
+  if (! aFaceMaker.IsDone())
+  {
+    std::cerr << "Error: cannot build face with natural bounds, aborting\n";
+    return 1;
+  }
+  TopoDS_Face aFace = aFaceMaker;
+
+  // create triangulation
+  int aNbNodes = (aNbU + 1) * (aNbV + 1);
+  int aNbTriangles = 2 * aNbU * aNbV;
+  Handle(Poly_Triangulation) aTriangulation =
+    new Poly_Triangulation (aNbNodes, aNbTriangles, Standard_False);
+
+  // fill nodes
+  TColgp_Array1OfPnt &aNodes = aTriangulation->ChangeNodes();
+  GeomAdaptor_Surface anAdSurf (aSurf);
+  double aDU = (aUMax - aUMin) / aNbU;
+  double aDV = (aVMax - aVMin) / aNbV;
+  for (int iU = 0, iShift = 1; iU <= aNbU; iU++, iShift += aNbV + 1)
+  {
+    double aU = aUMin + iU * aDU;
+    for (int iV = 0; iV <= aNbV; iV++)
+    {
+      double aV = aVMin + iV * aDV;
+      gp_Pnt aP = anAdSurf.Value (aU, aV);
+      aNodes.SetValue (iShift + iV, aP);
+    }
+  }
+
+  // fill triangles
+  Poly_Array1OfTriangle &aTriangles = aTriangulation->ChangeTriangles();
+  for (int iU = 0, iShift = 1, iTri = 0; iU < aNbU; iU++, iShift += aNbV + 1)
+  {
+    for (int iV = 0; iV < aNbV; iV++)
+    {
+      int iBase = iShift + iV;
+      Poly_Triangle aTri1 (iBase, iBase + aNbV + 2, iBase + 1);
+      Poly_Triangle aTri2 (iBase, iBase + aNbV + 1, iBase + aNbV + 2);
+      aTriangles.SetValue (++iTri, aTri1);
+      aTriangles.SetValue (++iTri, aTri2);
+    }
+  }
+
+  // put triangulation to face
+  BRep_Builder B;
+  B.UpdateFace (aFace, aTriangulation);
+
+  // fill edge polygons
+  TColStd_Array1OfInteger aUMinIso (1, aNbV + 1), aUMaxIso (1, aNbV + 1);
+  for (int iV = 0; iV <= aNbV; iV++)
+  {
+    aUMinIso.SetValue (1 + iV, 1 + iV);
+    aUMaxIso.SetValue (1 + iV, 1 + iV + aNbU * (1 + aNbV));
+  }
+  TColStd_Array1OfInteger aVMinIso (1, aNbU + 1), aVMaxIso (1, aNbU + 1);
+  for (int iU = 0; iU <= aNbU; iU++)
+  {
+    aVMinIso.SetValue (1 + iU,  1 + iU  * (1 + aNbV));
+    aVMaxIso.SetValue (1 + iU, (1 + iU) * (1 + aNbV));
+  }
+  Handle(Poly_PolygonOnTriangulation) aUMinPoly = new Poly_PolygonOnTriangulation (aUMinIso);
+  Handle(Poly_PolygonOnTriangulation) aUMaxPoly = new Poly_PolygonOnTriangulation (aUMaxIso);
+  Handle(Poly_PolygonOnTriangulation) aVMinPoly = new Poly_PolygonOnTriangulation (aVMinIso);
+  Handle(Poly_PolygonOnTriangulation) aVMaxPoly = new Poly_PolygonOnTriangulation (aVMaxIso);
+  for (TopExp_Explorer exp (aFace, TopAbs_EDGE); exp.More(); exp.Next())
+  {
+    TopoDS_Edge anEdge = TopoDS::Edge (exp.Current());
+    Standard_Real aFirst, aLast;
+    Handle(Geom2d_Curve) aC = BRep_Tool::CurveOnSurface (anEdge, aFace, aFirst, aLast);
+    gp_Pnt2d aPFirst = aC->Value (aFirst);
+    gp_Pnt2d aPLast  = aC->Value (aLast);
+    if (Abs (aPFirst.X() - aPLast.X()) < 0.1 * (aUMax - aUMin)) // U=const
+    {
+      if (BRep_Tool::IsClosed (anEdge, aFace))
+        B.UpdateEdge (anEdge, aUMinPoly, aUMaxPoly, aTriangulation);
+      else
+        B.UpdateEdge (anEdge, (aPFirst.X() < 0.5 * (aUMin + aUMax) ? aUMinPoly : aUMaxPoly), aTriangulation);
+    }
+    else // V=const
+    {
+      if (BRep_Tool::IsClosed (anEdge, aFace))
+        B.UpdateEdge (anEdge, aVMinPoly, aVMaxPoly, aTriangulation);
+      else
+        B.UpdateEdge (anEdge, (aPFirst.Y() < 0.5 * (aVMin + aVMax) ? aVMinPoly : aVMaxPoly), aTriangulation);
+    }
+  }
+
+  DBRep::Set (aResName, aFace);
+  return 0;
+}
+
+//=======================================================================
 //function : MemLeakTest
 //purpose  : 
 //=======================================================================
@@ -261,22 +415,20 @@ static Standard_Integer fastdiscret(Draw_Interpretor& di, Standard_Integer nbarg
 
   const Standard_Real d = Draw::Atof(argv[2]);
 
-  Standard_Boolean WithShare = Standard_True;
-  if (nbarg > 3) WithShare = Draw::Atoi(argv[3]);
-
   Bnd_Box B;
   BRepBndLib::Add(S,B);
-  BRepMesh_FastDiscret MESH(d,0.5,B,WithShare,Standard_True,Standard_False,Standard_True);
+  BRepMesh_FastDiscret::Parameters aParams;
+  aParams.Deflection = d;
+  aParams.Angle = 0.5;
+  BRepMesh_FastDiscret MESH(B,aParams);
 
   //Standard_Integer NbIterations = MESH.NbIterations();
   //if (nbarg > 4) NbIterations = Draw::Atoi(argv[4]);
   //MESH.NbIterations() = NbIterations;
 
-  di<<"Starting FastDiscret with :"<<"\n";
+  di<<"Starting FastDiscret with :\n";
   di<<"  Deflection="<<d<<"\n";
   di<<"  Angle="<<0.5<<"\n";
-  di<<"  SharedMode="<< (Standard_Integer) WithShare<<"\n";
-  //di<<"  NbIterations="<<NbIterations<<"\n";
 
   Handle(Poly_Triangulation) T;
   BRep_Builder aBuilder;
@@ -346,7 +498,7 @@ static Standard_Integer fastdiscret(Draw_Interpretor& di, Standard_Integer nbarg
     DBRep::Set(name,aCompViolating);
   }
 
-  di<<"FastDiscret completed with :"<<"\n";
+  di<<"FastDiscret completed with :\n";
   di<<"  MaxDeflection="<<maxdef<<"\n";
   di<<"  NbNodes="<<nbnodes<<"\n";
   di<<"  NbTriangles="<<nbtriangles<<"\n";
@@ -456,7 +608,7 @@ static Standard_Integer triangule(Draw_Interpretor& di, Standard_Integer nbarg, 
   Standard_Real aDeflection = Draw::Atof(argv[3]);
   if (aDeflection <= 0.)
   {
-    di << " Incorrect value of deflection!" << "\n";
+    di << " Incorrect value of deflection!\n";
     return 1;
   }
 
@@ -468,7 +620,7 @@ static Standard_Integer triangule(Draw_Interpretor& di, Standard_Integer nbarg, 
   Standard_Integer nbn, nbl, nbe;
   MeshStats(aShape, nbe, nbl, nbn);
 
-  di<<"(Resultat ("<<nbe<<" mailles) ("<<nbl<<" aretes) ("<<nbn<<" sommets))"<<"\n";
+  di<<"(Resultat ("<<nbe<<" mailles) ("<<nbl<<" aretes) ("<<nbn<<" sommets))\n";
 
   // passe de verification du maillage.
   /*Standard_Integer nbc;
@@ -932,8 +1084,8 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& di, Standard_Integer n, 
   }
 
   di<<"\n";
-  di<<"This shape contains " <<nbtriangles<<" triangles."<<"\n";
-  di<<"                    " <<nbnodes    <<" nodes."<<"\n";
+  di<<"This shape contains " <<nbtriangles<<" triangles.\n";
+  di<<"                    " <<nbnodes    <<" nodes.\n";
   di<<"Maximal deflection " <<MaxDeflection<<"\n";
   di<<"\n";
 #ifdef OCCT_DEBUG_MESH_CHRONO
@@ -950,26 +1102,26 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& di, Standard_Integer n, 
   chPointValid.Show(pointvalid); chIsos.Show(isos); chPointsOnIsos.Show(pointsisos);
 
   if (tot > 0.00001) {
-    di <<"temps total de maillage:     "<<tot        <<" seconds"<< "\n";
-    di <<"dont: "<< "\n";
-    di <<"discretisation des edges:    "<<edges      <<" seconds---> "<< 100*edges/tot      <<" %"<<"\n";
-    di <<"maillage des edges:          "<<mailledges <<" seconds---> "<< 100*mailledges/tot <<" %"<<"\n";
-    di <<"controle et points internes: "<<etuinter   <<" seconds---> "<< 100*etuinter/tot   <<" %"<<"\n";
-    di <<"derniers controles:          "<<lastcontrol<<" seconds---> "<< 100*lastcontrol/tot<<" %"<<"\n";
-    di <<"stockage dans la S.D.        "<<stock      <<" seconds---> "<< 100*stock/tot      <<" %"<<"\n";
+    di <<"temps total de maillage:     "<<tot        <<" seconds\n";
+    di <<"dont: \n";
+    di <<"discretisation des edges:    "<<edges      <<" seconds---> "<< 100*edges/tot      <<" %\n";
+    di <<"maillage des edges:          "<<mailledges <<" seconds---> "<< 100*mailledges/tot <<" %\n";
+    di <<"controle et points internes: "<<etuinter   <<" seconds---> "<< 100*etuinter/tot   <<" %\n";
+    di <<"derniers controles:          "<<lastcontrol<<" seconds---> "<< 100*lastcontrol/tot<<" %\n";
+    di <<"stockage dans la S.D.        "<<stock      <<" seconds---> "<< 100*stock/tot      <<" %\n";
     di << "\n";
-    di <<"et plus precisement: "<<"\n";
-    di <<"Add 11ere partie :           "<<add11     <<" seconds---> "<<100*add11/tot      <<" %"<<"\n";
-    di <<"Add 12ere partie :           "<<add12     <<" seconds---> "<<100*add12/tot      <<" %"<<"\n";
-    di <<"Add 2eme partie :            "<<add2      <<" seconds---> "<<100*add2/tot       <<" %"<<"\n";
-    di <<"Update :                     "<<upda      <<" seconds---> "<<100*upda/tot       <<" %"<<"\n";
-    di <<"AddPoint :                   "<<addp      <<" seconds---> "<<100*addp/tot       <<" %"<<"\n";
-    di <<"UniformDeflection            "<<unif      <<" seconds---> "<<100*unif/tot       <<" %"<<"\n";
-    di <<"Controle :                   "<<contr     <<" seconds---> "<<100*contr/tot      <<" %"<<"\n";
-    di <<"Points Internes:             "<<inter     <<" seconds---> "<<100*inter/tot      <<" %"<<"\n";
-    di <<"calcul des isos et du, dv:   "<<isos      <<" seconds---> "<<100*isos/tot       <<" %"<<"\n";
-    di <<"calcul des points sur isos:  "<<pointsisos<<" seconds---> "<<100*pointsisos/tot <<" %"<<"\n";
-    di <<"IsPointValid:                "<<pointvalid<<" seconds---> "<<100*pointvalid/tot <<" %"<<"\n";
+    di <<"et plus precisement: \n";
+    di <<"Add 11ere partie :           "<<add11     <<" seconds---> "<<100*add11/tot      <<" %\n";
+    di <<"Add 12ere partie :           "<<add12     <<" seconds---> "<<100*add12/tot      <<" %\n";
+    di <<"Add 2eme partie :            "<<add2      <<" seconds---> "<<100*add2/tot       <<" %\n";
+    di <<"Update :                     "<<upda      <<" seconds---> "<<100*upda/tot       <<" %\n";
+    di <<"AddPoint :                   "<<addp      <<" seconds---> "<<100*addp/tot       <<" %\n";
+    di <<"UniformDeflection            "<<unif      <<" seconds---> "<<100*unif/tot       <<" %\n";
+    di <<"Controle :                   "<<contr     <<" seconds---> "<<100*contr/tot      <<" %\n";
+    di <<"Points Internes:             "<<inter     <<" seconds---> "<<100*inter/tot      <<" %\n";
+    di <<"calcul des isos et du, dv:   "<<isos      <<" seconds---> "<<100*isos/tot       <<" %\n";
+    di <<"calcul des points sur isos:  "<<pointsisos<<" seconds---> "<<100*pointsisos/tot <<" %\n";
+    di <<"IsPointValid:                "<<pointvalid<<" seconds---> "<<100*pointvalid/tot <<" %\n";
     di << "\n";
 
 
@@ -1123,7 +1275,7 @@ static Standard_Integer veriftriangles(Draw_Interpretor& di, Standard_Integer n,
             deflemin = Min(deflemin, defle);
 
             if (defle > defstock) {
-              di <<"face "<< nbface <<" deflection = " << defle <<" pour "<<defstock <<" stockee."<<"\n";
+              di <<"face "<< nbface <<" deflection = " << defle <<" pour "<<defstock <<" stockee.\n";
             }
           }
         }
@@ -1466,7 +1618,7 @@ Standard_Integer vb(Draw_Interpretor& di, Standard_Integer nbarg, const char** a
           di<< VB(i, j) << ", ";
         }
       }
-      di << "\n" << "\n";
+      di << "\n\n";
     }
   }
   return 0;
@@ -1617,8 +1769,9 @@ void  MeshTest::Commands(Draw_Interpretor& theCommands)
   g = "Mesh Commands";
 
   theCommands.Add("incmesh","Builds triangular mesh for the shape, run w/o args for help",__FILE__, incrementalmesh, g);
+  theCommands.Add("tessellate","Builds triangular mesh for the surface, run w/o args for help",__FILE__, tessellate, g);
   theCommands.Add("MemLeakTest","MemLeakTest",__FILE__, MemLeakTest, g);
-  theCommands.Add("fastdiscret","fastdiscret shape deflection [shared [nbiter]]",__FILE__, fastdiscret, g);
+  theCommands.Add("fastdiscret","fastdiscret shape deflection",__FILE__, fastdiscret, g);
   theCommands.Add("mesh","mesh result Shape deflection",__FILE__, triangule, g);
   theCommands.Add("addshape","addshape meshname Shape [deflection]",__FILE__, addshape, g);
   //theCommands.Add("smooth","smooth meshname",__FILE__, smooth, g);

@@ -1,0 +1,12 @@
+<map id="BRepAlgoAPI_BooleanOperation" name="BRepAlgoAPI_BooleanOperation">
+<area shape="rect" id="node6" href="$class_b_rep_algo_a_p_i___common.html" title="The class provides Boolean common operation between arguments and tools (Boolean Intersection). " alt="" coords="1167,5,1327,32"/>
+<area shape="rect" id="node7" href="$class_b_rep_algo_a_p_i___cut.html" title="The class Cut provides Boolean cut operation between arguments and tools (Boolean Subtraction)..." alt="" coords="1183,56,1311,83"/>
+<area shape="rect" id="node8" href="$class_b_rep_algo_a_p_i___fuse.html" title="The class provides Boolean fusion operation between arguments and tools (Boolean Union). " alt="" coords="1178,107,1315,133"/>
+<area shape="rect" id="node9" href="$class_b_rep_algo_a_p_i___section.html" title="The algorithm is to build a Secton operation between arguments and tools. The result of Section opera..." alt="" coords="1171,157,1323,184"/>
+<area shape="rect" id="node10" href="$class_q_a_new_mod_top_ope___glue.html" title="Perform the gluing topological operation (topological sewing of two topological objects). " alt="" coords="1161,208,1332,235"/>
+<area shape="rect" id="node11" href="$class_q_a_new_mod_top_ope___intersection.html" title="provides intersection of two shapes; " alt="" coords="1141,259,1352,285"/>
+<area shape="rect" id="node2" href="$class_b_rep_algo_a_p_i___builder_algo.html" title="The clsss contains API level of General Fuse algorithm. " alt="" coords="659,132,834,159"/>
+<area shape="rect" id="node3" href="$class_b_rep_algo_a_p_i___algo.html" title="provides the root interface for algorithms " alt="" coords="475,132,610,159"/>
+<area shape="rect" id="node4" href="$class_b_rep_builder_a_p_i___make_shape.html" title="This is the root class for all shape constructions. It stores the result. " alt="" coords="235,132,426,159"/>
+<area shape="rect" id="node5" href="$class_b_rep_builder_a_p_i___command.html" title="Root class for all commands in BRepBuilderAPI. " alt="" coords="5,132,187,159"/>
+</map>

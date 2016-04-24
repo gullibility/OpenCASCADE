@@ -10,4 +10,5 @@ checkshape -top sec
 bcut result part tool
 checkshape -top result
 
-set square 273365
+checkprops result -s 273365
+checkview -display result -2d -s -otherwise { part tool } -path ${imagedir}/${test_image}.png

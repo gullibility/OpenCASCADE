@@ -17,14 +17,9 @@
 #include <StepAP214_ApprovalItem.hxx>
 #include <StepBasic_Approval.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AppliedApprovalAssignment,StepBasic_ApprovalAssignment)
+
 StepAP214_AppliedApprovalAssignment::StepAP214_AppliedApprovalAssignment ()  {}
-
-void StepAP214_AppliedApprovalAssignment::Init(
-	const Handle(StepBasic_Approval)& aAssignedApproval)
-{
-
-	StepBasic_ApprovalAssignment::Init(aAssignedApproval);
-}
 
 void StepAP214_AppliedApprovalAssignment::Init(
 	const Handle(StepBasic_Approval)& aAssignedApproval,
@@ -35,7 +30,6 @@ void StepAP214_AppliedApprovalAssignment::Init(
 	// --- classe inherited fields ---
 	StepBasic_ApprovalAssignment::Init(aAssignedApproval);
 }
-
 
 void StepAP214_AppliedApprovalAssignment::SetItems(const Handle(StepAP214_HArray1OfApprovalItem)& aItems)
 {

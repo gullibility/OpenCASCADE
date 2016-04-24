@@ -24,10 +24,12 @@
 #include <OSD_File.hxx>
 #include <OSD_Path.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderProgram,Standard_Transient)
+
 namespace
 {
   static volatile Standard_Integer THE_PROGRAM_OBJECT_COUNTER = 0;
-};
+}
 
 
 // =======================================================================
@@ -214,4 +216,13 @@ Standard_Boolean Graphic3d_ShaderProgram::DetachShader (const Handle(Graphic3d_S
 void Graphic3d_ShaderProgram::ClearVariables()
 {
   myVariables.Clear();
+}
+
+// =======================================================================
+// function : SetAttributes
+// purpose  :
+// =======================================================================
+void Graphic3d_ShaderProgram::SetVertexAttributes (const Graphic3d_ShaderAttributeList& theAttributes)
+{
+  myAttributes = theAttributes;
 }

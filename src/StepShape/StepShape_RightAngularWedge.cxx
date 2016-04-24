@@ -17,14 +17,9 @@
 #include <StepShape_RightAngularWedge.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_RightAngularWedge,StepGeom_GeometricRepresentationItem)
+
 StepShape_RightAngularWedge::StepShape_RightAngularWedge ()  {}
-
-void StepShape_RightAngularWedge::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_RightAngularWedge::Init(
 	const Handle(TCollection_HAsciiString)& aName,

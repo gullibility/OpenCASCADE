@@ -17,15 +17,9 @@
 #include <StepGeom_Hyperbola.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Hyperbola,StepGeom_Conic)
+
 StepGeom_Hyperbola::StepGeom_Hyperbola ()  {}
-
-void StepGeom_Hyperbola::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const StepGeom_Axis2Placement& aPosition)
-{
-
-	StepGeom_Conic::Init(aName, aPosition);
-}
 
 void StepGeom_Hyperbola::Init(
 	const Handle(TCollection_HAsciiString)& aName,

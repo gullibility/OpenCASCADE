@@ -26,6 +26,8 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <TColStd_SequenceOfTransient.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Activator,MMgt_TShared)
+
 static Handle(Dico_DictionaryOfInteger) thedico; // = new Dico_DictionaryOfInteger;
 static TColStd_SequenceOfInteger   thenums, themodes;
 static TColStd_SequenceOfTransient theacts;
@@ -98,10 +100,13 @@ static Handle(MoniTool_Profile) thealiases;
 {
   TCollection_AsciiString str;
   if (thealiases.IsNull()) return str;
-  Handle(TCollection_HAsciiString) val;
-  if (!thealiases->Value(command,val)) return str;
-  str.AssignCat (val->ToCString());
-    return str;
+  Handle(Standard_Transient) aVal;
+  if (!thealiases->Value(command,aVal)) return str;
+  Handle(TCollection_HAsciiString) val =
+    Handle(TCollection_HAsciiString)::DownCast (aVal);
+  if (!val.IsNull())
+    str.AssignCat (val->ToCString());
+  return str;
 }
 
 

@@ -1,0 +1,29 @@
+<map id="StdObjMgt_Persistent" name="StdObjMgt_Persistent">
+<area shape="rect" id="node5" href="$class_shape_persistent___b_rep_1_1_curve_representation.html" title="ShapePersistent_BRep\l::CurveRepresentation" alt="" coords="425,202,583,243"/>
+<area shape="rect" id="node16" href="$class_shape_persistent___b_rep_1_1_point_representation.html" title="ShapePersistent_BRep\l::PointRepresentation" alt="" coords="425,267,583,309"/>
+<area shape="rect" id="node21" href="$class_shape_persistent___geom_1_1_geometry.html" title="ShapePersistent_Geom\l::Geometry" alt="" coords="424,333,584,374"/>
+<area shape="rect" id="node22" href="$class_shape_persistent___topo_d_s_1_1_h_shape.html" title="ShapePersistent_TopoDS\l::HShape" alt="" coords="419,398,589,439"/>
+<area shape="rect" id="node23" href="$class_std_obj_mgt___shared_object_1_1_shared_base.html" title="StdObjMgt_SharedObject\l::SharedBase\&lt; TopLoc_Datum3D \&gt;" alt="" coords="390,463,618,505"/>
+<area shape="rect" id="node25" href="$class_std_l_persistent___data.html" title="StdLPersistent_Data" alt="" coords="433,529,575,556"/>
+<area shape="rect" id="node26" href="$class_std_l_persistent___document.html" title="StdLPersistent_Document" alt="" coords="417,580,591,607"/>
+<area shape="rect" id="node27" href="$class_std_persistent___naming_1_1_name.html" title="StdPersistent_Naming\l::Name" alt="" coords="428,631,580,673"/>
+<area shape="rect" id="node30" href="$class_std_persistent___top_loc_1_1_item_location.html" title="StdPersistent_TopLoc\l::ItemLocation" alt="" coords="429,697,579,738"/>
+<area shape="rect" id="node2" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,405,141,432"/>
+<area shape="rect" id="node6" href="$class_shape_persistent___b_rep_1_1_curve_on2_surfaces.html" title="ShapePersistent_BRep\l::CurveOn2Surfaces" alt="" coords="672,6,829,47"/>
+<area shape="rect" id="node7" href="$class_shape_persistent___b_rep_1_1_g_curve.html" title="ShapePersistent_BRep\l::GCurve" alt="" coords="672,71,829,113"/>
+<area shape="rect" id="node11" href="$class_shape_persistent___b_rep_1_1_polygon3_d.html" title="ShapePersistent_BRep\l::Polygon3D" alt="" coords="672,137,829,178"/>
+<area shape="rect" id="node12" href="$class_shape_persistent___b_rep_1_1_polygon_on_surface.html" title="ShapePersistent_BRep\l::PolygonOnSurface" alt="" coords="672,202,829,243"/>
+<area shape="rect" id="node14" href="$class_shape_persistent___b_rep_1_1_polygon_on_triangulation.html" title="ShapePersistent_BRep\l::PolygonOnTriangulation" alt="" coords="667,267,834,309"/>
+<area shape="rect" id="node8" href="$class_shape_persistent___b_rep_1_1_curve3_d.html" title="ShapePersistent_BRep\l::Curve3D" alt="" coords="908,39,1065,81"/>
+<area shape="rect" id="node9" href="$class_shape_persistent___b_rep_1_1_curve_on_surface.html" title="ShapePersistent_BRep\l::CurveOnSurface" alt="" coords="908,105,1065,146"/>
+<area shape="rect" id="node10" href="$class_shape_persistent___b_rep_1_1_curve_on_closed_surface.html" title="ShapePersistent_BRep\l::CurveOnClosedSurface" alt="" coords="1139,105,1301,146"/>
+<area shape="rect" id="node13" href="$class_shape_persistent___b_rep_1_1_polygon_on_closed_surface.html" title="ShapePersistent_BRep\l::PolygonOnClosedSurface" alt="" coords="897,202,1076,243"/>
+<area shape="rect" id="node15" href="$class_shape_persistent___b_rep_1_1_polygon_on_closed_triangulation.html" title="ShapePersistent_BRep\l::PolygonOnClosedTriangulation" alt="" coords="883,267,1090,309"/>
+<area shape="rect" id="node17" href="$class_shape_persistent___b_rep_1_1_point_on_curve.html" title="ShapePersistent_BRep\l::PointOnCurve" alt="" coords="672,333,829,374"/>
+<area shape="rect" id="node18" href="$class_shape_persistent___b_rep_1_1_points_on_surface.html" title="ShapePersistent_BRep\l::PointsOnSurface" alt="" coords="672,398,829,439"/>
+<area shape="rect" id="node19" href="$class_shape_persistent___b_rep_1_1_point_on_curve_on_surface.html" title="ShapePersistent_BRep\l::PointOnCurveOnSurface" alt="" coords="901,366,1072,407"/>
+<area shape="rect" id="node20" href="$class_shape_persistent___b_rep_1_1_point_on_surface.html" title="ShapePersistent_BRep\l::PointOnSurface" alt="" coords="908,431,1065,473"/>
+<area shape="rect" id="node24" href="$class_std_persistent___top_loc_1_1_datum3_d.html" title="StdPersistent_TopLoc\l::Datum3D" alt="" coords="675,463,826,505"/>
+<area shape="rect" id="node28" href="$class_std_persistent___naming_1_1_name__1.html" title="StdPersistent_Naming\l::Name_1" alt="" coords="675,631,827,673"/>
+<area shape="rect" id="node29" href="$class_std_persistent___naming_1_1_name__2.html" title="StdPersistent_Naming\l::Name_2" alt="" coords="911,631,1063,673"/>
+</map>

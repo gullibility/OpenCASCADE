@@ -1,0 +1,4 @@
+<map id="BVH_SweepPlaneBuilder&lt; T, N &gt;" name="BVH_SweepPlaneBuilder&lt; T, N &gt;">
+<area shape="rect" id="node2" href="$class_b_v_h___queue_builder.html" title="Abstract BVH builder based on the concept of work queue. Queue based BVH builders support paralleliza..." alt="" coords="5,80,187,107"/>
+<area shape="rect" id="node3" href="$class_b_v_h___builder.html" title="Performs construction of BVH tree using bounding boxes (AABBs) of abstract objects. " alt="" coords="24,5,168,32"/>
+</map>

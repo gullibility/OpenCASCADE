@@ -14,8 +14,8 @@ checkshape a
 tcopy a result
 checkshape result
 
-set square 623.832
-set 2dviewer 0
+checkprops result -s 623.832
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 
 

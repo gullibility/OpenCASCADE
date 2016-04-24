@@ -4,4 +4,5 @@ restore [locate_data_file a138] b
 bop a b
 bopfuse result
 
-set square 15000
+checkprops result -s 15000
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

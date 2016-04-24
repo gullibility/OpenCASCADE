@@ -1,0 +1,27 @@
+digraph schema_TKIVtk
+{
+	TKIVtk [ URL = "toolkit_tkivtk.html", shape = box ]
+	TKernel [ URL = "toolkit_tkernel.html" , shape = box ]
+	TKIVtk -> TKernel [ color = "midnightblue", style = "solid" ]
+	TKBRep [ URL = "toolkit_tkbrep.html" , shape = box ]
+	TKIVtk -> TKBRep [ color = "midnightblue", style = "solid" ]
+	TKG2d [ URL = "toolkit_tkg2d.html" , shape = box ]
+	TKIVtk -> TKG2d [ color = "midnightblue", style = "solid" ]
+	TKG3d [ URL = "toolkit_tkg3d.html" , shape = box ]
+	TKIVtk -> TKG3d [ color = "midnightblue", style = "solid" ]
+	TKGeomAlgo [ URL = "toolkit_tkgeomalgo.html" , shape = box ]
+	TKIVtk -> TKGeomAlgo [ color = "midnightblue", style = "solid" ]
+	TKGeomBase [ URL = "toolkit_tkgeombase.html" , shape = box ]
+	TKIVtk -> TKGeomBase [ color = "midnightblue", style = "solid" ]
+	TKMath [ URL = "toolkit_tkmath.html" , shape = box ]
+	TKIVtk -> TKMath [ color = "midnightblue", style = "solid" ]
+	TKMesh [ URL = "toolkit_tkmesh.html" , shape = box ]
+	TKIVtk -> TKMesh [ color = "midnightblue", style = "solid" ]
+	TKService [ URL = "toolkit_tkservice.html" , shape = box ]
+	TKIVtk -> TKService [ color = "midnightblue", style = "solid" ]
+	TKTopAlgo [ URL = "toolkit_tktopalgo.html" , shape = box ]
+	TKIVtk -> TKTopAlgo [ color = "midnightblue", style = "solid" ]
+	TKV3d [ URL = "toolkit_tkv3d.html" , shape = box ]
+	TKIVtk -> TKV3d [ color = "midnightblue", style = "solid" ]
+	aspect = 1
+}

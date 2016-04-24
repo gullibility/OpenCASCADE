@@ -1,0 +1,6 @@
+<map id="SelectMgr_ViewerSelector" name="SelectMgr_ViewerSelector">
+<area shape="rect" id="node4" href="$class_i_vtk_o_c_c___viewer_selector.html" title="Class that implements OCCT selection algorithm. " alt="" coords="5,229,171,256"/>
+<area shape="rect" id="node5" href="$class_std_select___viewer_selector3d.html" title="Selector Usable by Viewers from V3d. " alt="" coords="196,229,383,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="133,80,243,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="121,5,255,32"/>
+</map>

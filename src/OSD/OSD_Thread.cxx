@@ -137,7 +137,7 @@ static DWORD WINAPI WNTthread_func (LPVOID data)
   WNTthread_data *adata = (WNTthread_data*)data;
   void* ret = adata->func ( adata->data );
   free ( adata );
-  return (DWORD)ret;
+  return PtrToLong (ret);
 }
 #endif
 
@@ -243,7 +243,7 @@ Standard_Boolean OSD_Thread::Wait (Standard_Address &result) const
   // and convert result of the thread execution to Standard_Address
   DWORD anExitCode;
   if ( GetExitCodeThread ( myThread, &anExitCode ) )
-    result = (Standard_Address)anExitCode;
+    result = ULongToPtr (anExitCode);
   return Standard_True;
 
 #else
@@ -258,7 +258,7 @@ Standard_Boolean OSD_Thread::Wait (Standard_Address &result) const
 // OSD_Thread::Wait
 //=============================================
 
-Standard_Boolean OSD_Thread::Wait (const Standard_Integer time, Standard_Address &result) const
+Standard_Boolean OSD_Thread::Wait (const Standard_Integer theTimeMs, Standard_Address &result) const
 {
   // check that thread handle is not null
   result = 0;
@@ -268,12 +268,12 @@ Standard_Boolean OSD_Thread::Wait (const Standard_Integer time, Standard_Address
 #ifdef _WIN32
 
   // On Windows, wait for the thread handle to be signaled
-  DWORD ret = WaitForSingleObject ( myThread, time );
+  DWORD ret = WaitForSingleObject (myThread, theTimeMs);
   if (ret == WAIT_OBJECT_0)
   {
     DWORD anExitCode;
     if ( GetExitCodeThread ( myThread, &anExitCode ) )
-      result = (Standard_Address)anExitCode;
+      result = ULongToPtr (anExitCode);
     return Standard_True;
   }
   else if (ret == WAIT_TIMEOUT)
@@ -284,11 +284,32 @@ Standard_Boolean OSD_Thread::Wait (const Standard_Integer time, Standard_Address
   return Standard_False;
 
 #else
+  #if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
+    #if __GLIBC_PREREQ(2,4)
+      #define HAS_TIMED_NP
+    #endif
+  #endif
 
-  // On Unix/Linux, join the thread
-  return ! pthread_join ( myThread, &result );
+  #ifdef HAS_TIMED_NP
+    struct timespec aTimeout;
+    if (clock_gettime (CLOCK_REALTIME, &aTimeout) == -1)
+    {
+      return Standard_False;
+    }
 
-#endif  
+    time_t aSeconds      = (theTimeMs / 1000);
+    long   aMicroseconds = (theTimeMs - aSeconds * 1000) * 1000;
+    aTimeout.tv_sec  += aSeconds;
+    aTimeout.tv_nsec += aMicroseconds * 1000;
+
+    return pthread_timedjoin_np (myThread, &result, &aTimeout) == 0;
+  #else
+    // join the thread without timeout
+    (void )theTimeMs;
+    return pthread_join (myThread, &result) == 0;
+  #endif
+
+#endif
 }
 
 //=============================================

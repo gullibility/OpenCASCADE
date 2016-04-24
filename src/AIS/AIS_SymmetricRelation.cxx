@@ -50,6 +50,8 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Shape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_SymmetricRelation,AIS_Relation)
+
 //=======================================================================
 //function : AIS_SymmetricRelation
 //purpose  : 
@@ -152,7 +154,7 @@ void AIS_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection)& 
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this,7);
   Standard_Real F,L;
 
-  Handle(Geom_Line) geom_axis,extcurve;
+  Handle(Geom_Curve) geom_axis, extcurve;
   gp_Pnt p1,p2;
   Standard_Boolean isinfinite,isonplane;
   if (!AIS::ComputeGeometry(TopoDS::Edge(myTool),
@@ -162,7 +164,8 @@ void AIS_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection)& 
 			    isonplane,
 			    myPlane)) return;
 
-  gp_Lin laxis (geom_axis->Lin());
+  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast (geom_axis);
+  gp_Lin laxis (geom_line->Lin());
   
   if(myFShape.ShapeType() != TopAbs_VERTEX){
     BRepAdaptor_Curve cu1(TopoDS::Edge(myFShape));
@@ -400,7 +403,7 @@ void AIS_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Presenta
     return;
   } 
   aprs->SetInfiniteState((isInfinite1 || isInfinite2) && (myExtShape !=0));
-  Handle(Geom_Line) geom_axis,extcurve;
+  Handle(Geom_Curve) geom_axis,extcurve;
   gp_Pnt p1,p2;
   Standard_Boolean isinfinite,isonplane;
   if (!AIS::ComputeGeometry(TopoDS::Edge(myTool),
@@ -410,7 +413,8 @@ void AIS_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Presenta
 			    isonplane,
 			    myPlane)) return;
 
-  gp_Lin laxis (geom_axis->Lin());
+  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast (geom_axis);
+  gp_Lin laxis (geom_line->Lin());
   myAxisDirAttach = laxis.Direction();
 
   if(cu1.GetType() == GeomAbs_Line){
@@ -576,7 +580,7 @@ void AIS_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Presenta
 void AIS_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Presentation)& aprs)
 {
   if(myFShape.ShapeType() != TopAbs_VERTEX || mySShape.ShapeType() != TopAbs_VERTEX) return;
-  Handle(Geom_Line) geom_axis,extcurve;
+  Handle(Geom_Curve) geom_axis,extcurve;
   gp_Pnt p1,p2;
   Standard_Boolean isinfinite,isonplane;
   if (!AIS::ComputeGeometry(TopoDS::Edge(myTool),
@@ -602,7 +606,9 @@ void AIS_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Prese
     myExtShape = 1;
   else
     return ;
-  gp_Lin laxis (geom_axis->Lin());
+
+  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast (geom_axis);
+  gp_Lin laxis (geom_line->Lin());
   myAxisDirAttach = laxis.Direction();
 
   // recherche points attache

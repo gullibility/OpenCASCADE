@@ -25,6 +25,8 @@
 #include <Interface_Macros.hxx>
 #include <Standard_Type.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(IGESAppli_Node,IGESData_IGESEntity)
+
 IGESAppli_Node::IGESAppli_Node ()    {  }
 
 
@@ -45,7 +47,7 @@ IGESAppli_Node::IGESAppli_Node ()    {  }
     Handle(IGESData_TransfEntity)  IGESAppli_Node::System () const
 {
   //if Null, Global Cartesian Coordinate System
-  return GetCasted(IGESData_TransfEntity,theSystem);
+  return Handle(IGESData_TransfEntity)(theSystem);
 }
 
     Standard_Integer  IGESAppli_Node::SystemType () const

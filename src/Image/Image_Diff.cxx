@@ -21,6 +21,8 @@
 #include <cstdlib>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(Image_Diff,Standard_Transient)
+
 //! POD structure for packed RGB color value (3 bytes)
 struct Image_ColorXXX24
 {
@@ -124,7 +126,8 @@ namespace
         || theFormat == Image_PixMap::ImgRGBA
         || theFormat == Image_PixMap::ImgBGRA;
   }
-};
+
+} // anonymous namespace
 
 // =======================================================================
 // function : Image_Diff

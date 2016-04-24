@@ -1,0 +1,7 @@
+<map id="StepBasic_DocumentReference" name="StepBasic_DocumentReference">
+<area shape="rect" id="node4" href="$class_step_a_p203___cc_design_specification_reference.html" title="Representation of STEP entity CcDesignSpecificationReference. " alt="" coords="606,5,831,46"/>
+<area shape="rect" id="node5" href="$class_step_a_p214___applied_document_reference.html" title="StepAP214_AppliedDocument\lReference" alt="" coords="620,70,817,111"/>
+<area shape="rect" id="node6" href="$class_step_a_p214___auto_design_document_reference.html" title="StepAP214_AutoDesignDocument\lReference" alt="" coords="608,135,829,177"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,77,301,104"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,77,141,104"/>
+</map>

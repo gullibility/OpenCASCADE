@@ -1,0 +1,35 @@
+<map id="BRepClass" name="BRepClass">
+<area shape="rect" id="node1" href="dir_e6158acc082fcad0fc7d0f6da423486d.html" title="BRepClass" alt="" coords="291,52,377,100"/>
+<area shape="rect" id="node2" href="dir_3fe03e9c0a0f2ab1f56c92d2bb0ef505.html" title="Geom2dInt" alt="" coords="91,148,176,196"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000050_000125.html" title="1" alt="" coords="192,144,200,158"/>
+<area shape="rect" id="node3" href="dir_f52343421ac5956daafcf1311ecb6e4e.html" title="gp" alt="" coords="181,340,253,388"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000050_000145.html" title="2" alt="" coords="227,316,235,331"/>
+<area shape="rect" id="node4" href="dir_95a7ff84c2251fb9cf053c722194c9ac.html" title="TopAbs" alt="" coords="331,340,403,388"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000050_000316.html" title="6" alt="" coords="366,313,374,328"/>
+<area shape="rect" id="node5" href="dir_458693deec338f6213fe2a70a0422e87.html" title="TopExp" alt="" coords="412,148,484,196"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000050_000320.html" title="1" alt="" coords="408,122,416,137"/>
+<area shape="rect" id="node6" href="dir_1a568c30dcc8b7e1bb86552cf4cc01ef.html" title="IntRes2d" alt="" coords="5,244,77,292"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000050_000187.html" title="1" alt="" coords="49,219,57,234"/>
+<area shape="rect" id="node7" href="dir_d4791cbe27cfad621555cea90f9c50f6.html" title="Standard" alt="" coords="292,436,367,484"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000050_000261.html" title="34" alt="" coords="379,449,394,463"/>
+<area shape="rect" id="node8" href="dir_bcaa1d1f1aa413ea72c3cb81e956dbcc.html" title="TopoDS" alt="" coords="505,244,577,292"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000050_000322.html" title="3" alt="" coords="539,217,547,232"/>
+<area shape="rect" id="node9" href="dir_9d74158f0b751e04589b92ca7890ad2e.html" title="TopTrans" alt="" coords="255,244,329,292"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000050_000329.html" title="2" alt="" coords="305,221,313,235"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000125_000145.html" title="8" alt="" coords="204,312,212,327"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000125_000187.html" title="6" alt="" coords="79,230,87,244"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000125_000261.html" title="77" alt="" coords="269,433,284,448"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000145_000261.html" title="194" alt="" coords="283,410,304,425"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000316_000261.html" title="4" alt="" coords="349,415,357,430"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000320_000316.html" title="2" alt="" coords="387,319,395,334"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000320_000261.html" title="9" alt="" coords="382,425,390,440"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000320_000322.html" title="1" alt="" coords="508,218,516,232"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000187_000145.html" title="2" alt="" coords="165,320,173,335"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000187_000261.html" title="25" alt="" coords="268,439,282,453"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000322_000316.html" title="12" alt="" coords="415,335,430,350"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000322_000261.html" title="73" alt="" coords="379,446,394,460"/>
+<area shape="rect" id="edge21-headlabel" href="dir_000329_000145.html" title="2" alt="" coords="250,324,258,338"/>
+<area shape="rect" id="edge22-headlabel" href="dir_000329_000316.html" title="5" alt="" coords="340,313,348,328"/>
+<area shape="rect" id="edge23-headlabel" href="dir_000329_000261.html" title="11" alt="" coords="322,409,337,424"/>
+<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="280,16,389,111"/>
+</map>

@@ -4,5 +4,6 @@ restore [locate_data_file sh9] b2
 bop b1 b2
 bopsection result
 
-
-set length 160
+checkprops result -l 160
+checksection result
+checkview -display result -2d -otherwise { b1 b2 } -l -path ${imagedir}/${test_image}.png

@@ -19,6 +19,8 @@
 #include <OpenGl_Vec.hxx>
 #include <Precision.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_CappingPlaneResource,OpenGl_Resource)
+
 namespace
 {
   //! 12 plane vertices, interleaved:
@@ -176,11 +178,10 @@ void OpenGl_CappingPlaneResource::UpdateTransform()
   Standard_ShortReal F[3] = { 0.0f, 0.0f, 0.0f };
 
   // project plane normal onto OX to find left vector
-  Standard_ShortReal aConfusion = (Standard_ShortReal)Precision::Confusion();
   Standard_ShortReal aProjLen = 
     sqrt (  (Standard_ShortReal)(anEquation[0] * anEquation[0])
           + (Standard_ShortReal)(anEquation[2] * anEquation[2]));
-  if (aProjLen < aConfusion)
+  if (aProjLen < ShortRealSmall())
   {
     L[0] = 1.0f;
   }

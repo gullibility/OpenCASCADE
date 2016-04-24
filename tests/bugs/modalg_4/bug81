@@ -17,5 +17,7 @@ puts "Info: it should be 12 edges"
 
 checknbshapes result -edge 12
 
-set length 33.6353
-set 2dviewer 0
+checkprops result -l 33.6353 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

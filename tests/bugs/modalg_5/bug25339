@@ -12,5 +12,7 @@ axo
 fit
 renamevar r_1 result
 
-set length 36.1042
-set only_screen_axo 1
+checkprops result -l 36.1042 
+checkshape result 
+checksection result
+checkview -screenshot -2d -path ${imagedir}/${test_image}.png

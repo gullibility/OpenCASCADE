@@ -53,6 +53,9 @@ namespace
       case Graphic3d_TOD_VEC4UB:
         theNbComp = 4;
         return GL_UNSIGNED_BYTE;
+      case Graphic3d_TOD_FLOAT:
+        theNbComp = 1;
+        return GL_FLOAT;
     }
     theNbComp = 0;
     return GL_NONE;
@@ -226,7 +229,7 @@ Standard_Boolean OpenGl_PrimitiveArray::initNormalVbo (const Handle(OpenGl_Conte
     aMsg += "VBO creation for Primitive Array has failed for ";
     aMsg += myAttribs->NbElements;
     aMsg += " vertices. Out of memory?";
-    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_PERFORMANCE_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
+    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PERFORMANCE, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
 
     clearMemoryGL (theCtx);
     return Standard_False;
@@ -262,7 +265,7 @@ Standard_Boolean OpenGl_PrimitiveArray::initNormalVbo (const Handle(OpenGl_Conte
     aMsg += "VBO creation for Primitive Array has failed for ";
     aMsg += myIndices->NbElements;
     aMsg += " indices. Out of memory?";
-    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_PERFORMANCE_ARB, 0, GL_DEBUG_SEVERITY_LOW_ARB, aMsg);
+    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PERFORMANCE, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
     clearMemoryGL (theCtx);
     return Standard_False;
   }
@@ -784,13 +787,20 @@ void OpenGl_PrimitiveArray::Render (const Handle(OpenGl_Workspace)& theWorkspace
         }
         default:
         {
+          const Handle(OpenGl_Texture)& aTexture = theWorkspace->ActiveTexture();
           const Standard_Boolean isLightOnFace = isLightOn
-                                              && (theWorkspace->ActiveTexture().IsNull()
-                                               || theWorkspace->ActiveTexture()->GetParams()->IsModulate());
-          aCtx->ShaderManager()->BindProgram (anAspectFace, theWorkspace->ActiveTexture(), isLightOnFace, hasVertColor, anAspectFace->ShaderProgramRes (aCtx));
+                                              && (aTexture.IsNull()
+                                               || aTexture->GetParams()->IsModulate());
+          aCtx->ShaderManager()->BindProgram (anAspectFace, aTexture, isLightOnFace, hasVertColor, anAspectFace->ShaderProgramRes (aCtx));
           break;
         }
       }
+    }
+
+    if (!theWorkspace->ActiveTexture().IsNull()
+     && myDrawMode != GL_POINTS) // transformation is not supported within point sprites
+    {
+      aCtx->SetTextureMatrix (theWorkspace->ActiveTexture()->GetParams());
     }
 
     aCtx->SetColor4fv (*(const OpenGl_Vec4* )(myDrawMode <= GL_LINE_STRIP ? aLineColor->rgb : anInteriorColor->rgb));

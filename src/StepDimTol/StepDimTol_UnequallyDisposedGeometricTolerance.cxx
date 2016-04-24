@@ -18,6 +18,8 @@
 #include <StepDimTol_GeometricToleranceTarget.hxx>
 #include <StepBasic_LengthMeasureWithUnit.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_UnequallyDisposedGeometricTolerance,StepDimTol_GeometricTolerance)
+
 //=======================================================================
 //function : StepDimTol_UnequallyDisposedGeometricTolerance
 //purpose  : 
@@ -39,5 +41,5 @@ void StepDimTol_UnequallyDisposedGeometricTolerance::Init (const Handle(TCollect
                                                            const Handle(StepBasic_LengthMeasureWithUnit) &theDisplacement)
 {
   StepDimTol_GeometricTolerance::Init( theName, theDescription, theMagnitude, theTolerancedShapeAspect);
-  displacement = theDisplacement;
+  myDisplacement = theDisplacement;
 }

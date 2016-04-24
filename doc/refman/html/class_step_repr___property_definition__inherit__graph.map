@@ -1,0 +1,7 @@
+<map id="StepRepr_PropertyDefinition" name="StepRepr_PropertyDefinition">
+<area shape="rect" id="node4" href="$class_step_repr___material_property.html" title="Representation of STEP entity MaterialProperty. " alt="" coords="593,5,772,32"/>
+<area shape="rect" id="node5" href="$class_step_repr___product_definition_shape.html" title="Representation of STEP entity ProductDefinitionShape. " alt="" coords="592,57,773,98"/>
+<area shape="rect" id="node6" href="$class_step_repr___structural_response_property.html" title="Representation of STEP entity StructuralResponseProperty. " alt="" coords="584,122,781,163"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,64,301,91"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,64,141,91"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="BRep_CurveRepresentation" name="BRep_CurveRepresentation">
+<area shape="rect" id="node4" href="$class_b_rep___curve_on2_surfaces.html" title="Defines a continuity between two surfaces. " alt="" coords="595,5,763,32"/>
+<area shape="rect" id="node5" href="$class_b_rep___g_curve.html" title="Root class for the geometric curves representation. Contains a range. Contains a first and a last par..." alt="" coords="627,56,730,83"/>
+<area shape="rect" id="node9" href="$class_b_rep___polygon3_d.html" title="Representation by a 3D polygon. " alt="" coords="617,107,741,133"/>
+<area shape="rect" id="node10" href="$class_b_rep___polygon_on_surface.html" title="Representation of a 2D polygon in the parametric space of a surface. " alt="" coords="594,157,763,184"/>
+<area shape="rect" id="node12" href="$class_b_rep___polygon_on_triangulation.html" title="A representation by an array of nodes on a triangulation. " alt="" coords="579,208,778,235"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,107,301,133"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,107,141,133"/>
+<area shape="rect" id="node6" href="$class_b_rep___curve3_d.html" title="Representation of a curve by a 3D curve. " alt="" coords="892,31,1001,57"/>
+<area shape="rect" id="node7" href="$class_b_rep___curve_on_surface.html" title="Representation of a curve by a curve in the parametric space of a surface. " alt="" coords="869,81,1024,108"/>
+<area shape="rect" id="node8" href="$class_b_rep___curve_on_closed_surface.html" title="Representation of a curve by two pcurves on a closed surface. " alt="" coords="1115,81,1309,108"/>
+<area shape="rect" id="node11" href="$class_b_rep___polygon_on_closed_surface.html" title="Representation by two 2d polygons in the parametric space of a surface. " alt="" coords="842,157,1051,184"/>
+<area shape="rect" id="node13" href="$class_b_rep___polygon_on_closed_triangulation.html" title="A representation by two arrays of nodes on a triangulation. " alt="" coords="827,208,1066,235"/>
+</map>

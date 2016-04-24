@@ -29,5 +29,6 @@ set dz [expr $az - $bz]
 
 revol result a $ax $ay $az $dx $dy $dz 360
 
-set square 692942
-set 2dviewer 0
+checkprops result -s 692942 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

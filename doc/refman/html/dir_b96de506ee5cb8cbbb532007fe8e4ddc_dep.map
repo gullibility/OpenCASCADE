@@ -1,0 +1,36 @@
+<map id="IGESSolid" name="IGESSolid">
+<area shape="rect" id="node1" href="dir_b96de506ee5cb8cbbb532007fe8e4ddc.html" title="IGESSolid" alt="" coords="185,52,268,100"/>
+<area shape="rect" id="node2" href="dir_76e7bf4810a28883343749d28c023507.html" title="TColStd" alt="" coords="195,436,267,484"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000172_000304.html" title="7" alt="" coords="177,424,185,438"/>
+<area shape="rect" id="node3" href="dir_46d345e8be8601a3cc5f3918ceac7fe2.html" title="NCollection" alt="" coords="268,532,356,580"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000172_000212.html" title="8" alt="" coords="365,521,373,535"/>
+<area shape="rect" id="node4" href="dir_4efa88fd7428f093bf9bf909446eaffb.html" title="TColgp" alt="" coords="195,244,267,292"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000172_000301.html" title="2" alt="" coords="234,218,242,233"/>
+<area shape="rect" id="node5" href="dir_f52343421ac5956daafcf1311ecb6e4e.html" title="gp" alt="" coords="132,340,204,388"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000172_000145.html" title="10" alt="" coords="165,314,179,328"/>
+<area shape="rect" id="node6" href="dir_9ed947164f5bc3b95965322bc53de559.html" title="IGESGeom" alt="" coords="264,148,352,196"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000172_000169.html" title="1" alt="" coords="279,121,287,136"/>
+<area shape="rect" id="node7" href="dir_d4791cbe27cfad621555cea90f9c50f6.html" title="Standard" alt="" coords="233,628,308,676"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000172_000261.html" title="198" alt="" coords="207,622,228,637"/>
+<area shape="rect" id="node8" href="dir_f5c7446e94d41d1752f2367277463113.html" title="IGESData" alt="" coords="392,244,472,292"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000172_000164.html" title="32" alt="" coords="417,216,431,231"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000304_000212.html" title="66" alt="" coords="271,506,285,520"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000304_000261.html" title="57" alt="" coords="263,601,278,616"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000212_000304.html" title="1" alt="" coords="261,496,269,511"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000212_000261.html" title="47" alt="" coords="289,607,303,622"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000301_000212.html" title="58" alt="" coords="302,505,316,520"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000301_000145.html" title="57" alt="" coords="193,322,208,337"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000145_000304.html" title="1" alt="" coords="208,409,216,423"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000145_000261.html" title="194" alt="" coords="242,600,263,615"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000169_000304.html" title="9" alt="" coords="247,413,255,428"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000169_000212.html" title="6" alt="" coords="316,506,324,521"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000169_000301.html" title="2" alt="" coords="264,228,272,243"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000169_000145.html" title="11" alt="" coords="165,314,180,328"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000169_000261.html" title="202" alt="" coords="316,646,338,661"/>
+<area shape="rect" id="edge21-headlabel" href="dir_000169_000164.html" title="29" alt="" coords="385,219,400,234"/>
+<area shape="rect" id="edge22-headlabel" href="dir_000164_000304.html" title="8" alt="" coords="270,422,278,437"/>
+<area shape="rect" id="edge23-headlabel" href="dir_000164_000212.html" title="3" alt="" coords="351,517,359,532"/>
+<area shape="rect" id="edge24-headlabel" href="dir_000164_000145.html" title="7" alt="" coords="220,344,228,359"/>
+<area shape="rect" id="edge25-headlabel" href="dir_000164_000261.html" title="171" alt="" coords="317,621,339,635"/>
+<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="175,16,279,111"/>
+</map>

@@ -18,15 +18,11 @@
 #include <StepBasic_SiUnit.hxx>
 #include <StepBasic_SiUnitAndLengthUnit.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnitAndLengthUnit,StepBasic_SiUnit)
+
 StepBasic_SiUnitAndLengthUnit::StepBasic_SiUnitAndLengthUnit ()
 {
 }
-
-void StepBasic_SiUnitAndLengthUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
-}
-
 
 void StepBasic_SiUnitAndLengthUnit::Init(const Standard_Boolean hasAprefix,
 					 const StepBasic_SiPrefix aPrefix,

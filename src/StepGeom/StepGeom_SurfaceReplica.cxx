@@ -18,14 +18,9 @@
 #include <StepGeom_SurfaceReplica.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_SurfaceReplica,StepGeom_Surface)
+
 StepGeom_SurfaceReplica::StepGeom_SurfaceReplica ()  {}
-
-void StepGeom_SurfaceReplica::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_SurfaceReplica::Init(
 	const Handle(TCollection_HAsciiString)& aName,

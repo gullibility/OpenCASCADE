@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{4DF23CE5-1241-0F28-172C-307BBC0B9E4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Aspect">
+      <UniqueIdentifier>{C65ED107-1537-099A-161F-20912719CEE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\SelectBasics">
+      <UniqueIdentifier>{5E86190B-0803-0976-104F-D753A6B4BFED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Image">
+      <UniqueIdentifier>{A4757BE1-08AA-16A5-00DE-1D7B3082A373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\WNT">
+      <UniqueIdentifier>{B909A642-0625-067C-17EE-43E7C52572A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\Font">
+      <UniqueIdentifier>{8A92F4CB-01E2-08CA-1225-381A995A56D3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_AspectFillArea.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_AspectLine.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_AspectMarker.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_Background.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_CircularGrid.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_DisplayConnection.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_GenId.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_GradientBackground.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_Grid.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_RectangularGrid.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Aspect\Aspect_Window.cxx">
+      <Filter>Source files\Aspect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SelectBasics\SelectBasics.cxx">
+      <Filter>Source files\SelectBasics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SelectBasics\SelectBasics_EntityOwner.cxx">
+      <Filter>Source files\SelectBasics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SelectBasics\SelectBasics_SensitiveEntity.cxx">
+      <Filter>Source files\SelectBasics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Image\Image_AlienPixMap.cxx">
+      <Filter>Source files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Image\Image_Diff.cxx">
+      <Filter>Source files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Image\Image_PixMap.cxx">
+      <Filter>Source files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\WNT\WNT_WClass.cxx">
+      <Filter>Source files\WNT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\WNT\WNT_Window.cxx">
+      <Filter>Source files\WNT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_BRepFont.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_BRepTextBuilder.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_FTFont.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_FTLibrary.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_FontMgr.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_SystemFont.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Font\Font_TextFormatter.cxx">
+      <Filter>Source files\Font</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TKService.rc" />  </ItemGroup>
+</Project>

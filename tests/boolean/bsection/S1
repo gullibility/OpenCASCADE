@@ -7,4 +7,6 @@ ttranslate c2 0 0 50
 
 bsection result c1 c2
 
-set length 301.327
+checkprops result -l 301.327
+checksection result
+checkview -display result -2d -otherwise { c1 c2 } -l -path ${imagedir}/${test_image}.png

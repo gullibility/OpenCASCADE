@@ -72,8 +72,10 @@ if {$IsGood == 1} {
 
 renamevar result_1 result
 
-set length 1112.83
-set 2dviewer 0
+checkprops result -l 1112.83 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 dchrono h stop
 dchrono h show

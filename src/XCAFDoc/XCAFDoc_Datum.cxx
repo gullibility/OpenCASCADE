@@ -17,24 +17,44 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TDF_Attribute.hxx>
 #include <TDF_Label.hxx>
+#include <TDF_ChildIterator.hxx>
 #include <TDF_RelocationTable.hxx>
 #include <XCAFDoc_Datum.hxx>
 #include <TDataStd_AsciiString.hxx>
 #include <TDataStd_IntegerArray.hxx>
+#include <TDataStd_RealArray.hxx>
 #include <TDataStd_Integer.hxx>
 #include <TDataStd_Real.hxx>
 #include <TNaming_NamedShape.hxx>
 #include <TNaming_Builder.hxx>
-
+#include <TNaming_Tool.hxx>
+#include <TDataStd_Name.hxx>
 
 #include <XCAFDimTolObjects_DatumObject.hxx>
+
+IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_Datum,TDF_Attribute)
 
 enum ChildLab
 {
   ChildLab_Name = 1,
+  ChildLab_Position,
   ChildLab_Modifiers,
   ChildLab_ModifierWithValue,
-  ChildLab_DatumTarget
+  ChildLab_IsDTarget,
+  ChildLab_DTargetType,
+  ChildLab_AxisLoc,
+  ChildLab_AxisN,
+  ChildLab_AxisRef,
+  ChildLab_DTargetLength,
+  ChildLab_DTargetWidth,
+  ChildLab_DTargetNumber,
+  ChildLab_DatumTarget,
+  ChildLab_PlaneLoc,
+  ChildLab_PlaneN,
+  ChildLab_PlaneRef,
+  ChildLab_Pnt,
+  ChildLab_PntText,
+  ChildLab_Presentation
 };
 
 //=======================================================================
@@ -152,7 +172,12 @@ Handle(TCollection_HAsciiString) XCAFDoc_Datum::GetIdentification() const
 void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theObject)
 {
   Backup();
-  if (!theObject->GetName().IsNull())
+  TDF_ChildIterator anIter(Label());
+  for(;anIter.More(); anIter.Next())
+  {
+    anIter.Value().ForgetAllAttributes();
+  }
+  if (!theObject->GetName().IsNull() && !theObject->GetName()->IsEmpty())
   {
     Handle(TDataStd_AsciiString) anAttName;
     if(!Label().FindChild(ChildLab_Name).FindAttribute(TDataStd_AsciiString::GetID(), anAttName))
@@ -162,16 +187,12 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
     }
     anAttName->Set(theObject->GetName()->String());
   }
-  else
-  {
-    Label().FindChild(ChildLab_Name).ForgetAllAttributes();
-  }
 
-  if(theObject->GetModifiers().Length() == 0)
-  {
-    Label().FindChild(ChildLab_Modifiers).ForgetAllAttributes();
-  }
-  else
+  Handle(TDataStd_Integer) aPosition = new TDataStd_Integer();
+  aPosition->Set(theObject->GetPosition());
+  Label().FindChild(ChildLab_Position).AddAttribute(aPosition);
+
+  if(theObject->GetModifiers().Length() > 0)
   {
     Handle(TDataStd_IntegerArray) aModifiers;
     if(!Label().FindChild(ChildLab_Modifiers).FindAttribute(TDataStd_IntegerArray::GetID(), aModifiers))
@@ -205,20 +226,135 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
     aModifierWithValueM->Set(aM);
     aModifierWithValueV->Set(aV);
   }
-  else
+
+  Handle(TDataStd_Integer) aIsTarget = new TDataStd_Integer();
+  aIsTarget->Set(theObject->IsDatumTarget());
+  Label().FindChild(ChildLab_IsDTarget).AddAttribute(aIsTarget);
+
+  if(theObject->IsDatumTarget())
   {
-    Label().FindChild(ChildLab_ModifierWithValue).ForgetAllAttributes();
+    Handle(TDataStd_Integer) aType = new TDataStd_Integer();
+    aType->Set(theObject->GetDatumTargetType());
+    Label().FindChild(ChildLab_DTargetType).AddAttribute(aType);
+
+    if(theObject->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Area)
+    {
+      if(!theObject->GetDatumTarget().IsNull())
+      {
+        TNaming_Builder tnBuild(Label().FindChild(ChildLab_DatumTarget));
+        tnBuild.Generated(theObject->GetDatumTarget());
+      }
+    }
+    else
+    {
+      Handle(TDataStd_RealArray) aLoc = new TDataStd_RealArray();
+      Handle(TDataStd_RealArray) aN = new TDataStd_RealArray();
+      Handle(TDataStd_RealArray) aR = new TDataStd_RealArray();
+      gp_Ax2 anAx = theObject->GetDatumTargetAxis();
+
+      Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
+      for (Standard_Integer i = 1; i <= 3; i++)
+        aLocArr->SetValue(i, anAx.Location().Coord(i));
+      aLoc->ChangeArray(aLocArr);
+
+      Handle(TColStd_HArray1OfReal) aNArr = new TColStd_HArray1OfReal(1, 3);
+      for (Standard_Integer i = 1; i <= 3; i++)
+        aNArr->SetValue(i, anAx.Direction().Coord(i));
+      aN->ChangeArray(aNArr);
+
+      Handle(TColStd_HArray1OfReal) aRArr = new TColStd_HArray1OfReal(1, 3);
+      for (Standard_Integer i = 1; i <= 3; i++)
+        aRArr->SetValue(i, anAx.XDirection().Coord(i));
+      aR->ChangeArray(aRArr);
+
+      Label().FindChild(ChildLab_AxisLoc).AddAttribute(aLoc);
+      Label().FindChild(ChildLab_AxisN).AddAttribute(aN);
+      Label().FindChild(ChildLab_AxisRef).AddAttribute(aR);
+
+      if(theObject->GetDatumTargetType() != XCAFDimTolObjects_DatumTargetType_Point)
+      {
+        Handle(TDataStd_Real) aLen = new TDataStd_Real();
+        aLen->Set(theObject->GetDatumTargetLength());
+        Label().FindChild(ChildLab_DTargetLength).AddAttribute(aLen);
+        if(theObject->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Rectangle)
+        {
+          Handle(TDataStd_Real) aWidth = new TDataStd_Real();
+          aWidth->Set(theObject->GetDatumTargetWidth());
+          Label().FindChild(ChildLab_DTargetWidth).AddAttribute(aWidth);
+        }
+      }
+    }
+    Handle(TDataStd_Integer) aNum = new TDataStd_Integer();
+    aNum->Set(theObject->GetDatumTargetNumber());
+    Label().FindChild(ChildLab_DTargetNumber).AddAttribute(aNum);
   }
 
-  if(!theObject->GetDatumTarget().IsNull())
+  if (theObject->HasPlane())
   {
-    TNaming_Builder tnBuild(Label().FindChild(ChildLab_DatumTarget));
-    tnBuild.Generated(theObject->GetDatumTarget());
+    Handle(TDataStd_RealArray) aLoc = new TDataStd_RealArray();
+    Handle(TDataStd_RealArray) aN = new TDataStd_RealArray();
+    Handle(TDataStd_RealArray) aR = new TDataStd_RealArray();
+    gp_Ax2 anAx = theObject->GetPlane();
+
+    Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
+    for (Standard_Integer i = 1; i <= 3; i++)
+      aLocArr->SetValue(i, anAx.Location().Coord(i));
+    aLoc->ChangeArray(aLocArr);
+
+    Handle(TColStd_HArray1OfReal) aNArr = new TColStd_HArray1OfReal(1, 3);
+    for (Standard_Integer i = 1; i <= 3; i++)
+      aNArr->SetValue(i, anAx.Direction().Coord(i));
+    aN->ChangeArray(aNArr);
+
+    Handle(TColStd_HArray1OfReal) aRArr = new TColStd_HArray1OfReal(1, 3);
+    for (Standard_Integer i = 1; i <= 3; i++)
+      aRArr->SetValue(i, anAx.XDirection().Coord(i));
+    aR->ChangeArray(aRArr);
+
+    Label().FindChild(ChildLab_PlaneLoc).AddAttribute(aLoc);
+    Label().FindChild(ChildLab_PlaneN).AddAttribute(aN);
+    Label().FindChild(ChildLab_PlaneRef).AddAttribute(aR);
   }
-  else
+
+  if (theObject->HasPoint())
   {
-    Label().FindChild(ChildLab_DatumTarget).ForgetAllAttributes();
+    Handle(TDataStd_RealArray) aLoc = new TDataStd_RealArray();
+    gp_Pnt aPnt = theObject->GetPoint();
+
+    Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
+    for (Standard_Integer i = 1; i <= 3; i++)
+      aLocArr->SetValue(i, aPnt.Coord(i));
+    aLoc->ChangeArray(aLocArr);
+
+    Label().FindChild(ChildLab_Pnt).AddAttribute(aLoc);
   }
+
+  if (theObject->HasPointText())
+  {
+    Handle(TDataStd_RealArray) aLoc = new TDataStd_RealArray();
+    gp_Pnt aPntText = theObject->GetPointTextAttach();
+
+    Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
+    for (Standard_Integer i = 1; i <= 3; i++)
+      aLocArr->SetValue(i, aPntText.Coord(i));
+    aLoc->ChangeArray(aLocArr);
+
+    Label().FindChild(ChildLab_PntText).AddAttribute(aLoc);
+  }
+  TopoDS_Shape aPresentation = theObject->GetPresentation();
+  if( !aPresentation.IsNull())
+  {
+    TDF_Label aLPres = Label().FindChild( ChildLab_Presentation);
+    TNaming_Builder tnBuild(aLPres);
+    tnBuild.Generated(aPresentation);
+    Handle(TCollection_HAsciiString) aName =  theObject->GetPresentationName();
+    if( !aName.IsNull() )
+    {
+      TCollection_ExtendedString str ( aName->String() );
+      TDataStd_Name::Set ( aLPres, str );
+    }
+  }
+ 
 }
 
 //=======================================================================
@@ -257,12 +393,125 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
     }
   }
 
-  Handle(TNaming_NamedShape) aDatumTarget;
-  if(Label().FindChild(ChildLab_DatumTarget).FindAttribute(TNaming_NamedShape::GetID(), aDatumTarget))
+  Handle(TDataStd_Integer) aPosition;
+  if(Label().FindChild(ChildLab_Position).FindAttribute(TDataStd_Integer::GetID(), aPosition))
   {
-    anObj->SetDatumTarget(aDatumTarget->Get());
+    anObj->SetPosition(aPosition->Get());
   }
 
+  Handle(TDataStd_RealArray) aLoc, aN, aR;
+  if(Label().FindChild(ChildLab_PlaneLoc).FindAttribute(TDataStd_RealArray::GetID(), aLoc) && aLoc->Length() == 3 &&
+    Label().FindChild(ChildLab_PlaneN).FindAttribute(TDataStd_RealArray::GetID(), aN) && aN->Length() == 3 &&
+    Label().FindChild(ChildLab_PlaneRef).FindAttribute(TDataStd_RealArray::GetID(), aR) && aR->Length() == 3 )
+  {
+    gp_Pnt aL(aLoc->Value(aLoc->Lower()), aLoc->Value(aLoc->Lower()+1), aLoc->Value(aLoc->Lower()+2));
+    gp_Dir aD(aN->Value(aN->Lower()), aN->Value(aN->Lower()+1), aN->Value(aN->Lower()+2));
+    gp_Dir aDR(aR->Value(aR->Lower()), aR->Value(aR->Lower()+1), aR->Value(aR->Lower()+2));
+    gp_Ax2 anAx(aL, aD, aDR);
+    anObj->SetPlane(anAx);
+  }
+
+  Handle(TDataStd_RealArray) aPnt;
+  if(Label().FindChild(ChildLab_Pnt).FindAttribute(TDataStd_RealArray::GetID(), aPnt) && aPnt->Length() == 3 )
+  {
+    gp_Pnt aP(aLoc->Value(aPnt->Lower()), aPnt->Value(aPnt->Lower()+1), aPnt->Value(aPnt->Lower()+2));
+    anObj->SetPoint(aP);
+  }
+
+  Handle(TDataStd_RealArray) aPntText;
+  if(Label().FindChild(ChildLab_PntText).FindAttribute(TDataStd_RealArray::GetID(), aPntText) && aPntText->Length() == 3 )
+  {
+    gp_Pnt aP (aPntText->Value(aPntText->Lower()), aPntText->Value(aPntText->Lower()+1), aPntText->Value(aPntText->Lower()+2));                          
+    anObj->SetPointTextAttach(aP);
+  }
+
+  Handle(TDataStd_Integer) aIsDTarget;
+  if(Label().FindChild(ChildLab_IsDTarget).FindAttribute(TDataStd_Integer::GetID(), aIsDTarget))
+  {
+    anObj->IsDatumTarget((aIsDTarget->Get() != 0));
+  }
+  else
+  {
+    return anObj;
+  }
+
+  if (aIsDTarget->Get() != 0)
+  {
+    Handle(TDataStd_Integer) aDTargetType;
+    if(Label().FindChild(ChildLab_DTargetType).FindAttribute(TDataStd_Integer::GetID(), aDTargetType))
+    {
+      anObj->SetDatumTargetType((XCAFDimTolObjects_DatumTargetType)aDTargetType->Get());
+      if(anObj->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Area)
+      {
+        Handle(TNaming_NamedShape) aDatumTarget;
+        if(Label().FindChild(ChildLab_DatumTarget).FindAttribute(TNaming_NamedShape::GetID(), aDatumTarget))
+        {
+          anObj->SetDatumTarget(aDatumTarget->Get());
+        }
+      }
+      else
+      {
+        if(Label().FindChild(ChildLab_AxisLoc).FindAttribute(TDataStd_RealArray::GetID(), aLoc) && aLoc->Length() == 3 &&
+          Label().FindChild(ChildLab_AxisN).FindAttribute(TDataStd_RealArray::GetID(), aN) && aN->Length() == 3 &&
+          Label().FindChild(ChildLab_AxisRef).FindAttribute(TDataStd_RealArray::GetID(), aR) && aR->Length() == 3 )
+        {
+          gp_Pnt aL(aLoc->Value(aLoc->Lower()), aLoc->Value(aLoc->Lower()+1), aLoc->Value(aLoc->Lower()+2));
+          gp_Dir aD(aN->Value(aN->Lower()), aN->Value(aN->Lower()+1), aN->Value(aN->Lower()+2));
+          gp_Dir aDR(aR->Value(aR->Lower()), aR->Value(aR->Lower()+1), aR->Value(aR->Lower()+2));
+          gp_Ax2 anAx(aL, aD, aDR);
+          anObj->SetDatumTargetAxis(anAx);
+        }
+
+        if(anObj->GetDatumTargetType() != XCAFDimTolObjects_DatumTargetType_Point)
+        {
+          Handle(TDataStd_Real) aLen;
+          if(Label().FindChild(ChildLab_DTargetLength).FindAttribute(TDataStd_Real::GetID(), aLen))
+          {
+            anObj->SetDatumTargetLength(aLen->Get());
+          }
+          if(anObj->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Rectangle)
+          {
+            Handle(TDataStd_Real) aWidth;
+            if(Label().FindChild(ChildLab_DTargetWidth).FindAttribute(TDataStd_Real::GetID(), aWidth))
+            {
+              anObj->SetDatumTargetWidth(aWidth->Get());
+            }
+          }
+        }
+      }
+    }
+    Handle(TDataStd_Integer) aNum;
+    if(Label().FindChild(ChildLab_DTargetNumber).FindAttribute(TDataStd_Integer::GetID(), aNum))
+    {
+      anObj->SetDatumTargetNumber(aNum->Get());
+    }
+    else 
+    {
+      anObj->SetDatumTargetNumber(0);
+    }
+  }
+
+  Handle(TNaming_NamedShape) aNS;
+  TDF_Label aLPres = Label().FindChild( ChildLab_Presentation);
+  if ( aLPres.FindAttribute(TNaming_NamedShape::GetID(), aNS) ) 
+  {
+
+    TopoDS_Shape aPresentation = TNaming_Tool::GetShape(aNS);
+    if( !aPresentation.IsNull())
+    {
+      Handle(TDataStd_Name) aNameAtrr;
+      Handle(TCollection_HAsciiString) aPresentName;
+      if (aLPres.FindAttribute(TDataStd_Name::GetID(),aNameAtrr))
+      {
+        const TCollection_ExtendedString& aName = aNameAtrr->Get();
+
+        if( !aName.IsEmpty())
+          aPresentName = new TCollection_HAsciiString(aName);
+      }
+
+      anObj->SetPresentation(aPresentation, aPresentName);
+    }
+  }
   return anObj;
 }
 

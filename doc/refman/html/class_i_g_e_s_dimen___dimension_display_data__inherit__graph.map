@@ -1,0 +1,5 @@
+<map id="IGESDimen_DimensionDisplayData" name="IGESDimen_DimensionDisplayData">
+<area shape="rect" id="node2" href="$class_i_g_e_s_data___i_g_e_s_entity.html" title="defines root of IGES Entity definition, including Directory Part, lists of (optionnal) Properties and..." alt="" coords="43,155,195,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="63,80,173,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="51,5,185,32"/>
+</map>

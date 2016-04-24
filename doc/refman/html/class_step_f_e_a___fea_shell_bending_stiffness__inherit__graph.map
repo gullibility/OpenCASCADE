@@ -1,0 +1,6 @@
+<map id="StepFEA_FeaShellBendingStiffness" name="StepFEA_FeaShellBendingStiffness">
+<area shape="rect" id="node2" href="$class_step_f_e_a___fea_material_property_representation_item.html" title="Representation of STEP entity FeaMaterialPropertyRepresentationItem. " alt="" coords="21,230,219,271"/>
+<area shape="rect" id="node3" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="23,155,217,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="65,80,175,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="53,5,187,32"/>
+</map>

@@ -32,7 +32,7 @@
 //#include <BinMNaming.hxx>
 static Standard_GUID BinLStorageDriver  ("13a56835-8269-11d5-aab2-0050044b1af1");
 static Standard_GUID BinLRetrievalDriver("13a56836-8269-11d5-aab2-0050044b1af1");
-#define CURRENT_DOCUMENT_VERSION 7
+#define CURRENT_DOCUMENT_VERSION 8
 
 //=======================================================================
 //function : Factory
@@ -45,7 +45,7 @@ const Handle(Standard_Transient)& BinLDrivers::Factory(const Standard_GUID& theG
 #ifdef OCCT_DEBUG
     cout << "BinLDrivers : Storage Plugin" << endl;
 #endif
-    static Handle(BinLDrivers_DocumentStorageDriver) model_sd =
+    static Handle(Standard_Transient) model_sd =
       new BinLDrivers_DocumentStorageDriver;
     return model_sd;
   }
@@ -55,7 +55,7 @@ const Handle(Standard_Transient)& BinLDrivers::Factory(const Standard_GUID& theG
 #ifdef OCCT_DEBUG
     cout << "BinLDrivers : Retrieval Plugin" << endl;
 #endif
-    static Handle(BinLDrivers_DocumentRetrievalDriver) model_rd =
+    static Handle(Standard_Transient) model_rd =
       new BinLDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
@@ -80,8 +80,6 @@ Handle(BinMDF_ADriverTable) BinLDrivers::AttributeDrivers
   BinMFunction  ::AddDrivers (aTable, aMsgDrv);
   BinMDocStd    ::AddDrivers (aTable, aMsgDrv);
 
-//  BinMNaming    ::AddDrivers (aTable, aMsgDrv);
-//  BinMPrsStd    ::AddDrivers (aTable, aMsgDrv);
   return aTable;
 }
 

@@ -26,6 +26,8 @@
 #include <XmlMNaming_NamedShapeDriver.hxx>
 #include <XmlObjMgt_Element.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(XmlDrivers_DocumentRetrievalDriver,XmlLDrivers_DocumentRetrievalDriver)
+
 //=======================================================================
 //function : XmlDrivers_DocumentRetrievalDriver
 //purpose  : Constructor
@@ -64,11 +66,14 @@ Handle(XmlMDF_ADriver) XmlDrivers_DocumentRetrievalDriver::ReadShapeSection(
                                const Handle(CDM_MessageDriver)& theMsgDriver)
 {
   if (myDrivers.IsNull()) myDrivers = AttributeDrivers (theMsgDriver);
-  Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver;
-  if (myDrivers -> GetDriver (STANDARD_TYPE(TNaming_NamedShape),
-                              aNamedShapeDriver))
+  Handle(XmlMDF_ADriver) aDriver;
+  if (myDrivers->GetDriver (STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  {
+    Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver = 
+      Handle(XmlMNaming_NamedShapeDriver)::DownCast (aDriver);
     aNamedShapeDriver -> ReadShapeSection (theElement);
-  return aNamedShapeDriver;
+  }
+  return aDriver;
 }
 
 //=======================================================================

@@ -18,15 +18,9 @@
 #include <StepBasic_PersonAndOrganization.hxx>
 #include <StepBasic_PersonAndOrganizationRole.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignDateAndPersonAssignment,StepBasic_PersonAndOrganizationAssignment)
+
 StepAP214_AutoDesignDateAndPersonAssignment::StepAP214_AutoDesignDateAndPersonAssignment ()  {}
-
-void StepAP214_AutoDesignDateAndPersonAssignment::Init(
-	const Handle(StepBasic_PersonAndOrganization)& aAssignedPersonAndOrganization,
-	const Handle(StepBasic_PersonAndOrganizationRole)& aRole)
-{
-
-	StepBasic_PersonAndOrganizationAssignment::Init(aAssignedPersonAndOrganization, aRole);
-}
 
 void StepAP214_AutoDesignDateAndPersonAssignment::Init(
 	const Handle(StepBasic_PersonAndOrganization)& aAssignedPersonAndOrganization,

@@ -40,6 +40,7 @@ if { $status != 0 } {
   puts "$BugNumber: Faulty"
 }
 
-set square 2.04205e-08
-set only_screen 1
+checkprops result -s 2.04205e-08 
+checkshape result
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png
 

@@ -18,5 +18,7 @@ if [catch {bsection result sh f } catch_result] {
 } else {
     puts "BUC60877 OK: function SECTION works properly"
 }
-set length 1358.63
-set 2dviewer 0
+checkprops result -l 1358.63 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

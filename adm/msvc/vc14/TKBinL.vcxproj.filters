@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{A5FDB3CB-0042-0B06-05AA-213AD19C7E47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinMDF">
+      <UniqueIdentifier>{26A11361-08A5-0B4B-0840-1D60E8C5279B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinMDataStd">
+      <UniqueIdentifier>{AB6F0EA0-1408-04AD-0B39-D4876C06E11D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinMFunction">
+      <UniqueIdentifier>{A54F8D20-0287-056B-0E18-44A44F7F6EE2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinMDocStd">
+      <UniqueIdentifier>{48EF1444-0167-10C1-00F7-08C43D8B99F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinObjMgt">
+      <UniqueIdentifier>{27B9310E-0685-0D8F-032B-BEF3BB737AE2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinLDrivers">
+      <UniqueIdentifier>{889B8FA9-139F-177E-0CB7-0B669D7DD20E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\BinMDF\BinMDF.cxx">
+      <Filter>Source files\BinMDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDF\BinMDF_ADriver.cxx">
+      <Filter>Source files\BinMDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDF\BinMDF_ADriverTable.cxx">
+      <Filter>Source files\BinMDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDF\BinMDF_ReferenceDriver.cxx">
+      <Filter>Source files\BinMDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDF\BinMDF_TagSourceDriver.cxx">
+      <Filter>Source files\BinMDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_AsciiStringDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_BooleanArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_BooleanListDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ByteArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_CommentDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_DirectoryDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ExpressionDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ExtStringArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ExtStringListDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_IntPackedMapDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_IntegerArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_IntegerDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_IntegerListDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_NameDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_NamedDataDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_NoteBookDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_RealArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_RealDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_RealListDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ReferenceArrayDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_ReferenceListDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_RelationDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_TickDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_TreeNodeDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_UAttributeDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDataStd\BinMDataStd_VariableDriver.cxx">
+      <Filter>Source files\BinMDataStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMFunction\BinMFunction.cxx">
+      <Filter>Source files\BinMFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMFunction\BinMFunction_FunctionDriver.cxx">
+      <Filter>Source files\BinMFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMFunction\BinMFunction_GraphNodeDriver.cxx">
+      <Filter>Source files\BinMFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMFunction\BinMFunction_ScopeDriver.cxx">
+      <Filter>Source files\BinMFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDocStd\BinMDocStd.cxx">
+      <Filter>Source files\BinMDocStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinMDocStd\BinMDocStd_XLinkDriver.cxx">
+      <Filter>Source files\BinMDocStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinObjMgt\BinObjMgt_Persistent.cxx">
+      <Filter>Source files\BinObjMgt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinLDrivers\BinLDrivers.cxx">
+      <Filter>Source files\BinLDrivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinLDrivers\BinLDrivers_DocumentRetrievalDriver.cxx">
+      <Filter>Source files\BinLDrivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinLDrivers\BinLDrivers_DocumentSection.cxx">
+      <Filter>Source files\BinLDrivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinLDrivers\BinLDrivers_DocumentStorageDriver.cxx">
+      <Filter>Source files\BinLDrivers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TKBinL.rc" />  </ItemGroup>
+</Project>

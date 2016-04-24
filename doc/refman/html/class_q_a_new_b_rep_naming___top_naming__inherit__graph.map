@@ -1,0 +1,18 @@
+<map id="QANewBRepNaming_TopNaming" name="QANewBRepNaming_TopNaming">
+<area shape="rect" id="node2" href="$class_q_a_new_b_rep_naming___boolean_operation.html" title="To load the BooleanOperation results. " alt="" coords="283,56,535,83"/>
+<area shape="rect" id="node3" href="$class_q_a_new_b_rep_naming___boolean_operation_feat.html" title="To load the BooleanOperationFeat results. " alt="" coords="270,107,549,133"/>
+<area shape="rect" id="node9" href="$class_q_a_new_b_rep_naming___box.html" title="To load the Box results. " alt="" coords="323,157,495,184"/>
+<area shape="rect" id="node10" href="$class_q_a_new_b_rep_naming___chamfer.html" title="To load the Chamfer results. " alt="" coords="311,208,508,235"/>
+<area shape="rect" id="node11" href="$class_q_a_new_b_rep_naming___cylinder.html" title="To load the Cylinder results. " alt="" coords="311,259,507,285"/>
+<area shape="rect" id="node12" href="$class_q_a_new_b_rep_naming___fillet.html" title="For topological naming of a fillet. " alt="" coords="321,309,498,336"/>
+<area shape="rect" id="node13" href="$class_q_a_new_b_rep_naming___gluing.html" title="Loads a result of Gluing operation in Data Framework. " alt="" coords="316,360,503,387"/>
+<area shape="rect" id="node14" href="$class_q_a_new_b_rep_naming___import_shape.html" title="This class provides a topological naming of a Shape. " alt="" coords="298,411,521,437"/>
+<area shape="rect" id="node15" href="$class_q_a_new_b_rep_naming___prism.html" title="To load the Prism results. " alt="" coords="318,461,501,488"/>
+<area shape="rect" id="node16" href="$class_q_a_new_b_rep_naming___revol.html" title="To load the Revol results. " alt="" coords="319,512,499,539"/>
+<area shape="rect" id="node17" href="$class_q_a_new_b_rep_naming___sphere.html" title="To load the Sphere results. " alt="" coords="314,563,505,589"/>
+<area shape="rect" id="node4" href="$class_q_a_new_b_rep_naming___common.html" title="QANewBRepNaming_Common" alt="" coords="605,5,806,32"/>
+<area shape="rect" id="node5" href="$class_q_a_new_b_rep_naming___cut.html" title="QANewBRepNaming_Cut" alt="" coords="621,56,790,83"/>
+<area shape="rect" id="node6" href="$class_q_a_new_b_rep_naming___fuse.html" title="QANewBRepNaming_Fuse" alt="" coords="616,107,795,133"/>
+<area shape="rect" id="node7" href="$class_q_a_new_b_rep_naming___intersection.html" title="QANewBRepNaming_Intersection" alt="" coords="597,157,813,184"/>
+<area shape="rect" id="node8" href="$class_q_a_new_b_rep_naming___limitation.html" title="QANewBRepNaming_Limitation" alt="" coords="603,208,808,235"/>
+</map>

@@ -23,7 +23,9 @@ if { ${Vertices} != ${good_Vertices} } {
     puts "OK ${BugNumber}"
 }
 
-set length 171.289
-set 2dviewer 0
+checkprops result -l 171.289 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 

@@ -3,4 +3,5 @@ restore [locate_data_file c2.brep] c
 
 bfuse result b c
 
-set square 131766
+checkprops result -s 131766
+checkview -display result -2d -otherwise { b c } -s -path ${imagedir}/${test_image}.png

@@ -1,0 +1,7 @@
+<map id="BOPAlgo_BOP" name="BOPAlgo_BOP">
+<area shape="rect" id="node5" href="$class_b_rep_feat___builder.html" title="Provides a basic tool to implement features topological operations. The main goal of the algorithm is..." alt="" coords="45,304,171,331"/>
+<area shape="rect" id="node2" href="$class_b_o_p_algo___builder.html" title="BOPAlgo_Builder" alt="" coords="47,155,169,181"/>
+<area shape="rect" id="node3" href="$class_b_o_p_algo___builder_shape.html" title="Root class for algorithms that has shape as result. " alt="" coords="28,80,188,107"/>
+<area shape="rect" id="node4" href="$class_b_o_p_algo___algo.html" title="provides the root interface for algorithms " alt="" coords="53,5,163,32"/>
+<area shape="rect" id="node6" href="$class_b_rep_feat___make_cylindrical_hole.html" title="Provides a tool to make cylindrical holes on a shape. " alt="" coords="5,379,211,405"/>
+</map>

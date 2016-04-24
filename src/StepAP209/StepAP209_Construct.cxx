@@ -691,8 +691,7 @@ Standard_Boolean StepAP209_Construct::CreateAnalysStructure (const Handle(StepBa
   Handle(StepData_StepModel) smodel = Handle(StepData_StepModel)::DownCast(Model());
 
   // replace existing contexts for using AP209
-  Handle(StepBasic_ProductContext) OldProdCtx = 
-    Handle(StepBasic_ProductContext)::DownCast(Prod->FrameOfReferenceValue(1));
+  Handle(StepBasic_ProductContext) OldProdCtx = Prod->FrameOfReferenceValue(1);
   if(!OldProdCtx.IsNull()) {
     Handle(StepBasic_ProductContext) ProdCtx = new StepBasic_ProductContext;
     ProdCtx->Init(OldProdCtx->Name(),
@@ -704,8 +703,7 @@ Standard_Boolean StepAP209_Construct::CreateAnalysStructure (const Handle(StepBa
     HAPC->SetValue(1,ProdCtx);
     Prod->SetFrameOfReference(HAPC);
   }
-  Handle(StepBasic_ProductDefinitionContext) OldPDCtx =
-    Handle(StepBasic_ProductDefinitionContext)::DownCast(PD->FrameOfReference());
+  Handle(StepBasic_ProductDefinitionContext) OldPDCtx = PD->FrameOfReference();
   if(!OldPDCtx.IsNull()) {
     Handle(StepBasic_ProductDefinitionContext) PDCtx = new StepBasic_ProductDefinitionContext;
     PDCtx->Init(OldPDCtx->Name(),
@@ -883,37 +881,21 @@ Standard_Boolean StepAP209_Construct::CreateFeaStructure (const Handle(StepBasic
   for(Standard_Integer i=1; i<=OldHANU->Length(); i++)
     NewHANU->SetValue(i,OldHANU->Value(i));
   // create SiUnitAndTimeUnit
-  Handle(StepBasic_DimensionalExponents) DimExpT = new StepBasic_DimensionalExponents;
-  DimExpT->Init(0.,0.,1.,0.,0.,0.,0.);
-  smodel->AddWithRefs(DimExpT);
-  smodel->SetIdentLabel(DimExpT, smodel->Number(DimExpT));
   Handle(StepBasic_SiUnitAndTimeUnit) SUTU = new StepBasic_SiUnitAndTimeUnit;
-  SUTU->Init(DimExpT);
-  SUTU->SetName(StepBasic_sunSecond);
+  SUTU->Init(Standard_False,StepBasic_spExa,StepBasic_sunSecond);
   smodel->AddWithRefs(SUTU);
   smodel->SetIdentLabel(SUTU, smodel->Number(SUTU));
   NewHANU->SetValue(OldHANU->Length()+1,SUTU);
   //create SiUnitAndMassUnit
-  Handle(StepBasic_DimensionalExponents) DimExpM = new StepBasic_DimensionalExponents;
-  DimExpM->Init(0.,1.,0.,0.,0.,0.,0.);
-  smodel->AddWithRefs(DimExpM);
-  smodel->SetIdentLabel(DimExpM, smodel->Number(DimExpM));
   Handle(StepBasic_SiUnitAndMassUnit) SUMU = new StepBasic_SiUnitAndMassUnit;
-  SUMU->Init(DimExpM);
-  SUMU->SetName(StepBasic_sunGram);
-  SUMU->SetPrefix(StepBasic_spKilo);
+  SUMU->Init(Standard_True,StepBasic_spKilo,StepBasic_sunGram);
   smodel->AddWithRefs(SUMU);
   smodel->SetIdentLabel(SUMU, smodel->Number(SUMU));
   NewHANU->SetValue(OldHANU->Length()+2,SUMU);
   // create SiUnitAndThermodynamicTemperatureUnit
-  Handle(StepBasic_DimensionalExponents) DimExpTT = new StepBasic_DimensionalExponents;
-  DimExpTT->Init(0.,0.,0.,0.,1.,0.,0.);
-  smodel->AddWithRefs(DimExpTT);
-  smodel->SetIdentLabel(DimExpTT, smodel->Number(DimExpTT));
   Handle(StepBasic_SiUnitAndThermodynamicTemperatureUnit) SUTTU =
     new StepBasic_SiUnitAndThermodynamicTemperatureUnit;
-  SUTTU->Init(DimExpTT);
-  SUTTU->SetName(StepBasic_sunDegreeCelsius);
+  SUTTU->Init(Standard_False,StepBasic_spExa,StepBasic_sunDegreeCelsius);
   smodel->AddWithRefs(SUTTU);
   smodel->SetIdentLabel(SUTTU, smodel->Number(SUTTU));
   NewHANU->SetValue(OldHANU->Length()+3,SUTTU);
@@ -1324,8 +1306,7 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
 
   // replacing contexts:
   Handle(StepBasic_ApplicationContext) ApplCtx;
-  Handle(StepBasic_ProductContext) ProdCtx = 
-    Handle(StepBasic_ProductContext)::DownCast(Prod->FrameOfReferenceValue(1));
+  Handle(StepBasic_ProductContext) ProdCtx = Prod->FrameOfReferenceValue(1);
   if(!ProdCtx.IsNull()) {
     Handle(StepBasic_MechanicalContext) MechCtx = new StepBasic_MechanicalContext;
     MechCtx->Init(ProdCtx->Name(), ProdCtx->FrameOfReference(),
@@ -1336,8 +1317,7 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
     Prod->SetFrameOfReference(HAPC);
     ApplCtx = MechCtx->FrameOfReference();
   }
-  Handle(StepBasic_ProductDefinitionContext) PDCtx = 
-    Handle(StepBasic_ProductDefinitionContext)::DownCast(PD->FrameOfReference());
+  Handle(StepBasic_ProductDefinitionContext) PDCtx = PD->FrameOfReference();
   if(!PDCtx.IsNull()) {
     Handle(StepBasic_DesignContext) DesCtx = new StepBasic_DesignContext;
     DesCtx->Init(PDCtx->Name(), PDCtx->FrameOfReference(),

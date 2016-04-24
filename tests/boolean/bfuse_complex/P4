@@ -24,4 +24,5 @@ ttranslate pb 0 0 10
 
 bfuse result pa pb
 
-set square 2104.16
+checkprops result -s 2104.16
+checkview -display result -2d -otherwise { pa pb } -s -path ${imagedir}/${test_image}.png

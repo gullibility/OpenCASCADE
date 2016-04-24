@@ -67,6 +67,7 @@ n GeomLProp
 n GeomLib
 n GeomProjLib
 n GeomTools
+n GeomEvaluator
 n Hermit
 n IntAna
 n IntAna2d
@@ -212,7 +213,6 @@ n StdPrs
 n StdSelect
 n TColQuantity
 n V3d
-n Voxel
 n WNT
 n Xw
 n Cocoa
@@ -223,7 +223,6 @@ t TKOpenGl
 t TKD3DHost
 t TKService
 t TKV3d
-t TKVoxel
 n BinTObjDrivers
 n LDOM
 n TObj
@@ -238,13 +237,19 @@ n BinMDataXtd
 n BinMDocStd
 n BinMFunction
 n BinMNaming
-n BinMPrsStd
 n BinObjMgt
 n BinTools
 n CDF
 n CDM
 n FWOSDriver
 n PCDM
+n StdLDrivers
+n StdLPersistent
+n StdObjMgt
+n StdDrivers
+n StdObject
+n StdPersistent
+n ShapePersistent
 n TDF
 n TDataStd
 n TDataXtd
@@ -261,7 +266,6 @@ n XmlMDataXtd
 n XmlMDocStd
 n XmlMFunction
 n XmlMNaming
-n XmlMPrsStd
 n XmlObjMgt
 r StdResource
 r XmlOcafResource
@@ -274,6 +278,8 @@ t TKCAF
 t TKCDF
 t TKLCAF
 
+t TKStdL
+t TKStd
 t TKTObj
 t TKXml
 t TKXmlL
@@ -432,3 +438,5 @@ n IVtkTools
 t TKIVtk
 n IVtkDraw
 t TKIVtkDraw
+n Geom2dEvaluator
+t TKVCAF

@@ -15,5 +15,7 @@ puts [bop a b]
 puts [bopfuse result]
 
 checknbshapes result -vertex 9 -edge 9
-set length 0
-set 2dviewer 0
+checkprops result -l 0 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -1,0 +1,5 @@
+<map id="Transfer_ProcessForFinder" name="Transfer_ProcessForFinder">
+<area shape="rect" id="node4" href="$class_transfer___finder_process.html" title="Adds specific features to the generic definition : PrintTrace is adapted. " alt="" coords="15,229,173,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="39,80,149,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="27,5,161,32"/>
+</map>

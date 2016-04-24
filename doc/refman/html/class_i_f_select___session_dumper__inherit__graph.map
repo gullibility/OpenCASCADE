@@ -1,0 +1,6 @@
+<map id="IFSelect_SessionDumper" name="IFSelect_SessionDumper">
+<area shape="rect" id="node4" href="$class_i_f_select___basic_dumper.html" title="BasicDumper takes into account, for SessionFile, all the classes defined in the package IFSelect : Se..." alt="" coords="5,229,160,256"/>
+<area shape="rect" id="node5" href="$class_i_g_e_s_select___dumper.html" title="Dumper from IGESSelect takes into account, for SessionFile, the classes defined in the package IGESSe..." alt="" coords="185,229,327,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="114,80,224,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="102,5,236,32"/>
+</map>

@@ -11,4 +11,5 @@ copy b_1 b
 bop a b
 bopcut result 
 
-set square 11372.4
+checkprops result -s 11372.4
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

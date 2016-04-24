@@ -29,6 +29,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ArrayOfPrimitives,MMgt_TShared)
+
 Graphic3d_ArrayOfPrimitives::Graphic3d_ArrayOfPrimitives (const Graphic3d_TypeOfPrimitiveArray theType,
                                                           const Standard_Integer               theMaxVertexs,
                                                           const Standard_Integer               theMaxBounds,
@@ -104,7 +106,7 @@ Graphic3d_ArrayOfPrimitives::Graphic3d_ArrayOfPrimitives (const Graphic3d_TypeOf
     myIndices.Nullify();
     return;
   }
-  memset (myAttribs->ChangeData (0), 0, myAttribs->Stride * myAttribs->NbElements);
+  memset (myAttribs->ChangeData (0), 0, size_t(myAttribs->Stride) * size_t(myAttribs->NbElements));
 
   if (theMaxBounds > 0)
   {

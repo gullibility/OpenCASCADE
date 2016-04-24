@@ -4,4 +4,5 @@ box b2  1     1     0     1     1     1
 bop b1 b2
 bopfuse result
 
-set square 12
+checkprops result -s 12
+checkview -display result -2d -otherwise { b1 b2 } -s -path ${imagedir}/${test_image}.png

@@ -33,7 +33,7 @@ static int BUC60623(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 {
   if(argc!=4)
   {
-    di << "Usage : " << a[0] << " result Shape1 Shape2" << "\n";
+    di << "Usage : " << a[0] << " result Shape1 Shape2\n";
     return -1;
   }
 
@@ -46,7 +46,7 @@ static int BUC60623(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   GeomInt_IntSS Inter;
   Inter.Perform(GSF1,GSF2, BRep_Tool::Tolerance(F1));
   if (!Inter.IsDone()) {
-    di << "Intersection not done" << "\n";
+    di << "Intersection not done\n";
     return 1;
   }
   Standard_Integer nbsol = Inter.NbLines();
@@ -60,7 +60,7 @@ static int BUC60623(Draw_Interpretor& di, Standard_Integer argc, const char ** a
       return 0;
     } else di << "The first solution is Null!"   << "\n";
 
-  di << "fini" << "\n";
+  di << "fini\n";
   return 0;
 }
 
@@ -72,7 +72,7 @@ static int BUC60569(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 {
   if(argc!=2)
   {
-    di << "Usage : " << argv[0] << " shape" << "\n";
+    di << "Usage : " << argv[0] << " shape\n";
     return -1;
   }
 
@@ -95,7 +95,7 @@ static int BUC60614(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 {
   if(argc!=2)
   {
-    di << "Usage : "<< argv[0] << " shape" << "\n";
+    di << "Usage : "<< argv[0] << " shape\n";
     return -1;
   }
 
@@ -138,7 +138,7 @@ static int BUC60609(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   } else if ( argc == 5 ) {
     // BUC60609 shape name U V
   } else {
-    di << "Usage : "<< argv[0] << " shape name [U V]" << "\n";
+    di << "Usage : "<< argv[0] << " shape name [U V]\n";
     return(-1);
   }
   
@@ -176,7 +176,7 @@ static int BUC60609(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   
   BRepTools::UVBounds (face, faceUMin,faceUMax,faceVMin,faceVMax);
 
-  di << "The bounds of the trimmed face:" << "\n";
+  di << "The bounds of the trimmed face:\n";
   di << faceUMin << " <= U <= " << faceUMax << "\n";
   di << faceVMin << " <= V <= " << faceVMax << "\n";
   
@@ -184,9 +184,9 @@ static int BUC60609(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   
   TopOpeBRep_PointClassifier PClass;
 
-  di << "Now test the point classifier by inputting U,V values" << "\n";
-  di << "inside or outside the bounds displayed above" << "\n";
-  di << "Type stop to exit" << "\n";
+  di << "Now test the point classifier by inputting U,V values\n";
+  di << "inside or outside the bounds displayed above\n";
+  di << "Type stop to exit\n";
   
   // Please register this:
   // ***********************************************
@@ -201,25 +201,25 @@ static int BUC60609(Draw_Interpretor& di, Standard_Integer argc, const char ** a
     uvSurf = gp_Pnt2d(0.14,5.1);
     state = PClass.Classify(face,uvSurf,Precision::PConfusion());
     if(state == TopAbs_IN || state == TopAbs_ON){
-      di << "U=" << 0.14 << " V=" << 5.1 << "  classified INSIDE" << "\n";
+      di << "U=" << 0.14 << " V=" << 5.1 << "  classified INSIDE\n";
     }else{
-      di << "U=" << 0.14 << " V=" << 5.1 << "  classified OUTSIDE" << "\n";
+      di << "U=" << 0.14 << " V=" << 5.1 << "  classified OUTSIDE\n";
     }
 
     uvSurf = gp_Pnt2d(1.28,5.1);
     state = PClass.Classify(face,uvSurf,Precision::PConfusion());
     if(state == TopAbs_IN || state == TopAbs_ON){
-      di << "U=" << 1.28 << " V=" << 5.1 << "  classified INSIDE" << "\n";
+      di << "U=" << 1.28 << " V=" << 5.1 << "  classified INSIDE\n";
     }else{
-      di << "U=" << 1.28 << " V=" << 5.1 << "  classified OUTSIDE" << "\n";
+      di << "U=" << 1.28 << " V=" << 5.1 << "  classified OUTSIDE\n";
     }
   } else {
     uvSurf = gp_Pnt2d(Draw::Atof(argv[3]),Draw::Atof(argv[4]));
     state = PClass.Classify(face,uvSurf,Precision::PConfusion());
     if(state == TopAbs_IN || state == TopAbs_ON){
-      di << "U=" << Draw::Atof(argv[3]) << " V=" << Draw::Atof(argv[4]) << "  classified INSIDE" << "\n";
+      di << "U=" << Draw::Atof(argv[3]) << " V=" << Draw::Atof(argv[4]) << "  classified INSIDE\n";
     }else{
-      di << "U=" << Draw::Atof(argv[3]) << " V=" << Draw::Atof(argv[4]) << "  classified OUTSIDE" << "\n";
+      di << "U=" << Draw::Atof(argv[3]) << " V=" << Draw::Atof(argv[4]) << "  classified OUTSIDE\n";
     }
   }
   return 0;
@@ -286,17 +286,15 @@ static Standard_Integer BUC60652(Draw_Interpretor& di, Standard_Integer argc, co
 static Standard_Integer defNbPntMax = 30;
 static Standard_Real defTol3d = 1.e-7;
 static Standard_Real defTol2d = 1.e-7;
-static Standard_Boolean defRelativeTol=Standard_True;
 Standard_Integer NbPntMax = defNbPntMax;
 Standard_Real Toler3d =defTol3d;
 Standard_Real Toler2d = defTol2d;
-Standard_Boolean RelativeTol= defRelativeTol;
 //              //== // ksection : operateur section appelant BRepAlgo_BooleanOperation
 //== // ksection : operateur section appelant BRepAlgo_BooleanOperations
 //=======================================================================
 Standard_Integer ksection(Draw_Interpretor& di, Standard_Integer n, const char ** a) {
   if (n < 8) {
-    di << "Usage : " << a[0] << " resultat shell1 shell2 NbPntMax Toler3d Toler2d RelativeTol"   << "\n";
+    di << "Usage : " << a[0] << " resultat shell1 shell2 NbPntMax Toler3d Toler2d"   << "\n";
     return -1;
   }
   // a[1]= resultat
@@ -305,20 +303,18 @@ Standard_Integer ksection(Draw_Interpretor& di, Standard_Integer n, const char *
   // a[4]= NbPntMax
   // a[5]= Toler3d
   // a[6]= Toler2d
-  // a[7]= RelativeTol
   TopoDS_Shape s1 = DBRep::Get(a[2],TopAbs_SHELL);
   TopoDS_Shape s2 = DBRep::Get(a[3],TopAbs_SHELL);
   if (s1.IsNull() || s2.IsNull()) return 1;
   NbPntMax=Draw::Atoi(a[4]);
   Toler3d=Draw::Atof(a[5]);
   Toler2d=Draw::Atof(a[6]);
-  RelativeTol=Draw::Atoi(a[7]);
 
-  di << "BRepAlgo_BooleanOperations myalgo" << "\n";
+  di << "BRepAlgo_BooleanOperations myalgo\n";
   BRepAlgo_BooleanOperations myalgo;
 
   myalgo.Shapes(s1, s2);
-  myalgo.SetApproxParameters(NbPntMax,Toler3d,Toler2d,RelativeTol);
+  myalgo.SetApproxParameters(NbPntMax,Toler3d,Toler2d);
   TopoDS_Shape res; res = myalgo.Section();
   DBRep::Set(a[1],res);
   return 0;
@@ -397,7 +393,7 @@ static Standard_Integer BUC60699(Draw_Interpretor& di, Standard_Integer /*n*/, c
 static Standard_Integer GER61394(Draw_Interpretor& di, Standard_Integer argc, const char ** argv )
 {
   if(argc > 2) {
-    di << "Usage : " << argv[0] << " [1/0]" << "\n";
+    di << "Usage : " << argv[0] << " [1/0]\n";
     return -1;
   }
   
@@ -530,7 +526,7 @@ static Standard_Integer BUC60726 (Draw_Interpretor& di,Standard_Integer argc, co
   }
   
   if(argc != 2) {
-    di << "Usage : " << argv[0] << " 0/1" << "\n";
+    di << "Usage : " << argv[0] << " 0/1\n";
   }
 
   if(Draw::Atoi(argv[1]) == 0) {
@@ -547,7 +543,7 @@ static Standard_Integer BUC60726 (Draw_Interpretor& di,Standard_Integer argc, co
     myAISContext->OpenLocalContext();
     myAISContext->ActivateStandardMode(TopAbs_FACE);
   } else {
-    di << "Usage : " << argv[0] << " 0/1" << "\n";
+    di << "Usage : " << argv[0] << " 0/1\n";
     return -1;
   }
   
@@ -604,7 +600,7 @@ static Standard_Integer BUC60724(Draw_Interpretor& di, Standard_Integer /*argc*/
 
 static Standard_Integer BUC60727(Draw_Interpretor& di, Standard_Integer /*argc*/, const char ** /*argv*/ )
 {
-di <<"Program Test" << "\n";
+di <<"Program Test\n";
 UnitsAPI::SetLocalSystem(UnitsAPI_MDTV); //length is mm 
 di <<"AnyToLS (3,mm) = " << UnitsAPI::AnyToLS(3.,"mm") << "\n"; // result was WRONG. 
 
@@ -786,12 +782,12 @@ static Standard_Integer BUC60811(Draw_Interpretor& di, Standard_Integer argc, co
   Ex.Init(FP, TopAbs_VERTEX); 
   TopoDS_Vertex v1 = TopoDS::Vertex(Ex.Current()); 
   fillet.AddFillet(v1, 20); 
-  di << "\n" << "Error is " << fillet.Status() << "\n";
+  di << "\nError is " << fillet.Status() << "\n";
 //  printf("\nError is %d ", fillet.Status()); 
   Ex.Next(); 
   TopoDS_Vertex V2 = TopoDS::Vertex(Ex.Current()); 
   fillet.AddFillet(V2, 20); 
-  di << "\n" << "Error is " << fillet.Status() << "\n";
+  di << "\nError is " << fillet.Status() << "\n";
 //  printf("\nError is %d ", fillet.Status());
   fillet.Build(); 
   FP1 = fillet.Shape(); 
@@ -853,7 +849,7 @@ static int BUC60825(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 static int OCC10006(Draw_Interpretor& di, Standard_Integer argc, const char ** argv)
 {
   if(argc > 2) {
-    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]" << "\n";
+    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]\n";
     return 1;
   }
   Standard_Boolean IsBRepAlgoAPI = Standard_True;
@@ -862,7 +858,7 @@ static int OCC10006(Draw_Interpretor& di, Standard_Integer argc, const char ** a
     if (IsB != 1) {
       IsBRepAlgoAPI = Standard_False;
 #if ! defined(BRepAlgo_def01)
-//      di << "Error: There is not BRepAlgo_Fuse class" << "\n";
+//      di << "Error: There is not BRepAlgo_Fuse class\n";
 //      return 1;
 #endif
     }
@@ -911,11 +907,11 @@ static int OCC10006(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 //  BRepAlgo_Fuse result(loft1.Shape(), loft2.Shape());
 //#endif
   if (IsBRepAlgoAPI) {
-    di << "BRepAlgoAPI_Fuse result(loft1.Shape(), loft2.Shape())" <<"\n";
+    di << "BRepAlgoAPI_Fuse result(loft1.Shape(), loft2.Shape())\n";
     BRepAlgoAPI_Fuse result(loft1.Shape(), loft2.Shape());
     DBRep::Set("F",result.Shape());
   } else {
-    di << "BRepAlgo_Fuse result(loft1.Shape(), loft2.Shape())" <<"\n";
+    di << "BRepAlgo_Fuse result(loft1.Shape(), loft2.Shape())\n";
     BRepAlgo_Fuse result(loft1.Shape(), loft2.Shape());
     DBRep::Set("F",result.Shape());
   }
@@ -1032,7 +1028,7 @@ static Standard_Integer BUC60876_ (Draw_Interpretor& di,
     return -1;
   }	
   if((argc != 2) && (argc != 3)) {
-    di<< "usage : " << argv[0] << " shape [mode==1]" << "\n";
+    di<< "usage : " << argv[0] << " shape [mode==1]\n";
     return -1;
   }
   TopoDS_Shape aShape = DBRep::Get(argv[1]);
@@ -1066,7 +1062,7 @@ static int TestCMD(Draw_Interpretor& di, Standard_Integer argc, const char ** ar
 
 {
   if(argc > 2) {
-    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]" << "\n";
+    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]\n";
     return 1;
   }
   Standard_Boolean IsBRepAlgoAPI = Standard_True;
@@ -1075,7 +1071,7 @@ static int TestCMD(Draw_Interpretor& di, Standard_Integer argc, const char ** ar
     if (IsB != 1) {
       IsBRepAlgoAPI = Standard_False;
 #if ! defined(BRepAlgo_def01)
-//      di << "Error: There is not BRepAlgo_Fuse class" << "\n";
+//      di << "Error: There is not BRepAlgo_Fuse class\n";
 //      return 1;
 #endif
     }
@@ -1133,16 +1129,16 @@ static int TestCMD(Draw_Interpretor& di, Standard_Integer argc, const char ** ar
 
   TopoDS_Shape fuse;
   if (IsBRepAlgoAPI) {
-    di << "BRepAlgoAPI_Fuse SFuse(SCyl, SCon)" <<"\n";
+    di << "BRepAlgoAPI_Fuse SFuse(SCyl, SCon)\n";
     BRepAlgoAPI_Fuse SFuse(SCyl, SCon);
     if(! SFuse.IsDone() )
-      di<<"Error: Boolean fuse operation failed !"<<"\n";
+      di<<"Error: Boolean fuse operation failed !\n";
     fuse = SFuse.Shape();
   } else {
-    di << "BRepAlgo_Fuse SFuse(SCyl, SCon)" <<"\n";
+    di << "BRepAlgo_Fuse SFuse(SCyl, SCon)\n";
     BRepAlgo_Fuse SFuse(SCyl, SCon);
     if(! SFuse.IsDone() )
-      di<<"Error: Boolean fuse operation failed !"<<"\n";
+      di<<"Error: Boolean fuse operation failed !\n";
     fuse = SFuse.Shape();
   }
 
@@ -1164,7 +1160,7 @@ static Standard_Integer statface (Draw_Interpretor& di,Standard_Integer /*argc*/
   TopoDS_Shape aShape = DBRep::Get(argv[1]);
   if(aShape.IsNull())
   {
-    di<<"Invalid input shape"<<"\n";
+    di<<"Invalid input shape\n";
     return 1;
   }
   Handle(Dico_DictionaryOfInteger) aDico = new Dico_DictionaryOfInteger();
@@ -1247,8 +1243,8 @@ static Standard_Integer statface (Draw_Interpretor& di,Standard_Integer /*argc*/
     }    
 
   di<<"\n";
-  di<<"Degenerated edges :"<<"\n";
-  di<<l<<"   --    "<<"Degenerated edges "<<"\n";
+  di<<"Degenerated edges :\n";
+  di<<l<<"   --    Degenerated edges \n";
 
   return 0;
 
@@ -1259,7 +1255,7 @@ static Standard_Integer statface (Draw_Interpretor& di,Standard_Integer /*argc*/
 static Standard_Integer BUC60841(Draw_Interpretor& di, Standard_Integer argc, const char ** argv )
 {
   if(argc > 2) {
-    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]" << "\n";
+    di << "Usage : " << argv[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]\n";
     return 1;
   }
   Standard_Boolean IsBRepAlgoAPI = Standard_True;
@@ -1268,7 +1264,7 @@ static Standard_Integer BUC60841(Draw_Interpretor& di, Standard_Integer argc, co
     if (IsB != 1) {
       IsBRepAlgoAPI = Standard_False;
 #if ! defined(BRepAlgo_def01)
-//      di << "Error: There is not BRepAlgo_Fuse class" << "\n";
+//      di << "Error: There is not BRepAlgo_Fuse class\n";
 //      return 1;
 #endif
     }
@@ -1299,11 +1295,11 @@ static Standard_Integer BUC60841(Draw_Interpretor& di, Standard_Integer argc, co
 
   TopoDS_Shape fsh1;
   if (IsBRepAlgoAPI) {
-    di << "BRepAlgoAPI_Fuse fuse1(sh1, sh2)" <<"\n";
+    di << "BRepAlgoAPI_Fuse fuse1(sh1, sh2)\n";
     BRepAlgoAPI_Fuse fuse1(sh1, sh2);
     fsh1 = fuse1.Shape();
   } else {
-    di << "BRepAlgo_Fuse fuse1(sh1, sh2)" <<"\n";
+    di << "BRepAlgo_Fuse fuse1(sh1, sh2)\n";
     BRepAlgo_Fuse fuse1(sh1, sh2);
     fsh1 = fuse1.Shape();
   }
@@ -1323,11 +1319,11 @@ static Standard_Integer BUC60841(Draw_Interpretor& di, Standard_Integer argc, co
 
   TopoDS_Shape fsh2;
   if (IsBRepAlgoAPI) {
-    di << "BRepAlgoAPI_Fuse fuse2(fsh1,sh3)" <<"\n";
+    di << "BRepAlgoAPI_Fuse fuse2(fsh1,sh3)\n";
     BRepAlgoAPI_Fuse fuse2(fsh1,sh3);
     fsh2 = fuse2.Shape();
   } else {
-    di << "BRepAlgo_Fuse fuse2(fsh1,sh3)" <<"\n";
+    di << "BRepAlgo_Fuse fuse2(fsh1,sh3)\n";
     BRepAlgo_Fuse fuse2(fsh1,sh3);
     fsh2 = fuse2.Shape();
   }
@@ -1370,7 +1366,7 @@ static Standard_Integer BUC60874(Draw_Interpretor& /*di*/, Standard_Integer /*ar
   
 static int BUC60817(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<1;
     return 0;
   }
@@ -1397,7 +1393,7 @@ static int BUC60817(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60831_1(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<-1;
     return 0;
   }
@@ -1419,7 +1415,7 @@ static int BUC60831_1(Draw_Interpretor& di, Standard_Integer argc, const char **
 
 static int BUC60831_2(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=3) {
-    di << "Usage : " << argv[0] << " D Label" << "\n";
+    di << "Usage : " << argv[0] << " D Label\n";
     di<<1;
     return 0;
   }
@@ -1438,7 +1434,7 @@ static int BUC60831_2(Draw_Interpretor& di, Standard_Integer argc, const char **
 
 static int BUC60836(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<1;
     return 0;
   }
@@ -1508,7 +1504,7 @@ static int BUC60836(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60847(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=3) {
-    di << "Usage : " << argv[0] << " D Shape" << "\n";
+    di << "Usage : " << argv[0] << " D Shape\n";
     di<<1;
     return 0;
   }
@@ -1517,7 +1513,7 @@ static int BUC60847(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   if (!DDF::GetDF(argv[1],aDF)) {di<<2;return 0;}
   
   TopoDS_Shape s = DBRep::Get(argv[2]);
-  if (s.IsNull()) { di <<"shape not found"<< "\n"; di<<3;return 0;}
+  if (s.IsNull()) { di <<"shape not found\n"; di<<3;return 0;}
   TDF_Label L;
   DDF::AddLabel(aDF, "0:2", L);
   TNaming_Builder SI (L);
@@ -1535,7 +1531,7 @@ static int BUC60847(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60862(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=3) {
-    di << "Usage : " << argv[0] << " D Shape" << "\n";
+    di << "Usage : " << argv[0] << " D Shape\n";
     di<<1;
     return 0;
   }
@@ -1544,7 +1540,7 @@ static int BUC60862(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   if (!DDF::GetDF(argv[1],aDF)) {di<<2;return 0;}
   
   TopoDS_Shape s = DBRep::Get(argv[2]);
-  if (s.IsNull()) { di <<"shape not found"<< "\n"; di<<3;return 0;}
+  if (s.IsNull()) { di <<"shape not found\n"; di<<3;return 0;}
   TDF_Label L;
   DDF::AddLabel(aDF, "0:2", L);
   TNaming_Builder SI (L);
@@ -1567,7 +1563,7 @@ static int BUC60867(Draw_Interpretor& di, Standard_Integer argc, const char ** a
     Handle(TDocStd_Document) D;
     Standard_Integer insession = A->IsInSession(path);
     if (insession > 0) {  
-      di <<"document " << insession << "  is already in session" << "\n";
+      di <<"document " << insession << "  is already in session\n";
       di<<2;
       return 0;
     }
@@ -1583,7 +1579,7 @@ static int BUC60867(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60910(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<1;
     return 0;
   }
@@ -1594,9 +1590,8 @@ static int BUC60910(Draw_Interpretor& di, Standard_Integer argc, const char ** a
   TDF_Label L;
   DDF::AddLabel(aDF, "0:2", L);
  
-  Handle(TPrsStd_AISPresentation) AISP = new TPrsStd_AISPresentation;
-
-  AISP->Set(L,TDataXtd_Constraint::GetID());
+  Handle(TPrsStd_AISPresentation) AISP = 
+    TPrsStd_AISPresentation::Set(L,TDataXtd_Constraint::GetID());
 
   if (AISP->HasOwnMode()) {di<<3;return 0;}
   AISP->SetMode(3);
@@ -1611,7 +1606,7 @@ static int BUC60910(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60925(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<1;
     return 0;
   }
@@ -1639,7 +1634,7 @@ static int BUC60925(Draw_Interpretor& di, Standard_Integer argc, const char ** a
 
 static int BUC60932(Draw_Interpretor& di, Standard_Integer argc, const char ** argv) {
   if(argc!=2) {
-    di << "Usage : " << argv[0] << " D" << "\n";
+    di << "Usage : " << argv[0] << " D\n";
     di<<1;
     return 0;
   }
@@ -1684,7 +1679,7 @@ static int AISWidth(Draw_Interpretor& di, Standard_Integer argc, const char ** a
          di<<prs->Width();
        }
        else{
-         di << "AISWidth: Warning : Width wasn't set" << "\n";
+         di << "AISWidth: Warning : Width wasn't set\n";
          di<<(-4);
        }
       }
@@ -1737,7 +1732,7 @@ static Standard_Integer BUC60951_(Draw_Interpretor& di, Standard_Integer argc, c
   //    return -1;
   //  }
   if(argc < 2 || argc > 3) {
-    di << "Usage : " << a[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]" << "\n";
+    di << "Usage : " << a[0] << " [BRepAlgoAPI/BRepAlgo = 1/0]\n";
     return 1;
   }
   Standard_Boolean IsBRepAlgoAPI = Standard_True;
@@ -1746,7 +1741,7 @@ static Standard_Integer BUC60951_(Draw_Interpretor& di, Standard_Integer argc, c
     if (IsB != 1) {
       IsBRepAlgoAPI = Standard_False;
 #if ! defined(BRepAlgo_def01)
-//      di << "Error: There is not BRepAlgo_Fuse class" << "\n";
+//      di << "Error: There is not BRepAlgo_Fuse class\n";
 //      return 1;
 #endif
     }
@@ -1793,11 +1788,11 @@ static Standard_Integer BUC60951_(Draw_Interpretor& di, Standard_Integer argc, c
 //  sh = fuse.Shape();
 
   if (IsBRepAlgoAPI) {
-    di << "BRepAlgoAPI_Fuse fuse(sol, sh)" <<"\n";
+    di << "BRepAlgoAPI_Fuse fuse(sol, sh)\n";
     BRepAlgoAPI_Fuse fuse(sol, sh);
     sh = fuse.Shape();
   } else {
-    di << "BRepAlgo_Fuse fuse(sol, sh)" <<"\n";
+    di << "BRepAlgo_Fuse fuse(sol, sh)\n";
     BRepAlgo_Fuse fuse(sol, sh);
     sh = fuse.Shape();
   }
@@ -1816,10 +1811,10 @@ void QABugs::Commands_3(Draw_Interpretor& theCommands) {
   theCommands.Add("BUC60609","BUC60609 shape name [U V]",__FILE__,BUC60609,group);
   theCommands.Add("BUC60632","BUC60632 mode length",__FILE__,BUC60632,group);
   theCommands.Add("BUC60652","BUC60652 face",__FILE__,BUC60652,group);
-  theCommands.Add("ksection","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d RelativeTol",__FILE__,ksection,group);
-  theCommands.Add("BUC60682","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d RelativeTol",__FILE__,ksection,group);  
-  theCommands.Add("BUC60669","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d RelativeTol",__FILE__,ksection,group);  
-  theCommands.Add("PRO19626","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d RelativeTol",__FILE__,ksection,group);  
+  theCommands.Add("ksection","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d",__FILE__,ksection,group);
+  theCommands.Add("BUC60682","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d",__FILE__,ksection,group);  
+  theCommands.Add("BUC60669","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d",__FILE__,ksection,group);  
+  theCommands.Add("PRO19626","ksection resultat shell1 shell2 NbPntMax Toler3d Toler2d",__FILE__,ksection,group);  
   theCommands.Add("BUC60574","BUC60574 ",__FILE__,BUC60574,group);
 
   theCommands.Add("BUC60699","BUC60699 ",__FILE__,BUC60699,group);

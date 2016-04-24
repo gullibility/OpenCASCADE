@@ -18,16 +18,9 @@
 #include <StepVisual_StyledItem.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_OverRidingStyledItem,StepVisual_StyledItem)
+
 StepVisual_OverRidingStyledItem::StepVisual_OverRidingStyledItem ()  {}
-
-void StepVisual_OverRidingStyledItem::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
-	const Handle(StepRepr_RepresentationItem)& aItem)
-{
-
-	StepVisual_StyledItem::Init(aName, aStyles, aItem);
-}
 
 void StepVisual_OverRidingStyledItem::Init(
 	const Handle(TCollection_HAsciiString)& aName,

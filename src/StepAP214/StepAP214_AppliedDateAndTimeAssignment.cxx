@@ -18,15 +18,9 @@
 #include <StepBasic_DateAndTime.hxx>
 #include <StepBasic_DateTimeRole.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AppliedDateAndTimeAssignment,StepBasic_DateAndTimeAssignment)
+
 StepAP214_AppliedDateAndTimeAssignment::StepAP214_AppliedDateAndTimeAssignment ()  {}
-
-void StepAP214_AppliedDateAndTimeAssignment::Init(
-	const Handle(StepBasic_DateAndTime)& aAssignedDateAndTime,
-	const Handle(StepBasic_DateTimeRole)& aRole)
-{
-
-  StepBasic_DateAndTimeAssignment::Init(aAssignedDateAndTime, aRole);
-}
 
 void StepAP214_AppliedDateAndTimeAssignment::Init(
 	const Handle(StepBasic_DateAndTime)& aAssignedDateAndTime,

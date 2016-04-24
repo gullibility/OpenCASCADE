@@ -61,6 +61,8 @@
 #include <TopoDS_Vertex.hxx>
 #include <ShapeBuild_ReShape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Edge,MMgt_TShared)
+
 //=======================================================================
 //function : ShapeFix_Edge
 //purpose  : 
@@ -464,7 +466,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve (const TopoDS_Edge& edge,
     Standard_Real preci = ( prec >0. ? prec : BRep_Tool::Tolerance(edge) );
     Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, /*Loc,*/ First, Last);
     //  Handle(Geom_Curve) c3d = BRep_Tool::Curve(E, First, Last);
-    if (c3d.IsNull() || (Abs(Last-First) <Precision::PConfusion())) {
+    if (c3d.IsNull()) {
       myStatus |= ShapeExtend::EncodeStatus (ShapeExtend_FAIL1);
       return Standard_False;
     }
@@ -576,7 +578,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve (const TopoDS_Edge& edge,
 //purpose  : 
 //=======================================================================
 
- Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoDS_Edge& edge,
+Standard_Boolean ShapeFix_Edge::FixVertexTolerance(const TopoDS_Edge& edge,
                                                    const TopoDS_Face& face)
 {
   myStatus = ShapeExtend::EncodeStatus ( ShapeExtend_OK );
@@ -699,7 +701,6 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d (const TopoDS_Edge& edge,
   return Standard_True;
 }
 
-
 //=======================================================================
 //function : FixSameParameter
 //purpose  : 
@@ -708,8 +709,21 @@ Standard_Boolean ShapeFix_Edge::FixReversed2d (const TopoDS_Edge& edge,
 Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
                                                  const Standard_Real tolerance) 
 {
-  myStatus = ShapeExtend::EncodeStatus ( ShapeExtend_OK );
+  TopoDS_Face anEmptyFace;
+  return FixSameParameter(edge, anEmptyFace, tolerance);
+}
 
+//=======================================================================
+//function : FixSameParameter
+//purpose  : 
+//=======================================================================
+
+Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
+                                                 const TopoDS_Face& face,
+                                                 const Standard_Real tolerance) 
+{
+  myStatus = ShapeExtend::EncodeStatus ( ShapeExtend_OK );
+  
   if ( BRep_Tool::Degenerated ( edge ) )
   {
     BRep_Builder B;
@@ -726,10 +740,10 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
   TopoDS_Edge copyedge;
   TopoDS_Vertex V1 = sae.FirstVertex (edge);
   TopoDS_Vertex V2 = sae.LastVertex  (edge);
-  Standard_Real TolFV = ( V1.IsNull() ? 0. : BRep_Tool::Tolerance ( V1 ) );
-  Standard_Real TolLV = ( V2.IsNull() ? 0. : BRep_Tool::Tolerance ( V2 ) );
+  Standard_Real TolFV = ( V1.IsNull() ? 0.0 : BRep_Tool::Tolerance ( V1 ) );
+  Standard_Real TolLV = ( V2.IsNull() ? 0.0 : BRep_Tool::Tolerance ( V2 ) );
   Standard_Real tol = BRep_Tool::Tolerance (edge);
-
+  
   Standard_Boolean wasSP = BRep_Tool::SameParameter ( edge ), SP = Standard_False;
   {
     try
@@ -764,14 +778,23 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
       myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL2 );
     }
   }
-
+  
   // compute deviation on the original pcurves
   Standard_Real maxdev;
   B.SameParameter ( edge, Standard_True );
-  sae.CheckSameParameter ( edge, maxdev );
+
+  // Should check all pcurves in case of non-sameparametrization input.
+  TopoDS_Face aFace = face;
+  if (!wasSP)
+  {
+    TopoDS_Face anEmptyFace;
+    aFace = anEmptyFace;
+  }
+
+  sae.CheckSameParameter ( edge, aFace, maxdev );
   if ( sae.Status ( ShapeExtend_FAIL2 ) )
     myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
-
+  
   // if BRepLib was OK, compare and select the best variant
   if ( SP )
   {
@@ -779,7 +802,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
     sae.CheckSameParameter ( copyedge, BRLDev );
     myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_DONE3 );
     if ( BRLTol < BRLDev ) BRLTol = BRLDev;
-
+    
     //chose the best result
     if ( BRLTol < maxdev )
     {
@@ -796,7 +819,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge& edge,
   //restore tolerances because they could be modified by BRepLib
   if ( ! V1.IsNull() ) SFST.SetTolerance ( V1, Max (maxdev, TolFV), TopAbs_VERTEX);
   if ( ! V2.IsNull() ) SFST.SetTolerance ( V2, Max (maxdev, TolLV), TopAbs_VERTEX);
-
+  
   if ( maxdev > tol )
   { 
     myStatus |= ShapeExtend::EncodeStatus ( ShapeExtend_DONE1 );

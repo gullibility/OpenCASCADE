@@ -13,6 +13,11 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
+#if defined(_MSC_VER)
+  // supress "std::Equal1" warning suggesting using msvc "Checked Iterators"
+  #define _SCL_SECURE_NO_WARNINGS
+#endif
+
 #include <QANCollection.hxx>
 #include <Draw_Interpretor.hxx>
 
@@ -951,7 +956,7 @@ void TestPerformanceRandomIterator(Draw_Interpretor& di)
 
     // check that result is the same
     if ( ! std::equal (aVector->begin(), aVector->end(), aCollec->begin()) )
-      di << "Error: sequences are not the same at the end!" << "\n";
+      di << "Error: sequences are not the same at the end!\n";
 
     delete aVector;
     delete aCollec;
@@ -1003,7 +1008,7 @@ void TestPerformanceForwardIterator(Draw_Interpretor& di)
 
     // check that result is the same
     if ( ! std::equal (aVector->begin(), aVector->end(), aCollec->begin()) )
-      di << "Error: sequences are not the same at the end!" << "\n";
+      di << "Error: sequences are not the same at the end!\n";
 
     delete aVector;
     delete aCollec;
@@ -1055,7 +1060,7 @@ void TestPerformanceBidirIterator(Draw_Interpretor& di)
 
     // check that result is the same
     if ( ! std::equal (aVector->begin(), aVector->end(), aCollec->begin()) )
-      di << "Error: sequences are not the same at the end!" << "\n";
+      di << "Error: sequences are not the same at the end!\n";
 
     delete aVector;
     delete aCollec;
@@ -1140,33 +1145,33 @@ void TestPerformanceMapAccess(Draw_Interpretor& di)
 //=======================================================================
 static Standard_Integer QANTestNCollectionPerformance (Draw_Interpretor& di, Standard_Integer, const char**)
 {
-  di << "Testing performance (Size | STL time | OCCT time | STL/OCCT boost)" << "\n";
+  di << "Testing performance (Size | STL time | OCCT time | STL/OCCT boost)\n";
 
-  di << "\n" << "std::vector vs NCollection_Array1 (sort):" << "\n\n";
+  di << "\nstd::vector vs NCollection_Array1 (sort):\n\n";
   TestPerformanceRandomIterator<NCollection_Array1<double>, std::vector<double> >(di);
 
-  di << "\n" << "std::vector vs NCollection_Vector (sort):" << "\n\n";
+  di << "\nstd::vector vs NCollection_Vector (sort):\n\n";
   TestPerformanceRandomIterator<NCollection_Vector<double>, std::vector<double> >(di);
 
-  di << "\n" << "std::vector vs NCollection_Array1 (replace):" << "\n\n";
+  di << "\nstd::vector vs NCollection_Array1 (replace):\n\n";
   TestPerformanceForwardIterator<NCollection_Array1<double>, std::vector<double> >(di);
 
-  di << "\n" << "std::vector vs NCollection_Vector (replace):" << "\n\n";
+  di << "\nstd::vector vs NCollection_Vector (replace):\n\n";
   TestPerformanceForwardIterator<NCollection_Vector<double>, std::vector<double> >(di);
 
-  di << "\n" << "std::list vs NCollection_List (replace):" << "\n\n";
+  di << "\nstd::list vs NCollection_List (replace):\n\n";
   TestPerformanceForwardIterator<NCollection_List<double>, std::list<double> >(di);
 
-  di << "\n" << "std::list vs NCollection_Sequence (replace):" << "\n\n";
+  di << "\nstd::list vs NCollection_Sequence (replace):\n\n";
   TestPerformanceForwardIterator<NCollection_Sequence<double>, std::list<double> >(di);
 
-  di << "\n" << "std::list vs NCollection_Sequence (reverse):" << "\n\n";
+  di << "\nstd::list vs NCollection_Sequence (reverse):\n\n";
   TestPerformanceBidirIterator<NCollection_Sequence<double>, std::list<double> >(di);
 
-  di << "\n" << "std::set vs NCollection_Map (search):" << "\n\n";
+  di << "\nstd::set vs NCollection_Map (search):\n\n";
   TestPerformanceMapAccess<NCollection_Map<int>, int>(di);
 
-  di << "\n" << "std::set vs NCollection_IndexedMap (search):" << "\n\n";
+  di << "\nstd::set vs NCollection_IndexedMap (search):\n\n";
   TestPerformanceMapAccess<NCollection_IndexedMap<int>, int>(di);
 
   return 0;

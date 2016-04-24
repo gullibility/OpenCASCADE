@@ -17,10 +17,10 @@ class ISession_Surface : public AIS_InteractiveObject
 {
 public:
 	ISession_Surface();
-	ISession_Surface(Handle(Geom_Surface)& aSurface);
+	ISession_Surface(const Handle(Geom_Surface)& aSurface);
 	virtual ~ISession_Surface();
 
-DEFINE_STANDARD_RTTI(ISession_Surface,AIS_InteractiveObject)
+DEFINE_STANDARD_RTTIEXT(ISession_Surface,AIS_InteractiveObject)
 private:
 
 Standard_EXPORT virtual  void Compute(const Handle(PrsMgr_PresentationManager3d)& aPresentationManager,const Handle(Prs3d_Presentation)& aPresentation,const Standard_Integer aMode = 0);

@@ -36,6 +36,8 @@
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <UTL.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter_1,PCDM_ReadWriter)
+
 #define START_REF "START_REF"
 #define END_REF "END_REF"
 #define START_EXT "START_EXT"
@@ -242,8 +244,9 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(const TCollection_Exten
     theFileIsOpen=Standard_True;
    
     Handle(Storage_Schema) s = new Storage_Schema;
-    Handle(Storage_HeaderData) hd = s->ReadHeaderSection(*theFileDriver);
-    const TColStd_SequenceOfAsciiString &refUserInfo = hd->UserInfo();
+    Storage_HeaderData hd;
+    hd.Read (*theFileDriver);
+    const TColStd_SequenceOfAsciiString &refUserInfo = hd.UserInfo();
     
     for ( i =1; i<=  refUserInfo.Length() ; i++) {
       if(refUserInfo(i).Search(REFERENCE_COUNTER) != -1) {
@@ -345,8 +348,9 @@ void PCDM_ReadWriter_1::ReadUserInfo(const TCollection_ExtendedString& aFileName
 
   PCDM_ReadWriter::Open(*theFileDriver,aFileName,Storage_VSRead);
   Handle(Storage_Schema) s = new Storage_Schema;
-  Handle(Storage_HeaderData) hd = s->ReadHeaderSection(*theFileDriver);
-  const TColStd_SequenceOfAsciiString &refUserInfo = hd->UserInfo();
+  Storage_HeaderData hd;
+  hd.Read (*theFileDriver);
+  const TColStd_SequenceOfAsciiString &refUserInfo = hd.UserInfo();
 
   Standard_Integer debut=0,fin=0;
   
@@ -388,8 +392,9 @@ Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(const TCollection_Extend
     PCDM_ReadWriter::Open(*theFileDriver,aFileName,Storage_VSRead);
     theFileIsOpen=Standard_True;
     Handle(Storage_Schema) s = new Storage_Schema;
-    Handle(Storage_HeaderData) hd = s->ReadHeaderSection(*theFileDriver);
-    const TColStd_SequenceOfAsciiString &refUserInfo = hd->UserInfo();
+    Storage_HeaderData hd;
+    hd.Read (*theFileDriver);
+    const TColStd_SequenceOfAsciiString &refUserInfo = hd.UserInfo();
 
     static Standard_Integer i ;
     for ( i =1; i<=  refUserInfo.Length() ; i++) {

@@ -20,6 +20,6 @@ splitshape result s s_1 e_1 e_2
 
 checknbshapes result -face 3
 
-set square 1256.64
-set 3dviewer 0
-
+checkprops result -s 1256.64 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

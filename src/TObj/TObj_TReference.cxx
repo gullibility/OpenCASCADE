@@ -25,6 +25,8 @@
 #include <TDF_DeltaOnRemoval.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(TObj_TReference,TDF_Attribute)
+
 //=======================================================================
 //function : TObj_TReference
 //purpose  : 
@@ -126,7 +128,7 @@ Handle(TObj_Object) TObj_TReference::Get() const
   {
     return anObject;
   }
-  anObject = Handle(TObj_Object)::DownCast(aTObject->Get());
+  anObject = aTObject->Get();
   return anObject;
 }
 

@@ -1,0 +1,5 @@
+<map id="XSControl_WorkSession" name="XSControl_WorkSession">
+<area shape="rect" id="node2" href="$class_i_f_select___work_session.html" title="This class can be used to simply manage a process such as splitting a file, extracting a set of Entit..." alt="" coords="9,155,164,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="31,80,141,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="19,5,153,32"/>
+</map>

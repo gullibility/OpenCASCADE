@@ -16,5 +16,7 @@ repeat 100 {
     compound s_$i result result
     incr i
 }
-set length 3854.34
-set 2dviewer 0
+checkprops result -l 3854.34 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

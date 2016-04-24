@@ -1,0 +1,9 @@
+<map id="StepShape_Loop" name="StepShape_Loop">
+<area shape="rect" id="node6" href="$class_step_shape___edge_loop.html" title="StepShape_EdgeLoop" alt="" coords="5,379,155,405"/>
+<area shape="rect" id="node7" href="$class_step_shape___poly_loop.html" title="StepShape_PolyLoop" alt="" coords="180,379,327,405"/>
+<area shape="rect" id="node8" href="$class_step_shape___vertex_loop.html" title="StepShape_VertexLoop" alt="" coords="351,379,509,405"/>
+<area shape="rect" id="node2" href="$class_step_shape___topological_representation_item.html" title="StepShape_TopologicalRepresentationItem" alt="" coords="118,229,388,256"/>
+<area shape="rect" id="node3" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="156,155,351,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="198,80,308,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="186,5,320,32"/>
+</map>

@@ -26,6 +26,8 @@
 #include <TCollection_AsciiString.hxx>
 #include <TNaming_NamedShape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(BinDrivers_DocumentStorageDriver,BinLDrivers_DocumentStorageDriver)
+
 //=======================================================================
 //function : BinDrivers_DocumentStorageDriver
 //purpose  : Constructor
@@ -55,10 +57,14 @@ void BinDrivers_DocumentStorageDriver::WriteShapeSection
 {
   const Standard_Size aShapesSectionOffset = (Standard_Size) theOS.tellp();
   
-  Handle(BinMNaming_NamedShapeDriver) aNamedShapeDriver;
-  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aNamedShapeDriver)) {   
+  Handle(BinMDF_ADriver) aDriver;
+  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  {
     try { 
-      OCC_CATCH_SIGNALS  aNamedShapeDriver->WriteShapeSection (theOS);
+      OCC_CATCH_SIGNALS
+      Handle(BinMNaming_NamedShapeDriver) aNamedShapeDriver =
+        Handle(BinMNaming_NamedShapeDriver)::DownCast (aDriver);
+      aNamedShapeDriver->WriteShapeSection (theOS);
     }
     catch(Standard_Failure) {
       TCollection_ExtendedString anErrorStr ("Error: ");

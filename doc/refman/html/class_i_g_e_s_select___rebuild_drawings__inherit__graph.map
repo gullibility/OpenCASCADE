@@ -1,0 +1,7 @@
+<map id="IGESSelect_RebuildDrawings" name="IGESSelect_RebuildDrawings">
+<area shape="rect" id="node2" href="$class_i_g_e_s_select___model_modifier.html" title="IGESSelect_ModelModifier" alt="" coords="13,304,189,331"/>
+<area shape="rect" id="node3" href="$class_i_f_select___modifier.html" title="This class gives a frame for Actions which can work globally on a File once completely defined (i..." alt="" coords="40,229,163,256"/>
+<area shape="rect" id="node4" href="$class_i_f_select___general_modifier.html" title="This class gives a frame for Actions which modify the effect of a Dispatch, i.e. : By Selections and ..." alt="" coords="18,155,184,181"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="46,80,156,107"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="34,5,168,32"/>
+</map>

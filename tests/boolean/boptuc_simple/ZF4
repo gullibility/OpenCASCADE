@@ -5,4 +5,5 @@ ttranslate b2 1 0 0
 bop b1 b2
 boptuc result
 
-set square 28.9592
+checkprops result -s 28.9592
+checkview -display result -2d -otherwise { b1 b2 } -s -path ${imagedir}/${test_image}.png

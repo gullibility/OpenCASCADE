@@ -1,0 +1,6 @@
+<map id="MoniTool_TypedValue" name="MoniTool_TypedValue">
+<area shape="rect" id="node4" href="$class_interface___typed_value.html" title="Now strictly equivalent to TypedValue from MoniTool, except for ParamType which remains for compatibi..." alt="" coords="7,229,153,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="25,80,135,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="13,5,147,32"/>
+<area shape="rect" id="node5" href="$class_interface___static.html" title="This class gives a way to manage meaningfull static variables, used as &quot;global&quot; parameters in various..." alt="" coords="24,304,136,331"/>
+</map>

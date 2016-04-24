@@ -1,0 +1,33 @@
+<map id="StepDimTol_GeometricTolerance" name="StepDimTol_GeometricTolerance">
+<area shape="rect" id="node4" href="$class_step_dim_tol___cylindricity_tolerance.html" title="Representation of STEP entity CylindricityTolerance. " alt="" coords="621,189,837,216"/>
+<area shape="rect" id="node5" href="$class_step_dim_tol___flatness_tolerance.html" title="Representation of STEP entity FlatnessTolerance. " alt="" coords="628,240,831,267"/>
+<area shape="rect" id="node6" href="$class_step_dim_tol___geometric_tolerance_with_datum_reference.html" title="Representation of STEP entity GeometricToleranceWithDatumReference. " alt="" coords="623,291,835,333"/>
+<area shape="rect" id="node15" href="$class_step_dim_tol___geometric_tolerance_with_defined_unit.html" title="Representation of STEP entity GeometricToleranceWithDefinedUnit. " alt="" coords="623,459,835,501"/>
+<area shape="rect" id="node17" href="$class_step_dim_tol___geometric_tolerance_with_modifiers.html" title="Representation of STEP entity GeometricToleranceWithModifiers. " alt="" coords="623,525,835,566"/>
+<area shape="rect" id="node19" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_dat_ref.html" title="StepDimTol_GeoTolAndGeoTol\lWthDatRef" alt="" coords="629,590,830,631"/>
+<area shape="rect" id="node21" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_dat_ref_and_geo_tol_wth_mod.html" title="StepDimTol_GeoTolAndGeoTol\lWthDatRefAndGeoTolWthMod" alt="" coords="629,655,830,697"/>
+<area shape="rect" id="node23" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_dat_ref_and_mod_geo_tol_and_pos_tol.html" title="StepDimTol_GeoTolAndGeoTol\lWthDatRefAndModGeoTolAndPosTol" alt="" coords="611,721,848,762"/>
+<area shape="rect" id="node24" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_mod.html" title="StepDimTol_GeoTolAndGeoTol\lWthMod" alt="" coords="629,786,830,827"/>
+<area shape="rect" id="node26" href="$class_step_dim_tol___line_profile_tolerance.html" title="Representation of STEP entity LineProfileTolerance. " alt="" coords="623,852,835,879"/>
+<area shape="rect" id="node27" href="$class_step_dim_tol___modified_geometric_tolerance.html" title="Representation of STEP entity ModifiedGeometricTolerance. " alt="" coords="627,903,831,945"/>
+<area shape="rect" id="node28" href="$class_step_dim_tol___position_tolerance.html" title="Representation of STEP entity PositionTolerance. " alt="" coords="630,969,829,996"/>
+<area shape="rect" id="node29" href="$class_step_dim_tol___roundness_tolerance.html" title="Representation of STEP entity RoundnessTolerance. " alt="" coords="621,1020,838,1047"/>
+<area shape="rect" id="node30" href="$class_step_dim_tol___straightness_tolerance.html" title="Representation of STEP entity StraightnessTolerance. " alt="" coords="617,1071,842,1097"/>
+<area shape="rect" id="node31" href="$class_step_dim_tol___surface_profile_tolerance.html" title="Representation of STEP entity SurfaceProfileTolerance. " alt="" coords="641,1122,817,1163"/>
+<area shape="rect" id="node32" href="$class_step_dim_tol___unequally_disposed_geometric_tolerance.html" title="Representation of STEP entity UnequallyDisposedGeometricTolerance. " alt="" coords="626,1187,833,1229"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,761,301,788"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,761,141,788"/>
+<area shape="rect" id="node7" href="$class_step_dim_tol___angularity_tolerance.html" title="Representation of STEP entity AngularityTolerance. " alt="" coords="901,5,1112,32"/>
+<area shape="rect" id="node8" href="$class_step_dim_tol___circular_runout_tolerance.html" title="Representation of STEP entity CircularRunoutTolerance. " alt="" coords="916,57,1097,98"/>
+<area shape="rect" id="node9" href="$class_step_dim_tol___coaxiality_tolerance.html" title="Representation of STEP entity CoaxialityTolerance. " alt="" coords="902,123,1111,149"/>
+<area shape="rect" id="node10" href="$class_step_dim_tol___concentricity_tolerance.html" title="Representation of STEP entity ConcentricityTolerance. " alt="" coords="921,174,1093,215"/>
+<area shape="rect" id="node11" href="$class_step_dim_tol___parallelism_tolerance.html" title="Representation of STEP entity ParallelismTolerance. " alt="" coords="899,240,1115,267"/>
+<area shape="rect" id="node12" href="$class_step_dim_tol___perpendicularity_tolerance.html" title="Representation of STEP entity PerpendicularityTolerance. " alt="" coords="912,291,1101,333"/>
+<area shape="rect" id="node13" href="$class_step_dim_tol___symmetry_tolerance.html" title="Representation of STEP entity SymmetryTolerance. " alt="" coords="901,357,1113,384"/>
+<area shape="rect" id="node14" href="$class_step_dim_tol___total_runout_tolerance.html" title="Representation of STEP entity TotalRunoutTolerance. " alt="" coords="896,408,1117,435"/>
+<area shape="rect" id="node16" href="$class_step_dim_tol___geometric_tolerance_with_defined_area_unit.html" title="Representation of STEP entity GeometricToleranceWithDefinedAreaUnit. " alt="" coords="901,459,1113,501"/>
+<area shape="rect" id="node18" href="$class_step_dim_tol___geometric_tolerance_with_maximum_tolerance.html" title="Representation of STEP entity GeometricToleranceWithMaximumTolerance. " alt="" coords="901,525,1113,566"/>
+<area shape="rect" id="node20" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_dat_ref_and_uneq_dis_geo_tol.html" title="StepDimTol_GeoTolAndGeoTol\lWthDatRefAndUneqDisGeoTol" alt="" coords="906,590,1107,631"/>
+<area shape="rect" id="node22" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_dat_ref_and_geo_tol_wth_max_tol.html" title="StepDimTol_GeoTolAndGeoTol\lWthDatRefAndGeoTolWthMaxTol" alt="" coords="899,655,1114,697"/>
+<area shape="rect" id="node25" href="$class_step_dim_tol___geo_tol_and_geo_tol_wth_max_tol.html" title="StepDimTol_GeoTolAndGeoTol\lWthMaxTol" alt="" coords="906,786,1107,827"/>
+</map>

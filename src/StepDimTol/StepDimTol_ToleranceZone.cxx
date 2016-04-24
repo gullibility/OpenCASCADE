@@ -17,6 +17,8 @@
 
 #include <StepDimTol_HArray1OfToleranceZoneTarget.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZone,StepRepr_ShapeAspect)
+
 //=======================================================================
 //function : StepDimTol_ToleranceZone
 //purpose  : 
@@ -39,7 +41,7 @@ void StepDimTol_ToleranceZone::Init (const Handle(TCollection_HAsciiString)& the
                                      const Handle(StepDimTol_ToleranceZoneForm)& theForm)
 {
   StepRepr_ShapeAspect::Init(theName, theDescription, theOfShape, theProductDefinitional);
-  definingTolerance = theDefiningTolerance;
-  form = theForm;
+  myDefiningTolerance = theDefiningTolerance;
+  myForm = theForm;
 }
     

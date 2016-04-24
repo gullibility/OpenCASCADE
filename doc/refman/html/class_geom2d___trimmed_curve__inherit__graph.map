@@ -1,0 +1,7 @@
+<map id="Geom2d_TrimmedCurve" name="Geom2d_TrimmedCurve">
+<area shape="rect" id="node2" href="$class_geom2d___bounded_curve.html" title="The abstract class BoundedCurve describes the common behavior of bounded curves in 2D space..." alt="" coords="5,304,165,331"/>
+<area shape="rect" id="node3" href="$class_geom2d___curve.html" title="The abstract class Curve describes the common behavior of curves in 2D space. The Geom2d package prov..." alt="" coords="30,229,140,256"/>
+<area shape="rect" id="node4" href="$class_geom2d___geometry.html" title="The general abstract class Geometry in 2D space describes the common behaviour of all the geometric e..." alt="" coords="18,155,152,181"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="30,80,140,107"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="18,5,152,32"/>
+</map>

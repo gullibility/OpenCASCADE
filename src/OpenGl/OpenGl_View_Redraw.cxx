@@ -17,7 +17,6 @@
 #include <stdlib.h>
 
 #include <OpenGl_GlCore11.hxx>
-#include <OpenGl_tgl_funcs.hxx>
 
 #include <Graphic3d_GraphicDriver.hxx>
 #include <Graphic3d_TextureParams.hxx>
@@ -281,13 +280,23 @@ void OpenGl_View::Redraw()
   // fetch OpenGl context state
   aCtx->FetchState();
 
-  OpenGl_FrameBuffer* aFrameBuffer = (OpenGl_FrameBuffer* )myFBO;
+  // set resolution ratio
+  aCtx->SetResolutionRatio (RenderingParams().ResolutionRatio());
+
+  OpenGl_FrameBuffer* aFrameBuffer = myFBO.operator->();
   bool toSwap = aCtx->IsRender()
             && !aCtx->caps->buffersNoSwap
             &&  aFrameBuffer == NULL;
 
   Standard_Integer aSizeX = aFrameBuffer != NULL ? aFrameBuffer->GetVPSizeX() : myWindow->Width();
   Standard_Integer aSizeY = aFrameBuffer != NULL ? aFrameBuffer->GetVPSizeY() : myWindow->Height();
+
+  // determine multisampling parameters
+  Standard_Integer aNbSamples = Max (Min (myRenderParams.NbMsaaSamples, aCtx->MaxMsaaSamples()), 0);
+  if (aNbSamples != 0)
+  {
+    aNbSamples = OpenGl_Context::GetPowerOfTwo (aNbSamples, aCtx->MaxMsaaSamples());
+  }
 
   if ( aFrameBuffer == NULL
    && !aCtx->DefaultFrameBuffer().IsNull()
@@ -297,20 +306,23 @@ void OpenGl_View::Redraw()
   }
 
   if (myHasFboBlit
-   && (myTransientDrawToFront || aProjectType == Graphic3d_Camera::Projection_Stereo))
+   && (myTransientDrawToFront
+    || aProjectType == Graphic3d_Camera::Projection_Stereo
+    || aNbSamples != 0))
   {
     if (myMainSceneFbos[0]->GetVPSizeX() != aSizeX
-     || myMainSceneFbos[0]->GetVPSizeY() != aSizeY)
+     || myMainSceneFbos[0]->GetVPSizeY() != aSizeY
+     || myMainSceneFbos[0]->NbSamples()  != aNbSamples)
     {
       // prepare FBOs containing main scene
       // for further blitting and rendering immediate presentations on top
       if (aCtx->core20fwd != NULL)
       {
-        myMainSceneFbos[0]->Init (aCtx, aSizeX, aSizeY);
+        myMainSceneFbos[0]->Init (aCtx, aSizeX, aSizeY, myFboColorFormat, myFboDepthFormat, aNbSamples);
       }
       if (!aCtx->caps->useSystemBuffer && myMainSceneFbos[0]->IsValid())
       {
-        myImmediateSceneFbos[0]->InitLazy (aCtx, aSizeX, aSizeY);
+        myImmediateSceneFbos[0]->InitLazy (aCtx, *myMainSceneFbos[0]);
       }
     }
   }
@@ -329,7 +341,7 @@ void OpenGl_View::Redraw()
   if (aProjectType == Graphic3d_Camera::Projection_Stereo
    && myMainSceneFbos[0]->IsValid())
   {
-    myMainSceneFbos[1]->InitLazy (aCtx, aSizeX, aSizeY);
+    myMainSceneFbos[1]->InitLazy (aCtx, *myMainSceneFbos[0]);
     if (!myMainSceneFbos[1]->IsValid())
     {
       // no enough memory?
@@ -341,8 +353,8 @@ void OpenGl_View::Redraw()
     }
     else if (!aCtx->HasStereoBuffers() || aStereoMode != Graphic3d_StereoMode_QuadBuffer)
     {
-      myImmediateSceneFbos[0]->InitLazy (aCtx, aSizeX, aSizeY);
-      myImmediateSceneFbos[1]->InitLazy (aCtx, aSizeX, aSizeY);
+      myImmediateSceneFbos[0]->InitLazy (aCtx, *myMainSceneFbos[0]);
+      myImmediateSceneFbos[1]->InitLazy (aCtx, *myMainSceneFbos[0]);
       if (!myImmediateSceneFbos[0]->IsValid()
        || !myImmediateSceneFbos[1]->IsValid())
       {
@@ -407,8 +419,7 @@ void OpenGl_View::Redraw()
 
     if (anImmFbos[0] != NULL)
     {
-      bindDefaultFbo (aFrameBuffer);
-      drawStereoPair();
+      drawStereoPair (aFrameBuffer);
     }
   }
   else
@@ -460,6 +471,12 @@ void OpenGl_View::Redraw()
   }
 #endif
 
+  if (myRenderParams.Method == Graphic3d_RM_RAYTRACING
+   && myRenderParams.IsGlobalIlluminationEnabled)
+  {
+    myAccumFrames++;
+  }
+
   // bind default FBO
   bindDefaultFbo();
 
@@ -503,7 +520,7 @@ void OpenGl_View::RedrawImmediate()
 
   const Graphic3d_StereoMode   aStereoMode  = myRenderParams.StereoMode;
   Graphic3d_Camera::Projection aProjectType = myCamera->ProjectionType();
-  OpenGl_FrameBuffer*          aFrameBuffer = (OpenGl_FrameBuffer* )myFBO;
+  OpenGl_FrameBuffer*          aFrameBuffer = myFBO.operator->();
 
   if ( aFrameBuffer == NULL
    && !aCtx->DefaultFrameBuffer().IsNull()
@@ -578,8 +595,7 @@ void OpenGl_View::RedrawImmediate()
                               Standard_True) || toSwap;
     if (anImmFbos[0] != NULL)
     {
-      bindDefaultFbo (aFrameBuffer);
-      drawStereoPair();
+      drawStereoPair (aFrameBuffer);
     }
   }
   else
@@ -779,6 +795,7 @@ void OpenGl_View::render (Graphic3d_Camera::Projection theProjection,
   {
     aContext->ProjectionState.SetCurrent (myCamera->ProjectionMatrixF());
     aContext->WorldViewState .SetCurrent (myCamera->OrientationMatrixF());
+    myAccumFrames = 0;
   }
 
   // Apply new matrix state if camera has changed or this view differs from the one
@@ -915,7 +932,7 @@ void OpenGl_View::render (Graphic3d_Camera::Projection theProjection,
     aContext->ProjectionState.SetCurrent (myCamera->ProjectionStereoRightF());
     aContext->ApplyProjectionMatrix();
   }
-  renderScene (theOutputFBO, theToDrawImmediate);
+  renderScene (theProjection, theOutputFBO, theToDrawImmediate);
 
   // ===============================
   //      Step 4: Trihedron
@@ -926,7 +943,7 @@ void OpenGl_View::render (Graphic3d_Camera::Projection theProjection,
   // before drawing auxiliary stuff (trihedrons, overlayer)
   myWorkspace->ResetAppliedAspect();
 
-  aContext->ChangeClipping().RemoveAll();
+  aContext->ChangeClipping().RemoveAll (aContext);
 
   if (!aManager->IsEmpty())
   {
@@ -980,8 +997,9 @@ void OpenGl_View::InvalidateBVHData (const Graphic3d_ZLayerId theLayerId)
 //function : renderStructs
 //purpose  :
 //=======================================================================
-void OpenGl_View::renderStructs (OpenGl_FrameBuffer*    theReadDrawFbo,
-                                 const Standard_Boolean theToDrawImmediate)
+void OpenGl_View::renderStructs (Graphic3d_Camera::Projection theProjection,
+                                 OpenGl_FrameBuffer*          theReadDrawFbo,
+                                 const Standard_Boolean       theToDrawImmediate)
 {
   if ( myZLayers.NbStructures() <= 0 )
     return;
@@ -1037,15 +1055,7 @@ void OpenGl_View::renderStructs (OpenGl_FrameBuffer*    theReadDrawFbo,
     {
       const Standard_Integer aSizeX = theReadDrawFbo != NULL ? theReadDrawFbo->GetVPSizeX() : myWindow->Width();
       const Standard_Integer aSizeY = theReadDrawFbo != NULL ? theReadDrawFbo->GetVPSizeY() : myWindow->Height();
-
-      if (myOpenGlFBO.IsNull())
-        myOpenGlFBO = new OpenGl_FrameBuffer;
-
-      if (myOpenGlFBO->GetVPSizeX() != aSizeX
-       || myOpenGlFBO->GetVPSizeY() != aSizeY)
-      {
-        myOpenGlFBO->Init (aCtx, aSizeX, aSizeY);
-      }
+      myOpenGlFBO ->InitLazy (aCtx, aSizeX, aSizeY, myFboColorFormat, myFboDepthFormat, 0);
 
       if (myRaytraceFilter.IsNull())
         myRaytraceFilter = new OpenGl_RaytraceFilter;
@@ -1094,8 +1104,12 @@ void OpenGl_View::renderStructs (OpenGl_FrameBuffer*    theReadDrawFbo,
         aCtx->arbFBO->glBindFramebuffer (GL_FRAMEBUFFER, 0);
       }
 
+      // Reset OpenGl aspects state to default to avoid enabling of
+      // backface culling which is not supported in ray-tracing.
+      myWorkspace->ResetAppliedAspect();
+
       // Ray-tracing polygonal primitive arrays
-      raytrace (aSizeX, aSizeY, theReadDrawFbo, aCtx);
+      raytrace (aSizeX, aSizeY, theProjection, theReadDrawFbo, aCtx);
 
       // Render upper (top and topmost) OpenGL layers
       myZLayers.Render (myWorkspace, theToDrawImmediate, OpenGl_LF_Upper);
@@ -1143,8 +1157,9 @@ void OpenGl_View::Invalidate()
 //function : renderScene
 //purpose  :
 //=======================================================================
-void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
-                               const Standard_Boolean theToDrawImmediate)
+void OpenGl_View::renderScene (Graphic3d_Camera::Projection theProjection,
+                               OpenGl_FrameBuffer*          theReadDrawFbo,
+                               const Standard_Boolean       theToDrawImmediate)
 {
   const Handle(OpenGl_Context)& aContext = myWorkspace->GetGlContext();
 
@@ -1192,7 +1207,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
       }
 
       // add planes at loaded view matrix state
-      aContext->ChangeClipping().AddView (aSlicingPlanes, myWorkspace);
+      aContext->ChangeClipping().AddView (aContext, aSlicingPlanes);
     }
   }
 
@@ -1223,7 +1238,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
 
     if (!aUserPlanes.IsEmpty())
     {
-      aContext->ChangeClipping().AddWorld (aUserPlanes);
+      aContext->ChangeClipping().AddWorldLazy (aContext, aUserPlanes);
     }
 
     if (!aContext->ShaderManager()->IsEmpty())
@@ -1278,7 +1293,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
       myWorkspace->NamedStatus |= OPENGL_NS_FORBIDSETTEX;
       myWorkspace->DisableTexture();
       // Render the view
-      renderStructs (theReadDrawFbo, theToDrawImmediate);
+      renderStructs (theProjection, theReadDrawFbo, theToDrawImmediate);
       break;
 
     case Graphic3d_TOD_ENVIRONMENT:
@@ -1288,7 +1303,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
         myWorkspace->EnableTexture (myTextureEnv);
       }
       // Render the view
-      renderStructs (theReadDrawFbo, theToDrawImmediate);
+      renderStructs (theProjection, theReadDrawFbo, theToDrawImmediate);
       myWorkspace->DisableTexture();
       break;
 
@@ -1296,7 +1311,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
       // First pass
       myWorkspace->NamedStatus &= ~OPENGL_NS_FORBIDSETTEX;
       // Render the view
-      renderStructs (theReadDrawFbo, theToDrawImmediate);
+      renderStructs (theProjection, theReadDrawFbo, theToDrawImmediate);
       myWorkspace->DisableTexture();
 
       // Second pass
@@ -1332,7 +1347,7 @@ void OpenGl_View::renderScene (OpenGl_FrameBuffer*    theReadDrawFbo,
         myWorkspace->NamedStatus |= OPENGL_NS_FORBIDSETTEX;
 
         // Render the view
-        renderStructs (theReadDrawFbo, theToDrawImmediate);
+        renderStructs (theProjection, theReadDrawFbo, theToDrawImmediate);
         myWorkspace->DisableTexture();
 
         // Restore properties back
@@ -1467,26 +1482,46 @@ bool OpenGl_View::blitBuffers (OpenGl_FrameBuffer*    theReadFbo,
 #endif
   aCtx->core20fwd->glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-/*#if !defined(GL_ES_VERSION_2_0)
-  if (aCtx->arbFBOBlit != NULL)
+#if !defined(GL_ES_VERSION_2_0)
+  if (aCtx->arbFBOBlit != NULL
+   && theReadFbo->NbSamples() != 0)
   {
+    GLbitfield aCopyMask = 0;
     theReadFbo->BindReadBuffer (aCtx);
     if (theDrawFbo != NULL
      && theDrawFbo->IsValid())
     {
       theDrawFbo->BindDrawBuffer (aCtx);
+      if (theDrawFbo->HasColor()
+       && theReadFbo->HasColor())
+      {
+        aCopyMask |= GL_COLOR_BUFFER_BIT;
+      }
+      if (theDrawFbo->HasDepth()
+       && theReadFbo->HasDepth())
+      {
+        aCopyMask |= GL_DEPTH_BUFFER_BIT;
+      }
     }
     else
     {
+      if (theReadFbo->HasColor())
+      {
+        aCopyMask |= GL_COLOR_BUFFER_BIT;
+      }
+      if (theReadFbo->HasDepth())
+      {
+        aCopyMask |= GL_DEPTH_BUFFER_BIT;
+      }
       aCtx->arbFBO->glBindFramebuffer (GL_DRAW_FRAMEBUFFER, OpenGl_FrameBuffer::NO_FRAMEBUFFER);
     }
+
     // we don't copy stencil buffer here... does it matter for performance?
     aCtx->arbFBOBlit->glBlitFramebuffer (0, 0, theReadFbo->GetVPSizeX(), theReadFbo->GetVPSizeY(),
                                          0, 0, theReadFbo->GetVPSizeX(), theReadFbo->GetVPSizeY(),
-                                         GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-
+                                         aCopyMask, GL_NEAREST);
     if (theDrawFbo != NULL
-      && theDrawFbo->IsValid())
+     && theDrawFbo->IsValid())
     {
       theDrawFbo->BindBuffer (aCtx);
     }
@@ -1496,7 +1531,7 @@ bool OpenGl_View::blitBuffers (OpenGl_FrameBuffer*    theReadFbo,
     }
   }
   else
-#endif*/
+#endif
   {
     aCtx->core20fwd->glDepthFunc (GL_ALWAYS);
     aCtx->core20fwd->glDepthMask (GL_TRUE);
@@ -1524,10 +1559,10 @@ bool OpenGl_View::blitBuffers (OpenGl_FrameBuffer*    theReadFbo,
     {
       TCollection_ExtendedString aMsg = TCollection_ExtendedString()
         + "Error! FBO blitting has failed";
-      aCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                         GL_DEBUG_TYPE_ERROR_ARB,
+      aCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                         GL_DEBUG_TYPE_ERROR,
                          0,
-                         GL_DEBUG_SEVERITY_HIGH_ARB,
+                         GL_DEBUG_SEVERITY_HIGH,
                          aMsg);
       myHasFboBlit = Standard_False;
       theReadFbo->Release (aCtx.operator->());
@@ -1541,8 +1576,10 @@ bool OpenGl_View::blitBuffers (OpenGl_FrameBuffer*    theReadFbo,
 // function : drawStereoPair
 // purpose  :
 // =======================================================================
-void OpenGl_View::drawStereoPair()
+void OpenGl_View::drawStereoPair (OpenGl_FrameBuffer* theDrawFbo)
 {
+  const Handle(OpenGl_Context)& aCtx = myWorkspace->GetGlContext();
+  bindDefaultFbo (theDrawFbo);
   OpenGl_FrameBuffer* aPair[2] =
   {
     myImmediateSceneFbos[0]->IsValid() ? myImmediateSceneFbos[0].operator->() : NULL,
@@ -1560,6 +1597,33 @@ void OpenGl_View::drawStereoPair()
    || aPair[1] == NULL)
   {
     return;
+  }
+
+  if (aPair[0]->NbSamples() != 0)
+  {
+    // resolve MSAA buffers before drawing
+    if (!myOpenGlFBO ->InitLazy (aCtx, aPair[0]->GetVPSizeX(), aPair[0]->GetVPSizeY(), myFboColorFormat, myFboDepthFormat, 0)
+     || !myOpenGlFBO2->InitLazy (aCtx, aPair[0]->GetVPSizeX(), aPair[0]->GetVPSizeY(), myFboColorFormat, 0, 0))
+    {
+      aCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                         GL_DEBUG_TYPE_ERROR,
+                         0,
+                         GL_DEBUG_SEVERITY_HIGH,
+                         "Error! Unable to allocate FBO for blitting stereo pair");
+      bindDefaultFbo (theDrawFbo);
+      return;
+    }
+
+    if (!blitBuffers (aPair[0], myOpenGlFBO .operator->(), Standard_False)
+     || !blitBuffers (aPair[1], myOpenGlFBO2.operator->(), Standard_False))
+    {
+      bindDefaultFbo (theDrawFbo);
+      return;
+    }
+
+    aPair[0] = myOpenGlFBO .operator->();
+    aPair[1] = myOpenGlFBO2.operator->();
+    bindDefaultFbo (theDrawFbo);
   }
 
   struct
@@ -1595,7 +1659,6 @@ void OpenGl_View::drawStereoPair()
     std::swap (aPair[0], aPair[1]);
   }
 
-  Handle(OpenGl_Context) aCtx = myWorkspace->GetGlContext();
   aCtx->core20fwd->glDepthFunc (GL_ALWAYS);
   aCtx->core20fwd->glDepthMask (GL_TRUE);
   aCtx->core20fwd->glEnable (GL_DEPTH_TEST);
@@ -1684,10 +1747,10 @@ void OpenGl_View::drawStereoPair()
   {
     TCollection_ExtendedString aMsg = TCollection_ExtendedString()
       + "Error! Anaglyph has failed";
-    aCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                       GL_DEBUG_TYPE_ERROR_ARB,
+    aCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                       GL_DEBUG_TYPE_ERROR,
                        0,
-                       GL_DEBUG_SEVERITY_HIGH_ARB,
+                       GL_DEBUG_SEVERITY_HIGH,
                        aMsg);
   }
 }

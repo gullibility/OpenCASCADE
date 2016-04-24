@@ -17,14 +17,9 @@
 #include <StepGeom_ElementarySurface.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_ElementarySurface,StepGeom_Surface)
+
 StepGeom_ElementarySurface::StepGeom_ElementarySurface ()  {}
-
-void StepGeom_ElementarySurface::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_ElementarySurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

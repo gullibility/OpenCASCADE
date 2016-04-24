@@ -33,6 +33,8 @@
 #include <Standard_Type.hxx>
 #include <TopLoc_Location.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_MultipleConnectedInteractive,AIS_InteractiveObject)
+
 namespace
 {
   //! SelectMgr_AssemblyEntityOwner replaces original owners in sensitive entities
@@ -399,4 +401,23 @@ void AIS_MultipleConnectedInteractive::ComputeSelection (const Handle(SelectMgr_
 Handle(SelectMgr_EntityOwner) AIS_MultipleConnectedInteractive::GlobalSelOwner() const
 {
   return myAssemblyOwner;
+}
+
+//=======================================================================
+//function : HasSelection
+//purpose  :
+//=======================================================================
+Standard_Boolean AIS_MultipleConnectedInteractive::HasSelection (const Standard_Integer theMode) const
+{
+  for (PrsMgr_ListOfPresentableObjectsIter anIter (Children()); anIter.More(); anIter.Next())
+  {
+    Handle(AIS_InteractiveObject) aChild = Handle(AIS_InteractiveObject)::DownCast (anIter.Value());
+    if (aChild.IsNull())
+      continue;
+
+    if (!aChild->HasSelection (theMode))
+      return Standard_False;
+  }
+
+  return Standard_True;
 }

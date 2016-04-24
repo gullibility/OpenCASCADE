@@ -41,6 +41,8 @@
 #include <TColStd_ListIteratorOfListOfInteger.hxx>
 
 #include <stdio.h>
+IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_Data,MMgt_TShared)
+
 Standard_Integer nbOkIntersection;
 Standard_Integer nbPtIntersection;
 Standard_Integer nbSegIntersection;
@@ -806,7 +808,7 @@ void HLRBRep_Data::Update (const HLRAlgo_Projector& P)
     fd->Side(FS.IsSide(tol,myToler*10));
     Standard_Boolean inverted = Standard_False;
     if (fd->WithOutL() && !fd->Side()) {
-      //inverted = OrientOutLine(face,*fd);
+      inverted = OrientOutLine(face,*fd);
       OrientOthEdge(face,*fd);
     }
     if (fd->Side()) {

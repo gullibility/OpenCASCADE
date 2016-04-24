@@ -18,6 +18,8 @@
 #include <StepRepr_HArray1OfShapeAspect.hxx>
 #include <StepDimTol_RunoutZoneOrientation.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_RunoutZoneDefinition,StepDimTol_ToleranceZoneDefinition)
+
 //=======================================================================
 //function : StepDimTol_RunoutZoneDefinition
 //purpose  : 
@@ -37,5 +39,5 @@ void StepDimTol_RunoutZoneDefinition:: Init (const Handle(StepDimTol_ToleranceZo
                                              const Handle(StepDimTol_RunoutZoneOrientation)& theOrientation)
 {
   StepDimTol_ToleranceZoneDefinition::Init(theZone, theBoundaries);
-  orientation = theOrientation;
+  myOrientation = theOrientation;
 }

@@ -25,6 +25,8 @@
 #include <TCollection_ExtendedString.hxx>
 #include <UTL.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(CDF_FWOSDriver,CDF_MetaDataDriver)
+
 #ifdef _MSC_VER
 #include <tchar.h>
 #endif  // _MSC_VER
@@ -171,7 +173,7 @@ TCollection_ExtendedString CDF_FWOSDriver::DefaultFolder()
     
 #ifdef _WIN32
     TCollection_ExtendedString hd=UTL::xgetenv("HOMEDRIVE");
-    if(hd.Length() != NULL) {
+    if(hd.Length() != 0) {
       theDefaultFolder=hd;
       theDefaultFolder+=UTL::xgetenv("HOMEPATH");
     }

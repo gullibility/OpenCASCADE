@@ -54,6 +54,8 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_PolyAlgo,MMgt_TShared)
+
 #define EMskOutLin1  ((Standard_Boolean)   1)
 #define EMskOutLin2  ((Standard_Boolean)   2)
 #define EMskOutLin3  ((Standard_Boolean)   4)
@@ -1834,6 +1836,7 @@ Interpolation (const Standard_Real U1,
     TMultiply(X3,Y3,Z3);
     return Standard_True;
   }
+  X3 = Y3 = Z3 = XTI3 = YTI3 = ZTI3 = coef3 = U3 = 0.;
   return Standard_False;
 }
 

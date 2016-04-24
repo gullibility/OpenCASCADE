@@ -17,11 +17,6 @@ bop c_3 d
 
 bopsection result
 
-
-
-
-
-
-
-
-set length 116.349
+checkprops result -l 116.349
+checksection result
+checkview -display result -2d -otherwise { c_3 d } -l -path ${imagedir}/${test_image}.png

@@ -3,4 +3,6 @@ plane p 0 0 0 1 0 0
 mkface f p
 bsection result a f
 
-set length 20674.3
+checkprops result -l 18981.2
+checksection result
+checkview -display result -2d -otherwise { a f } -l -path ${imagedir}/${test_image}.png

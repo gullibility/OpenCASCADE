@@ -13,5 +13,6 @@ checkshape b2
 
 bcut result b1 b2
 
-set square 863.938
-set 2dviewer 0
+checkprops result -s 863.938 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

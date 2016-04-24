@@ -23,6 +23,8 @@
 #include <WNT_Window.hxx>
 
 #include <string.h>
+IMPLEMENT_STANDARD_RTTIEXT(WNT_WClass,MMgt_TShared)
+
 //=======================================================================
 //function : WNT_WClass
 //purpose  : 
@@ -61,16 +63,16 @@ WNT_WClass::WNT_WClass (
 
   lpszName = new char[ strlen ( aClassName ) + 1 ];
   strcpy ( (Standard_PCharacter)lpszName, aClassName );
-  lpfnWndProc = wc.lpfnWndProc;
+  lpfnWndProc = (void* )wc.lpfnWndProc;
 
 }  // end constructor
 
 //=======================================================================
-//function : Destroy
+//function : ~WNT_WClass
 //purpose  : 
 //=======================================================================
 
-void WNT_WClass::Destroy ()
+WNT_WClass::~WNT_WClass ()
 {
 
  UnregisterClass (  lpszName, ( HINSTANCE )hInstance  );

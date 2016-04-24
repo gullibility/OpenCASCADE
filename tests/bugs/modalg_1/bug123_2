@@ -11,8 +11,9 @@ explode sh
 
 bfuse result sh_2 sh_1
 
-set square 81598.4
-set 2dviewer 0
+checkprops result -s 81598.4 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 
 

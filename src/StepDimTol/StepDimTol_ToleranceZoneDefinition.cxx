@@ -17,6 +17,8 @@
 
 #include <StepRepr_HArray1OfShapeAspect.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition,MMgt_TShared)
+
 //=======================================================================
 //function : StepDimTol_ToleranceZoneDefinition
 //purpose  : 
@@ -34,6 +36,6 @@ StepDimTol_ToleranceZoneDefinition::StepDimTol_ToleranceZoneDefinition ()
 void StepDimTol_ToleranceZoneDefinition::Init (const Handle(StepDimTol_ToleranceZone)& theZone,
                                                const Handle(StepRepr_HArray1OfShapeAspect)& theBoundaries)
 {
-  boundaries = theBoundaries;
-  zone = theZone;
+  myBoundaries = theBoundaries;
+  myZone = theZone;
 }

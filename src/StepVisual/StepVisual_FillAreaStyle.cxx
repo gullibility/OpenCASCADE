@@ -17,6 +17,8 @@
 #include <StepVisual_FillStyleSelect.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_FillAreaStyle,MMgt_TShared)
+
 StepVisual_FillAreaStyle::StepVisual_FillAreaStyle ()  {}
 
 void StepVisual_FillAreaStyle::Init(
@@ -56,5 +58,5 @@ StepVisual_FillStyleSelect StepVisual_FillAreaStyle::FillStylesValue(const Stand
 
 Standard_Integer StepVisual_FillAreaStyle::NbFillStyles () const
 {
-	return fillStyles->Length();
+  return (fillStyles.IsNull() ? 0 : fillStyles->Length());
 }

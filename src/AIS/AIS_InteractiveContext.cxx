@@ -62,6 +62,8 @@
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_InteractiveContext,MMgt_TShared)
+
 //#include <AIS_DataMapIteratorOfDataMapOfInteractiveInteger.hxx>
 namespace
 {
@@ -1429,6 +1431,15 @@ void AIS_InteractiveContext::SetLocation (const Handle(AIS_InteractiveObject)& t
     Handle(StdSelect_ViewerSelector3d) aTempSel = myLocalContexts (myCurLocalIndex)->MainSelector();
     mgrSelector->Update (theIObj, aTempSel, Standard_False);
   }
+
+  // if the object or its part is highlighted dynamically, it is necessary to apply location transformation
+  // to its highlight structure immediately
+  if (!myLastPicked.IsNull() && myLastPicked->Selectable() == theIObj)
+  {
+    myLastPicked->UpdateHighlightTrsf (myMainVwr,
+                                       myMainPM,
+                                       theIObj->HasDisplayMode() ? theIObj->DisplayMode() : 0);
+  }
 }
 
 //=======================================================================
@@ -1480,7 +1491,7 @@ void AIS_InteractiveContext::SetDeviationCoefficient (const Standard_Real theCoe
 //=======================================================================
 void AIS_InteractiveContext::SetDeviationAngle (const Standard_Real theAngle)
 {
-  myDefaultDrawer->SetDeviationCoefficient (theAngle);
+  myDefaultDrawer->SetDeviationAngle (theAngle);
 }
 
 //=======================================================================

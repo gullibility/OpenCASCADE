@@ -16,14 +16,9 @@
 #include <StepRepr_DescriptiveRepresentationItem.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_DescriptiveRepresentationItem,StepRepr_RepresentationItem)
+
 StepRepr_DescriptiveRepresentationItem::StepRepr_DescriptiveRepresentationItem ()  {}
-
-void StepRepr_DescriptiveRepresentationItem::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepRepr_DescriptiveRepresentationItem::Init(
 	const Handle(TCollection_HAsciiString)& aName,

@@ -18,6 +18,7 @@ checkshape s2
 
 bsection result s2 s1
 
-set length 39.8616
-set 3dviewer 1
-
+checkprops result -l 39.8616 
+checkshape result 
+checksection result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

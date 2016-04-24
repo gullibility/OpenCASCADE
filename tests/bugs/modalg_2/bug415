@@ -26,7 +26,8 @@ set testinfos(infoZ2) -0.3
 
 checkshape -top result
 
-set square 0.402138
-set 2dviewer 0
+checkprops result -s 0.402138 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 

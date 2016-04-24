@@ -1,0 +1,8 @@
+<map id="QANewBRepNaming_BooleanOperationFeat" name="QANewBRepNaming_BooleanOperationFeat">
+<area shape="rect" id="node3" href="$class_q_a_new_b_rep_naming___common.html" title="QANewBRepNaming_Common" alt="" coords="605,5,806,32"/>
+<area shape="rect" id="node4" href="$class_q_a_new_b_rep_naming___cut.html" title="QANewBRepNaming_Cut" alt="" coords="621,56,790,83"/>
+<area shape="rect" id="node5" href="$class_q_a_new_b_rep_naming___fuse.html" title="QANewBRepNaming_Fuse" alt="" coords="616,107,795,133"/>
+<area shape="rect" id="node6" href="$class_q_a_new_b_rep_naming___intersection.html" title="QANewBRepNaming_Intersection" alt="" coords="597,157,813,184"/>
+<area shape="rect" id="node7" href="$class_q_a_new_b_rep_naming___limitation.html" title="QANewBRepNaming_Limitation" alt="" coords="603,208,808,235"/>
+<area shape="rect" id="node2" href="$class_q_a_new_b_rep_naming___top_naming.html" title="The root class for all the primitives, features, ... " alt="" coords="6,107,221,133"/>
+</map>

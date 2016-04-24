@@ -18,15 +18,9 @@
 #include <StepBasic_Date.hxx>
 #include <StepBasic_DateRole.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AppliedDateAssignment,StepBasic_DateAssignment)
+
 StepAP214_AppliedDateAssignment::StepAP214_AppliedDateAssignment ()  {}
-
-void StepAP214_AppliedDateAssignment::Init(
-	const Handle(StepBasic_Date)& aAssignedDate,
-	const Handle(StepBasic_DateRole)& aRole)
-{
-
-  StepBasic_DateAssignment::Init(aAssignedDate, aRole);
-}
 
 void StepAP214_AppliedDateAssignment::Init(
 	const Handle(StepBasic_Date)& aAssignedDate,

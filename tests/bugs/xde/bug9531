@@ -1,5 +1,4 @@
 puts "TODO OCC12345 ALL: Error :  is WRONG because number of "
-puts "TODO OCC12345 ALL: OCC9531: Faulty"
 
 puts "============"
 puts "OCC9531"
@@ -35,36 +34,13 @@ if { ${IsOk} == 1} {
    set aTokList {= }
    set Tol1 [lindex [split [tolerance OCC9531a] ${aTokList}] 2]
    set Tol2 [lindex [split [tolerance OCC9531b] ${aTokList}] 2]
-   set percent_max 0.1
-   set Tolerance_percent [GetPercent ${Tol1} ${Tol2}]
-   puts "Tolerance_percent = ${Tolerance_percent} %"
-   if { ${Tolerance_percent}  > ${percent_max} } {
-      set IsOk 0
-   }
 
-   set good_square 5236.89
-
+   checkreal "Tolerance" ${Tol1} ${Tol2} 0 0.001
    checknbshapes OCC9531a -vertex 5748 -edge 5680 -wire 915 -face 899 -shell 0 -solid 0 -compsolid 0 -compound 1 -shape 13243
-
-   regexp {Mass +: +([-0-9.+eE]+)} [sprops OCC9531a] full sq1
-
-   if {$sq1 != $good_square} {
-      	 set IsOk 0
-   }	
-
+   checkprops OCC9531a -s 5236.89
+   checkprops OCC9531b -s 5236.89
    checknbshapes OCC9531b -vertex 5748 -edge 5680 -wire 915 -face 899 -shell 0 -solid 0 -compsolid 0 -compound 1 -shape 13243
-
-   regexp {Mass +: +([-0-9.+eE]+)} [sprops OCC9531b] full sq2
-   if {$sq2 != $good_square} {
-      	 set IsOk 0
-   }	
-
-   if { ${IsOk}  == 0 } {
-      puts "${BugNumber}: Faulty"
-   } else {
-      puts "${BugNumber}: OK"
-   }
 }
 
 renamevar OCC9531b result
-set 2dviewer 0
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -24,5 +24,7 @@ if {$length != 3} {
     puts "OCC715 OK"
 }
 
-set length 100.
-set 2dviewer 0
+checkprops result -l 100. 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

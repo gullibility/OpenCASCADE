@@ -1,0 +1,5 @@
+<map id="BVH_PrimitiveSet&lt; T, N &gt;" name="BVH_PrimitiveSet&lt; T, N &gt;">
+<area shape="rect" id="node4" href="$class_b_v_h___triangulation.html" title="Triangulation as an example of BVH primitive set. " alt="" coords="86,155,223,197"/>
+<area shape="rect" id="node2" href="$class_b_v_h___object.html" title="Abstract geometric object bounded by BVH box. " alt="" coords="5,5,147,32"/>
+<area shape="rect" id="node3" href="$class_b_v_h___set.html" title="Set of abstract entities (bounded by BVH boxes). This is the minimal geometry interface needed to con..." alt="" coords="171,5,295,32"/>
+</map>

@@ -28,6 +28,12 @@
 
 #include <OpenGl_GlCore32.hxx>
 
+#ifdef _WIN32
+  #include <malloc.h> // for alloca()
+#endif
+
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderProgram,OpenGl_Resource)
+
 OpenGl_VariableSetterSelector OpenGl_ShaderProgram::mySetterSelector = OpenGl_VariableSetterSelector();
 
 // Declare OCCT-specific OpenGL/GLSL shader variables
@@ -62,6 +68,7 @@ Standard_CString OpenGl_ShaderProgram::PredefinedKeywords[] =
   "occBackMaterial",       // OpenGl_OCCT_BACK_MATERIAL
   "occColor",              // OpenGl_OCCT_COLOR
 
+  "occTexTrsf2d",          // OpenGl_OCCT_TEXTURE_TRSF2D
   "occPointSize"           // OpenGl_OCCT_POINT_SIZE
 
 };
@@ -146,10 +153,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
    || !aDeclImplFile.Exists())
   {
     const TCollection_ExtendedString aMsg = "Error! Failed to load OCCT shader declarations file";
-    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                         GL_DEBUG_TYPE_ERROR_ARB,
+    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                         GL_DEBUG_TYPE_ERROR,
                          0,
-                         GL_DEBUG_SEVERITY_HIGH_ARB,
+                         GL_DEBUG_SEVERITY_HIGH,
                          aMsg);
     return Standard_False;
   }
@@ -175,10 +182,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
     if (!anIter.Value()->IsDone())
     {
       const TCollection_ExtendedString aMsg = "Error! Failed to get shader source";
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                           GL_DEBUG_TYPE_ERROR_ARB,
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                           GL_DEBUG_TYPE_ERROR,
                            0,
-                           GL_DEBUG_SEVERITY_HIGH_ARB,
+                           GL_DEBUG_SEVERITY_HIGH,
                            aMsg);
       return Standard_False;
     }
@@ -200,10 +207,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
     if (aShader.IsNull())
     {
       TCollection_ExtendedString aMsg = "Error! Unsupported shader type";
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                           GL_DEBUG_TYPE_ERROR_ARB,
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                           GL_DEBUG_TYPE_ERROR,
                            0,
-                           GL_DEBUG_SEVERITY_HIGH_ARB,
+                           GL_DEBUG_SEVERITY_HIGH,
                            aMsg);
       return Standard_False;
     }
@@ -241,10 +248,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
     if (!aShader->LoadSource (theCtx, aSource))
     {
       const TCollection_ExtendedString aMsg = "Error! Failed to set shader source";
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                           GL_DEBUG_TYPE_ERROR_ARB,
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                           GL_DEBUG_TYPE_ERROR,
                            0,
-                           GL_DEBUG_SEVERITY_HIGH_ARB,
+                           GL_DEBUG_SEVERITY_HIGH,
                            aMsg);
       aShader->Release (theCtx.operator->());
       return Standard_False;
@@ -258,10 +265,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
       {
         aLog = "Compilation log is empty.";
       }
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                           GL_DEBUG_TYPE_ERROR_ARB,
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                           GL_DEBUG_TYPE_ERROR,
                            0,
-                           GL_DEBUG_SEVERITY_HIGH_ARB,
+                           GL_DEBUG_SEVERITY_HIGH,
                            TCollection_ExtendedString ("Failed to compile shader object. Compilation log:\n") + aLog);
       aShader->Release (theCtx.operator->());
       return Standard_False;
@@ -273,10 +280,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
       if (!aLog.IsEmpty()
        && !aLog.IsEqual ("No errors.\n"))
       {
-        theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                             GL_DEBUG_TYPE_PORTABILITY_ARB,
+        theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                             GL_DEBUG_TYPE_PORTABILITY,
                              0,
-                             GL_DEBUG_SEVERITY_LOW_ARB,
+                             GL_DEBUG_SEVERITY_LOW,
                              TCollection_ExtendedString ("Shader compilation log:\n") + aLog);
       }
     }
@@ -294,6 +301,16 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
   SetAttributeName (theCtx, Graphic3d_TOA_UV,    "occTexCoord");
   SetAttributeName (theCtx, Graphic3d_TOA_COLOR, "occVertColor");
 
+  // bind custom Vertex Attributes
+  if (!myProxy.IsNull())
+  {
+    for (Graphic3d_ShaderAttributeList::Iterator anAttribIter (myProxy->VertexAttributes());
+         anAttribIter.More(); anAttribIter.Next())
+    {
+      SetAttributeName (theCtx, anAttribIter.Value()->Location(), anAttribIter.Value()->Name().ToCString());
+    }
+  }
+
   if (!Link (theCtx))
   {
     TCollection_AsciiString aLog;
@@ -302,10 +319,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
     {
       aLog = "Linker log is empty.";
     }
-    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                         GL_DEBUG_TYPE_ERROR_ARB,
+    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                         GL_DEBUG_TYPE_ERROR,
                          0,
-                         GL_DEBUG_SEVERITY_HIGH_ARB,
+                         GL_DEBUG_SEVERITY_HIGH,
                          TCollection_ExtendedString ("Failed to link program object! Linker log:\n") + aLog);
     return Standard_False;
   }
@@ -316,10 +333,10 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize (const Handle(OpenGl_Context)&
     if (!aLog.IsEmpty()
      && !aLog.IsEqual ("No errors.\n"))
     {
-      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB,
-                           GL_DEBUG_TYPE_PORTABILITY_ARB,
+      theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION,
+                           GL_DEBUG_TYPE_PORTABILITY,
                            0,
-                           GL_DEBUG_SEVERITY_LOW_ARB,
+                           GL_DEBUG_SEVERITY_LOW,
                            TCollection_ExtendedString ("GLSL linker log:\n") + aLog);
     }
   }
@@ -818,9 +835,11 @@ Standard_Boolean OpenGl_ShaderProgram::SetUniform (const Handle(OpenGl_Context)&
 
 #if !defined(GL_ES_VERSION_2_0)
   theCtx->core32->glUniform2uiv (theLocation, 1, theValue.GetData());
-#endif
-
   return Standard_True;
+#else
+  (void )theValue;
+  return Standard_False;
+#endif
 }
 
 // =======================================================================
@@ -851,9 +870,12 @@ Standard_Boolean OpenGl_ShaderProgram::SetUniform (const Handle(OpenGl_Context)&
 
 #if !defined(GL_ES_VERSION_2_0)
   theCtx->core32->glUniform2uiv (theLocation, theCount, theValue->GetData());
-#endif
-
   return Standard_True;
+#else
+  (void )theCount;
+  (void )theValue;
+  return Standard_False;
+#endif
 }
 
 // =======================================================================

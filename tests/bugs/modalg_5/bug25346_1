@@ -16,8 +16,9 @@ baddtools b2
 bfillds -s
 bbuild result
 
-set square 470659
+checkprops result -s 470659 
+checkshape result
 
 checknbshapes result -solid 3
 
-set 2dviewer 1
+checkview -display result -2d -path ${imagedir}/${test_image}.png

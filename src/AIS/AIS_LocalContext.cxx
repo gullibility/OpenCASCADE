@@ -49,6 +49,8 @@
 #include <V3d_Viewer.hxx>
 
 #include <stdio.h>
+IMPLEMENT_STANDARD_RTTIEXT(AIS_LocalContext,MMgt_TShared)
+
 static TCollection_AsciiString AIS_Local_SelName(const Standard_Address address,
                                                  const Standard_Integer anIndex)
 {
@@ -532,6 +534,7 @@ void AIS_LocalContext::ActivateStandardMode(const TopAbs_ShapeEnum aType)
       myCTX->SelectionManager()->Activate(ItM.Key(),
 					  IMode,
 					  myMainVS);
+    ItM.Value()->AddSelectionMode (IMode);
   }
   
 }
@@ -1003,8 +1006,10 @@ void AIS_LocalContext::ClearObjects()
 //	  myMainPM->Clear(SO,CurAtt->DisplayMode());}
       }
       else {
-	if (CurAtt->IsSubIntensityOn()){
-	  myCTX->SubIntensityOff(Handle(AIS_InteractiveObject)::DownCast(SO));}
+	if (CurAtt->IsSubIntensityOn())
+        {
+          myCTX->SubIntensityOff(SO);
+        }
 	Standard_Integer DiMo = SO->HasDisplayMode()?
 	  SO->DisplayMode():myCTX->DisplayMode();
 	if(CurAtt->DisplayMode()!=-1 &&

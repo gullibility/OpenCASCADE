@@ -20,15 +20,11 @@
 #include <StepBasic_TimeUnit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndTimeUnit,StepBasic_ConversionBasedUnit)
+
 StepBasic_ConversionBasedUnitAndTimeUnit::StepBasic_ConversionBasedUnitAndTimeUnit ()
 {
 }
-
-void StepBasic_ConversionBasedUnitAndTimeUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
-}
-
 
 void StepBasic_ConversionBasedUnitAndTimeUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions,
 						    const Handle(TCollection_HAsciiString)& aName,

@@ -18,14 +18,9 @@
 #include <StepShape_SolidReplica.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_SolidReplica,StepShape_SolidModel)
+
 StepShape_SolidReplica::StepShape_SolidReplica ()  {}
-
-void StepShape_SolidReplica::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_SolidReplica::Init(
 	const Handle(TCollection_HAsciiString)& aName,

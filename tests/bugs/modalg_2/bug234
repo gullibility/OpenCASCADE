@@ -22,5 +22,5 @@ if { [regexp {Faulty} $che] == 1 } {
     puts "OCC234 OK (checkshape) : Checkshape command works properly"
 }
 
-set square 2464.17
-set 2dviewer 0
+checkprops result -s 2464.17 
+checkview -display result -2d -path ${imagedir}/${test_image}.png

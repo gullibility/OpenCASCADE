@@ -1,0 +1,6 @@
+<map id="BRepFill_SectionLaw" name="BRepFill_SectionLaw">
+<area shape="rect" id="node4" href="$class_b_rep_fill___n_sections.html" title="Build Section Law, with N Sections. " alt="" coords="5,229,144,256"/>
+<area shape="rect" id="node5" href="$class_b_rep_fill___shape_law.html" title="Build Section Law, with an Vertex, or an Wire. " alt="" coords="168,229,307,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="101,80,211,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="89,5,223,32"/>
+</map>

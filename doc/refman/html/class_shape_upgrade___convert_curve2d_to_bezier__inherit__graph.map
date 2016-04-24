@@ -1,0 +1,6 @@
+<map id="ShapeUpgrade_ConvertCurve2dToBezier" name="ShapeUpgrade_ConvertCurve2dToBezier">
+<area shape="rect" id="node2" href="$class_shape_upgrade___split_curve2d.html" title="Splits a 2d curve with a criterion. " alt="" coords="13,229,200,256"/>
+<area shape="rect" id="node3" href="$class_shape_upgrade___split_curve.html" title="Splits a curve with a criterion. " alt="" coords="21,155,192,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="51,80,161,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="39,5,173,32"/>
+</map>

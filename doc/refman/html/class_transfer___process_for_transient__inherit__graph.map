@@ -1,0 +1,5 @@
+<map id="Transfer_ProcessForTransient" name="Transfer_ProcessForTransient">
+<area shape="rect" id="node4" href="$class_transfer___transient_process.html" title="Adds specific features to the generic definition : TransientProcess is intended to work from an Inter..." alt="" coords="15,229,191,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="47,80,157,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="35,5,169,32"/>
+</map>

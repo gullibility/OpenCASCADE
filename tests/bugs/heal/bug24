@@ -21,5 +21,6 @@ if [catch { OCC24 result s c OCC24 Seq } ] {
   puts "OCC24 OK"
 }
 
-set square 37.6991
-set 2dviewer 2
+checkprops result -s 37.6991
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

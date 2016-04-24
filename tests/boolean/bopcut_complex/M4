@@ -15,4 +15,5 @@ btolx b
 bop a b
 bopcut result
 
-set square 5609.09
+checkprops result -s 5609.09
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

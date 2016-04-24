@@ -18,6 +18,8 @@
 #include <StepDimTol_GeometricToleranceTarget.hxx>
 #include <StepDimTol_HArray1OfGeometricToleranceModifier.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithModifiers,StepDimTol_GeometricTolerance)
+
 //=======================================================================
 //function : StepDimTol_GeometricToleranceWithModifiers
 //purpose  : 
@@ -39,5 +41,5 @@ void StepDimTol_GeometricToleranceWithModifiers::Init (const Handle(TCollection_
                                                        const Handle(StepDimTol_HArray1OfGeometricToleranceModifier) &theModifiers)
 {
   StepDimTol_GeometricTolerance::Init(theName, theDescription, theMagnitude, theTolerancedShapeAspect);
-  modifiers = theModifiers;
+  myModifiers = theModifiers;
 }

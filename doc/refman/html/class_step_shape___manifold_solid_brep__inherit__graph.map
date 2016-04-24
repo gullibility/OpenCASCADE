@@ -1,0 +1,10 @@
+<map id="StepShape_ManifoldSolidBrep" name="StepShape_ManifoldSolidBrep">
+<area shape="rect" id="node7" href="$class_step_shape___brep_with_voids.html" title="StepShape_BrepWithVoids" alt="" coords="1361,5,1541,32"/>
+<area shape="rect" id="node8" href="$class_step_shape___faceted_brep.html" title="StepShape_FacetedBrep" alt="" coords="1367,56,1534,83"/>
+<area shape="rect" id="node9" href="$class_step_shape___faceted_brep_and_brep_with_voids.html" title="StepShape_FacetedBrepAnd\lBrepWithVoids" alt="" coords="1355,107,1546,149"/>
+<area shape="rect" id="node2" href="$class_step_shape___solid_model.html" title="StepShape_SolidModel" alt="" coords="904,56,1061,83"/>
+<area shape="rect" id="node3" href="$class_step_geom___geometric_representation_item.html" title="StepGeom_GeometricRepresentationItem" alt="" coords="593,56,855,83"/>
+<area shape="rect" id="node4" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="349,56,544,83"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,56,301,83"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,56,141,83"/>
+</map>

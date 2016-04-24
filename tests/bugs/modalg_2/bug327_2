@@ -12,5 +12,5 @@ if { [regexp {OK} $che] == 1 } {
     puts " OCC327  case 2: Faulty"
 }
 
-set square 5674.84
-set 2dviewer 0
+checkprops result -s 5674.84 
+checkview -display result -2d -path ${imagedir}/${test_image}.png

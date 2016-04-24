@@ -25,9 +25,11 @@
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(CDM_Application,Standard_Transient)
+
 //=======================================================================
 //function : SetDocumentVersion
-//purpose  :
+//purpose  : 
 //=======================================================================
 void CDM_Application::SetDocumentVersion
                         (const Handle(CDM_Document)& aDocument,
@@ -38,7 +40,7 @@ void CDM_Application::SetDocumentVersion
 
 //=======================================================================
 //function : SetReferenceCounter
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void CDM_Application::SetReferenceCounter
@@ -50,7 +52,7 @@ void CDM_Application::SetReferenceCounter
 
 //=======================================================================
 //function : MessageDriver
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 Handle(CDM_MessageDriver) CDM_Application::MessageDriver()
@@ -62,7 +64,7 @@ Handle(CDM_MessageDriver) CDM_Application::MessageDriver()
 
 //=======================================================================
 //function : Write
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void CDM_Application::Write(const Standard_ExtString aString)
@@ -72,7 +74,7 @@ void CDM_Application::Write(const Standard_ExtString aString)
 
 //=======================================================================
 //function : BeginOfUpdate
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void CDM_Application::BeginOfUpdate (const Handle(CDM_Document)& aDocument)
@@ -84,20 +86,20 @@ void CDM_Application::BeginOfUpdate (const Handle(CDM_Document)& aDocument)
 
 //=======================================================================
 //function : EndOfUpdate
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void CDM_Application::EndOfUpdate
                         (const Handle(CDM_Document)&       aDocument,
-                         const Standard_Boolean            CDMStatus,
+                         const Standard_Boolean            Status,
                          const TCollection_ExtendedString& /*ErrorString*/)
 {
   TCollection_ExtendedString message;
-  if (CDMStatus)
+  if (Status) 
     message="Updated:";
   else
     message="Error during updating:";
-
+      
   message+=aDocument->Presentation();
   Write(message.ToExtString());
 }

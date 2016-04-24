@@ -1,5 +1,5 @@
-puts "TODO OCC23068 ALL: Error : The offset is not valid"
-puts "TODO OCC26556 ALL: ERROR. offsetperform operation not done."
+puts "TODO OCC23068 All: ERROR. offsetperform operation not done."
+puts "TODO OCC23068 All: Error : The volume of result shape is"
 # Original bug : hkg60144
 # Date : 17Juillet98
 
@@ -8,4 +8,6 @@ explode s f
 
 offsetshape result s -5 s_1
 
-set volume 0
+
+checkprops result -v 2.12817e+006
+

@@ -6,4 +6,5 @@ restore [locate_data_file m2_t] m2_t
 bop m2_o m2_t
 bopcut result
 
-set square 266.995
+checkprops result -s 266.995
+checkview -display result -2d -otherwise { m2_o m2_t } -s -path ${imagedir}/${test_image}.png

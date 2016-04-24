@@ -1,0 +1,6 @@
+<map id="ShapeExtend_ComplexCurve" name="ShapeExtend_ComplexCurve">
+<area shape="rect" id="node2" href="$class_geom___curve.html" title="The abstract class Curve describes the common behavior of curves in 3D space. The Geom package provid..." alt="" coords="52,229,148,256"/>
+<area shape="rect" id="node3" href="$class_geom___geometry.html" title="The abstract class Geometry for 3D space is the root class of all geometric objects from the Geom pac..." alt="" coords="39,155,160,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="45,80,155,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="33,5,167,32"/>
+</map>

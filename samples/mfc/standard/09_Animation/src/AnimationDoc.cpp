@@ -81,9 +81,9 @@ CAnimationDoc::CAnimationDoc()
   int index = aDataDirPath.ReverseFind ('\\');
   aDataDirPath.Delete (index + 1, aDataDirPath.GetLength() - index - 1);*/
 
-  CString CASROOTValue;
-  CASROOTValue.GetEnvironmentVariable (L"CASROOT");
-  CString aDataDirPath = (CASROOTValue + "\\data\\occ");
+  CString SHAREPATHValue;
+  SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+  CString aDataDirPath = (SHAREPATHValue + "\\occ");
 
   std::filebuf aFileBuf;
   std::istream aStream (&aFileBuf);
@@ -380,7 +380,7 @@ void CAnimationDoc::OnFileLoadgrid()
       CString C = dlg.GetPathName();
       SetCursor(AfxGetApp()->LoadStandardCursor(IDC_WAIT));
 
-      Handle_Geom_BSplineSurface mySurface;
+      Handle(Geom_BSplineSurface) mySurface;
 
       if(grid2surf(C,mySurface ))
 	{

@@ -22,5 +22,6 @@ checkshape rcut1
 
 bfuse result rcut1 ff
 
-set square 1579.81
-set 3dviewer 1
+checkprops result -s 1579.81 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

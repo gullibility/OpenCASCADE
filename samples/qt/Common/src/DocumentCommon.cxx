@@ -187,7 +187,7 @@ void DocumentCommon::onColor()
     QColor aColor ;
     Quantity_Color aShapeColor;
     myContext->InitCurrent();
-    Handle_AIS_InteractiveObject Current = myContext->Current() ;
+    Handle(AIS_InteractiveObject) Current = myContext->Current() ;
     if ( Current->HasColor () )
     {
         aShapeColor = myContext->Color( Current );
@@ -236,5 +236,6 @@ void DocumentCommon::onDelete()
 {
     myContext->EraseSelected (Standard_False);
     myContext->ClearSelected();
+    myContext->UpdateCurrentViewer();
     getApplication()->onSelectionChanged();
 }

@@ -26,10 +26,12 @@
 #include <Standard_ProgramError.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_DiameterDimension,AIS_Dimension)
+
 namespace
 {
   static const Standard_ExtCharacter THE_DIAMETER_SYMBOL (0x00D8);
-};
+}
 
 //=======================================================================
 //function : Constructor

@@ -23,5 +23,6 @@ checkshape res1
 bop b res1
 bopcut result
 
-set square 4.84596
-set 3dviewer 0
+checkprops result -s 4.84596 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

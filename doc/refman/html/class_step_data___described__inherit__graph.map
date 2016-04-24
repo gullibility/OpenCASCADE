@@ -1,0 +1,6 @@
+<map id="StepData_Described" name="StepData_Described">
+<area shape="rect" id="node4" href="$class_step_data___plex.html" title="A Plex (for Complex) Entity is defined as a list of Simple Members (&quot;external mapping&quot;) The types of ..." alt="" coords="5,229,115,256"/>
+<area shape="rect" id="node5" href="$class_step_data___simple.html" title="A Simple Entity is defined by a type (which can heve super types) and a list of parameters. " alt="" coords="139,229,261,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="74,80,184,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="62,5,196,32"/>
+</map>

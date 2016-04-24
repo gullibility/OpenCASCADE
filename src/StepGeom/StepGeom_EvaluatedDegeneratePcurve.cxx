@@ -19,16 +19,9 @@
 #include <StepRepr_DefinitionalRepresentation.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_EvaluatedDegeneratePcurve,StepGeom_DegeneratePcurve)
+
 StepGeom_EvaluatedDegeneratePcurve::StepGeom_EvaluatedDegeneratePcurve ()  {}
-
-void StepGeom_EvaluatedDegeneratePcurve::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepGeom_Surface)& aBasisSurface,
-	const Handle(StepRepr_DefinitionalRepresentation)& aReferenceToCurve)
-{
-
-	StepGeom_DegeneratePcurve::Init(aName, aBasisSurface, aReferenceToCurve);
-}
 
 void StepGeom_EvaluatedDegeneratePcurve::Init(
 	const Handle(TCollection_HAsciiString)& aName,

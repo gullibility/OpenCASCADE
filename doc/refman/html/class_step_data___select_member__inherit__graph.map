@@ -1,0 +1,22 @@
+<map id="StepData_SelectMember" name="StepData_SelectMember">
+<area shape="rect" id="node4" href="$class_step_data___select_int.html" title="A SelectInt is a SelectMember specialised for a basic integer type in a select which also accepts ent..." alt="" coords="579,72,714,99"/>
+<area shape="rect" id="node7" href="$class_step_data___select_named.html" title="This select member can be of any kind, and be named But its takes more memory than some specialised o..." alt="" coords="566,345,727,372"/>
+<area shape="rect" id="node18" href="$class_step_data___select_real.html" title="A SelectReal is a SelectMember specialised for a basic real type in a select which also accepts entit..." alt="" coords="573,643,720,669"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,345,301,372"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,345,141,372"/>
+<area shape="rect" id="node5" href="$class_step_dim_tol___simple_datum_reference_modifier_member.html" title="Defines SimpleDatumReferenceModifier as unique member of DatumReferenceModifier Works with an EnumToo..." alt="" coords="777,6,1009,47"/>
+<area shape="rect" id="node6" href="$class_step_visual___marker_member.html" title="Defines MarkerType as unique member of MarkerSelect Works with an EnumTool. " alt="" coords="804,72,983,99"/>
+<area shape="rect" id="node8" href="$class_step_data___select_arr_real.html" title="StepData_SelectArrReal" alt="" coords="812,123,975,149"/>
+<area shape="rect" id="node11" href="$class_step_element___curve_element_freedom_member.html" title="Representation of member for STEP SELECT type CurveElementFreedom. " alt="" coords="801,174,985,215"/>
+<area shape="rect" id="node12" href="$class_step_element___curve_element_purpose_member.html" title="Representation of member for STEP SELECT type CurveElementPurpose. " alt="" coords="801,239,985,281"/>
+<area shape="rect" id="node13" href="$class_step_element___element_aspect_member.html" title="Representation of member for STEP SELECT type ElementAspect. " alt="" coords="797,305,990,346"/>
+<area shape="rect" id="node14" href="$class_step_element___measure_or_unspecified_value_member.html" title="Representation of member for STEP SELECT type MeasureOrUnspecifiedValue. " alt="" coords="776,370,1011,411"/>
+<area shape="rect" id="node15" href="$class_step_element___surface_element_purpose_member.html" title="Representation of member for STEP SELECT type SurfaceElementPurpose. " alt="" coords="795,435,991,477"/>
+<area shape="rect" id="node16" href="$class_step_element___volume_element_purpose_member.html" title="Representation of member for STEP SELECT type VolumeElementPurpose. " alt="" coords="795,501,991,542"/>
+<area shape="rect" id="node17" href="$class_step_f_e_a___degree_of_freedom_member.html" title="Representation of member for STEP SELECT type CurveElementFreedom. " alt="" coords="776,567,1011,593"/>
+<area shape="rect" id="node9" href="$class_step_f_e_a___symmetric_tensor23d_member.html" title="Representation of member for STEP SELECT type SymmetricTensor23d. " alt="" coords="1059,82,1264,123"/>
+<area shape="rect" id="node10" href="$class_step_f_e_a___symmetric_tensor43d_member.html" title="Representation of member for STEP SELECT type SymmetricTensor43d. " alt="" coords="1059,147,1264,189"/>
+<area shape="rect" id="node19" href="$class_step_basic___measure_value_member.html" title="for Select MeasureValue, i.e. : length_measure,time_measure,plane_angle_measure, solid_angle_measure..." alt="" coords="784,617,1003,644"/>
+<area shape="rect" id="node20" href="$class_step_basic___size_member.html" title="For immediate members of SizeSelect, i.e. : ParameterValue (a Real) " alt="" coords="812,668,975,695"/>
+<area shape="rect" id="node21" href="$class_step_geom___trimming_member.html" title="For immediate members of TrimmingSelect, i.e. : ParameterValue (a Real) " alt="" coords="798,719,989,745"/>
+</map>

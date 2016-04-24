@@ -10,6 +10,8 @@ checkshape b
 
 bsection result a b
 
-set length 1475.98
-set 2dviewer 0
+checkprops result -l 1475.98 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

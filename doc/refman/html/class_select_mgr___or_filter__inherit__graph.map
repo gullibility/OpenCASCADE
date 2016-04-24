@@ -1,0 +1,6 @@
+<map id="SelectMgr_OrFilter" name="SelectMgr_OrFilter">
+<area shape="rect" id="node2" href="$class_select_mgr___composition_filter.html" title="A framework to define a compound filter composed of two or more simple filters. " alt="" coords="5,229,195,256"/>
+<area shape="rect" id="node3" href="$class_select_mgr___filter.html" title="The root class to define filter objects for selection. Advance handling of objects requires the servi..." alt="" coords="41,155,159,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="45,80,155,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="33,5,167,32"/>
+</map>

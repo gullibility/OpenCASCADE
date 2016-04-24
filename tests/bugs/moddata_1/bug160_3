@@ -19,7 +19,7 @@ if {$nf < 6} {
    puts "Error : the resulting shape is unclosed!!!"
 }
 
-set square 328116
-set 2dviewer 0
+checkprops result -s 328116
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 

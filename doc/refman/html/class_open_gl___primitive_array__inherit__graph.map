@@ -1,0 +1,8 @@
+<map id="OpenGl_PrimitiveArray" name="OpenGl_PrimitiveArray">
+<area shape="rect" id="node3" href="$class_open_gl___background_array.html" title="Tool class for generating reusable data for gradient or texture background rendering. " alt="" coords="5,155,179,181"/>
+<area shape="rect" id="node4" href="$class_open_gl___quadric.html" title="Class for rendering of arbitrary primitive array. Tool class for generating tessellation of quadric s..." alt="" coords="203,155,321,181"/>
+<area shape="rect" id="node2" href="$class_open_gl___element.html" title="Base interface for drawable elements. " alt="" coords="117,5,237,32"/>
+<area shape="rect" id="node5" href="$class_open_gl___cylinder.html" title="Tool class for generating cylinder tessellation of quadric surface. " alt="" coords="69,229,189,256"/>
+<area shape="rect" id="node6" href="$class_open_gl___disk.html" title="Tool class for generating disk (circle) tessellation. " alt="" coords="213,229,312,256"/>
+<area shape="rect" id="node7" href="$class_open_gl___sphere.html" title="Tool class for generating sphere tessellation. " alt="" coords="336,229,451,256"/>
+</map>

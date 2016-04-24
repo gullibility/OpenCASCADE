@@ -18,6 +18,6 @@ checkshape s2
 
 bcommon result s1 s2
 
-set square 560.908
-set 3dviewer 1
-
+checkprops result -s 560.908 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

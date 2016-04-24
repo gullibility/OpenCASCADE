@@ -1,6 +1,9 @@
 restore [locate_data_file case_7_face.brep] a
 restore [locate_data_file case_7_edge1.brep] b
+
 bcommon result b a
-set length 482.392
-set nbsh_v 6
-set nbsh_e 3
+
+checkprops result -l 482.392
+checksection result
+checknbshapes result -vertex 6 -edge 3 -t
+

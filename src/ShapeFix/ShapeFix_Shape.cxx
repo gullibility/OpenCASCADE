@@ -40,6 +40,8 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Wire.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Shape,ShapeFix_Root)
+
 //=======================================================================
 //function : ShapeFix_Shape
 //purpose  : 
@@ -100,7 +102,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Handle(Message_ProgressIndicator)
 {
   Standard_Integer savFixSmallAreaWireMode = 0;
   Standard_Integer savFixVertexTolMode =  myFixVertexTolMode;
-  Handle(ShapeFix_Face) fft = Handle(ShapeFix_Face)::DownCast( FixFaceTool() );
+  Handle(ShapeFix_Face) fft = FixFaceTool();
   if ( !fft.IsNull() ) {
     savFixSmallAreaWireMode = fft->FixSmallAreaWireMode();
     if ( savFixSmallAreaWireMode == -1 &&
@@ -257,11 +259,14 @@ Standard_Boolean ShapeFix_Shape::Perform(const Handle(Message_ProgressIndicator)
       // for case when vertex belong to the different faces it is necessary to check vertices tolerances
       //after all fixes.
       //This fix it should be performed for example for case when cutting edge was performed.
-
       Handle(ShapeFix_Edge) sfe = FixEdgeTool();
-      TopExp_Explorer anExpE (myResult, TopAbs_EDGE);
-      for ( ; anExpE.More(); anExpE.Next()) 
-        sfe->FixVertexTolerance( TopoDS::Edge (anExpE.Current()));
+      for (anExpF.ReInit(); anExpF.More(); anExpF.Next()) 
+      {
+        TopoDS_Face aF = TopoDS::Face(anExpF.Current());
+        TopExp_Explorer anExpE (aF, TopAbs_EDGE);
+        for ( ; anExpE.More(); anExpE.Next()) 
+          sfe->FixVertexTolerance( TopoDS::Edge (anExpE.Current()), aF);
+      }
     }
   }
   myResult = Context()->Apply(myResult);

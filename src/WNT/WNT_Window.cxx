@@ -25,6 +25,9 @@
 #include <WNT_Window.hxx>
 
 #include <stdio.h>
+
+IMPLEMENT_STANDARD_RTTIEXT(WNT_Window,Aspect_Window)
+
 // =======================================================================
 // function : WNT_Window
 // purpose  :
@@ -120,10 +123,10 @@ WNT_Window::WNT_Window (const Aspect_Handle        theHandle,
 }
 
 // =======================================================================
-// function : Destroy
+// function : ~WNT_Window
 // purpose  :
 // =======================================================================
-void WNT_Window::Destroy()
+WNT_Window::~WNT_Window()
 {
   if (myHWindow == NULL
    || myIsForeign)
@@ -218,10 +221,10 @@ Aspect_TypeOfResize WNT_Window::DoResize() const
 
   if (wp.showCmd != SW_SHOWMINIMIZED)
   {
-    if (Abs (wp.rcNormalPosition.left   - aXLeft  ) > 2) mask |= 1;
-    if (Abs (wp.rcNormalPosition.right  - aXRight ) > 2) mask |= 2;
-    if (Abs (wp.rcNormalPosition.top    - aYTop   ) > 2) mask |= 4;
-    if (Abs (wp.rcNormalPosition.bottom - aYBottom) > 2) mask |= 8;
+    if (Abs ((int )wp.rcNormalPosition.left   - aXLeft  ) > 2) mask |= 1;
+    if (Abs ((int )wp.rcNormalPosition.right  - aXRight ) > 2) mask |= 2;
+    if (Abs ((int )wp.rcNormalPosition.top    - aYTop   ) > 2) mask |= 4;
+    if (Abs ((int )wp.rcNormalPosition.bottom - aYBottom) > 2) mask |= 8;
 
     switch (mask)
     {

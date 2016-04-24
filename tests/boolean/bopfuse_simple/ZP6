@@ -17,4 +17,5 @@ bopfuse x1
 bop x1 a2
 bopfuse result
 
-set square 197700
+checkprops result -s 197700
+checkview -display result -2d -otherwise { x1 a2 } -s -path ${imagedir}/${test_image}.png

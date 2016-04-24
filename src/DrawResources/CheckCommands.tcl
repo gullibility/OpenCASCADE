@@ -170,15 +170,23 @@ proc _check_arg {check_name check_result {get_value 0}} {
   upvar narg narg
   upvar args args
   if { $arg == ${check_name} } {
-    if {${get_value}} {
+    if { ${get_value} == "?" } {
+      set next_arg_index [expr $narg + 1]
+      if { $next_arg_index < [llength $args] && ! [regexp {^-[^0-9]} [lindex $args $next_arg_index]] } {
+        set ${check_result} "[lindex $args $next_arg_index]"
+        set narg ${next_arg_index}
+      } else {
+        set ${check_result} "true"
+      }
+    } elseif {${get_value}} {
       incr narg
-      if { $narg < [llength $args] && ! [regexp {^-} [lindex $args $narg]] } {
+      if { $narg < [llength $args] && ! [regexp {^-[^0-9]} [lindex $args $narg]] } {
         set ${check_result} "[lindex $args $narg]"
       } else {
         error "Option ${check_result} requires argument"
       }
     } else {
-      set ${check_result} 1
+      set ${check_result} "true"
     }
     return 1
   }
@@ -448,4 +456,569 @@ proc checkfaults {shape source_shape {ref_value 0}} {
   if { $nb_r > $nb_a } {
     puts "Error : Number of faults is $nb_r"
   }
+}
+
+# auxiliary: check all arguments
+proc _check_args { args {options {}} {command_name ""}} {
+  # check arguments
+  for {set narg 0} {${narg} < [llength ${args}]} {incr narg} {
+    set arg [lindex ${args} ${narg}]
+    set toContinue 0
+    foreach option ${options} {
+      set option_name            [lindex ${option} 0]
+      set variable_to_save_value [lindex ${option} 1]
+      set get_value              [lindex ${option} 2]
+      set local_value ""
+      if { [_check_arg ${option_name} local_value ${get_value}] } {
+        upvar ${variable_to_save_value} ${variable_to_save_value}
+        set ${variable_to_save_value} ${local_value}
+        set toContinue 1
+      }
+    }
+    if {${toContinue}} { continue }
+    # unsupported option
+    if { [regexp {^-} ${arg}] } {
+      error "Error: unsupported option \"${arg}\""
+    }
+    error "Error: cannot interpret argument ${narg} (${arg})"
+  }
+  foreach option ${options} {
+    set option_name            [lindex ${option} 0]
+    set variable_to_save_value [lindex ${option} 1]
+    set should_exist           [lindex ${option} 3]
+    if {![info exists ${variable_to_save_value}] && ${should_exist} == 1} {
+      error "Error: wrong using of command '${command_name}', '${option_name}' option is required"
+    }
+  }
+}
+
+help checkprops {
+  Procedure includes commands to compute length, area and volume of input shape.
+
+  Use: checkprops shapename [options...]
+  Allowed options are:
+    -l LENGTH: command lprops, computes the mass properties of all edges in the shape with a linear density of 1
+    -s AREA: command sprops, computes the mass properties of all faces with a surface density of 1 
+    -v VOLUME: command vprops, computes the mass properties of all solids with a density of 1
+    -eps EPSILON: the epsilon defines relative precision of computation
+    -equal SHAPE: compare area\volume\length of input shapes. Puts error if its are not equal
+    -notequal SHAPE: compare area\volume\length of input shapes. Puts error if its are equal
+    -skip: count shared shapes only once, skipping repeatitions
+  Options -l, -s and -v are independent and can be used in any order. Tolerance epsilon is the same for all options.
+}
+
+proc checkprops {shape args} {
+    puts "checkprops ${shape} ${args}"
+    upvar ${shape} ${shape}
+
+    if {![isdraw ${shape}] || [regexp "${shape} is a \n" [whatis ${shape}]]} {
+        puts "Error: The command cannot be built"
+        return
+    }
+
+    set length -1
+    set area -1
+    set volume -1
+    set epsilon 1.0e-4
+    set compared_equal_shape -1
+    set compared_notequal_shape -1
+    set equal_check 0
+    set skip 0
+
+    set options {{"-eps" epsilon 1}
+                 {"-equal" compared_equal_shape 1}
+                 {"-notequal" compared_notequal_shape 1}
+                 {"-skip" skip 0}}
+
+    if { [regexp {\-[not]*equal} $args] } {
+        lappend options {"-s" area 0}
+        lappend options {"-l" length 0}
+        lappend options {"-v" volume 0}
+        set equal_check 1
+    } else {
+        lappend options {"-s" area 1}
+        lappend options {"-l" length 1}
+        lappend options {"-v" volume 1}
+    }
+    _check_args ${args} ${options} "checkprops"
+
+    if { ${length} != -1 || ${equal_check} == 1 } {
+        set CommandName lprops
+        set mass $length
+        set prop "length"
+        set equal_check 0
+    }
+    if { ${area} != -1 || ${equal_check} == 1 } {
+        set CommandName sprops
+        set mass $area
+        set prop "area"
+        set equal_check 0
+    }
+    if { ${volume} != -1 || ${equal_check} == 1 } {
+        set CommandName vprops
+        set mass $volume
+        set prop "volume"
+        set equal_check 0
+    }
+
+    set skip_option ""
+    if { $skip } {
+        set skip_option "-skip"
+    }
+        
+    
+    regexp {Mass +: +([-0-9.+eE]+)} [eval ${CommandName} ${shape} ${epsilon} $skip_option] full m
+
+    if { ${compared_equal_shape} != -1 } {
+        upvar ${compared_equal_shape} ${compared_equal_shape}
+        regexp {Mass +: +([-0-9.+eE]+)} [eval ${CommandName} ${compared_equal_shape} ${epsilon} $skip_option] full compared_m
+        if { $compared_m != $m } {
+            puts "Error: Shape ${compared_equal_shape} is not equal to shape ${shape}"
+        }
+    }
+
+    if { ${compared_notequal_shape} != -1 } {
+        upvar ${compared_notequal_shape} ${compared_notequal_shape}
+        regexp {Mass +: +([-0-9.+eE]+)} [eval ${CommandName} ${compared_notequal_shape} ${epsilon} $skip_option] full compared_m
+        if { $compared_m == $m } {
+            puts "Error: Shape ${compared_notequal_shape} is equal shape to ${shape}"
+        }
+    }
+
+    if { ${compared_equal_shape} == -1 && ${compared_notequal_shape} == -1 } {
+        if { [string compare "$mass" "empty"] != 0 } {
+            if { $m == 0 } {
+                puts "Error : The command is not valid. The $prop is 0."
+            }
+            if { $mass > 0 } {
+                puts "The expected $prop is $mass"
+            }
+            #check of change of area is < 1%
+            if { ($mass != 0 && [expr 1.*abs($mass - $m)/$mass] > 0.01) || ($mass == 0 && $m != 0) } {
+                puts "Error : The $prop of result shape is $m"
+            }
+        } else {
+            if { $m != 0 } {
+                puts "Error : The command is not valid. The $prop is $m"
+            }
+        }
+    }
+}
+
+help checkdump {
+  Procedure includes command to parse output dump and compare it with reference values.
+
+  Use: checkdump shapename [options...]
+  Allowed options are:
+    -name NAME: list of parsing parameters (e.g. Center, Axis, etc)
+    -ref VALUE: list of reference values for each parameter in NAME 
+    -eps EPSILON: the epsilon defines relative precision of computation
+}
+
+proc checkdump {shape args} {
+    puts "checkdump ${shape} ${args}"
+    upvar ${shape} ${shape}
+
+    set ddump -1
+    set epsilon -1
+    set options {{"-name" params 1}
+                 {"-ref" ref 1}
+                 {"-eps" epsilon 1}
+                 {"-dump" ddump 1}}
+
+    if { ${ddump} == -1 } {
+        set ddump [dump ${shape}]
+    }
+    _check_args ${args} ${options} "checkdump"
+
+    set index 0
+    foreach param ${params} {
+        set pattern "${param}\\s*:\\s*" 
+        set number_pattern "(\[-0-9.+eE\]+)\\s*" 
+        set ref_values ""
+        set local_ref ${ref}
+        if { [llength ${params}] > 1 } {
+            set local_ref [lindex ${ref} ${index}]
+        }
+        foreach item ${local_ref} {
+            if { ![regexp "$pattern$number_pattern" $ddump full res] } {
+                puts "Error: cheked parameter ${param} is not listed in dump"
+                break
+            }
+            lappend ref_values $res 
+            set pattern "${pattern}${res},\\s*" 
+            ## without precision
+            if { ${epsilon} == -1 } {
+                if { ${item} != ${res} } {
+                    puts "Error: parameter ${param} - current value (${res}) is not equal to reference value (${item})"
+                } else {
+                    puts "OK: parameter ${param} - current value (${res}) is equal to reference value (${item})"
+                }
+            ## with precision
+            } else {
+                set precision 0.0000001
+                if { ( abs($res) > $precision ) || ( abs($item) > $precision ) } {
+                    if { ($item != 0 && [expr 1.*abs($item - $res)/$item] > $epsilon) || ($item == 0 && $res != 0) } {
+                        puts "Error: The $param of the resulting shape is $res and the expected $param is $item"
+                    } else {
+                        puts "OK: parameter ${param} - current value (${res}) is equal to reference value (${item})"
+                    }
+                }
+            }
+        }
+        incr index
+    }
+}
+
+help checklength {
+  Procedure includes commands to compute length of input curve.
+
+  Use: checklength curvename [options...]
+  Allowed options are:
+    -l LENGTH: command length, computes the length of input curve with precision of computation
+    -eps EPSILON: the epsilon defines relative precision of computation
+    -equal CURVE: compare length of input curves. Puts error if its are not equal
+    -notequal CURVE: compare length of input curves. Puts error if its are equal
+}
+
+proc checklength {shape args} {
+    puts "checklength ${shape} ${args}"
+    upvar ${shape} ${shape}
+
+    if {![isdraw ${shape}] || [regexp "${shape} is a \n" [whatis ${shape}]]} {
+        puts "Error: The command cannot be built"
+        return
+    }
+
+    set length -1
+    set epsilon 1.0e-4
+    set compared_equal_shape -1
+    set compared_notequal_shape -1
+    set equal_check 0
+
+    set options {{"-eps" epsilon 1}
+                 {"-equal" compared_equal_shape 1}
+                 {"-notequal" compared_notequal_shape 1}}
+
+    if { [regexp {\-[not]*equal} $args] } {
+        lappend options {"-l" length 0}
+        set equal_check 1
+    } else {
+        lappend options {"-l" length 1}
+    }
+    _check_args ${args} ${options} "checkprops"
+
+    if { ${length} != -1 || ${equal_check} == 1 } {
+        set CommandName length
+        set mass $length
+        set prop "length"
+        set equal_check 0
+    }
+
+    regexp "The +length+ ${shape} +is +(\[-0-9.+eE\]+)" [${CommandName} ${shape} ${epsilon}] full m
+
+    if { ${compared_equal_shape} != -1 } {
+        upvar ${compared_equal_shape} ${compared_equal_shape}
+        regexp "The +length+ ${compared_equal_shape} +is +(\[-0-9.+eE\]+)" [${CommandName} ${compared_equal_shape} ${epsilon}] full compared_m
+        if { $compared_m != $m } {
+            puts "Error: length of shape ${compared_equal_shape} is not equal to shape ${shape}"
+        }
+    }
+
+    if { ${compared_notequal_shape} != -1 } {
+        upvar ${compared_notequal_shape} ${compared_notequal_shape}
+        regexp "The +length+ ${compared_notequal_shape} +is +(\[-0-9.+eE\]+)" [${CommandName} ${compared_notequal_shape} ${epsilon}] full compared_m
+        if { $compared_m == $m } {
+            puts "Error: length of shape ${compared_notequal_shape} is equal shape to ${shape}"
+        }
+    }
+
+    if { ${compared_equal_shape} == -1 && ${compared_notequal_shape} == -1 } {
+        if { [string compare "$mass" "empty"] != 0 } {
+            if { $m == 0 } {
+                puts "Error : The command is not valid. The $prop is 0."
+            }
+            if { $mass > 0 } {
+                puts "The expected $prop is $mass"
+            }
+            #check of change of area is < 1%
+            if { ($mass != 0 && [expr 1.*abs($mass - $m)/$mass] > 0.01) || ($mass == 0 && $m != 0) } {
+                puts "Error : The $prop of result shape is $m"
+            }
+        } else {
+            if { $m != 0 } {
+                puts "Error : The command is not valid. The $prop is $m"
+            }
+        }
+    }
+}
+
+help checkview {
+  Display shape in selected viewer.
+
+  Use: checkview [options...]
+  Allowed options are:
+    -display shapename: display shape with name 'shapename'
+    -3d: display shape in 3d viewer
+    -2d [ v2d / smallview ]: display shape in 2d viewer (default viewer is a 'smallview')
+    -path PATH: location of saved screenshot of viewer
+    -vdispmode N: it is possible to set vdispmode for 3d viewer (default value is 1)
+    -screenshot: procedure will try to make screenshot of already created viewer
+    Procedure can check some property of shape (length, area or volume) and compare it with some value N:
+      -l [N]
+      -s [N]
+      -v [N]
+    If current property is equal to value N, shape is marked as valid in procedure.
+    If value N is not given procedure will mark shape as valid if current property is non-zero.
+    -with {a b c}: display shapes 'a' 'b' 'c' together with 'shape' (if shape is valid)
+    -otherwise {d e f}: display shapes 'd' 'e' 'f' instead of 'shape' (if shape is NOT valid)
+    Note that one of two options -2d/-3d is required.
+}
+
+proc checkview {args} {
+  puts "checkview ${args}"
+
+  set 3dviewer 0
+  set 2dviewer false
+  set shape ""
+  set PathToSave ""
+  set dispmode 1
+  set isScreenshot 0
+  set check_length false
+  set check_area false
+  set check_volume false
+  set otherwise {}
+  set with {}
+
+  set options {{"-3d" 3dviewer 0}
+               {"-2d" 2dviewer ?}
+               {"-display" shape 1}
+               {"-path" PathToSave 1}
+               {"-vdispmode" dispmode 1}
+               {"-screenshot" isScreenshot 0}
+               {"-otherwise" otherwise 1}
+               {"-with" with 1}
+               {"-l" check_length ?}
+               {"-s" check_area ?}
+               {"-v" check_volume ?}}
+
+  # check arguments
+  _check_args ${args} ${options} "checkview"
+
+  if { ${PathToSave} == "" } {
+    set PathToSave "./photo.png"
+  }
+
+  if { ${3dviewer} == 0 && ${2dviewer} == false } {
+    error "Error: wrong using of command 'checkview', please use -2d or -3d option"
+  }
+
+  if { ${isScreenshot} } {
+    if { ${3dviewer} } {
+      vdump ${PathToSave}
+    } else {
+      xwd ${PathToSave}
+    }
+    return
+  }
+
+  set mass 0
+  set isBAD 0
+  upvar ${shape} ${shape}
+  if {[isdraw ${shape}]} {
+    # check area
+    if { [string is boolean ${check_area}] } {
+      if { ${check_area} } {
+        regexp {Mass +: +([-0-9.+eE]+)} [sprops ${shape}] full mass
+      }
+    } else {
+      set mass ${check_area}
+    }
+    # check length
+    if { [string is boolean ${check_length}] } {
+      if { ${check_length} } {
+        regexp {Mass +: +([-0-9.+eE]+)} [lprops ${shape}] full mass
+      }
+    } else {
+      set mass ${check_length}
+    }
+    # check volume
+    if { [string is boolean ${check_volume}] } {
+      if { ${check_volume} } {
+        regexp {Mass +: +([-0-9.+eE]+)} [vprops ${shape}] full mass
+      }
+    } else {
+      set mass ${check_volume}
+    }
+  } else {
+    set isBAD 1
+  }
+  if { ${3dviewer} } {
+    vinit
+    vclear
+  } elseif { ([string is boolean ${2dviewer}] && ${2dviewer}) || ${2dviewer} == "smallview"} {
+    smallview
+    clear
+  } elseif { ${2dviewer} == "v2d"} {
+    v2d
+    2dclear
+  }
+  if {[isdraw ${shape}]} {
+    if { ( ${check_area} == false && ${check_length} == false && ${check_volume} == false ) || ( ${mass} != 0 ) } {
+      foreach s ${with} {
+        upvar ${s} ${s}
+      }
+      lappend with ${shape}
+      if { ${3dviewer} } {
+        vdisplay {*}${with}
+      } else {
+        donly {*}${with}
+      }
+    } else {
+      set isBAD 1
+    }
+  } else {
+    set isBAD 1
+  }
+
+  if { ${isBAD} && [llength ${otherwise}] } {
+    foreach s ${otherwise} {
+      upvar ${s} ${s}
+    }
+    if { ${3dviewer} } {
+      vdisplay {*}${otherwise}
+    } else {
+      donly {*}${otherwise}
+    }
+  }
+
+  if { ${3dviewer} } {
+    vsetdispmode ${dispmode}
+    vfit
+    vdump ${PathToSave}
+  } else {
+    if { ([string is boolean ${2dviewer}] && ${2dviewer}) || ${2dviewer} == "smallview"} {
+      fit
+    } elseif { ${2dviewer} == "v2d"} {
+      2dfit
+    }
+    xwd ${PathToSave}
+  }
+
+}
+
+help checktrinfo {
+  Compare maximum deflection, number of nodes and triangles in "shape" mesh with given reference data
+
+  Use: checktrinfo shapename [options...]
+  Allowed options are:
+    -tri [N]:  compare current number of triangles in "shapename" mesh with given reference data.
+               If reference value N is not given and current number of triangles is equal to 0
+               procedure checktrinfo will print an error.
+    -nod [N]:  compare current number of nodes in "shapename" mesh with given reference data.
+               If reference value N is not givenand current number of nodes is equal to 0
+               procedure checktrinfo will print an error.
+    -defl [N]: compare current value of maximum deflection in "shapename" mesh with given reference data
+               If reference value N is not given and current maximum deflection is equal to 0
+               procedure checktrinfo will print an error.
+    -max_defl N:     compare current value of maximum deflection in "shapename" mesh with max possible value
+    -tol_abs_tri N:  absolute tolerance for comparison of number of triangles (default value 0)
+    -tol_rel_tri N:  relative tolerance for comparison of number of triangles (default value 0)
+    -tol_abs_nod N:  absolute tolerance for comparison of number of nodes (default value 0)
+    -tol_rel_nod N:  relative tolerance for comparison of number of nodes (default value 0)
+    -tol_abs_defl N: absolute tolerance for deflection comparison (default value 0)
+    -tol_rel_defl N: relative tolerance for deflection comparison (default value 0)
+    -ref [trinfo a]: compare deflection, number of triangles and nodes in "shapename" and in "a"
+}
+proc checktrinfo {shape args} {
+    puts "checktrinfo ${shape} ${args}"
+    upvar ${shape} ${shape}
+
+    if {![isdraw ${shape}] || [regexp "${shape} is a \n" [whatis ${shape}]]} {
+        puts "Error: The command cannot be built"
+        return
+    }
+
+    set ref_nb_triangles false
+    set ref_nb_nodes false
+    set ref_deflection false
+    set tol_abs_defl 0
+    set tol_rel_defl 0
+    set tol_abs_tri 0
+    set tol_rel_tri 0
+    set tol_abs_nod 0
+    set tol_rel_nod 0
+    set max_defl -1
+    set ref_info ""
+
+    set options {{"-tri" ref_nb_triangles ?}
+                 {"-nod" ref_nb_nodes ?}
+                 {"-defl" ref_deflection ?}
+                 {"-tol_abs_defl" tol_abs_defl 1}
+                 {"-tol_rel_defl" tol_rel_defl 1}
+                 {"-tol_abs_tri" tol_abs_tri 1}
+                 {"-tol_rel_tri" tol_rel_tri 1}
+                 {"-tol_abs_nod" tol_abs_nod 1}
+                 {"-tol_rel_nod" tol_rel_nod 1}
+                 {"-max_defl" max_defl 1}
+                 {"-ref" ref_info 1}}
+
+    _check_args ${args} ${options} "checktrinfo"
+
+    # get current number of triangles and nodes, value of max deflection
+    set tri_info [trinfo ${shape}]
+    set triinfo_pattern "(\[0-9\]+) +triangles.*\[^0-9]\(\[0-9\]+) +nodes.*deflection +(\[-0-9.+eE\]+)"
+    if {![regexp "${triinfo_pattern}" ${tri_info} dump cur_nb_triangles cur_nb_nodes cur_deflection]} {
+        puts "Error: command trinfo prints empty info"
+    }
+
+    # get reference values from -ref option
+    if { "${ref_info}" != ""} {
+        if {![regexp "${triinfo_pattern}" ${ref_info} dump ref_nb_triangles ref_nb_nodes ref_deflection]} {
+            puts "Error: reference information gived by -ref option is wrong"
+        }
+    }
+
+    # check number of triangles
+    if { [string is boolean ${ref_nb_triangles}] } {
+        if { ${cur_nb_triangles} <= 0 && ${ref_nb_triangles} } {
+            puts "Error: Number of triangles is equal to 0"
+        }
+    } else {
+        if {[regexp {!([-0-9.+eE]+)} $ref_nb_triangles full ref_nb_triangles_value]} {
+            if  {${ref_nb_triangles_value} == ${cur_nb_triangles} } {
+                puts "Error: Number of triangles is equal to ${ref_nb_triangles_value} but it should not"
+            }
+        } else {
+            checkreal "Number of triangles" ${cur_nb_triangles} ${ref_nb_triangles} ${tol_abs_tri} ${tol_rel_tri}
+        }
+    }
+
+    # check number of nodes
+    if { [string is boolean ${ref_nb_nodes}] } {
+        if { ${cur_nb_nodes} <= 0 && ${ref_nb_nodes} } {
+            puts "Error: Number of nodes is equal to 0"
+        }
+    } else {
+        if {[regexp {!([-0-9.+eE]+)} $ref_nb_nodes full ref_nb_nodes_value]} {
+            if  {${ref_nb_nodes_value} == ${cur_nb_nodes} } {
+                puts "Error: Number of nodes is equal to ${ref_nb_nodes_value} but it should not"
+            }
+        } else {
+            checkreal "Number of nodes" ${cur_nb_nodes} ${ref_nb_nodes} ${tol_abs_nod} ${tol_rel_nod}
+        }
+    }
+
+    # check deflection
+    if { [string is boolean ${ref_deflection}] } {
+        if { ${cur_deflection} <= 0 && ${ref_deflection} } {
+            puts "Error: Maximal deflection is equal to 0"
+        }
+    } else {
+        checkreal "Maximal deflection" ${cur_deflection} ${ref_deflection} ${tol_abs_defl} ${tol_rel_defl}
+    }
+
+    if { ${max_defl} != -1 && ${cur_deflection} > ${max_defl} } {
+        puts "Error: Maximal deflection is too big"
+    }
 }

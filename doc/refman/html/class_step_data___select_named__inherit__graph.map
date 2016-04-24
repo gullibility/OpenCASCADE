@@ -1,0 +1,15 @@
+<map id="StepData_SelectNamed" name="StepData_SelectNamed">
+<area shape="rect" id="node5" href="$class_step_data___select_arr_real.html" title="StepData_SelectArrReal" alt="" coords="812,47,975,73"/>
+<area shape="rect" id="node8" href="$class_step_element___curve_element_freedom_member.html" title="Representation of member for STEP SELECT type CurveElementFreedom. " alt="" coords="801,98,985,139"/>
+<area shape="rect" id="node9" href="$class_step_element___curve_element_purpose_member.html" title="Representation of member for STEP SELECT type CurveElementPurpose. " alt="" coords="801,163,985,205"/>
+<area shape="rect" id="node10" href="$class_step_element___element_aspect_member.html" title="Representation of member for STEP SELECT type ElementAspect. " alt="" coords="797,229,990,270"/>
+<area shape="rect" id="node11" href="$class_step_element___measure_or_unspecified_value_member.html" title="Representation of member for STEP SELECT type MeasureOrUnspecifiedValue. " alt="" coords="776,294,1011,335"/>
+<area shape="rect" id="node12" href="$class_step_element___surface_element_purpose_member.html" title="Representation of member for STEP SELECT type SurfaceElementPurpose. " alt="" coords="795,359,991,401"/>
+<area shape="rect" id="node13" href="$class_step_element___volume_element_purpose_member.html" title="Representation of member for STEP SELECT type VolumeElementPurpose. " alt="" coords="795,425,991,466"/>
+<area shape="rect" id="node14" href="$class_step_f_e_a___degree_of_freedom_member.html" title="Representation of member for STEP SELECT type CurveElementFreedom. " alt="" coords="776,491,1011,517"/>
+<area shape="rect" id="node2" href="$class_step_data___select_member.html" title="The general form for a Select Member. A Select Member can, either define a value of a basic type (suc..." alt="" coords="350,269,517,296"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,269,301,296"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,269,141,296"/>
+<area shape="rect" id="node6" href="$class_step_f_e_a___symmetric_tensor23d_member.html" title="Representation of member for STEP SELECT type SymmetricTensor23d. " alt="" coords="1059,6,1264,47"/>
+<area shape="rect" id="node7" href="$class_step_f_e_a___symmetric_tensor43d_member.html" title="Representation of member for STEP SELECT type SymmetricTensor43d. " alt="" coords="1059,71,1264,113"/>
+</map>

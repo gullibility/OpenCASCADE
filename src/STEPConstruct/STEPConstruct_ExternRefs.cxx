@@ -310,7 +310,7 @@ Standard_Integer STEPConstruct_ExternRefs::NbExternRefs () const
 //purpose  : 
 //=======================================================================
 
-const Standard_CString STEPConstruct_ExternRefs::FileName (const Standard_Integer num) const
+Standard_CString STEPConstruct_ExternRefs::FileName (const Standard_Integer num) const
 {
   Handle(StepBasic_DocumentFile) DocFile;
   Handle(StepAP214_AppliedExternalIdentificationAssignment) AEIA;
@@ -864,7 +864,7 @@ void STEPConstruct_ExternRefs::checkAP214Shared ()
     // create new ProductRelatedProductCategory for all extern files.
     Handle(TCollection_HAsciiString) PRPCname = new TCollection_HAsciiString("document");
     mySharedPRPC = new StepBasic_ProductRelatedProductCategory;
-    mySharedPRPC->Init( PRPCname, Standard_False, EmptyString );
+    mySharedPRPC->Init( PRPCname, Standard_False, EmptyString, 0 );
   }
   if ( mySharedDocType.IsNull() ) {
     // create new shared Document Type

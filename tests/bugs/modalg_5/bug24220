@@ -8,9 +8,7 @@ puts ""
 
 restore [locate_data_file bug24220_A.brep] result
 
-decho off
 set info [bopargcheck result]
-decho on
 
 if { [regexp "Faulties, that can not be treated by BOP, are detected" ${info}] != 1 } {
     puts "Error : message is not correct"
@@ -18,4 +16,4 @@ if { [regexp "Faulties, that can not be treated by BOP, are detected" ${info}] !
     puts "OK : message is correct"
 }
 
-set 3dviewer 1
+checkview -display result -3d -path ${imagedir}/${test_image}.png

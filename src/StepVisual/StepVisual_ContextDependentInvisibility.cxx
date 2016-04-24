@@ -16,14 +16,9 @@
 #include <StepVisual_ContextDependentInvisibility.hxx>
 #include <StepVisual_InvisibilityContext.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_ContextDependentInvisibility,StepVisual_Invisibility)
+
 StepVisual_ContextDependentInvisibility::StepVisual_ContextDependentInvisibility ()  {}
-
-void StepVisual_ContextDependentInvisibility::Init(
-	const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems)
-{
-
-	StepVisual_Invisibility::Init(aInvisibleItems);
-}
 
 void StepVisual_ContextDependentInvisibility::Init(
 	const Handle(StepVisual_HArray1OfInvisibleItem)& aInvisibleItems,

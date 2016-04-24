@@ -1,0 +1,5 @@
+<map id="StepAP203_CcDesignCertification" name="StepAP203_CcDesignCertification">
+<area shape="rect" id="node2" href="$class_step_basic___certification_assignment.html" title="Representation of STEP entity CertificationAssignment. " alt="" coords="5,155,232,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="63,80,173,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="51,5,185,32"/>
+</map>

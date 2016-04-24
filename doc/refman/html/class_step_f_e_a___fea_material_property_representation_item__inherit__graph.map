@@ -1,0 +1,15 @@
+<map id="StepFEA_FeaMaterialPropertyRepresentationItem" name="StepFEA_FeaMaterialPropertyRepresentationItem">
+<area shape="rect" id="node5" href="$class_step_f_e_a___fea_area_density.html" title="Representation of STEP entity FeaAreaDensity. " alt="" coords="869,5,1043,32"/>
+<area shape="rect" id="node6" href="$class_step_f_e_a___fea_linear_elasticity.html" title="Representation of STEP entity FeaLinearElasticity. " alt="" coords="859,56,1053,83"/>
+<area shape="rect" id="node7" href="$class_step_f_e_a___fea_mass_density.html" title="Representation of STEP entity FeaMassDensity. " alt="" coords="866,107,1046,133"/>
+<area shape="rect" id="node8" href="$class_step_f_e_a___fea_moisture_absorption.html" title="Representation of STEP entity FeaMoistureAbsorption. " alt="" coords="848,157,1064,184"/>
+<area shape="rect" id="node9" href="$class_step_f_e_a___fea_secant_coefficient_of_linear_thermal_expansion.html" title="Representation of STEP entity FeaSecantCoefficientOfLinearThermalExpansion. " alt="" coords="853,209,1059,250"/>
+<area shape="rect" id="node10" href="$class_step_f_e_a___fea_shell_bending_stiffness.html" title="Representation of STEP entity FeaShellBendingStiffness. " alt="" coords="841,275,1071,301"/>
+<area shape="rect" id="node11" href="$class_step_f_e_a___fea_shell_membrane_bending_coupling_stiffness.html" title="Representation of STEP entity FeaShellMembraneBendingCouplingStiffness. " alt="" coords="859,326,1053,367"/>
+<area shape="rect" id="node12" href="$class_step_f_e_a___fea_shell_membrane_stiffness.html" title="Representation of STEP entity FeaShellMembraneStiffness. " alt="" coords="859,391,1053,433"/>
+<area shape="rect" id="node13" href="$class_step_f_e_a___fea_shell_shear_stiffness.html" title="Representation of STEP entity FeaShellShearStiffness. " alt="" coords="847,457,1065,484"/>
+<area shape="rect" id="node14" href="$class_step_f_e_a___fea_tangential_coefficient_of_linear_thermal_expansion.html" title="Representation of STEP entity FeaTangentialCoefficientOfLinearThermalExpansion. " alt="" coords="845,509,1067,550"/>
+<area shape="rect" id="node2" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="349,245,544,272"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,245,301,272"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,245,141,272"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="StepFEA_Curve3dElementRepresentation" name="StepFEA_Curve3dElementRepresentation">
+<area shape="rect" id="node2" href="$class_step_f_e_a___element_representation.html" title="Representation of STEP entity ElementRepresentation. " alt="" coords="27,229,244,256"/>
+<area shape="rect" id="node3" href="$class_step_repr___representation.html" title="StepRepr_Representation" alt="" coords="51,155,221,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="81,80,191,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="69,5,203,32"/>
+</map>

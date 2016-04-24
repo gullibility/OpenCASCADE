@@ -1,0 +1,12 @@
+<map id="PCDM_StorageDriver" name="PCDM_StorageDriver">
+<area shape="rect" id="node4" href="$class_bin_l_drivers___document_storage_driver.html" title="persistent implemention of storage a document in a binary file " alt="" coords="534,70,733,111"/>
+<area shape="rect" id="node8" href="$class_xml_l_drivers___document_storage_driver.html" title="XmlLDrivers_DocumentStorage\lDriver" alt="" coords="533,135,733,177"/>
+<area shape="rect" id="node2" href="$class_p_c_d_m___writer.html" title="PCDM_Writer" alt="" coords="190,111,293,137"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,111,141,137"/>
+<area shape="rect" id="node5" href="$class_bin_drivers___document_storage_driver.html" title="persistent implemention of storage a document in a binary file " alt="" coords="797,5,987,46"/>
+<area shape="rect" id="node7" href="$class_bin_t_obj_drivers___document_storage_driver.html" title="BinTObjDrivers_DocumentStorage\lDriver" alt="" coords="783,70,1001,111"/>
+<area shape="rect" id="node6" href="$class_bin_x_c_a_f_drivers___document_storage_driver.html" title="BinXCAFDrivers_DocumentStorage\lDriver" alt="" coords="1052,5,1276,46"/>
+<area shape="rect" id="node9" href="$class_xml_drivers___document_storage_driver.html" title="XmlDrivers_DocumentStorage\lDriver" alt="" coords="795,135,989,177"/>
+<area shape="rect" id="node11" href="$class_xml_t_obj_drivers___document_storage_driver.html" title="XmlTObjDrivers_DocumentStorage\lDriver" alt="" coords="782,201,1002,242"/>
+<area shape="rect" id="node10" href="$class_xml_x_c_a_f_drivers___document_storage_driver.html" title="storage driver of a XS document " alt="" coords="1051,135,1277,177"/>
+</map>

@@ -100,7 +100,7 @@ static Standard_Integer proj (Draw_Interpretor& di, Standard_Integer n, const ch
         char* temp = name; // portage WNT
         DrawTrSurf::Set(temp, P1);
         proj.Parameters(i,UU,VV);
-        di << " Le point est sur la surface." << "\n";
+        di << " Le point est sur la surface.\n";
         di << " Ses parametres sont:  UU = " << UU << "\n";
         di << "                       VV = " << VV << "\n";
       }
@@ -139,7 +139,7 @@ static Standard_Integer proj (Draw_Interpretor& di, Standard_Integer n, const ch
         DrawTrSurf::Set(temp, P1);
         di << name << " ";
         UU = proj.Parameter(i);
-        di << " Le point est sur la courbe." << "\n";
+        di << " Le point est sur la courbe.\n";
         di << " Son parametre est U = " << UU << "\n";
       }
     }
@@ -332,6 +332,8 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
   Standard_Boolean C2 = Standard_False;
   Standard_Boolean S1 = Standard_False;
   Standard_Boolean S2 = Standard_False;
+  Standard_Boolean isInfinitySolutions = Standard_False;
+  Standard_Real aMinDist = RealLast();
 
   Standard_Real U1f, U1l, U2f, U2l, V1f = 0., V1l = 0., V2f = 0., V2l = 0.;
 
@@ -368,10 +370,9 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
   if (C1 && C2)
   {
     GeomAPI_ExtremaCurveCurve Ex(GC1, GC2, U1f, U1l, U2f, U2l);
-    if (!Ex.Extrema().IsParallel())
+
+    for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
     {
-      for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
-      {
         gp_Pnt aP1, aP2;
         Ex.Points(aJ, aP1, aP2);
         aPnts1.Append(aP1);
@@ -381,12 +382,10 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
         Ex.Parameters(aJ, aU1, aU2);
         aPrms[0].Append(aU1);
         aPrms[2].Append(aU2);
-      }
     }
-    else
-    {
-      di << "Infinite number of extremas, distance = " << Ex.LowerDistance() << "\n";
-    }
+    // Since GeomAPI cannot provide access to flag directly.
+    isInfinitySolutions = Ex.Extrema().IsParallel();
+    aMinDist = Ex.LowerDistance();
   }
   else if (C1 && S2)
   {
@@ -447,9 +446,14 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
 
   // Output points.
   const Standard_Integer aPntCount = aPnts1.Size();
-  if (aPntCount == 0)
+  if (aPntCount == 0 || isInfinitySolutions)
   {
-    di << "No solutions!\n";
+    // Infinity solutions flag may be set with 0 number of 
+    // solutions in analytic extrema Curve/Curve.
+    if (isInfinitySolutions) 
+      di << "Infinite number of extremas, distance = " << aMinDist << "\n";
+    else
+      di << "No solutions!\n";
   }
   for (Standard_Integer aJ = 1; aJ <= aPntCount; aJ++)
   {
@@ -541,7 +545,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
       di << "Extrema is point : " << P1.X() << " " << P1.Y() << " " << P1.Z() << "\n";
     }
     else {
-      di << "Extrema is segment of line" << "\n"; 
+      di << "Extrema is segment of line\n"; 
       Handle(Geom_Line) L = new Geom_Line(P1,gp_Vec(P1,P2));
       Handle(Geom_TrimmedCurve) CT = 
 	new Geom_TrimmedCurve(L, 0., P1.Distance(P2));
@@ -558,7 +562,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
 
   }
   else {
-    di << "Curves are infinite and parallel" << "\n";
+    di << "Curves are infinite and parallel\n";
   }
   
   di << "Minimal distance : " << Ex.TotalLowerDistance() << "\n";

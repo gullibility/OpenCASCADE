@@ -17,14 +17,9 @@
 #include <StepGeom_SweptSurface.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_SweptSurface,StepGeom_Surface)
+
 StepGeom_SweptSurface::StepGeom_SweptSurface ()  {}
-
-void StepGeom_SweptSurface::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_SweptSurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

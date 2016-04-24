@@ -13,6 +13,8 @@ puts [bop a b]
 puts [boptuc result]
 
 checknbshapes result -vertex 16 -edge 11
-set length 929.278
-set 2dviewer 1
+checkprops result -l 929.278 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
  

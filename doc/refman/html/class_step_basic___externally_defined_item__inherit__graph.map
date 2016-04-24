@@ -1,0 +1,6 @@
+<map id="StepBasic_ExternallyDefinedItem" name="StepBasic_ExternallyDefinedItem">
+<area shape="rect" id="node4" href="$class_step_visual___externally_defined_curve_font.html" title="Representation of STEP entity ExternallyDefinedCurveFont. " alt="" coords="5,230,197,271"/>
+<area shape="rect" id="node5" href="$class_step_visual___externally_defined_text_font.html" title="Representation of STEP entity ExternallyDefinedTextFont. " alt="" coords="222,230,415,271"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="154,80,264,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="142,5,276,32"/>
+</map>

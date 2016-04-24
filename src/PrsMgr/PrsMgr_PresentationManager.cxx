@@ -28,6 +28,8 @@
 #include <TColStd_ListIteratorOfListOfTransient.hxx>
 #include <V3d_View.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentationManager,MMgt_TShared)
+
 // =======================================================================
 // function : PrsMgr_PresentationManager
 // purpose  :
@@ -350,12 +352,13 @@ void PrsMgr_PresentationManager::displayImmediate (const Handle(V3d_Viewer)& the
       if (aPrs.IsNull())
         continue;
 
-      Handle(Prs3d_Presentation) aViewDepPrs;
+      Handle(Graphic3d_Structure) aViewDepPrs;
       Handle(Prs3d_PresentationShadow) aShadowPrs = Handle(Prs3d_PresentationShadow)::DownCast (aPrs);
       if (!aShadowPrs.IsNull() && aView->IsComputed (aShadowPrs->ParentId(), aViewDepPrs))
       {
         aShadowPrs.Nullify();
-        aShadowPrs = new Prs3d_PresentationShadow (myStructureManager, aViewDepPrs);
+        aShadowPrs = new Prs3d_PresentationShadow (myStructureManager, 
+                                                   Handle(Prs3d_Presentation)::DownCast (aViewDepPrs));
         aShadowPrs->SetZLayer (aViewDepPrs->CStructure()->ZLayer());
         aShadowPrs->SetClipPlanes (aViewDepPrs->GetClipPlanes());
         aShadowPrs->CStructure()->IsForHighlight = 1;
@@ -665,5 +668,67 @@ void PrsMgr_PresentationManager::SetShadingAspect (const Handle(PrsMgr_Presentab
   if (!aPrs.IsNull())
   {
     aPrs->SetShadingAspect (theShadingAspect);
+  }
+}
+
+namespace
+{
+  // =======================================================================
+  // function : updatePrsTransformation
+  // purpose  : Internal funtion that scans thePrsList for shadow presentations
+  //            and applies transformation theTrsf to them in case if parent ID
+  //            of shadow presentation is equal to theRefId
+  // =======================================================================
+  void updatePrsTransformation (const PrsMgr_ListOfPresentations& thePrsList,
+                                const Standard_Integer theRefId,
+                                const Graphic3d_Mat4& theTrsf)
+  {
+    for (PrsMgr_ListOfPresentations::Iterator anIter (thePrsList); anIter.More(); anIter.Next())
+    {
+      const Handle(Prs3d_Presentation)& aPrs = anIter.Value();
+      if (aPrs.IsNull())
+        continue;
+
+      Handle(Prs3d_PresentationShadow) aShadowPrs = Handle(Prs3d_PresentationShadow)::DownCast (aPrs);
+      if (aShadowPrs.IsNull() || aShadowPrs->ParentId() != theRefId)
+        continue;
+
+      aShadowPrs->CStructure()->Transformation = theTrsf;
+    }
+  }
+}
+
+// =======================================================================
+// function : UpdateHighlightTrsf
+// purpose  :
+// =======================================================================
+void PrsMgr_PresentationManager::UpdateHighlightTrsf (const Handle(V3d_Viewer)& theViewer,
+                                                      const Handle(PrsMgr_PresentableObject)& theObj,
+                                                      const Standard_Integer theMode,
+                                                      const Handle(PrsMgr_PresentableObject)& theSelObj)
+{
+  if (theObj.IsNull())
+    return;
+
+  const Handle(Prs3d_Presentation)& aBasePrs = Presentation (theObj, theMode, Standard_False)->Presentation();
+  const Handle(Prs3d_Presentation)& aParentPrs = theSelObj.IsNull() ?
+    aBasePrs : Presentation (theSelObj, theMode, Standard_False)->Presentation();
+  const Standard_Integer aParentId = aParentPrs->CStructure()->Id;
+
+  updatePrsTransformation (myImmediateList, aParentId, aBasePrs->CStructure()->Transformation);
+
+  if (!myViewDependentImmediateList.IsEmpty())
+  {
+    for (theViewer->InitActiveViews(); theViewer->MoreActiveViews(); theViewer->NextActiveViews())
+    {
+      const Handle(Graphic3d_CView)& aView = theViewer->ActiveView()->View();
+      Handle(Graphic3d_Structure) aViewDepParentPrs;
+      if (aView->IsComputed (aParentId, aViewDepParentPrs))
+      {
+        updatePrsTransformation (myViewDependentImmediateList,
+                                 aViewDepParentPrs->CStructure()->Id,
+                                 aBasePrs->CStructure()->Transformation);
+      }
+    }
   }
 }

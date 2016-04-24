@@ -23,6 +23,7 @@
 #include <XmlObjMgt.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(XmlMFunction_GraphNodeDriver,XmlMDF_ADriver)
 IMPLEMENT_DOMSTRING (LastPreviousIndex, "lastprev")
 IMPLEMENT_DOMSTRING (LastNextIndex,     "lastnext")
 IMPLEMENT_DOMSTRING (ExecutionStatus,   "exec")
@@ -183,7 +184,10 @@ void XmlMFunction_GraphNodeDriver::Paste (const Handle(TDF_Attribute)& theSource
     aValueStr += TCollection_AsciiString(ID);
     aValueStr += ' ';
   }
-  aValueStr += "\n";
+
+  // add more spaces between "previous" and "next" ids to make them easily
+  // recognizable for human
+  aValueStr += "   ";
 
   // Next
   // ====

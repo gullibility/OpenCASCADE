@@ -18,20 +18,36 @@
 
 #include <AIS_AngleDimension.hxx>
 #include <AIS_Circle.hxx>
+#include <AIS_ConcentricRelation.hxx>
 #include <AIS_DiameterDimension.hxx>
 #include <AIS_DisplayMode.hxx>
+#include <AIS_EqualDistanceRelation.hxx>
+#include <AIS_EqualRadiusRelation.hxx>
+#include <AIS_FixRelation.hxx>
+#include <AIS_IdenticRelation.hxx>
 #include <AIS_InteractiveContext.hxx>
 #include <AIS_LengthDimension.hxx>
 #include <AIS_ListIteratorOfListOfInteractive.hxx>
 #include <AIS_ListOfInteractive.hxx>
 #include <AIS_MapOfInteractive.hxx>
+#include <AIS_OffsetDimension.hxx>
+#include <AIS_ParallelRelation.hxx>
+#include <AIS_PerpendicularRelation.hxx>
 #include <AIS_Point.hxx>
 #include <AIS_RadiusDimension.hxx>
 #include <AIS_Relation.hxx>
 #include <AIS_Shape.hxx>
-#include <BRepAdaptor_Curve.hxx>
+#include <AIS_SymmetricRelation.hxx>
+#include <AIS_TangentRelation.hxx>
 #include <BRep_Builder.hxx>
 #include <BRep_Tool.hxx>
+#include <BRepAdaptor_Curve.hxx>
+#include <BRepBuilderAPI_MakeVertex.hxx>
+#include <BRepExtrema_ExtCC.hxx>
+#include <BRepExtrema_ExtPC.hxx>
+#include <BRepExtrema_ExtCF.hxx>
+#include <BRepExtrema_ExtPF.hxx>
+#include <BRepExtrema_ExtFF.hxx>
 #include <BRepTools.hxx>
 #include <Draw_Interpretor.hxx>
 #include <Draw.hxx>
@@ -60,6 +76,7 @@
 #include <TopAbs.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <TopExp.hxx>
+#include <TopExp_Explorer.hxx>
 #include <TopoDS.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Solid.hxx>
@@ -70,6 +87,8 @@
 #include <ViewerTest_DoubleMapOfInteractiveAndName.hxx>
 #include <ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName.hxx>
 #include <ViewerTest_EventManager.hxx>
+#include <AIS_InteractiveObject.hxx>
+#include <AIS_Dimension.hxx>
 
 extern Standard_Boolean VDisplayAISObject (const TCollection_AsciiString& theName,
                                            const Handle(AIS_InteractiveObject)& theAISObj,
@@ -537,11 +556,6 @@ static int VDimBuilder (Draw_Interpretor& /*theDi*/,
   {
     case AIS_KOD_LENGTH:
     {
-      if (!isPlaneCustom)
-      {
-        std::cerr << theArgs[0] << ": can not build dimension without working plane.\n";
-        return 1;
-      }
       if (aShapes.Extent() == 1)
       {
         if (aShapes.First()->Type() == AIS_KOI_Shape
@@ -550,6 +564,12 @@ static int VDimBuilder (Draw_Interpretor& /*theDi*/,
           std::cerr << theArgs[0] << ": wrong shape type.\n";
           return 1;
         }
+        if (!isPlaneCustom)
+        {
+          std::cerr << theArgs[0] << ": can not build dimension without working plane.\n";
+          return 1;
+        }
+
         // Adjust working plane
         TopoDS_Edge anEdge = TopoDS::Edge ((Handle(AIS_Shape)::DownCast(aShapes.First()))->Shape());
         TopoDS_Vertex aFirst, aSecond;
@@ -566,8 +586,7 @@ static int VDimBuilder (Draw_Interpretor& /*theDi*/,
         // Getting shapes
         if (aShapes.First()->DynamicType() == STANDARD_TYPE (AIS_Point))
         {
-          Handle(AIS_Point) aPoint1 = Handle(AIS_Point)::DownCast (aShapes.First ());
-          aShape1 = aPoint1->Vertex();
+          aShape1 = Handle(AIS_Point)::DownCast (aShapes.First ())->Vertex();
         }
         else if (aShapes.First()->Type() == AIS_KOI_Shape)
         {
@@ -576,8 +595,7 @@ static int VDimBuilder (Draw_Interpretor& /*theDi*/,
 
         if (aShapes.Last()->DynamicType() == STANDARD_TYPE (AIS_Point))
         {
-          Handle(AIS_Point) aPoint2 = Handle(AIS_Point)::DownCast (aShapes.Last ());
-          aShape2 = aPoint2->Vertex();
+          aShape2 = Handle(AIS_Point)::DownCast (aShapes.Last ())->Vertex();
         }
         else if (aShapes.Last()->Type() == AIS_KOI_Shape)
         {
@@ -590,17 +608,38 @@ static int VDimBuilder (Draw_Interpretor& /*theDi*/,
           return 1;
         }
 
-        // Adjust working plane
-        if (aShape1.ShapeType() == TopAbs_VERTEX)
+        // Face-Face case
+        if (aShape1.ShapeType() == TopAbs_FACE && aShape2.ShapeType() == TopAbs_FACE)
         {
-          aWorkingPlane.SetLocation (BRep_Tool::Pnt (TopoDS::Vertex (aShape1)));
+          aDim = new AIS_LengthDimension (TopoDS::Face (aShape1), TopoDS::Face (aShape2));
         }
-        else if (aShape2.ShapeType() == TopAbs_VERTEX)
+        else if (aShape1.ShapeType() == TopAbs_FACE && aShape2.ShapeType() == TopAbs_EDGE)
         {
-          aWorkingPlane.SetLocation (BRep_Tool::Pnt (TopoDS::Vertex (aShape2)));
+          aDim = new AIS_LengthDimension (TopoDS::Face (aShape1), TopoDS::Edge (aShape2));
         }
+        else if (aShape1.ShapeType() == TopAbs_EDGE && aShape2.ShapeType() == TopAbs_FACE)
+        {
+          aDim = new AIS_LengthDimension (TopoDS::Face (aShape2), TopoDS::Edge (aShape1));
+        }
+        else
+        {
+          if (!isPlaneCustom)
+          {
+            std::cerr << theArgs[0] << ": can not build dimension without working plane.\n";
+            return 1;
+          }
+          // Vertex-Vertex case
+          if (aShape1.ShapeType() == TopAbs_VERTEX)
+          {
+            aWorkingPlane.SetLocation (BRep_Tool::Pnt (TopoDS::Vertex (aShape1)));
+          }
+          else if (aShape2.ShapeType() == TopAbs_VERTEX)
+          {
+            aWorkingPlane.SetLocation (BRep_Tool::Pnt (TopoDS::Vertex (aShape2)));
+          }
 
-        aDim = new AIS_LengthDimension (aShape1, aShape2, aWorkingPlane);
+          aDim = new AIS_LengthDimension (aShape1, aShape2, aWorkingPlane);
+        }
       }
       else
       {
@@ -829,7 +868,7 @@ static int VDiameterDimBuilder(Draw_Interpretor& di, Standard_Integer argc, cons
   // Verification
   if (argc != 2)
   {
-    di<<" vdiameterdim error"<<"\n";
+    di<<" vdiameterdim error\n";
     return 1;
   }
 
@@ -841,7 +880,7 @@ static int VDiameterDimBuilder(Draw_Interpretor& di, Standard_Integer argc, cons
   
   // Activate 'edge' selection mode
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-  di<<" Select an circled edge."<<"\n";
+  di<<" Select an circled edge.\n";
   
   // Loop that will handle the picking.
   Standard_Integer argcc = 5;
@@ -858,13 +897,13 @@ static int VDiameterDimBuilder(Draw_Interpretor& di, Standard_Integer argc, cons
 
   if (aShape.IsNull())
   {
-    di << argv[0] << ": no shape is selected." << "\n";
+    di << argv[0] << ": no shape is selected.\n";
     return 1;
   }
 
   if (aShape.ShapeType() != TopAbs_EDGE)
   {
-    di << " vdiameterdim error: the selection of a face or an edge was expected." << "\n";
+    di << " vdiameterdim error: the selection of a face or an edge was expected.\n";
     return 1;
   }
 
@@ -873,7 +912,7 @@ static int VDiameterDimBuilder(Draw_Interpretor& di, Standard_Integer argc, cons
 
   if (aCurve.GetType() != GeomAbs_Circle)
   {
-    di << "vdiameterdim error: the edge is not a circular one." << "\n";
+    di << "vdiameterdim error: the edge is not a circular one.\n";
     return 1;
   }
 
@@ -896,21 +935,13 @@ static int VDiameterDimBuilder(Draw_Interpretor& di, Standard_Integer argc, cons
 //purpose  : Display the concentric relation between two surfaces.
 //Draw arg : vconcentric Name
 //==============================================================================
-#include <AIS_ConcentricRelation.hxx>
-#include <Geom_Plane.hxx>
-#include <gp_Pln.hxx>
-#include <GC_MakePlane.hxx>
-#include <BRepAdaptor_Curve.hxx>
-#include <TopExp_Explorer.hxx>
-
-
 static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
   
   // Verification
-  if (argc!=2) {di<<"vconcentric  error."<<"\n";return 1;}
+  if (argc!=2) {di<<"vconcentric  error.\n";return 1;}
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
   // Ouverture d'un contexte local et recuperation de son index.
@@ -919,7 +950,7 @@ static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const
   
   // On active les modes de selections Edges et Faces.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-  di<<" Select a circled edge."<<"\n";
+  di<<" Select a circled edge.\n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -936,7 +967,7 @@ static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const
   // ==================
   if (ShapeA.ShapeType()==TopAbs_EDGE  ) {
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(4) );
-    di<<" Select an edge."<<"\n";
+    di<<" Select an edge.\n";
     
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
@@ -950,7 +981,7 @@ static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const
       ShapeB = TheAISContext()->SelectedShape();
     }
     if (ShapeB.ShapeType()!=TopAbs_EDGE  ) {
-      di<<" vconcentric error: select an edge."<<"\n";return 1;
+      di<<" vconcentric error: select an edge.\n";return 1;
     }
      
     // Construction du plane.
@@ -975,7 +1006,7 @@ static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const
   
   
   else {
-    di<<" vconcentric  error: the selection of a face or an edge was expected."<<"\n";return 1;
+    di<<" vconcentric  error: the selection of a face or an edge was expected.\n";return 1;
   }
   
   return 0;
@@ -990,18 +1021,13 @@ static int VConcentricBuilder(Draw_Interpretor& di, Standard_Integer argc, const
 //purpose  : 
 //Draw arg : vdiameterdim Name DiameterValue
 //==============================================================================
-#include <AIS_EqualDistanceRelation.hxx>
-#include <BRepExtrema_ExtCC.hxx>
-#include <GC_MakePlane.hxx>
-
-
 static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
   
   // Verification
-  if (argc!=2) {di<<" vequaldistrelation error: no arguments allowed."<<"\n";return 1;}
+  if (argc!=2) {di<<" vequaldistrelation error: no arguments allowed.\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1013,7 +1039,7 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
   // On active les modes de selections Edges et Vertexes.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(1) );
-  di<<" Select an edge or a vertex"<<"\n";
+  di<<" Select an edge or a vertex\n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argc1 = 5;
@@ -1027,7 +1053,7 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
     ShapeA = TheAISContext()->SelectedShape();
   }
   
-  di<<" Select an edge or a vertex"<<"\n";
+  di<<" Select an edge or a vertex\n";
   // Boucle d'attente waitpick.
   Standard_Integer argc2 = 5;
   const char *buf2[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1045,12 +1071,12 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
     // A et B sont des edges ils doivent etre paralleles
     BRepExtrema_ExtCC myDeltaEdge (TopoDS::Edge(ShapeA) ,TopoDS::Edge(ShapeB)  );
     // on verifie qu'ils sont pas paralleles.
-    if (!myDeltaEdge.IsParallel() ) {di<<"vequaldist error: non parallel edges."<<"\n";return 1; }
+    if (!myDeltaEdge.IsParallel() ) {di<<"vequaldist error: non parallel edges.\n";return 1; }
     
   }
   
   
-  di<<" Select an edge or a vertex"<<"\n";
+  di<<" Select an edge or a vertex\n";
   // Boucle d'attente waitpick.
   Standard_Integer argc3 = 5;
   const char *buf3[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1063,7 +1089,7 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
     ShapeC = TheAISContext()->SelectedShape();
   }
   
-  di<<" Select an edge or a vertex"<<"\n";
+  di<<" Select an edge or a vertex\n";
   // Boucle d'attente waitpick.
   Standard_Integer argc4 = 5;
   const char *buf4[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1080,7 +1106,7 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
     // C et D sont des edges ils doivent etre paralleles
     BRepExtrema_ExtCC myDeltaEdge2 (TopoDS::Edge(ShapeC) ,TopoDS::Edge(ShapeD)  );
     // on verifie qu'ils sont pas paralleles.
-    if (!myDeltaEdge2.IsParallel() ) {di<<"vequaldist error: non parallel edges."<<"\n";return 1; }
+    if (!myDeltaEdge2.IsParallel() ) {di<<"vequaldist error: non parallel edges.\n";return 1; }
     
   }
   
@@ -1152,18 +1178,13 @@ static int VEqualDistRelation(Draw_Interpretor& di, Standard_Integer argc, const
 //purpose  : 
 //Draw arg : vdiameterdim Name DiameterValue
 //==============================================================================
-#include <AIS_EqualRadiusRelation.hxx>
-#include <GC_MakePlane.hxx>
-#include <BRepAdaptor_Curve.hxx>
-
-
 static int VEqualRadiusRelation(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
   
   // Verification
-  if (argc!=2) {di<<" vequalrad error: no arguments allowed."<<"\n";return 1;}
+  if (argc!=2) {di<<" vequalrad error: no arguments allowed.\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1174,7 +1195,7 @@ static int VEqualRadiusRelation(Draw_Interpretor& di, Standard_Integer argc, con
   
   // On active les modes de selections Edges.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-  di<<" Select an circled edge "<<"\n";
+  di<<" Select an circled edge \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argc1 = 5;
@@ -1188,7 +1209,7 @@ static int VEqualRadiusRelation(Draw_Interpretor& di, Standard_Integer argc, con
     ShapeA = TheAISContext()->SelectedShape();
   }
   
-  di<<" Select the last circled edge."<<"\n";
+  di<<" Select the last circled edge.\n";
   // Boucle d'attente waitpick.
   Standard_Integer argc2 = 5;
   const char *buf2[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1230,17 +1251,13 @@ static int VEqualRadiusRelation(Draw_Interpretor& di, Standard_Integer argc, con
 //purpose  : 
 //Draw arg : vdiameterdim Name DiameterValue
 //==============================================================================
-#include <AIS_FixRelation.hxx>
-#include <GC_MakePlane.hxx>
-#include <BRepAdaptor_Curve.hxx>
-
 static int VFixRelation(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
   
   // Verification
-  if (argc!=2) {di<<" vfix  error: no arguments allowed."<<"\n";return 1;}
+  if (argc!=2) {di<<" vfix  error: no arguments allowed.\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1251,7 +1268,7 @@ static int VFixRelation(Draw_Interpretor& di, Standard_Integer argc, const char*
   
   // On active les modes de selections edge.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-  di<<" Select an edge. "<<"\n";
+  di<<" Select an edge. \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argc1 = 5;
@@ -1295,18 +1312,13 @@ static int VFixRelation(Draw_Interpretor& di, Standard_Integer argc, const char*
 //purpose  : 
 //Draw arg : vdiameterdim Name DiameterValue
 //==============================================================================
-#include <AIS_IdenticRelation.hxx>
-#include <BRepAdaptor_Curve.hxx>
-#include <TopExp_Explorer.hxx>
-
-
 static int VIdenticRelation(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
   
   // Verification
-  if (argc!=2) {di<<" videntity error: no arguments allowed."<<"\n";return 1;}
+  if (argc!=2) {di<<" videntity error: no arguments allowed.\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1319,7 +1331,7 @@ static int VIdenticRelation(Draw_Interpretor& di, Standard_Integer argc, const c
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(1) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select an edge, a face or a vertex. "<<"\n";
+  di<<" Select an edge, a face or a vertex. \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argc1 = 5;
@@ -1333,7 +1345,7 @@ static int VIdenticRelation(Draw_Interpretor& di, Standard_Integer argc, const c
     ShapeA = TheAISContext()->SelectedShape();
   }
   
-  di<<" Select an edge, a face or a vertex. "<<"\n";
+  di<<" Select an edge, a face or a vertex. \n";
   // Boucle d'attente waitpick.
   Standard_Integer argc2 = 5;
   const char *buf2[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1436,18 +1448,6 @@ static int VIdenticRelation(Draw_Interpretor& di, Standard_Integer argc, const c
 //purpose  : Display the diameter dimension of a face or an edge.
 //Draw arg : vdiameterdim Name DiameterValue
 //==============================================================================
-#include <AIS_LengthDimension.hxx>
-#include <BRepExtrema_ExtCC.hxx>
-#include <BRepExtrema_ExtPC.hxx>
-#include <BRepExtrema_ExtCF.hxx>
-#include <BRepExtrema_ExtPF.hxx>
-#include <BRepExtrema_ExtFF.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <BRepExtrema_DistShapeShape.hxx>
-#include <gce_MakePln.hxx>
-#include <TopExp_Explorer.hxx>
-#include <BRepBuilderAPI_MakeVertex.hxx>
-
 static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
@@ -1470,7 +1470,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4));
 
   // First shape picking
-  di << " Select an edge, a face or a vertex. " << "\n";
+  di << " Select an edge, a face or a vertex. \n";
   // Loop that will handle the picking.
   Standard_Integer argc1 = 5;
   const char *buf1[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1491,7 +1491,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
   }
 
   // Second shape picking
-  di << " Select an edge, a face or a vertex. " << "\n";
+  di << " Select an edge, a face or a vertex. \n";
   // Loop that will handle the picking.
   Standard_Integer argc2 = 5;
   const char *buf2[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1521,7 +1521,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
 
       if (!myDeltaEdge.IsParallel())
       {
-        di << argv[0] << " error: non parallel edges." << "\n";
+        di << argv[0] << " error: non parallel edges.\n";
         return 1;
       }
 
@@ -1573,7 +1573,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
 
       if (!aDeltaEdgeFace.IsParallel())
       {
-        di << argv[0] << "error: the edge isn't parallel to the face;can't compute the distance." << "\n";
+        di << argv[0] << "error: the edge isn't parallel to the face;can't compute the distance.\n";
         return 1;
       }
 
@@ -1671,7 +1671,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
 
       if (!aDeltaEdgeFace.IsParallel())
       {
-        di << argv[0] << " error: the edge isn't parallel to the face;can't compute the distance. " << "\n";
+        di << argv[0] << " error: the edge isn't parallel to the face;can't compute the distance. \n";
         return 1;
       }
 
@@ -1694,7 +1694,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
       gp_Pnt A=BRep_Tool::Pnt(aVertex1);
 
 #ifdef OCCT_DEBUG
-      gp_Pnt C = BRep_Tool::Pnt(aVertex2);
+      gp_Pnt C = BRep_Tool::Pnt(aVertex2); (void)C;
 #endif
 
       gp_Pnt aProjB = aDeltaVertexFace.Point(1);
@@ -1717,7 +1717,7 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
 
       if (!aDeltaFaceFace.IsParallel())
       {
-        di << argv[0] << " error: the faces are not parallel. "<<"\n";
+        di << argv[0] << " error: the faces are not parallel. \n";
         return 1;
       }
 
@@ -1738,12 +1738,6 @@ static int VLenghtDimension(Draw_Interpretor& di, Standard_Integer argc, const c
 //purpose  : Display the radius dimension of a face or an edge.
 //Draw arg : vradiusdim Name 
 //==============================================================================
-#include <AIS_RadiusDimension.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <BRepAdaptor_Curve.hxx>
-#include <gp_Circ.hxx>
-
-
 static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
@@ -1752,7 +1746,7 @@ static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   // Verification
   if (argc != 2)
   {
-    di << argv[0] << " error: wrong number of parameters." << "\n";
+    di << argv[0] << " error: wrong number of parameters.\n";
     return 1;
   }
 
@@ -1766,7 +1760,7 @@ static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   // Current selection modes - faces and edges
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2));
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4));
-  di << " Select a circled edge or face." << "\n";
+  di << " Select a circled edge or face.\n";
 
   // Loop that will be handle picking.
   Standard_Integer argcc = 5;
@@ -1784,13 +1778,13 @@ static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
 
   if (aShape.IsNull())
   {
-    di << argv[0] << ": no shape is selected." << "\n";
+    di << argv[0] << ": no shape is selected.\n";
     return 1;
   }
 
   if (aShape.ShapeType() != TopAbs_EDGE && aShape.ShapeType() != TopAbs_FACE)
   {
-    di << argv[0] << " error: the selection of a face or an edge was expected." << "\n";
+    di << argv[0] << " error: the selection of a face or an edge was expected.\n";
     return 1;
   }
 
@@ -1811,7 +1805,7 @@ static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   BRepAdaptor_Curve aCurve (anEdge);
   if (aCurve.GetType() != GeomAbs_Circle)
   {
-    di << argv[0] << " error: the edge is not a circular one." << "\n";
+    di << argv[0] << " error: the edge is not a circular one.\n";
     return 1;
   }
   // Close the context
@@ -1831,11 +1825,6 @@ static int VRadiusDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
 //purpose  : Display the offset dimension
 //Draw arg : voffsetdim Name 
 //==============================================================================
-#include <AIS_OffsetDimension.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <BRepExtrema_ExtFF.hxx>
-
-
 static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
@@ -1843,7 +1832,7 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   Standard_Real    theDist;
   
   // Verification
-  if (argc!=2) {di<<" voffsetdim error"<<"\n";return 1;}
+  if (argc!=2) {di<<" voffsetdim error\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1854,7 +1843,7 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   
   // On active les modes de selections Faces.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select a face."<<"\n";
+  di<<" Select a face.\n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -1868,7 +1857,7 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
     ShapeA = TheAISContext()->SelectedShape();
   }
   
-  di<<" Select a face."<<"\n";
+  di<<" Select a face.\n";
   // Boucle d'attente waitpick.
   Standard_Integer argccc = 5;
   const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1890,7 +1879,7 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
     
     BRepExtrema_ExtFF myDeltaFaceFace  (FaceA ,FaceB );
     // On verifie que les deux faces sont bien parelles.
-    if (!myDeltaFaceFace.IsParallel() ) {di<<"vdistdim error: the faces are not parallel. "<<"\n";return 1; }
+    if (!myDeltaFaceFace.IsParallel() ) {di<<"vdistdim error: the faces are not parallel. \n";return 1; }
     
     // On saisit la distance et on l'arrondit!
     theDist=Round (sqrt (myDeltaFaceFace.SquareDistance(1))*10. )/10.;
@@ -1909,7 +1898,7 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   }
   
   else {
-    di<<" voffsetdim error: the selection of a face was expected."<<"\n";return 1;
+    di<<" voffsetdim error: the selection of a face was expected.\n";return 1;
   }
   
   return 0;
@@ -1924,22 +1913,13 @@ static int VOffsetDimBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
 //purpose  : Display the parallel relation 
 //Draw arg : vparallel Name 
 //==============================================================================
-#include <AIS_ParallelRelation.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <BRepExtrema_ExtFF.hxx>
-#include <BRepExtrema_ExtCC.hxx>
-#include <GC_MakePlane.hxx>
-#include <BRepAdaptor_Curve.hxx>
-#include <TopExp_Explorer.hxx>
-
-
 static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
  
   // Verification
-  if (argc!=2) {di<<" vparallel error"<<"\n";return 1;}
+  if (argc!=2) {di<<" vparallel error\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -1951,7 +1931,7 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
   // On active les modes de selections Edges.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select an edge or a face "<<"\n";
+  di<<" Select an edge or a face \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -1971,7 +1951,7 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
     
     // desactivation du mode face
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(4) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -1989,7 +1969,7 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
     TopoDS_Edge  EdgeB=TopoDS::Edge(ShapeB);
     BRepExtrema_ExtCC myDeltaEdge (EdgeA ,EdgeB );
     // on verifie qu'ils ne sont pas paralleles.
-    if (!myDeltaEdge.IsParallel() ) {di<<"vparallel error: non parallel edges."<<"\n";return 1; }
+    if (!myDeltaEdge.IsParallel() ) {di<<"vparallel error: non parallel edges.\n";return 1; }
     
     
     // On recupere les  vertexes extremites des edge A et B.
@@ -2019,7 +1999,7 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
     
     // desactivation du mode edge
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(2) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2037,7 +2017,7 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
     
     BRepExtrema_ExtFF myDeltaFaceFace  (FaceA ,FaceB );
     // On verifie que les deux faces sont bien parelles.
-    if (!myDeltaFaceFace.IsParallel() ) {di<<"vdistdim error: the faces are not parallel. "<<"\n";return 1; }
+    if (!myDeltaFaceFace.IsParallel() ) {di<<"vdistdim error: the faces are not parallel. \n";return 1; }
     
     // recuperation des edges des faces.
     TopExp_Explorer FaceExpA(FaceA,TopAbs_EDGE);
@@ -2081,21 +2061,13 @@ static int VParallelBuilder(Draw_Interpretor& di, Standard_Integer argc, const c
 //purpose  : Display the Perpendicular Relation
 //Draw arg : vperpendicular Name 
 //==============================================================================
-#include <AIS_PerpendicularRelation.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <GC_MakePlane.hxx>
-#include <BRepAdaptor_Curve.hxx>
-#include <TopExp_Explorer.hxx>
-
-
-
 static int VPerpendicularBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
  
   // Verification
-  if (argc!=2) {di<<" vortho error"<<"\n";return 1;}
+  if (argc!=2) {di<<" vortho error\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -2107,7 +2079,7 @@ static int VPerpendicularBuilder(Draw_Interpretor& di, Standard_Integer argc, co
   // On active les modes de selections Edges.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select an edge or a face "<<"\n";
+  di<<" Select an edge or a face \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -2127,7 +2099,7 @@ static int VPerpendicularBuilder(Draw_Interpretor& di, Standard_Integer argc, co
     
     // desactivation du mode face
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(4) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2175,7 +2147,7 @@ static int VPerpendicularBuilder(Draw_Interpretor& di, Standard_Integer argc, co
     
     // desactivation du mode edge
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(2) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2231,16 +2203,13 @@ static int VPerpendicularBuilder(Draw_Interpretor& di, Standard_Integer argc, co
 //purpose  : Display the tangent Relation
 //Draw arg : vtangent Name 
 //==============================================================================
-#include <AIS_TangentRelation.hxx>
-
-
 static int VTangentBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
  
   // Verification
-  if (argc!=2) {di<<" vtangent error"<<"\n";return 1;}
+  if (argc!=2) {di<<" vtangent error\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -2252,7 +2221,7 @@ static int VTangentBuilder(Draw_Interpretor& di, Standard_Integer argc, const ch
   // On active les modes de selections Edges.
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(4) );
-  di<<" Select two coplanar edges(First the circular edge then the tangent edge) or two faces "<<"\n";
+  di<<" Select two coplanar edges(First the circular edge then the tangent edge) or two faces \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -2272,7 +2241,7 @@ static int VTangentBuilder(Draw_Interpretor& di, Standard_Integer argc, const ch
     
     // desactivation du mode face
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(4) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2317,7 +2286,7 @@ static int VTangentBuilder(Draw_Interpretor& di, Standard_Integer argc, const ch
     
     // desactivation du mode edge
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(2) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2372,18 +2341,13 @@ static int VTangentBuilder(Draw_Interpretor& di, Standard_Integer argc, const ch
 //purpose  : Display the Symetrical Relation
 //Draw arg : vsymetric Name 
 //==============================================================================
-#include <AIS_SymmetricRelation.hxx>
-#include <AIS_InteractiveObject.hxx>
-#include <AIS_Dimension.hxx>
-
-
 static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const char** argv) 
 {
   // Declarations
   Standard_Integer myCurrentIndex;
  
   // Verification
-  if (argc!=2) {di<<" vSymmetric error"<<"\n";return 1;}
+  if (argc!=2) {di<<" vSymmetric error\n";return 1;}
   
   // Fermeture des contextes locaux
   TheAISContext()->CloseAllContexts();
@@ -2394,7 +2358,7 @@ static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   
   // On active les modes de selections
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
-  di<<" Select an edge:the axis of symetry "<<"\n";
+  di<<" Select an edge:the axis of symetry \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc = 5;
@@ -2413,7 +2377,7 @@ static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
   // On active les modes de selections
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(2) );
   TheAISContext()->ActivateStandardMode (AIS_Shape::SelectionType(1) );
-  di<<" Select two edges or two vertices. "<<"\n";
+  di<<" Select two edges or two vertices. \n";
   
   // Boucle d'attente waitpick.
   Standard_Integer argcc2 = 5;
@@ -2437,7 +2401,7 @@ static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
     
     // desactivation du mode vertex
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(1) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2457,8 +2421,8 @@ static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
     BRepExtrema_ExtCC myDeltaEdgeAB (EdgeA ,EdgeB );
     BRepExtrema_ExtCC myDeltaEdgeAC (EdgeA ,EdgeC );
     // on verifie qu'ils  sont paralleles.
-    if (!myDeltaEdgeAB.IsParallel() ) {di<<"vsymetric error: non parallel edges."<<"\n";return 1; }
-    if (!myDeltaEdgeAC.IsParallel() ) {di<<"vsymetric error: non parallel edges."<<"\n";return 1; }
+    if (!myDeltaEdgeAB.IsParallel() ) {di<<"vsymetric error: non parallel edges.\n";return 1; }
+    if (!myDeltaEdgeAC.IsParallel() ) {di<<"vsymetric error: non parallel edges.\n";return 1; }
     // on recupere les vertexs
     TopoDS_Vertex  Va,Vb,Vc,Vd;
     TopExp::Vertices(EdgeB,Va,Vb );
@@ -2487,7 +2451,7 @@ static int VSymmetricBuilder(Draw_Interpretor& di, Standard_Integer argc, const 
     
     // desactivation du mode edge
     TheAISContext()->DeactivateStandardMode (AIS_Shape::SelectionType(2) );
-    di<<" Select a second edge"<<"\n";
+    di<<" Select a second edge\n";
     // Boucle d'attente waitpick.
     Standard_Integer argccc = 5;
     const char *bufff[] = { "VPick", "X", "VPickY","VPickZ", "VPickShape" };
@@ -2676,7 +2640,7 @@ static int VMoveDim (Draw_Interpretor& theDi, Standard_Integer theArgNum, const 
     }
     if (!isPicked)
     {
-      theDi << theArgVec[0] << ": no dimension or relation is selected." << "\n";
+      theDi << theArgVec[0] << ": no dimension or relation is selected.\n";
       return 1;
     }
   }

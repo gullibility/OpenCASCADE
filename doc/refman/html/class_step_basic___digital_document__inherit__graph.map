@@ -1,0 +1,5 @@
+<map id="StepBasic_DigitalDocument" name="StepBasic_DigitalDocument">
+<area shape="rect" id="node2" href="$class_step_basic___document.html" title="Representation of STEP entity Document. " alt="" coords="23,155,171,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="42,80,152,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="30,5,164,32"/>
+</map>

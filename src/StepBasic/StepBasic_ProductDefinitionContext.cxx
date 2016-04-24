@@ -17,15 +17,9 @@
 #include <StepBasic_ProductDefinitionContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductDefinitionContext,StepBasic_ApplicationContextElement)
+
 StepBasic_ProductDefinitionContext::StepBasic_ProductDefinitionContext ()  {}
-
-void StepBasic_ProductDefinitionContext::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepBasic_ApplicationContext)& aFrameOfReference)
-{
-
-	StepBasic_ApplicationContextElement::Init(aName, aFrameOfReference);
-}
 
 void StepBasic_ProductDefinitionContext::Init(
 	const Handle(TCollection_HAsciiString)& aName,

@@ -17,5 +17,7 @@ if { [catch { bsection result a f -n2d } catch_result] } {
     puts "Faulty ${BugNumber}"
 } 
 
-set length 37.7831
-set 3dviewer 0
+checkprops result -l 37.7831 
+checkshape result 
+checksection result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

@@ -1,0 +1,7 @@
+<map id="StepElement_ElementDescriptor" name="StepElement_ElementDescriptor">
+<area shape="rect" id="node4" href="$class_step_element___curve3d_element_descriptor.html" title="Representation of STEP entity Curve3dElementDescriptor. " alt="" coords="614,5,813,46"/>
+<area shape="rect" id="node5" href="$class_step_element___surface3d_element_descriptor.html" title="Representation of STEP entity Surface3dElementDescriptor. " alt="" coords="608,70,819,111"/>
+<area shape="rect" id="node6" href="$class_step_element___volume3d_element_descriptor.html" title="Representation of STEP entity Volume3dElementDescriptor. " alt="" coords="608,135,819,177"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,77,301,104"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,77,141,104"/>
+</map>

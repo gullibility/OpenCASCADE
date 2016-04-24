@@ -1,0 +1,9 @@
+<map id="SelectBasics_EntityOwner" name="SelectBasics_EntityOwner">
+<area shape="rect" id="node4" href="$class_select_mgr___entity_owner.html" title="A framework to define classes of owners of sensitive primitives. The owner is the link between applic..." alt="" coords="283,229,441,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="307,80,417,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="295,5,429,32"/>
+<area shape="rect" id="node5" href="$class_a_i_s___dimension_owner.html" title="The owner is the entity which makes it possible to link the sensitive primitives and the reference sh..." alt="" coords="5,304,152,331"/>
+<area shape="rect" id="node6" href="$class_mesh_v_s___mesh_entity_owner.html" title="The custom owner. This class provides methods to store owner information: 1) An address of element or..." alt="" coords="177,304,359,331"/>
+<area shape="rect" id="node7" href="$class_mesh_v_s___mesh_owner.html" title="The custom mesh owner used for advanced mesh selection. This class provides methods to store informat..." alt="" coords="383,304,531,331"/>
+<area shape="rect" id="node8" href="$class_std_select___b_rep_owner.html" title="Defines Specific Owners for Sensitive Primitives (Sensitive Segments,Circles...). Used in Dynamic Sel..." alt="" coords="556,304,711,331"/>
+</map>

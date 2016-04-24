@@ -116,7 +116,7 @@ static Standard_Integer DDataStd_SetInteger (Draw_Interpretor& di,
     TDataStd_Integer::Set(L,Draw::Atoi(arg[3]));  
     return 0;
   }
-  di << "DDataStd_SetInteger : Error" << "\n";
+  di << "DDataStd_SetInteger : Error\n";
   return 1;
 }
 
@@ -137,7 +137,7 @@ static Standard_Integer DDataStd_SetReal (Draw_Interpretor& di,
     TDataStd_Real::Set(L,Draw::Atof(arg[3]));  
     return 0;
   } 
-  di << "DDataStd_SetReal : Error" << "\n";
+  di << "DDataStd_SetReal : Error\n";
   return 1;
 }
 
@@ -162,7 +162,7 @@ static Standard_Integer DDataStd_SetReference (Draw_Interpretor& di,
     TDF_Reference::Set(L,LREF);  
     return 0;
   } 
-  di << "DDataStd_SetReference : Error" << "\n";
+  di << "DDataStd_SetReference : Error\n";
   return 1;
 }
 
@@ -184,7 +184,7 @@ static Standard_Integer DDataStd_SetComment (Draw_Interpretor& di,
     TDataStd_Comment::Set(L,TCollection_ExtendedString(arg[3],Standard_True));  
     return 0;
   }
-  di << "DDataStd_SetComment : Error" << "\n";
+  di << "DDataStd_SetComment : Error\n";
   return 1;
 }
 
@@ -209,7 +209,7 @@ static Standard_Integer DDataStd_GetInteger (Draw_Interpretor& di,
     di << A->Get();
     return 0;
   }
-  di << "DDataStd_GetInteger : Error" << "\n";
+  di << "DDataStd_GetInteger : Error\n";
   return 1;
 }
 
@@ -232,7 +232,7 @@ static Standard_Integer DDataStd_GetReal (Draw_Interpretor& di,
     di << A->Get();
     return 0;
   }
-  di << "DDataStd_GetReal : Error" << "\n";
+  di << "DDataStd_GetReal : Error\n";
   return 1;
 }
 
@@ -255,7 +255,7 @@ static Standard_Integer DDataStd_GetReference (Draw_Interpretor& di,
     di << entry.ToCString();
     return 0;
   }
-  di << "DDataStd_GetReference : Error" << "\n";
+  di << "DDataStd_GetReference : Error\n";
   return 1;
 }
 
@@ -277,7 +277,7 @@ static Standard_Integer DDataStd_GetComment (Draw_Interpretor& di,
     di << A->Get().ToExtString();
     return 0;
   }
-  di << "DDataStd_GetComment : Error" << "\n";
+  di << "DDataStd_GetComment : Error\n";
   return 1;
 }
 
@@ -306,7 +306,7 @@ static Standard_Integer DDataStd_Self (Draw_Interpretor& di,
 //    }
     return 0;
   } 
-  di << "Self : Error" << "\n";
+  di << "Self : Error\n";
   return 0;
 }
 
@@ -543,7 +543,7 @@ static Standard_Integer DDataStd_GetIntArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     di << A->Value(index) << "\n";
@@ -605,7 +605,7 @@ static Standard_Integer DDataStd_ChangeIntArray (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "DDataStd_ChangeIntArray: Error" << "\n";
+  di << "DDataStd_ChangeIntArray: Error\n";
   return 0; 
 } 
 
@@ -758,7 +758,7 @@ static Standard_Integer DDataStd_GetRealArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     di << A->Value(index) << "\n";
@@ -820,7 +820,7 @@ static Standard_Integer DDataStd_ChangeRealArray (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "DDataStd_ChangeRealArray: Error" << "\n";
+  di << "DDataStd_ChangeRealArray: Error\n";
   return 0; 
 } 
 
@@ -847,7 +847,7 @@ static Standard_Integer DDataStd_SetVariable (Draw_Interpretor& di,
     return 0; 
   }
 
-  di << "Wrong arguments" << "\n";  
+  di << "Wrong arguments\n";  
   return 1; 
 } 
 
@@ -868,7 +868,7 @@ static Standard_Integer DDataStd_GetVariable (Draw_Interpretor& di,
     Handle(TDataStd_Variable) aV;
     if (!label.FindAttribute(TDataStd_Variable::GetID(), aV))
     {
-      di << "TDataStd_Variable: no such attribute" << "\n";
+      di << "TDataStd_Variable: no such attribute\n";
     }
 
     Draw::Set(arg[3],TCollection_AsciiString(Standard_Integer(aV->IsConstant())).ToCString());
@@ -876,7 +876,7 @@ static Standard_Integer DDataStd_GetVariable (Draw_Interpretor& di,
     return 0; 
   }
 
-  di << "Wrong arguments" << "\n";  
+  di << "Wrong arguments\n";  
   return 1; 
 } 
 
@@ -909,14 +909,14 @@ static Standard_Integer DDataStd_SetRelation (Draw_Interpretor& di,
       }
       if (!label.FindAttribute(TDataStd_Variable::GetID(), aV))
       {
-        di << "No TDataStd_Variable Attribute on label" << "\n";
+        di << "No TDataStd_Variable Attribute on label\n";
         return 1;
       }
       aR->GetVariables().Append(aV);
     }
     return 0;
   }
-  di << "Usage: SetRelation (DF, entry, expression, var1[, var2, ...])" << "\n";
+  di << "Usage: SetRelation (DF, entry, expression, var1[, var2, ...])\n";
   return 1;
 }
 
@@ -964,7 +964,7 @@ static Standard_Integer DDataStd_DumpRelation (Draw_Interpretor& di,
     di << ")";
     return 0;
   }
-  di << "Usage: DumpRelation (DF, entry)" << "\n";
+  di << "Usage: DumpRelation (DF, entry)\n";
   return 1;
 }
 
@@ -1015,7 +1015,7 @@ static Standard_Integer DDataStd_GetFunction (Draw_Interpretor& di,
     Handle(TFunction_Function) aF;    
     if (!label.FindAttribute(TFunction_Function::GetID(), aF))
     {
-      di << "No TFunction_Function Attribute on label" << "\n";
+      di << "No TFunction_Function Attribute on label\n";
     }
     else
     {
@@ -1149,7 +1149,7 @@ static Standard_Integer DDataStd_GetExtStringArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     const TCollection_ExtendedString& value = A->Value(index);
@@ -1212,7 +1212,7 @@ static Standard_Integer DDataStd_ChangeExtStrArray (Draw_Interpretor& di,
     }    
     return 0;
   }
-  di << "DDataStd_ChangeExtStringArray: Error" << "\n";
+  di << "DDataStd_ChangeExtStringArray: Error\n";
   return 0; 
 } 
 
@@ -1259,7 +1259,7 @@ static Standard_Integer DDataStd_KeepUTF (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "SetUTFName : String is not kept in DF" << "\n";
+  di << "SetUTFName : String is not kept in DF\n";
   return 1;
 }
 
@@ -1324,7 +1324,7 @@ static Standard_Integer DDataStd_GetUTFtoFile (Draw_Interpretor& di,
     anOS.close();
     return 0;
   }
-  di << "GetUTF : Data is not extracted to the specified file " <<"\n";
+  di << "GetUTF : Data is not extracted to the specified file \n";
   return 1;
 }
 
@@ -1359,7 +1359,7 @@ static Standard_Integer DDataStd_SetByteArray (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetByteArray: Error" << "\n";
+  di << "DDataStd_SetByteArray: Error\n";
   return 1; 
 } 
 
@@ -1436,7 +1436,7 @@ static Standard_Integer DDataStd_SetBooleanArray (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetBooleanArray: Error" << "\n";
+  di << "DDataStd_SetBooleanArray: Error\n";
   return 1; 
 } 
 
@@ -1463,7 +1463,7 @@ static Standard_Integer DDataStd_SetBooleanArrayValue (Draw_Interpretor& di,
 
   // Check the value.
   if (value != 0 && value != 1) {
-    di << "DDataStd_SetBooleanArrayValue: Error! The value should be either 0 or 1." << "\n";
+    di << "DDataStd_SetBooleanArrayValue: Error! The value should be either 0 or 1.\n";
     return 1;
   }
 
@@ -1501,7 +1501,7 @@ static Standard_Integer DDataStd_SetExtStringList (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetExtStringList: Error" << "\n";
+  di << "DDataStd_SetExtStringList: Error\n";
   return 1; 
 } 
 //
@@ -1532,7 +1532,7 @@ static Standard_Integer DDataStd_SetReferenceList (Draw_Interpretor& di,
       return 0; 
     }
   }
-  di << "DDataStd_SetReferenceList: Error" << "\n";
+  di << "DDataStd_SetReferenceList: Error\n";
   return 1; 
 } 
 
@@ -1565,7 +1565,7 @@ static Standard_Integer DDataStd_SetBooleanList (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetBooleanList: Error" << "\n";
+  di << "DDataStd_SetBooleanList: Error\n";
   return 1; 
 } 
 
@@ -1592,7 +1592,7 @@ static Standard_Integer DDataStd_SetIntegerList (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetIntegerList: Error" << "\n";
+  di << "DDataStd_SetIntegerList: Error\n";
   return 1; 
 } 
 
@@ -1619,7 +1619,488 @@ static Standard_Integer DDataStd_SetRealList (Draw_Interpretor& di,
     }
     return 0; 
   }
-  di << "DDataStd_SetRealList: Error" << "\n";
+  di << "DDataStd_SetRealList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertBeforeExtStringList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertBeforeExtStringList (Draw_Interpretor& di,
+                                                            Standard_Integer nb, 
+                                                            const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ExtStringList) A;
+    if (!label.FindAttribute(TDataStd_ExtStringList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    TCollection_ExtendedString value = arg[4];
+
+    if (A->InsertBefore(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertBeforeExtStringList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertAfterExtStringList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertAfterExtStringList (Draw_Interpretor& di,
+                                                           Standard_Integer nb, 
+                                                           const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ExtStringList) A;
+    if (!label.FindAttribute(TDataStd_ExtStringList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    TCollection_ExtendedString value = arg[4];
+
+    if (A->InsertAfter(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertAfterExtStringList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_RemoveExtStringList (DF, entry, index )
+//=======================================================================
+static Standard_Integer DDataStd_RemoveExtStringList (Draw_Interpretor& di,
+                                                      Standard_Integer nb, 
+                                                      const char** arg) 
+{
+  if (nb == 4) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ExtStringList) A;
+    if (!label.FindAttribute(TDataStd_ExtStringList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    if (A->Remove(index))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_RemoveExtStringList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertBeforeBooleanList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertBeforeBooleanList (Draw_Interpretor& di,
+                                                          Standard_Integer nb, 
+                                                          const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_BooleanList) A;
+    if (!label.FindAttribute(TDataStd_BooleanList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Boolean value = (Standard_Boolean) Draw::Atoi(arg[4]);
+
+    if (A->InsertBefore(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertBeforeBooleanList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertAfterBooleanList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertAfterBooleanList (Draw_Interpretor& di,
+                                                         Standard_Integer nb, 
+                                                         const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_BooleanList) A;
+    if (!label.FindAttribute(TDataStd_BooleanList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Boolean value = (Standard_Boolean) Draw::Atoi(arg[4]);
+
+    if (A->InsertAfter(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertAfterBooleanList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_RemoveBooleanList (DF, entry, index )
+//=======================================================================
+static Standard_Integer DDataStd_RemoveBooleanList (Draw_Interpretor& di,
+                                                    Standard_Integer nb, 
+                                                    const char** arg) 
+{
+  if (nb == 4) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_BooleanList) A;
+    if (!label.FindAttribute(TDataStd_BooleanList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    if (A->Remove(index))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_RemoveBooleanList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertBeforeIntegerList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertBeforeIntegerList (Draw_Interpretor& di,
+                                                          Standard_Integer nb, 
+                                                          const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_IntegerList) A;
+    if (!label.FindAttribute(TDataStd_IntegerList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Integer value = (Standard_Integer) Draw::Atoi(arg[4]);
+
+    if (A->InsertBeforeByIndex(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertBeforeIntegerList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertAfterIntegerList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertAfterIntegerList (Draw_Interpretor& di,
+                                                         Standard_Integer nb, 
+                                                         const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_IntegerList) A;
+    if (!label.FindAttribute(TDataStd_IntegerList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Integer value = (Standard_Integer) Draw::Atoi(arg[4]);
+
+    if (A->InsertAfterByIndex(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertAfterIntegerList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_RemoveIntegerList (DF, entry, index )
+//=======================================================================
+static Standard_Integer DDataStd_RemoveIntegerList (Draw_Interpretor& di,
+                                                    Standard_Integer nb, 
+                                                    const char** arg) 
+{
+  if (nb == 4) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_IntegerList) A;
+    if (!label.FindAttribute(TDataStd_IntegerList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    if (A->RemoveByIndex(index))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_RemoveIntegerList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertBeforeRealList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertBeforeRealList (Draw_Interpretor& di,
+                                                       Standard_Integer nb, 
+                                                       const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_RealList) A;
+    if (!label.FindAttribute(TDataStd_RealList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Real value = (Standard_Real) Draw::Atof(arg[4]);
+
+    if (A->InsertBeforeByIndex(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertBeforeRealList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertAfterRealList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertAfterRealList (Draw_Interpretor& di,
+                                                      Standard_Integer nb, 
+                                                      const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_RealList) A;
+    if (!label.FindAttribute(TDataStd_RealList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+    Standard_Real value = (Standard_Real) Draw::Atof(arg[4]);
+
+    if (A->InsertAfterByIndex(index, value))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertAfterRealList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_RemoveRealList (DF, entry, index )
+//=======================================================================
+static Standard_Integer DDataStd_RemoveRealList (Draw_Interpretor& di,
+                                                 Standard_Integer nb, 
+                                                 const char** arg) 
+{
+  if (nb == 4) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_RealList) A;
+    if (!label.FindAttribute(TDataStd_RealList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    if (A->RemoveByIndex(index))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_RemoveRealList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertBeforeReferenceList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertBeforeReferenceList (Draw_Interpretor& di,
+                                                            Standard_Integer nb, 
+                                                            const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ReferenceList) A;
+    if (!label.FindAttribute(TDataStd_ReferenceList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    TDF_Label refLabel;
+    if (!DDF::AddLabel(DF, arg[4], refLabel))
+        return 1;
+
+    if (A->InsertBefore(index, refLabel))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertBeforeReferenceList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_InsertAfterReferenceList (DF, entry, index, value  )
+//=======================================================================
+static Standard_Integer DDataStd_InsertAfterReferenceList (Draw_Interpretor& di,
+                                                           Standard_Integer nb, 
+                                                           const char** arg) 
+{
+  if (nb == 5) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ReferenceList) A;
+    if (!label.FindAttribute(TDataStd_ReferenceList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    TDF_Label refLabel;
+    if (!DDF::AddLabel(DF, arg[4], refLabel))
+        return 1;
+
+    if (A->InsertAfter(index, refLabel))
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_InsertAfterReferenceList: Error\n";
+  return 1; 
+} 
+
+//=======================================================================
+//function : DDataStd_RemoveReferenceList (DF, entry, index )
+//=======================================================================
+static Standard_Integer DDataStd_RemoveReferenceList (Draw_Interpretor& di,
+                                                      Standard_Integer nb, 
+                                                      const char** arg) 
+{
+  if (nb == 4) 
+  {  
+    Handle(TDF_Data) DF;
+    if (!DDF::GetDF(arg[1],DF))
+        return 1; 
+
+    TDF_Label label;
+    DDF::AddLabel(DF, arg[2], label);
+    
+    Handle(TDataStd_ReferenceList) A;
+    if (!label.FindAttribute(TDataStd_ReferenceList::GetID(), A))
+        return 1;
+
+    Standard_Integer index = Draw::Atoi(arg[3]);
+
+    if (A->Remove(index))    
+      return 0; 
+    else
+      return 1;
+  }
+  di << "DDataStd_RemoveReferenceList: Error\n";
   return 1; 
 } 
 
@@ -1681,7 +2162,7 @@ static Standard_Integer DDataStd_GetByteArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     di << A->Value(index) << "\n";
@@ -1750,7 +2231,7 @@ static Standard_Integer DDataStd_GetBooleanArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     di << ((A->Value(index) == Standard_True) ? "True" : "False") << "\n";
@@ -1816,7 +2297,7 @@ static Standard_Integer DDataStd_ChangeByteArray (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "DDataStd_ChangeByteArray: Error" << "\n";
+  di << "DDataStd_ChangeByteArray: Error\n";
   return 1; 
 }
 
@@ -1856,10 +2337,10 @@ static Standard_Integer DDataStd_GetBooleanList (Draw_Interpretor& di,
       }
       di << "\n";
     } else 
-       di << "List is empty" << "\n";
+       di << "List is empty\n";
     return 0; 
   }
-  di << "DDataStd_GetBooleanList: Error" << "\n";
+  di << "DDataStd_GetBooleanList: Error\n";
   return 1; 
 }
 
@@ -1899,11 +2380,11 @@ static Standard_Integer DDataStd_GetIntegerList (Draw_Interpretor& di,
       }
       di << "\n";
     } else 
-      di << "List is empty" << "\n";
+      di << "List is empty\n";
 
     return 0; 
   }
-  di << "DDataStd_GetIntegerList: Error" << "\n";
+  di << "DDataStd_GetIntegerList: Error\n";
   return 1; 
 }
 
@@ -1943,10 +2424,10 @@ static Standard_Integer DDataStd_GetRealList (Draw_Interpretor& di,
       }
       di << "\n";
     } else
-      di << "List is empty" << "\n";
+      di << "List is empty\n";
     return 0; 
   }
-  di << "DDataStd_GetRealList: Error" << "\n";
+  di << "DDataStd_GetRealList: Error\n";
   return 1; 
 }
 
@@ -1989,11 +2470,11 @@ static Standard_Integer DDataStd_GetExtStringList (Draw_Interpretor& di,
       di << "\n";
     }
     else {
-      di << "List is empty" << "\n";
+      di << "List is empty\n";
     }
     return 0; 
   }
-  di << "DDataStd_GetExtStringList: Error" << "\n";
+  di << "DDataStd_GetExtStringList: Error\n";
   return 1; 
 } 
 
@@ -2039,10 +2520,10 @@ static Standard_Integer DDataStd_GetReferenceList (Draw_Interpretor& di,
       }
       di << "\n";
     } else 
-      di << "List is empty" << "\n";
+      di << "List is empty\n";
     return 0;
   }
-  di << "DDataStd_GetReferenceList: Error" << "\n";
+  di << "DDataStd_GetReferenceList: Error\n";
   return 1; 
 } 
 //
@@ -2080,7 +2561,7 @@ static Standard_Integer DDataStd_SetIntPackedMap (Draw_Interpretor& di,
     cout << "Map extent = " << anAtt->Extent()<<endl;
     return 0; 
   }
-  di << "DDataStd_SetIntPackedMap : Error" << "\n";
+  di << "DDataStd_SetIntPackedMap : Error\n";
   return 1;
 } 
 
@@ -2111,7 +2592,7 @@ static Standard_Integer DDataStd_GetIntPackedMap (Draw_Interpretor& di,
       }
     return 0; 
   }
-  di << "DDataStd_GetIntPackedMap : Error" << "\n";
+  di << "DDataStd_GetIntPackedMap : Error\n";
   return 1;
 } 
 
@@ -2154,7 +2635,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_Add (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "DDataStd_ChangeIntPackedMap_Add: Error" << "\n";
+  di << "DDataStd_ChangeIntPackedMap_Add: Error\n";
   return 0; 
 }
 
@@ -2197,7 +2678,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_Rem (Draw_Interpretor& di,
     }
     return 0;
   }
-  di << "DDataStd_ChangeIntPackedMap_Rem: Error" << "\n";
+  di << "DDataStd_ChangeIntPackedMap_Rem: Error\n";
   return 0; 
 }
 
@@ -2242,7 +2723,7 @@ static Standard_Integer DDataStd_ChangeIntPackedMap_AddRem (Draw_Interpretor& di
     }
     return 0;
   }
-  di << "DDataStd_ChangeIntPackedMap_AddRem: Error" << "\n";
+  di << "DDataStd_ChangeIntPackedMap_AddRem: Error\n";
   return 0; 
 }
 
@@ -2278,7 +2759,7 @@ static Standard_Integer DDataStd_SetIntPHugeMap (Draw_Interpretor& di,
     cout << "Map extent = " << anAtt->Extent()<<endl;
     return 0; 
   }
-  di << "DDataStd_SetIntPHugeMap : Error" << "\n";
+  di << "DDataStd_SetIntPHugeMap : Error\n";
   return 1;
 }
 
@@ -2314,7 +2795,7 @@ static Standard_Integer DDataStd_SetNDataIntegers2 (Draw_Interpretor& di,
     }    
     return 0; 
   }
-  di << "DDataStd_SetNDataIntegers2 : Error" << "\n";
+  di << "DDataStd_SetNDataIntegers2 : Error\n";
   return 1;
 } 
 //================
@@ -2354,7 +2835,7 @@ static Standard_Integer DDataStd_SetNDataIntAr2 (Draw_Interpretor& di,
     anAtt->SetArrayOfIntegers(aKey, anArr); 
     return 0; 
   }
-  di << "DDataStd_SetNDataIntArrays2 : Error" << "\n";
+  di << "DDataStd_SetNDataIntArrays2 : Error\n";
   return 1;
 } 
 
@@ -2375,7 +2856,7 @@ static Standard_Integer DDataStd_SetAsciiString (Draw_Interpretor& di,
     DDF::AddLabel(DF, arg[2], aLabel);
     TCollection_AsciiString aString(arg[3]);
     Handle(TDataStd_AsciiString) anAtt;
-    if(!aLabel.FindAttribute(TDataStd_NamedData::GetID(), anAtt))
+    if(!aLabel.FindAttribute(TDataStd_AsciiString::GetID(), anAtt))
       anAtt = TDataStd_AsciiString::Set(aLabel, aString);
     if(anAtt.IsNull()) {
       di << "AsciiString attribute is not found or not set"  << "\n";
@@ -2385,7 +2866,7 @@ static Standard_Integer DDataStd_SetAsciiString (Draw_Interpretor& di,
     cout << "String = " << anAtt->Get().ToCString() << " is kept in DF" << endl;
     return 0; 
   }
-  di << "DDataStd_SetAsciiString : Error" << "\n";
+  di << "DDataStd_SetAsciiString : Error\n";
   return 1;
 } 
 //
@@ -2411,7 +2892,7 @@ static Standard_Integer DDataStd_GetAsciiString (Draw_Interpretor& di,
     cout << "String = " <<anAtt->Get().ToCString()  << endl;
     return 0; 
   }
-  di << "DDataStd_GetAsciiString : Error" << "\n";
+  di << "DDataStd_GetAsciiString : Error\n";
   return 1;
 } 
 
@@ -2456,7 +2937,7 @@ static Standard_Integer DDataStd_SetNDataIntegers (Draw_Interpretor& di,
     }    
     return 0; 
   }
-  di << "DDataStd_SetNDataIntegers : Error" << "\n";
+  di << "DDataStd_SetNDataIntegers : Error\n";
   return 1;
 } 
 
@@ -2493,7 +2974,7 @@ static Standard_Integer DDataStd_GetNDIntegers (Draw_Interpretor& di,
 
     return 0; 
   }
-  di << "DDataStd_GetNDIntegers : Error" << "\n";
+  di << "DDataStd_GetNDIntegers : Error\n";
   return 1;
 } 
 
@@ -2529,7 +3010,7 @@ static Standard_Integer DDataStd_GetNDInteger (Draw_Interpretor& di,
       return 0; 
     }
   }
-  di << "DDataStd_SetNDataIntegers : Error" << "\n";
+  di << "DDataStd_SetNDataIntegers : Error\n";
   return 1;
 } 
 
@@ -2566,7 +3047,7 @@ static Standard_Integer DDataStd_SetNDataReals (Draw_Interpretor& di,
     }    
     return 0; 
   }
-  di << "DDataStd_SetNDataReals : Error" << "\n";
+  di << "DDataStd_SetNDataReals : Error\n";
   return 1;
 } 
 
@@ -2601,7 +3082,7 @@ static Standard_Integer DDataStd_GetNDReals (Draw_Interpretor& di,
       }
     return 0; 
   }
-  di << "DDataStd_GetNDReals : Error" << "\n";
+  di << "DDataStd_GetNDReals : Error\n";
   return 1;
 } 
 
@@ -2637,7 +3118,7 @@ static Standard_Integer DDataStd_GetNDReal (Draw_Interpretor& di,
       return 0; 
     }
   }
-  di << "DDataStd_GetNDReal : Error" << "\n";
+  di << "DDataStd_GetNDReal : Error\n";
   return 1;
 } 
 
@@ -2674,7 +3155,7 @@ static Standard_Integer DDataStd_SetNDataStrings (Draw_Interpretor& di,
     }    
     return 0; 
   }
-  di << "DDataStd_SetNDataStrings : Error" << "\n";
+  di << "DDataStd_SetNDataStrings : Error\n";
   return 1;
 } 
 
@@ -2710,7 +3191,7 @@ static Standard_Integer DDataStd_GetNDStrings (Draw_Interpretor& di,
       }
     return 0; 
   }
-  di << "DDataStd_GetNDStrings : Error" << "\n";
+  di << "DDataStd_GetNDStrings : Error\n";
   return 1;
 } 
 
@@ -2747,7 +3228,7 @@ static Standard_Integer DDataStd_GetNDString (Draw_Interpretor& di,
       return 0; 
     }
   }
-  di << "DDataStd_GetNDString : Error" << "\n";
+  di << "DDataStd_GetNDString : Error\n";
   return 1;
 } 
 
@@ -2784,7 +3265,7 @@ static Standard_Integer DDataStd_SetNDataBytes (Draw_Interpretor& di,
     }    
     return 0; 
   }
-  di << "DDataStd_SetNDataBytes : Error" << "\n";
+  di << "DDataStd_SetNDataBytes : Error\n";
   return 1;
 } 
 
@@ -2819,7 +3300,7 @@ static Standard_Integer DDataStd_GetNDBytes (Draw_Interpretor& di,
       }
     return 0; 
   }
-  di << "DDataStd_GetNDBytes : Error" << "\n";
+  di << "DDataStd_GetNDBytes : Error\n";
   return 1;
 } 
 
@@ -2855,7 +3336,7 @@ static Standard_Integer DDataStd_GetNDByte (Draw_Interpretor& di,
       return 0; 
     }
   }
-  di << "DDataStd_GetNDByte : Error" << "\n";
+  di << "DDataStd_GetNDByte : Error\n";
   return 1;
 } 
 //======================== IntArrays ====================================
@@ -2895,7 +3376,7 @@ static Standard_Integer DDataStd_SetNDataIntAr (Draw_Interpretor& di,
     anAtt->SetArrayOfIntegers(aKey, anArr); 
     return 0; 
   }
-  di << "DDataStd_SetNDataIntArrays : Error" << "\n";
+  di << "DDataStd_SetNDataIntArrays : Error\n";
   return 1;
 } 
 
@@ -2933,14 +3414,14 @@ static Standard_Integer DDataStd_GetNDIntArrays (Draw_Interpretor& di,
 	Standard_Integer upper = anArrValue->Upper();
 	for(Standard_Integer i = lower; i<=upper;i++) {
 	  Standard_Integer aValue = anArrValue->Value(i);
-	  cout << "\tValue("<<i<<")"<<" = " <<aValue<<endl;
+	  cout << "\tValue("<<i<<") = " <<aValue<<endl;
 	}
       } else 
 	 cout << "\tthe specified array is Null "<<endl;
     }
     return 0; 
   }
-  di << "DDataStd_GetNDIntArrays : Error" << "\n";
+  di << "DDataStd_GetNDIntArrays : Error\n";
   return 1;
 } 
 
@@ -2978,14 +3459,14 @@ static Standard_Integer DDataStd_GetNDIntArray (Draw_Interpretor& di,
 	Standard_Integer upper = anArrValue->Upper();
 	for(Standard_Integer i = lower; i<=upper;i++) {
 	  Standard_Integer aValue = anArrValue->Value(i);
-	  cout << "\tValue("<<i<<")"<<" = " <<aValue<<endl;
+	  cout << "\tValue("<<i<<") = " <<aValue<<endl;
 	}
       } else 
 	cout << "\tthe specified array is Null or not found"<<endl;
       return 0; 
     }
   }
-  di << "DDataStd_SetNDataIntArray : Error" << "\n";
+  di << "DDataStd_SetNDataIntArray : Error\n";
   return 1;
 } 
 //============================= RealArrays ==============================
@@ -3025,7 +3506,7 @@ static Standard_Integer DDataStd_SetNDataRealAr (Draw_Interpretor& di,
     anAtt->SetArrayOfReals(aKey, anArr); 
     return 0; 
   }
-  di << "DDataStd_SetNDataRealArrays : Error" << "\n";
+  di << "DDataStd_SetNDataRealArrays : Error\n";
   return 1;
 } 
 
@@ -3063,14 +3544,14 @@ static Standard_Integer DDataStd_GetNDRealArrays (Draw_Interpretor& di,
 	Standard_Integer upper = anArrValue->Upper();
 	for(Standard_Integer i = lower; i<=upper;i++) {
 	  Standard_Real aValue = anArrValue->Value(i);
-	  cout << "\tValue("<<i<<")"<<" = " <<aValue<<endl;
+	  cout << "\tValue("<<i<<") = " <<aValue<<endl;
 	}
       } else 
 	 cout << "\tthe specified array is Null "<<endl;
     }
     return 0; 
   }
-  di << "DDataStd_GetNDRealArrays : Error" << "\n";
+  di << "DDataStd_GetNDRealArrays : Error\n";
   return 1;
 } 
 
@@ -3108,14 +3589,14 @@ static Standard_Integer DDataStd_GetNDRealArray (Draw_Interpretor& di,
 	Standard_Integer upper = anArrValue->Upper();
 	for(Standard_Integer i = lower; i<=upper;i++) {
 	  Standard_Real aValue = anArrValue->Value(i);
-	  cout << "\tValue("<<i<<")"<<" = " <<aValue<<endl;
+	  cout << "\tValue("<<i<<") = " <<aValue<<endl;
 	}
       } else 
 	cout << "\tthe specified array is Null or not found"<<endl;
       return 0; 
     }
   }
-  di << "DDataStd_SetNDataRealArray : Error" << "\n";
+  di << "DDataStd_SetNDataRealArray : Error\n";
   return 1;
 }
 
@@ -3240,7 +3721,7 @@ static Standard_Integer DDataStd_GetRefArrayValue (Draw_Interpretor& di,
   
   Standard_Integer index = Draw::Atoi(arg[3]);
   if (index < A->Lower() || index > A->Upper()) {
-    di << "Index is out of range" << "\n";
+    di << "Index is out of range\n";
     return 1;
   } else {
     const TDF_Label& value = A->Value(index);
@@ -3368,6 +3849,66 @@ void DDataStd::BasicCommands (Draw_Interpretor& theCommands)
    theCommands.Add ("SetReferenceList", 
                    "SetReferenceList (DF, entry, elmt1, elmt2, ...  )",
                    __FILE__, DDataStd_SetReferenceList, g);
+
+   theCommands.Add ("InsertBeforeExtStringList", 
+                   "InsertBeforeExtStringList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertBeforeExtStringList, g);
+
+   theCommands.Add ("InsertAfterExtStringList", 
+                   "InsertAfterExtStringList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertAfterExtStringList, g);
+
+   theCommands.Add ("RemoveExtStringList", 
+                   "RemoveExtStringList (DF, entry, index )",
+                   __FILE__, DDataStd_RemoveExtStringList, g);
+
+   theCommands.Add ("InsertBeforeBooleanList", 
+                   "InsertBeforeBooleanList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertBeforeBooleanList, g);
+
+   theCommands.Add ("InsertAfterBooleanList", 
+                   "InsertAfterBooleanList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertAfterBooleanList, g);
+
+   theCommands.Add ("RemoveBooleanList", 
+                   "RemoveBooleanList (DF, entry, index )",
+                   __FILE__, DDataStd_RemoveBooleanList, g);
+
+   theCommands.Add ("InsertBeforeIntegerList", 
+                   "InsertBeforeIntegerList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertBeforeIntegerList, g);
+
+   theCommands.Add ("InsertAfterIntegerList", 
+                   "InsertAfterIntegerList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertAfterIntegerList, g);
+
+   theCommands.Add ("RemoveIntegerList", 
+                   "RemoveIntegerList (DF, entry, index )",
+                   __FILE__, DDataStd_RemoveIntegerList, g);
+
+   theCommands.Add ("InsertBeforeRealList", 
+                   "InsertBeforeRealList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertBeforeRealList, g);
+
+   theCommands.Add ("InsertAfterRealList", 
+                   "InsertAfterRealList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertAfterRealList, g);
+
+   theCommands.Add ("RemoveRealList", 
+                   "RemoveRealList (DF, entry, index )",
+                   __FILE__, DDataStd_RemoveRealList, g);
+
+   theCommands.Add ("InsertBeforeReferenceList", 
+                   "InsertBeforeReferenceList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertBeforeReferenceList, g);
+
+   theCommands.Add ("InsertAfterReferenceList", 
+                   "InsertAfterReferenceList (DF, entry, index, value )",
+                   __FILE__, DDataStd_InsertAfterReferenceList, g);
+
+   theCommands.Add ("RemoveReferenceList", 
+                   "RemoveReferenceList (DF, entry, index )",
+                   __FILE__, DDataStd_RemoveReferenceList, g);
 
   // GET
 

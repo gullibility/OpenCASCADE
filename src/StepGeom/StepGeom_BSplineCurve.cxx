@@ -17,14 +17,9 @@
 #include <StepGeom_CartesianPoint.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_BSplineCurve,StepGeom_BoundedCurve)
+
 StepGeom_BSplineCurve::StepGeom_BSplineCurve ()  {}
-
-void StepGeom_BSplineCurve::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_BSplineCurve::Init(
 	const Handle(TCollection_HAsciiString)& aName,

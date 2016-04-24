@@ -1,0 +1,5 @@
+<map id="ShapeFix_SplitCommonVertex" name="ShapeFix_SplitCommonVertex">
+<area shape="rect" id="node2" href="$class_shape_fix___root.html" title="Root class for fixing operations Provides context for recording changes (optional), basic precision value and limit (minimal and maximal) values for tolerances, and message registrator. " alt="" coords="50,155,160,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="50,80,160,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="38,5,172,32"/>
+</map>

@@ -9,7 +9,8 @@ puts ""
 stepread [locate_data_file bug26376_valve-test-meters.step] a *
 tpcompound result
 
-set square 150249
+checkprops result -s 150249 
+checkshape result
 
 set nbshapes_expected "
 Number of shapes in shape
@@ -24,5 +25,4 @@ Number of shapes in shape
  SHAPE     : 104
 "
 checknbshapes result -ref ${nbshapes_expected} -t -m "Shape"
-
-set 3dviewer 1
+checkview -display result -3d -path ${imagedir}/${test_image}.png

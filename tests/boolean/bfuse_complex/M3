@@ -6,4 +6,5 @@ restore [locate_data_file cts21244b.rle] b
 
 bfuse result a b
 
-set square 184913
+checkprops result -s 184913
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

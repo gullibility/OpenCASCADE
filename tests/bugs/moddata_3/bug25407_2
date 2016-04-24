@@ -19,9 +19,10 @@ extrema ct st
 
 if { [isdraw ext_1] } {
    mkedge result ext_1
-   set length 1.00005e-07
+   checkprops result -l 1.00005e-07
+   checksection result
 } else {
    puts "Error: invalid result"
 }
 
-set 2dviewer 1
+checkview -display result -2d -path ${imagedir}/${test_image}.png

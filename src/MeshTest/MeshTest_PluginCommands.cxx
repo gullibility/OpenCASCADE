@@ -366,7 +366,6 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
       TopLoc_Location aLoc;
       Handle(Poly_Triangulation) aT = BRep_Tool::Triangulation(aFace, aLoc);
       const TColgp_Array1OfPnt& aPoints = aT->Nodes();
-      const TColgp_Array1OfPnt2d& aPoints2d = aT->UVNodes();
       const gp_Trsf& trsf = aLoc.Transformation();
 
       TColgp_Array1OfPnt pnts(1,2);
@@ -381,12 +380,16 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
         DrawTrSurf::Set (name, poly);
         DrawTrSurf::Set (name, pnts(1));
         DrawTrSurf::Set (name, pnts(2));
-        pnts2d(1) = aPoints2d(n1);
-        pnts2d(2) = aPoints2d(n2);
-        Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D (pnts2d);
-        DrawTrSurf::Set (name, poly2d);
-        DrawTrSurf::Set (name, pnts2d(1));
-        DrawTrSurf::Set (name, pnts2d(2));
+        if (aT->HasUVNodes())
+        {
+          const TColgp_Array1OfPnt2d& aPoints2d = aT->UVNodes();
+          pnts2d(1) = aPoints2d(n1);
+          pnts2d(2) = aPoints2d(n2);
+          Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D (pnts2d);
+          DrawTrSurf::Set (name, poly2d);
+          DrawTrSurf::Set (name, pnts2d(1));
+          DrawTrSurf::Set (name, pnts2d(2));
+        }
       }
       di << "\n";
     }
@@ -395,7 +398,7 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
   // dump info on cross face errors
   Standard_Integer nbErr = aCheck.NbCrossFaceErrors();
   if (nbErr > 0) {
-    di << "cross face errors: {face1, node1, face2, node2, distance}" << "\n";
+    di << "cross face errors: {face1, node1, face2, node2, distance}\n";
     for (i=1; i <= nbErr; i++) {
       Standard_Integer iF1, n1, iF2, n2;
       Standard_Real aVal;
@@ -408,7 +411,7 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
   // dump info on edges
   Standard_Integer nbAsync = aCheck.NbAsyncEdges();
   if (nbAsync > 0) {
-    di << "async edges:" << "\n";
+    di << "async edges:\n";
     for (i=1; i <= nbAsync; i++) {
       Standard_Integer ie = aCheck.GetAsyncEdgeNum(i);
       di << ie << " ";
@@ -419,7 +422,7 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
   // dump info on free nodes
   Standard_Integer nbFreeNodes = aCheck.NbFreeNodes();
   if (nbFreeNodes > 0) {
-    di << "free nodes (in pairs: face / node): " << "\n";
+    di << "free nodes (in pairs: face / node): \n";
     for (i=1; i <= nbFreeNodes; i++) {
       Standard_Integer iface, inode;
       aCheck.GetFreeNodeNum(i, iface, inode);
@@ -428,10 +431,12 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
       TopLoc_Location aLoc;
       Handle(Poly_Triangulation) aT = BRep_Tool::Triangulation(aFace, aLoc);
       const TColgp_Array1OfPnt& aPoints = aT->Nodes();
-      const TColgp_Array1OfPnt2d& aPoints2d = aT->UVNodes();
       const gp_Trsf& trsf = aLoc.Transformation();
       DrawTrSurf::Set (name, aPoints(inode).Transformed(trsf));
-      DrawTrSurf::Set (name, aPoints2d(inode));
+      if (aT->HasUVNodes())
+      {
+        DrawTrSurf::Set (name, aT->UVNodes()(inode));
+      }
 
       di << "{" << iface << " " << inode << "} ";
     }
@@ -520,7 +525,6 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
       di << "Not connected mesh inside face " << aFaceId << "\n";
 
       const TColgp_Array1OfPnt& aPoints = aT->Nodes();
-      const TColgp_Array1OfPnt2d& aPoints2d = aT->UVNodes();
       const gp_Trsf& trsf = aLoc.Transformation();
 
       TColgp_Array1OfPnt pnts(1,2);
@@ -536,12 +540,16 @@ static Standard_Integer tricheck (Draw_Interpretor& di, int n, const char ** a)
         DrawTrSurf::Set (name, poly);
         DrawTrSurf::Set (name, pnts(1));
         DrawTrSurf::Set (name, pnts(2));
-        pnts2d(1) = aPoints2d(aLink.FirstNode());
-        pnts2d(2) = aPoints2d(aLink.LastNode());
-        Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D (pnts2d);
-        DrawTrSurf::Set (name, poly2d);
-        DrawTrSurf::Set (name, pnts2d(1));
-        DrawTrSurf::Set (name, pnts2d(2));
+        if (aT->HasUVNodes())
+        {
+          const TColgp_Array1OfPnt2d& aPoints2d = aT->UVNodes();
+          pnts2d(1) = aPoints2d(aLink.FirstNode());
+          pnts2d(2) = aPoints2d(aLink.LastNode());
+          Handle(Poly_Polygon2D) poly2d = new Poly_Polygon2D (pnts2d);
+          DrawTrSurf::Set (name, poly2d);
+          DrawTrSurf::Set (name, pnts2d(1));
+          DrawTrSurf::Set (name, pnts2d(2));
+        }
       }
       di << "\n";
     }

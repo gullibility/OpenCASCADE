@@ -1,0 +1,7 @@
+<map id="TObj_LabelIterator" name="TObj_LabelIterator">
+<area shape="rect" id="node5" href="$class_t_obj___ocaf_object_iterator.html" title="TObj_OcafObjectIterator" alt="" coords="5,304,165,331"/>
+<area shape="rect" id="node6" href="$class_t_obj___reference_iterator.html" title="TObj_ReferenceIterator" alt="" coords="191,304,345,331"/>
+<area shape="rect" id="node2" href="$class_t_obj___object_iterator.html" title="TObj_ObjectIterator" alt="" coords="109,155,243,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="121,80,231,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="109,5,243,32"/>
+</map>

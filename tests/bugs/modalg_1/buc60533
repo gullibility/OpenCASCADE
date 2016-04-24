@@ -66,5 +66,8 @@ copy r_1 result
 #  An exception was caught Standard_ConstructionError: 
 #  ** Exception ** Standard_ConstructionError: 
  
-set square 1.59518e+07
-set 2dviewer 0
+
+checkprops result -s 1.5003e+007
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
+

@@ -66,7 +66,7 @@ The official repository contains:
   Integration of contributions that have passed certification testing is made exclusively by the Bugmaster. 
   Normally this is made by rebasing the contribution branch on the current master 
   and squashing it into a single commit. This is made to have the master branch history plain and clean, 
-  following the general rule “one issue – one commit”. 
+  following the general rule “one issue -- one commit”. 
   The description of the commit integrated to the master branch is taken from the Mantis issue 
   (ID, 'Summary', followed by the information from 'Documentation' field if present).
   
@@ -97,25 +97,14 @@ The official repository contains:
 
 @subsubsection occt_gitguide_2_1_1 Installation of Git for Windows
 
-  Download Git for Windows distributive from http://code.google.com/p/msysgit/downloads/list.
+  Download Git for Windows distributive from https://git-for-windows.github.io/
   During the installation:
 
-  * Select Windows Explorer integration options:
-    * Git Bash Here
-    * Git GUI Here
-    
-@image html OCCT_GitGuide_V2_image001.png
-@image latex OCCT_GitGuide_V2_image001.png
-
-  * To avoid a mess in your PATH, we recommend selecting ‘Run Git from Windows Prompt’ in the environment settings dialog: 
-  
-@image html OCCT_GitGuide_V2_image002.png
-@image latex OCCT_GitGuide_V2_image002.png
-
+  * Check-in "Windows Explorer integration" options:
+    * "Git Bash Here";
+    * "Git GUI Here".
+  * To avoid a mess in your PATH, we recommend selecting "Run Git from Windows Prompt" in the environment settings dialog: 
   * In "Configuring the line ending conversions" dialog, select "Checkout Windows-style, commit Unix style endings".
-  
-@image html OCCT_GitGuide_V2_image003.png
-@image latex OCCT_GitGuide_V2_image003.png
  
   Note that by default Git user interface is localized to the system default language. 
   If you prefer to work with the English interface, remove or rename .msg localization file 
@@ -128,15 +117,12 @@ The official repository contains:
   Download TortoiseGit distributive from http://code.google.com/p/tortoisegit/downloads/list. 
   Launch the installation.
 
-  * Select your SSH client. Choose OpenSSH if you prefer to use command-line tools 
-   for SSH keys generation, or TortoisePLink if you prefer to use GUI tool (PuttyGen, see 3.2):
-   
-@image html OCCT_GitGuide_V2_image004.png
-@image latex OCCT_GitGuide_V2_image004.png
-
-  * Complete the installation.
+ * Select your SSH client. Choose option 
+	  * "OpenSSH, Git default SSH Client" if you prefer to use command-line tools for SSH keys generation, or
+	  * "TortoisePLink, coming from Putty, integrates with Windows better" if you prefer to use GUI tool (PuttyGen, see 3.2).
+ * Complete the installation.
   
-  TortoiseGit integrates to Windows Explorer, thus it is possible to use context menu in Windows Explorer to access its functionality:  
+  TortoiseGit integrates into Windows Explorer, thus it is possible to use context menu in Windows Explorer to access its functionality:  
   
 @image html OCCT_GitGuide_V2_image005.png
 @image latex OCCT_GitGuide_V2_image005.png
@@ -236,8 +222,8 @@ The official repository contains:
   
   On Windows, make sure to note the complete path to the generated files (the location of your $HOME might be not obvious). Two key files will be created in the specified location (by default in $HOME/.ssh/):
   
-  * *id_rsa* - private key
-  * *id_rsa.pub* - public key
+  * *id_rsa* -- private key
+  * *id_rsa.pub* -- public key
   
   The content of the public key file (one text line) is the key to be added to the user account on the site (see below).
 
@@ -250,11 +236,10 @@ The official repository contains:
 @subsection occt_gitguide_3_3 Adding public key in your account
 
 Log in on the portal http://dev.opencascade.org and click on **My account** link to the right. If you have a Contributor status, you will see **SSH keys** tab to the right. 
+
 Click on that tab, then click **Add a public key**, and paste the text of the public key (see above sections on how to generate the key) into the text box. 
-  Click **Save** to input the key to the system. 
-  
-@image html OCCT_GitGuide_V2_image008.png
-@image latex OCCT_GitGuide_V2_image008.png  
+
+Click **Save** to input the key to the system. 
 
   Note that a user can have several SSH keys. 
   You can distinguish between these keys by the Title field ID; by default it is taken from SSH key comment. 
@@ -280,8 +265,7 @@ Click on that tab, then click **Add a public key**, and paste the text of the pu
 
   * Create a new branch for your development, basing on the selected version of the sources 
    (usually the current master) and switch your working copy to it
-  * Develop and test your change. Note that for the first time, and after any changes 
-   made in CDL files you will have to re-generate build scripts or Visual Studio projects using WOK. 
+  * Develop and test your change.
   * Do as many commits in your branch as you feel convenient; 
    the general recommendation is to commit every stable state (even incomplete), to record the history of your development.
   * Push your branch to the repository when your development is complete or when you need to share it with other people (e.g. for review)
@@ -335,10 +319,6 @@ In the console:
 In TortoiseGit: 
   * Go to the local copy of the repository. 
   * Right-click in the Explorer window, then choose **Git Create Branch**.
-  
-@image html OCCT_GitGuide_V2_image011.png
-@image latex OCCT_GitGuide_V2_image011.png
-
   * Select **Base On** Branch *remotes/origin/master*.  
 
 @image html OCCT_GitGuide_V2_image012.png
@@ -377,7 +357,7 @@ In TortoiseGit:
     > git commit -a -m "Write meaningful commit message here"
 ~~~~~
 
-  Option –a tells the command to automatically include (stage) files 
+  Option -a tells the command to automatically include (stage) files 
   that have been modified or deleted, but it will omit the new files that might have been added by you. 
   To commit such new files, you must add (stage) them before commit command.
 
@@ -456,7 +436,7 @@ Note that Git forbids pushing a branch if the corresponding remote branch alread
 @image html OCCT_GitGuide_V2_image019.png
 @image latex OCCT_GitGuide_V2_image019.png
 
-Note that the local branches of your repository are the primary place, where your changes are stored until they get integrated to the official version of OCCT (master branch). The branches submitted to official repository are for collaborative work, review, and integration - that repository should not be used for long-term storage of incomplete changes. 
+Note that the local branches of your repository are the primary place, where your changes are stored until they get integrated to the official version of OCCT (master branch). The branches submitted to official repository are for collaborative work, review, and integration -- that repository should not be used for long-term storage of incomplete changes. 
   
 Remove the local branches that you do not need any more. Note that you cannot delete the current branch. It means that you need to switch to another one (e.g. master) if the branch you are going to delete is the current one.
   
@@ -539,7 +519,7 @@ To rebase your branch into a single commit, you need to do the following:
 
   Use of TortoiseGit is recommended for convenient code review:
 
-  * Fetch the changes from the remote repository as described in <a href="#occt_gitguide_4_7">Synchronizing with remote repository</a> section.   
+  * Fetch the changes from the remote repository as described in @ref occt_gitguide_4_7 "Synchronizing with remote repository" section.   
   * Right-click on the repository, choose **TortoiseGit** -> **Show** log;
   * Locate the remote branch you need to review;
   * To review commits one-by-one, select each commit in the log. The list of changed files is shown at the bottom of the window; double-click on the file will open visual compare tool.

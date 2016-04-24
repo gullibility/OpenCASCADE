@@ -1,6 +1,7 @@
 CSF_VTK
 CSF_TclLibs
 CSF_TclTkLibs
+CSF_XwLibs
 TKernel
 TKBRep
 TKDraw
@@ -15,4 +16,8 @@ TKTopAlgo
 TKV3d
 TKOpenGl
 TKIVtk
-
+vtkIOImage
+vtkImagingCore
+vtkInteractionStyle
+vtkRenderingOpenGL
+vtkRenderingFreeTypeOpenGL

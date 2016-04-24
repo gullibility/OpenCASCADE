@@ -1,0 +1,8 @@
+<map id="Adaptor2d_Curve2d" name="Adaptor2d_Curve2d">
+<area shape="rect" id="node2" href="$class_adaptor2d___line2d.html" title="Use by the TopolTool to trim a surface. " alt="" coords="222,5,349,32"/>
+<area shape="rect" id="node3" href="$class_adaptor2d___offset_curve.html" title="Defines an Offset curve (algorithmic 2d curve). " alt="" coords="208,56,363,83"/>
+<area shape="rect" id="node4" href="$class_geom2d_adaptor___curve.html" title="An interface between the services provided by any curve from the package Geom2d and those required of..." alt="" coords="208,107,363,133"/>
+<area shape="rect" id="node6" href="$class_proj_lib___comp_projected_curve.html" title="ProjLib_CompProjectedCurve" alt="" coords="190,157,381,184"/>
+<area shape="rect" id="node7" href="$class_proj_lib___projected_curve.html" title="Compute the 2d&#45;curve. Try to solve the particular case if possible. Otherwize, an approximation is do..." alt="" coords="207,208,363,235"/>
+<area shape="rect" id="node5" href="$class_b_rep_adaptor___curve2d.html" title="The Curve2d from BRepAdaptor allows to use an Edge on a Face like a 2d curve. (curve in the parametri..." alt="" coords="429,107,581,133"/>
+</map>

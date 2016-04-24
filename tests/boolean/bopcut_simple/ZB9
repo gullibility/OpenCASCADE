@@ -5,4 +5,5 @@ trotate b2 0 0 0 0 0 1 30
 bop b1 b2
 bopcut result
 
-set square 20.5344
+checkprops result -s 20.5344
+checkview -display result -2d -otherwise { b1 b2 } -s -path ${imagedir}/${test_image}.png

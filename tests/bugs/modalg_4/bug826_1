@@ -25,5 +25,6 @@ if { [ catch { set result [OCC826 a1 a2 a3] } ] } {
     }
 }
 
-set square 272939
-set 2dviewer 0
+checkprops result -s 272939 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

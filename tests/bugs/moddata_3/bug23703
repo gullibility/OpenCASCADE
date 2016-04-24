@@ -14,7 +14,11 @@ pcurve f
 
 project c2d c s
 
+# Length check
+checklength c2d -l 6.2831853071795862
+
+# Visual Check
 v2d
 2dfit
 
-set only_screen_axo 1
+checkview -screenshot -2d -path ${imagedir}/${test_image}.png

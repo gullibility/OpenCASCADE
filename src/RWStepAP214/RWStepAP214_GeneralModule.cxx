@@ -385,6 +385,7 @@
 #include <RWStepRepr_RWReprItemAndLengthMeasureWithUnit.hxx>
 #include <RWStepRepr_RWShapeAspect.hxx>
 #include <RWStepRepr_RWShapeAspectRelationship.hxx>
+#include <RWStepRepr_RWFeatureForDatumTargetRelationship.hxx>
 #include <RWStepRepr_RWShapeAspectTransition.hxx>
 #include <RWStepRepr_RWShapeRepresentationRelationshipWithTransformation.hxx>
 #include <RWStepRepr_RWSpecifiedHigherUsageOccurrence.hxx>
@@ -923,6 +924,7 @@
 #include <StepRepr_ShapeAspect.hxx>
 #include <StepRepr_ShapeAspectDerivingRelationship.hxx>
 #include <StepRepr_ShapeAspectRelationship.hxx>
+#include <StepRepr_FeatureForDatumTargetRelationship.hxx>
 #include <StepRepr_ShapeAspectTransition.hxx>
 #include <StepRepr_ShapeRepresentationRelationship.hxx>
 #include <StepRepr_ShapeRepresentationRelationshipWithTransformation.hxx>
@@ -1090,6 +1092,21 @@
 #include <StepVisual_TextStyleWithBoxCharacteristics.hxx>
 #include <StepVisual_ViewVolume.hxx>
 #include <TCollection_HAsciiString.hxx>
+
+#include <StepVisual_TessellatedAnnotationOccurrence.hxx>
+#include <StepVisual_TessellatedItem.hxx>
+#include <StepVisual_TessellatedGeometricSet.hxx>
+#include <StepVisual_TessellatedCurveSet.hxx>
+#include <StepVisual_CoordinatesList.hxx>
+
+#include <RWStepVisual_RWTessellatedAnnotationOccurrence.hxx>
+#include <RWStepVisual_RWTessellatedItem.hxx>
+#include <RWStepVisual_RWTessellatedGeometricSet.hxx>
+#include <RWStepVisual_RWTessellatedCurveSet.hxx>
+#include <RWStepVisual_RWCoordinatesList.hxx>
+
+
+IMPLEMENT_STANDARD_RTTIEXT(RWStepAP214_GeneralModule,StepData_GeneralModule)
 
 //#define DeclareAndCast(atype,result,start) \  NON car Name
 // Handle(atype) result = Handle(atype)::DownCast (start)
@@ -1266,6 +1283,13 @@
 #include <RWStepRepr_RWCompShAspAndDatumFeatAndShAsp.hxx>
 #include <RWStepRepr_RWIntegerRepresentationItem.hxx>
 #include <RWStepRepr_RWValueRepresentationItem.hxx>
+#include <RWStepAP242_RWDraughtingModelItemAssociation.hxx>
+#include <RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol.hxx>
+#include <RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol.hxx>
+#include <RWStepVisual_RWAnnotationCurveOccurrence.hxx>
+#include <RWStepVisual_RWAnnotationOccurrence.hxx>
+#include <RWStepVisual_RWAnnotationPlane.hxx>
+#include <RWStepVisual_RWDraughtingCallout.hxx>
 
 #include <StepRepr_Apex.hxx>
 #include <StepRepr_CentreOfSymmetry.hxx>
@@ -1309,6 +1333,25 @@
 #include <StepRepr_CompShAspAndDatumFeatAndShAsp.hxx>
 #include <StepRepr_IntegerRepresentationItem.hxx>
 #include <StepRepr_ValueRepresentationItem.hxx>
+#include <StepAP242_DraughtingModelItemAssociation.hxx>
+#include <StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol.hxx>
+#include <StepDimTol_GeoTolAndGeoTolWthMaxTol.hxx>
+#include <StepVisual_AnnotationCurveOccurrence.hxx>
+#include <StepVisual_AnnotationPlane.hxx>
+#include <StepVisual_DraughtingCallout.hxx>
+
+#include <StepVisual_TessellatedAnnotationOccurrence.hxx>
+#include <StepVisual_TessellatedItem.hxx>
+#include <StepVisual_TessellatedGeometricSet.hxx>
+#include <StepVisual_TessellatedCurveSet.hxx>
+#include <StepVisual_CoordinatesList.hxx>
+
+#include <RWStepVisual_RWTessellatedAnnotationOccurrence.hxx>
+#include <RWStepVisual_RWTessellatedItem.hxx>
+#include <RWStepVisual_RWTessellatedGeometricSet.hxx>
+#include <RWStepVisual_RWTessellatedCurveSet.hxx>
+#include <RWStepVisual_RWCoordinatesList.hxx>
+
 
 static Standard_Integer catsh,catdr,catstr,catdsc,cataux;
 
@@ -1385,10 +1428,17 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer CN,
 	tool.Share(anent,iter);
       }
       break;
+    case 4:
+      {
+	DeclareAndCast(StepVisual_AnnotationCurveOccurrence,anent,ent);
+	RWStepVisual_RWAnnotationCurveOccurrence tool;
+	tool.Share(anent,iter);
+      }
+      break;
     case 7:
       {
-	DeclareAndCast(StepVisual_StyledItem,anent,ent);
-	RWStepVisual_RWStyledItem tool;
+	DeclareAndCast(StepVisual_AnnotationOccurrence,anent,ent);
+	RWStepVisual_RWAnnotationOccurrence tool;
 	tool.Share(anent,iter);
       }
       break;
@@ -1854,6 +1904,13 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer CN,
       {
 	DeclareAndCast(StepVisual_StyledItem,anent,ent);
 	RWStepVisual_RWStyledItem tool;
+	tool.Share(anent,iter);
+      }
+      break;
+    case 107:
+      {
+	DeclareAndCast(StepVisual_DraughtingCallout,anent,ent);
+	RWStepVisual_RWDraughtingCallout tool;
 	tool.Share(anent,iter);
       }
       break;
@@ -4970,7 +5027,55 @@ void RWStepAP214_GeneralModule::FillSharedCase(const Standard_Integer CN,
       tool.Share(anent,iter);
     }
     break;
-
+  case 702:
+    {
+      DeclareAndCast(StepRepr_FeatureForDatumTargetRelationship,anent,ent);
+      RWStepRepr_RWFeatureForDatumTargetRelationship tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 703:
+    {
+      DeclareAndCast(StepAP242_DraughtingModelItemAssociation,anent,ent);
+      RWStepAP242_RWDraughtingModelItemAssociation tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 704:
+    {
+      DeclareAndCast(StepVisual_AnnotationPlane,anent,ent);
+      RWStepVisual_RWAnnotationPlane tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 705:
+    {
+      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol,anent,ent);
+      RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 706:
+    {
+      DeclareAndCast(StepDimTol_GeoTolAndGeoTolWthMaxTol,anent,ent);
+      RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 707:
+    {
+      DeclareAndCast(StepVisual_TessellatedAnnotationOccurrence,anent,ent);
+      RWStepVisual_RWTessellatedAnnotationOccurrence tool;
+      tool.Share(anent,iter);
+    }
+    break;
+  case 709:
+    {
+      DeclareAndCast(StepVisual_TessellatedGeometricSet,anent,ent);
+      RWStepVisual_RWTessellatedGeometricSet tool;
+      tool.Share(anent,iter);
+    }
+    break;
     default : break;
     }
 }
@@ -5123,6 +5228,9 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid
     break;
   case 3 : 
     ent = new StepShape_AdvancedFace;
+    break;
+  case 4 : 
+    ent = new StepVisual_AnnotationCurveOccurrence;
     break;
   case 7 : 
     ent = new StepVisual_AnnotationOccurrence;
@@ -5384,6 +5492,9 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid
     break;
   case 106 : 
     ent = new StepVisual_AnnotationOccurrence;
+    break;
+  case 107 : 
+    ent = new StepVisual_DraughtingCallout;
     break;
   case 108 : 
     ent = new StepVisual_DraughtingPreDefinedColour;
@@ -6917,7 +7028,42 @@ Standard_Boolean RWStepAP214_GeneralModule::NewVoid
   case 701:
     ent = new StepRepr_ValueRepresentationItem;
     break;
+  case 702:
+    ent = new StepRepr_FeatureForDatumTargetRelationship;
+    break;
+  case 703:
+    ent = new StepAP242_DraughtingModelItemAssociation;
+    break;
+  case 704:
+    ent = new StepVisual_AnnotationPlane;
+    break;
+  case 705:
+    ent = new StepDimTol_GeoTolAndGeoTolWthDatRefAndGeoTolWthMaxTol;
+    break;
+  case 706:
+    ent = new StepDimTol_GeoTolAndGeoTolWthMaxTol;
+    break;
 
+   case 707:
+        ent = new StepVisual_TessellatedAnnotationOccurrence;
+     break;
+
+   case 708:
+     ent = new StepVisual_TessellatedItem;     
+    break;
+
+     case 709:
+       ent = new StepVisual_TessellatedGeometricSet;
+     break;
+
+     case 710:
+       ent = new StepVisual_TessellatedCurveSet;
+     break;
+    
+      case 711:
+          ent = new StepVisual_CoordinatesList;
+      break;
+    
   default: 
     return Standard_False;
   }
@@ -7497,7 +7643,18 @@ Standard_Integer  RWStepAP214_GeneralModule::CategoryNumber
   case 698:
   case 699:
   case 700:
-  case 701: return catdr;
+  case 701:
+  case 702:
+  case 703:
+  case 704: return catdr;
+  case 705:
+  case 706: 
+  case 707:  
+  case 708: 
+  case 709:
+  case 710:
+  case 711: 
+    return cataux;
     
   default : break;
   }

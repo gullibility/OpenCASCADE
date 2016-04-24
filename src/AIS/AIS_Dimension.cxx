@@ -75,6 +75,8 @@
 #include <UnitsAPI_SystemUnits.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Dimension,AIS_InteractiveObject)
+
 namespace
 {
   // default text strings
@@ -88,7 +90,7 @@ namespace
   // default selection priorities
   static const Standard_Integer THE_NEUTRAL_SEL_PRIORITY = 5;
   static const Standard_Integer THE_LOCAL_SEL_PRIORITY   = 6;
-};
+}
 
 //=======================================================================
 //function : Constructor
@@ -135,15 +137,6 @@ void AIS_Dimension::SetCustomValue (const Standard_Real theValue)
 const gp_Pln& AIS_Dimension::GetPlane() const
 {
   return myPlane;
-}
-
-//=======================================================================
-//function : GetGeometryType
-//purpose  : 
-//=======================================================================
-const Standard_Integer AIS_Dimension::GetGeometryType () const
-{
-  return myGeometryType;
 }
 
 //=======================================================================
@@ -400,10 +393,10 @@ void AIS_Dimension::DrawArrow (const Handle(Prs3d_Presentation)& thePresentation
 }
 
 //=======================================================================
-//function : DrawText
-//purpose  : 
+//function : drawText
+//purpose  :
 //=======================================================================
-void AIS_Dimension::DrawText (const Handle(Prs3d_Presentation)& thePresentation,
+void AIS_Dimension::drawText (const Handle(Prs3d_Presentation)& thePresentation,
                               const gp_Pnt& theTextPos,
                               const gp_Dir& theTextDir,
                               const TCollection_ExtendedString& theText,
@@ -503,6 +496,11 @@ void AIS_Dimension::DrawText (const Handle(Prs3d_Presentation)& thePresentation,
     if (myDrawer->DimensionAspect()->IsTextShaded())
     {
       // Setting text shading and color parameters
+      if (!myDrawer->HasOwnShadingAspect())
+      {
+        myDrawer->SetShadingAspect (new Prs3d_ShadingAspect());
+      }
+
       Graphic3d_MaterialAspect aShadeMat (Graphic3d_NOM_DEFAULT);
       aShadeMat.SetReflectionModeOff (Graphic3d_TOR_AMBIENT);
       aShadeMat.SetReflectionModeOff (Graphic3d_TOR_DIFFUSE);
@@ -516,8 +514,14 @@ void AIS_Dimension::DrawText (const Handle(Prs3d_Presentation)& thePresentation,
     }
     else
     {
-      // setting color for text
+      // Setting color for text
+      if (!myDrawer->HasOwnFreeBoundaryAspect())
+      {
+        myDrawer->SetFreeBoundaryAspect (new Prs3d_LineAspect (aColor, Aspect_TOL_SOLID, 1.0));
+      }
+
       myDrawer->FreeBoundaryAspect()->Aspect()->SetColor (aColor);
+
       // drawing text
       StdPrs_WFShape::Add (thePresentation, aTextShape, myDrawer);
     }
@@ -568,7 +572,7 @@ void AIS_Dimension::DrawExtension (const Handle(Prs3d_Presentation)& thePresenta
     gp_Pnt aTextPos = ElCLib::Value (theExtensionSize, anExtensionLine);
     gp_Dir aTextDir = theExtensionDir;
 
-    DrawText (thePresentation,
+    drawText (thePresentation,
               aTextPos,
               aTextDir,
               theLabelString,
@@ -723,7 +727,7 @@ void AIS_Dimension::DrawLinearDimension (const Handle(Prs3d_Presentation)& thePr
       // add text primitives
       if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
       {
-        DrawText (thePresentation,
+        drawText (thePresentation,
                   aTextPos,
                   aTextDir,
                   aLabelString,

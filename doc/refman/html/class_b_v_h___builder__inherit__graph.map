@@ -1,0 +1,8 @@
+<map id="BVH_Builder&lt; T, N &gt;" name="BVH_Builder&lt; T, N &gt;">
+<area shape="rect" id="node2" href="$class_b_v_h___linear_builder.html" title="Performs fast BVH construction using LBVH building approach. Algorithm uses spatial Morton codes to r..." alt="" coords="220,11,359,53"/>
+<area shape="rect" id="node3" href="$class_b_v_h___queue_builder.html" title="Abstract BVH builder based on the concept of work queue. Queue based BVH builders support paralleliza..." alt="" coords="198,77,381,104"/>
+<area shape="rect" id="node4" href="$class_b_v_h___binned_builder.html" title="Performs construction of BVH tree using binned SAH algorithm. Number of bins controls BVH quality in ..." alt="" coords="441,5,585,46"/>
+<area shape="rect" id="node5" href="$class_b_v_h___binned_builder.html" title="BVH_BinnedBuilder\&lt;\l T, N, 2 \&gt;" alt="" coords="441,70,585,111"/>
+<area shape="rect" id="node7" href="$class_b_v_h___sweep_plane_builder.html" title="Performs building of BVH tree using sweep plane SAH algorithm. " alt="" coords="429,135,597,177"/>
+<area shape="rect" id="node6" href="$class_b_v_h___spatial_median_builder.html" title="Performs building of BVH tree using spatial median split algorithm. " alt="" coords="645,70,824,111"/>
+</map>

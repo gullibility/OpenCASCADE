@@ -19,10 +19,12 @@
 #include <Standard_Atomic.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ClipPlane,Standard_Transient)
+
 namespace
 {
   static volatile Standard_Integer THE_CLIP_PLANE_COUNTER = 0;
-};
+}
 
 // =======================================================================
 // function : Graphic3d_ClipPlane

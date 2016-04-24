@@ -1,0 +1,16 @@
+<map id="SelectMgr_Filter" name="SelectMgr_Filter">
+<area shape="rect" id="node4" href="$class_a_i_s___attribute_filter.html" title="Selects Interactive Objects, which have the desired width or color. The filter questions each Interac..." alt="" coords="545,5,673,32"/>
+<area shape="rect" id="node5" href="$class_a_i_s___bad_edge_filter.html" title="A Class. " alt="" coords="543,56,675,83"/>
+<area shape="rect" id="node6" href="$class_a_i_s___c0_regularity_filter.html" title="AIS_C0RegularityFilter" alt="" coords="533,107,686,133"/>
+<area shape="rect" id="node7" href="$class_a_i_s___exclusion_filter.html" title="A framework to reject or to accept only objects of given types and/or signatures. Objects are stored..." alt="" coords="541,157,677,184"/>
+<area shape="rect" id="node8" href="$class_a_i_s___type_filter.html" title="Selects Interactive Objects through their types. The filter questions each Interactive Object in loca..." alt="" coords="556,208,663,235"/>
+<area shape="rect" id="node10" href="$class_select_mgr___composition_filter.html" title="A framework to define a compound filter composed of two or more simple filters. " alt="" coords="515,259,704,285"/>
+<area shape="rect" id="node13" href="$class_std_select___edge_filter.html" title="A framework to define a filter to select a specific type of edge. The types available include: ..." alt="" coords="537,309,682,336"/>
+<area shape="rect" id="node14" href="$class_std_select___face_filter.html" title="A framework to define a filter to select a specific type of face. The types available include: ..." alt="" coords="537,360,681,387"/>
+<area shape="rect" id="node15" href="$class_std_select___shape_type_filter.html" title="A filter framework which allows you to define a filter for a specific shape type. The types available..." alt="" coords="519,411,699,437"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,208,301,235"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,208,141,235"/>
+<area shape="rect" id="node9" href="$class_a_i_s___signature_filter.html" title="Selects Interactive Objects through their signatures and types. The signature provides an additional ..." alt="" coords="755,208,890,235"/>
+<area shape="rect" id="node11" href="$class_select_mgr___and_filter.html" title="A framework to define a selection filter for two or more types of entity. " alt="" coords="753,259,893,285"/>
+<area shape="rect" id="node12" href="$class_select_mgr___or_filter.html" title="A framework to define an or selection filter. This selects one or another type of sensitive entity..." alt="" coords="757,309,888,336"/>
+</map>

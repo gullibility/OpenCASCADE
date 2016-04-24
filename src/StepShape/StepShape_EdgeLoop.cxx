@@ -17,12 +17,9 @@
 #include <StepShape_OrientedEdge.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-StepShape_EdgeLoop::StepShape_EdgeLoop ()  {}
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_EdgeLoop,StepShape_Loop)
 
-void StepShape_EdgeLoop::Init(const Handle(TCollection_HAsciiString)& aName)
-{
-  StepRepr_RepresentationItem::Init(aName);
-}
+StepShape_EdgeLoop::StepShape_EdgeLoop ()  {}
 
 void StepShape_EdgeLoop::Init
 (const Handle(TCollection_HAsciiString)& aName,

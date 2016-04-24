@@ -7,4 +7,5 @@ restore [locate_data_file pro14527b.rle] b
 bop a b
 bopcut result
 
-set square 25189
+checkprops result -s 25189
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

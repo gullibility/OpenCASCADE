@@ -16,12 +16,5 @@ maxtolerance d
 bop c_3 d
 bopfuse result
 
-
-
-
-
-
-
-
-
-set square 5194.93
+checkprops result -s 5194.93
+checkview -display result -2d -otherwise { c_3 d } -s -path ${imagedir}/${test_image}.png

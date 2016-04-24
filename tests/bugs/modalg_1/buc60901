@@ -58,5 +58,7 @@ if { $nb_vertices != $nb_edges } {
     puts "Section is closed: OK"
 }
 
-set length 350.404
-set 2dviewer 0
+checkprops result -l 350.404 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

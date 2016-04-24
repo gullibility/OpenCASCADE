@@ -15,4 +15,6 @@ btolx out
 bop obj out
 bopsection result
 
-set length 1022.03
+checkprops result -l 1022.03
+checksection result
+checkview -display result -2d -otherwise { obj out } -l -path ${imagedir}/${test_image}.png

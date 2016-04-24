@@ -18,6 +18,8 @@
 #include <StepDimTol_GeometricToleranceTarget.hxx>
 #include <StepRepr_ShapeAspect.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceWithDefinedUnit,StepDimTol_GeometricTolerance)
+
 //=======================================================================
 //function : StepDimTol_GeometricToleranceWithDefinedUnit
 //purpose  : 
@@ -39,7 +41,7 @@ void StepDimTol_GeometricToleranceWithDefinedUnit::Init (const Handle(TCollectio
                                                          const Handle(StepBasic_LengthMeasureWithUnit) &theUnitSize)
 {
   StepDimTol_GeometricTolerance::Init(theName, theDescription, theMagnitude, theTolerancedShapeAspect);
-  unitSize = theUnitSize;
+  myUnitSize = theUnitSize;
 }
 
 //=======================================================================
@@ -54,5 +56,5 @@ void StepDimTol_GeometricToleranceWithDefinedUnit::Init (const Handle(TCollectio
                                                          const Handle(StepBasic_LengthMeasureWithUnit) &theUnitSize)
 {
   StepDimTol_GeometricTolerance::Init(theName, theDescription, theMagnitude, theTolerancedShapeAspect);
-  unitSize = theUnitSize;
+  myUnitSize = theUnitSize;
 }

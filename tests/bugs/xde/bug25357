@@ -15,33 +15,14 @@ set anASCIImode 0
 ptorus res 10 8
 incmesh res 0.5
 
-#decho off
 set LogBefore [trinfo res]
-#decho on
 
 writestl res ${aFile} ${anASCIImode}
 
-#decho off
-set LogAfter [trinfo res]
-#decho on
+checktrinfo res -ref "${LogBefore}"
 
-set status 1
-if { ![file exists ${aFile}] } {
-  set status 0
-}
-
-# Check file size
-set filesize [ file size ${aFile} ]
-if { ${filesize} == 0 } {
-  set status 0
-}
-
-if { $LogBefore != $LogAfter } {
-  set status 0
-}
-
-if {$status == 1} {
-  puts "OK: STL writer check given shape"
-} else {
+if { ![file exists ${aFile}] || [ file size ${aFile} ] == 0 } {
   puts "Error: STL writer does not check given shape"
+} else {
+  puts "OK: STL writer check given shape"
 }

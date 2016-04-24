@@ -1,0 +1,18 @@
+<map id="BOPAlgo_Algo" name="BOPAlgo_Algo">
+<area shape="rect" id="node2" href="$class_b_o_p_algo___argument_analyzer.html" title="check the validity of argument(s) for Boolean Operations " alt="" coords="163,5,354,32"/>
+<area shape="rect" id="node3" href="$class_b_o_p_algo___builder_area.html" title="The root class for algorithms to build faces/solids from set of edges/faces. " alt="" coords="183,56,334,83"/>
+<area shape="rect" id="node6" href="$class_b_o_p_algo___builder_shape.html" title="Root class for algorithms that has shape as result. " alt="" coords="179,107,339,133"/>
+<area shape="rect" id="node14" href="$class_b_o_p_algo___pave_filler.html" title="BOPAlgo_PaveFiller" alt="" coords="189,157,328,184"/>
+<area shape="rect" id="node16" href="$class_b_o_p_algo___shell_splitter.html" title="The class provides the splitting of the set of connected faces on separate loops. ..." alt="" coords="182,208,335,235"/>
+<area shape="rect" id="node17" href="$class_b_o_p_algo___wire_splitter.html" title="BOPAlgo_WireSplitter" alt="" coords="183,259,334,285"/>
+<area shape="rect" id="node4" href="$class_b_o_p_algo___builder_face.html" title="The algorithm to build faces from set of edges. " alt="" coords="403,5,555,32"/>
+<area shape="rect" id="node5" href="$class_b_o_p_algo___builder_solid.html" title="The algorithm to build solids from set of faces. " alt="" coords="403,56,555,83"/>
+<area shape="rect" id="node7" href="$class_b_o_p_algo___builder.html" title="BOPAlgo_Builder" alt="" coords="417,107,540,133"/>
+<area shape="rect" id="node8" href="$class_b_o_p_algo___b_o_p.html" title="BOPAlgo_BOP" alt="" coords="629,31,739,57"/>
+<area shape="rect" id="node11" href="$class_b_o_p_algo___cells_builder.html" title="The algorithm is based on the General Fuse algorithm (GFA). The result of GFA is all split parts of t..." alt="" coords="608,81,760,108"/>
+<area shape="rect" id="node12" href="$class_b_o_p_algo___maker_volume.html" title="The algorithm is to build solids from set of shapes. It uses the BOPAlgo_Builder algorithm to interse..." alt="" coords="603,132,765,159"/>
+<area shape="rect" id="node13" href="$class_b_o_p_algo___section.html" title="The algorithm to build a Secton between the arguments. The Section consists of vertices and edges..." alt="" coords="621,183,747,209"/>
+<area shape="rect" id="node9" href="$class_b_rep_feat___builder.html" title="Provides a basic tool to implement features topological operations. The main goal of the algorithm is..." alt="" coords="814,31,941,57"/>
+<area shape="rect" id="node10" href="$class_b_rep_feat___make_cylindrical_hole.html" title="Provides a tool to make cylindrical holes on a shape. " alt="" coords="989,31,1195,57"/>
+<area shape="rect" id="node15" href="$class_b_o_p_algo___checker_s_i.html" title="Checks shape on self&#45;interference. " alt="" coords="407,157,550,184"/>
+</map>

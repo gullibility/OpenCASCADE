@@ -1,0 +1,19 @@
+<map id="Interface_GeneralModule" name="Interface_GeneralModule">
+<area shape="rect" id="node4" href="$class_i_g_e_s_data___general_module.html" title="Definition of General Services adapted to IGES. This Services comprise : Shared &amp; Implied Lists..." alt="" coords="563,233,738,260"/>
+<area shape="rect" id="node14" href="$class_step_data___general_module.html" title="Specific features for General Services adapted to STEP. " alt="" coords="565,512,736,539"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,385,301,412"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,385,141,412"/>
+<area shape="rect" id="node5" href="$class_i_g_e_s_appli___general_module.html" title="Definition of General Services for IGESAppli (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="811,5,987,32"/>
+<area shape="rect" id="node6" href="$class_i_g_e_s_basic___general_module.html" title="Definition of General Services for IGESBasic (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="809,56,989,83"/>
+<area shape="rect" id="node7" href="$class_i_g_e_s_data___default_general.html" title="Processes the specific case of UndefinedEntity from IGESData (Case Number 1) " alt="" coords="813,107,985,133"/>
+<area shape="rect" id="node8" href="$class_i_g_e_s_defs___general_module.html" title="Definition of General Services for IGESDefs (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="812,157,985,184"/>
+<area shape="rect" id="node9" href="$class_i_g_e_s_dimen___general_module.html" title="Definition of General Services for IGESDimen (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="807,208,991,235"/>
+<area shape="rect" id="node10" href="$class_i_g_e_s_draw___general_module.html" title="Definition of General Services for IGESDraw (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="811,259,987,285"/>
+<area shape="rect" id="node11" href="$class_i_g_e_s_geom___general_module.html" title="Definition of General Services for IGESGeom (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="807,309,990,336"/>
+<area shape="rect" id="node12" href="$class_i_g_e_s_graph___general_module.html" title="Definition of General Services for IGESGraph (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="807,360,990,387"/>
+<area shape="rect" id="node13" href="$class_i_g_e_s_solid___general_module.html" title="Definition of General Services for IGESSolid (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="811,411,987,437"/>
+<area shape="rect" id="node15" href="$class_r_w_header_section___general_module.html" title="Defines General Services for HeaderSection Entities (Share,Check,Copy; Trace already inherited) Depen..." alt="" coords="787,461,1010,488"/>
+<area shape="rect" id="node16" href="$class_r_w_step_a_p214___general_module.html" title="Defines General Services for StepAP214 Entities (Share,Check,Copy; Trace already inherited) Depends (..." alt="" coords="797,512,1001,539"/>
+<area shape="rect" id="node17" href="$class_step_data___default_general.html" title="DefaultGeneral defines a GeneralModule which processes Unknown Entity from StepData only..." alt="" coords="815,563,983,589"/>
+<area shape="rect" id="node18" href="$class_step_data___descr_general.html" title="Works with a Protocol by considering its entity descriptions. " alt="" coords="817,613,980,640"/>
+</map>

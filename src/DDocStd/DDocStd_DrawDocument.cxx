@@ -21,6 +21,8 @@
 #include <TDF_Tool.hxx>
 #include <TDocStd_Document.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(DDocStd_DrawDocument,DDF_Data)
+
 //=======================================================================
 //function : Find
 //purpose  : 
@@ -81,7 +83,7 @@ Handle(Draw_Drawable3D) DDocStd_DrawDocument::Copy() const
 
 void DDocStd_DrawDocument::Dump (Standard_OStream& S) const
 {
-  Handle(TDocStd_Document) STDDOC =  Handle(TDocStd_Document)::DownCast(myDocument);
+  Handle(TDocStd_Document) STDDOC = myDocument;
   if (!STDDOC.IsNull()) {
     S << "TDocStd_Document\n";
     DDF_Data::Dump(S);

@@ -17,14 +17,9 @@
 #include <StepShape_RightCircularCylinder.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_RightCircularCylinder,StepGeom_GeometricRepresentationItem)
+
 StepShape_RightCircularCylinder::StepShape_RightCircularCylinder ()  {}
-
-void StepShape_RightCircularCylinder::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_RightCircularCylinder::Init(
 	const Handle(TCollection_HAsciiString)& aName,

@@ -14,5 +14,6 @@ restore [locate_data_file DXF906.rle] a
 
 mkplane result a
 
-set square 92131.6
-set 2dviewer 0
+checkprops result -s 92131.6 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

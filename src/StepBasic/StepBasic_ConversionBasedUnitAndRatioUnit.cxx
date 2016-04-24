@@ -20,15 +20,11 @@
 #include <StepBasic_RatioUnit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndRatioUnit,StepBasic_ConversionBasedUnit)
+
 StepBasic_ConversionBasedUnitAndRatioUnit::StepBasic_ConversionBasedUnitAndRatioUnit ()
 {
 }
-
-void StepBasic_ConversionBasedUnitAndRatioUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
-}
-
 
 void StepBasic_ConversionBasedUnitAndRatioUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions,
 						     const Handle(TCollection_HAsciiString)& aName,

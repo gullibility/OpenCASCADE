@@ -18,24 +18,13 @@
 #include <StepBasic_Unit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_UncertaintyMeasureWithUnit,StepBasic_MeasureWithUnit)
+
 //=======================================================================
 //function : StepBasic_UncertaintyMeasureWithUnit
 //purpose  : 
 //=======================================================================
 StepBasic_UncertaintyMeasureWithUnit::StepBasic_UncertaintyMeasureWithUnit ()  {}
-
-//=======================================================================
-//function : Init
-//purpose  : 
-//=======================================================================
-
-void StepBasic_UncertaintyMeasureWithUnit::Init(
-	const Handle(StepBasic_MeasureValueMember)& aValueComponent,
-	const StepBasic_Unit& aUnitComponent)
-{
-
-	StepBasic_MeasureWithUnit::Init(aValueComponent, aUnitComponent);
-}
 
 //=======================================================================
 //function : Init

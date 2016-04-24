@@ -1,0 +1,6 @@
+<map id="BVH_Set&lt; T, N &gt;" name="BVH_Set&lt; T, N &gt;">
+<area shape="rect" id="node2" href="$class_b_v_h___object_set.html" title="Array of abstract entities (bounded by BVH boxes) to built BVH. " alt="" coords="5,80,168,107"/>
+<area shape="rect" id="node4" href="$class_b_v_h___primitive_set.html" title="Set of abstract geometric primitives organized with bounding volume hierarchy (BVH). Unlike an object set, this collection is designed for storing structural elements of a single object (such as triangles in the object triangulation). Because there may be a large number of such elements, the implementations of this interface should be sufficiently optimized. " alt="" coords="192,80,365,107"/>
+<area shape="rect" id="node3" href="$class_b_v_h___geometry.html" title="BVH geometry as a set of abstract geometric objects organized with bounding volume hierarchy (BVH)..." alt="" coords="6,163,167,189"/>
+<area shape="rect" id="node5" href="$class_b_v_h___triangulation.html" title="Triangulation as an example of BVH primitive set. " alt="" coords="210,155,347,197"/>
+</map>

@@ -3,15 +3,15 @@
 
 @tableofcontents
 
-@section testmanual_1 Introduction
+@section testmanual_intro Introduction
 
 This document provides OCCT developers and contributors with an overview and practical guidelines for work with OCCT automatic testing system.
 
-Reading the Introduction is sufficient for OCCT developers to use the test system to control non-regression of the modifications they implement in OCCT. Other sections provide a more in-depth description of the test system, required for modifying the tests and adding new test cases. 
+Reading the Introduction should be sufficient for developers to use the test system to control non-regression of the modifications they implement in OCCT. Other sections provide a more in-depth description of the test system, required for modifying the tests and adding new test cases. 
 
-@subsection testmanual_1_1 Basic Information
+@subsection testmanual_intro_basic Basic Information
 
-OCCT automatic testing system is organized around DRAW Test Harness @ref occt_user_guides__test_harness "DRAW Test Harness", a console application based on Tcl (a scripting language) interpreter extended by OCCT-related commands.
+OCCT automatic testing system is organized around @ref occt_user_guides__test_harness "DRAW Test Harness", a console application based on Tcl (a scripting language) interpreter extended by OCCT-related commands.
 
 Standard OCCT tests are included with OCCT sources and are located in subdirectory *tests* of the OCCT root folder. Other test folders can be included in the test system, e.g. for testing applications based on OCCT.
 
@@ -21,17 +21,19 @@ The tests are organized in three levels:
   * Grid: a set of test cases within a group, usually aimed at testing some particular aspect or mode of execution of the relevant functionality (e.g. buildevol);
   * Test case: a script implementing an individual test (e.g. K4).
   
-See <a href="#testmanual_5_1">Test Groups</a> for the current list of available test groups and grids.
+See @ref testmanual_5_1 "Test Groups" chapter for the current list of available test groups and grids.
 
-Some tests involve data files (typically CAD models) which are located separately and are not included with OCCT code. The archive with publicly available test data files should be downloaded and installed independently on OCCT sources (see http://dev.opencascade.org).
+@note Many tests involve data files (typically CAD models) which are located separately and (except a few) are not included with OCCT code. 
+These tests will be skipped if data files are not available.
 
 @subsection testmanual_1_2 Intended Use of Automatic Tests
 
 Each modification made in OCCT code must be checked for non-regression 
-by running the whole set of tests. The developer who does the modification 
+by running the whole set of tests. The developer who makes the modification 
 is responsible for running and ensuring non-regression for the tests available to him.
 
-Note that many tests are based on data files that are confidential and thus available only at OPEN CASCADE. Thus official certification testing of the changes before integration to master branch of official OCCT Git repository (and finally to the official release) is performed by OPEN CASCADE in any case.
+Note that many tests are based on data files that are confidential and thus available only at OPEN CASCADE. 
+The official certification testing of each change before its integration to master branch of official OCCT Git repository (and finally to the official release) is performed by OPEN CASCADE to ensure non-regression on all existing test cases and supported platforms.
 
 Each new non-trivial modification (improvement, bug fix, new feature) in OCCT should be accompanied by a relevant test case suitable for verifying that modification. This test case is to be added by the developer who provides the modification.
 
@@ -49,11 +51,10 @@ For this it is recommended to add a file *DrawAppliInit* in the directory which 
 
 Example (Windows)
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.tcl}
+~~~~~{.tcl}
 set env(CSF_TestDataPath) $env(CSF_TestDataPath)\;d:/occt/test-data
-return ;# this is to avoid an echo of the last command above in cout
+~~~~~
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Note that variable *CSF_TestDataPath* is set to default value at DRAW start, pointing at the folder <i>$CASROOT/data</i>. 
 In this example, subdirectory <i>d:/occt/test-data</i> is added to this path. Similar code could be used on Linux and Mac OS X except that on non-Windows platforms colon ":" should be used as path separator instead of semicolon ";".
 
@@ -98,16 +99,24 @@ Example:
     Detailed logs are saved in D:/occt/results_2012-06-04T0919
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The tests are considered as non-regressive if only OK, BAD (i.e. known problem), and SKIPPED (i.e. not executed, typically because of lack of a data file) statuses are reported. See <a href="#testmanual_3_5">Interpretation of test results</a> for details.
+The tests are considered as non-regressive if only OK, BAD (i.e. known problem), and SKIPPED (i.e. not executed, typically because of lack of a data file) statuses are reported. See @ref testmanual_details_results "Interpretation of test results" for details.
 
 The results and detailed logs of the tests are saved by default to a new subdirectory of the subdirectory *results* in the current folder, whose name is generated automatically using the current date and time, prefixed by Git branch name (if Git is available and current sources are managed by Git).
-If necessary, a non-default output directory can be specified using option <i> –outdir</i> followed by a path to the directory. This directory should be new or empty; use option <i>–overwrite</i> to allow writing results in the existing non-empty directory. 
+If necessary, a non-default output directory can be specified using option <i> -outdir</i> followed by a path to the directory. This directory should be new or empty; use option <i>-overwrite</i> to allow writing results in the existing non-empty directory. 
 
 Example:
 ~~~~~
 Draw[]> testgrid -outdir d:/occt/last_results -overwrite
 ~~~~~
 In the output directory, a cumulative HTML report <i>summary.html</i> provides links to reports on each test case. An additional report in JUnit-style XML format can be output for use in Jenkins or other continuous integration system.
+
+To re-run the test cases, which were detected as regressions on the previous run, option <i>-regress dirname</i> should be used.
+<i>dirname</i> is a path to the directory containing the results of the previous run. Only the test cases with *FAILED* and *IMPROVEMENT* statuses will be tested.
+
+Example:
+~~~~~
+Draw[]> testgrid -regress d:/occt/last_results
+~~~~~
 
 Type <i>help testgrid</i> in DRAW prompt to get help on options supported by *testgrid* command:
 
@@ -122,8 +131,10 @@ testgrid: Run all tests, or specified group, or one grid
     -overwrite: force writing logs in existing non-empty directory
     -xml filename: write XML report for Jenkins (in JUnit-like format)
     -beep: play sound signal at the end of the tests
-    Groups, grids, and test cases to be executed can be specified by list of file 
-    masks, separated by spaces or comma; default is all (*).
+    -regress dirname: re-run only a set of tests that have been detected as regressions on the previous run.
+                      Here "dirname" is a path to the directory containing the results of the previous run.
+    Groups, grids, and test cases to be executed can be specified by the list of file 
+    masks separated by spaces or commas; default is all (*).
 ~~~~~
 
 @subsubsection testmanual_1_3_3 Running a Single Test
@@ -165,41 +176,43 @@ test: Run specified test case
         This key will be ignored if the "-echo" key is already set.
 ~~~~~
 
-@subsubsection testmanual_1_3_4 Creating a New Test
+@subsubsection testmanual_intro_quick_create Creating a New Test
 
-The detailed rules of creation of new tests are given in <a href="#testmanual_3">section 3</a>. The following short description covers the most typical situations:
+The detailed rules of creation of new tests are given in @ref testmanual_3 "Creation and modification of tests" chapter. The following short description covers the most typical situations:
 
-Use prefix <i>bug</i> followed by Mantis issue ID and, if necessary, additional suffixes, for naming the test script and DRAW commands specific for this test case.
+Use prefix <i>bug</i> followed by Mantis issue ID and, if necessary, additional suffixes, for naming the test script, data files, and DRAW commands specific for this test case.
 
-1.	If the test requires C++ code, add it as new DRAW command(s) in one of files in *QABugs* package. Note that this package defines macros *QVERIFY* and *QCOMPARE*, thus code created for QTest or GoogleTest frameworks can be used with minimal modifications.
-2.	Add script(s) for the test case in the subfolder corresponding to the relevant OCCT module of the group bugs <i>($CASROOT/tests/bugs)</i>. See <a href="#testmanual_5_2">the correspondence map</a>.
+1.	If the test requires C++ code, add it as new DRAW command(s) in one of files in *QABugs* package. 
+2.	Add script(s) for the test case in the subfolder corresponding to the relevant OCCT module of the group *bugs* <i>($CASROOT/tests/bugs)</i>. See @ref testmanual_5_2 "the correspondence map".
 3.	In the test script:
 	*	Load all necessary DRAW modules by command *pload*.
 	*	Use command *locate_data_file* to get a path to data files used by test script. (Make sure to have this command not inside catch statement if it is used.)
-	*	Use DRAW commands to reproduce the situation being tested.
-	*	If test case is added to describe existing problem and the fix is not available, add TODO message for each error to mark it as known problem. The TODO statements must be specific so as to match the actually generated messages but not all similar errors.
-	*	Make sure that in case of failure the test produces message containing word "Error" or other recognized by test system as error (see files parse.rules).
-4.	If the test case uses data file(s) not yet present in the test database, these can be put to subfolder data of the test grid, and integrated to Git along with the test case.
-5.	Check that the test case runs as expected (test for fix: OK with the fix, FAILED without the fix; test for existing problem: BAD), and integrate to Git branch created for the issue.
+	*	Use DRAW commands to reproduce the tested situation.
+	*	Make sure that in case of failure the test produces a message containing word "Error" or other recognized by the test system as error (add new error patterns in file parse.rules if necessary).
+	*	If the test case reports error due to an existing problem and the fix is not available, add @ref testmanual_3_6 "TODO" statement for each error to mark it as a known problem. The TODO statements must be specific so as to match the actually generated messages but not all similar errors.
+	*	To check expected output which should be obtained as the test result, add @ref testmanual_3_7 "REQUIRED" statement for each line of output to mark it as required.
+	*	If the test case produces error messages (contained in parse.rules), which are expected in that test and should not be considered as its failure (e.g. test for *checkshape* command), add REQUIRED statement for each error to mark it as required output.
+4.	If the test uses data file(s) that are not yet present in the test database, it is possible to put them to (sub)directory pointed out by *CSF_TestDataPath* variable for running test. The files should be attached to the Mantis issue corresponding to the tested modification.
+5.	Check that the test case runs as expected (test for fix: OK with the fix, FAILED without the fix; test for existing problem: BAD), and integrate it to the Git branch created for the issue.
 
 Example:
 
 * Added files:
 
 ~~~~~
-git status –short
-A tests/bugs/heal/data/OCC210a.brep
-A tests/bugs/heal/data/OCC210a.brep
+git status -short
+A tests/bugs/heal/data/bug210_a.brep
+A tests/bugs/heal/data/bug210_b.brep
 A tests/bugs/heal/bug210_1
 A tests/bugs/heal/bug210_2
 ~~~~~
 
 * Test script
 
-~~~~~
+~~~~~{.tcl}
 puts "OCC210 (case 1): Improve FixShape for touching wires"
 
-restore [locate_data_file OCC210a.brep] a 
+restore [locate_data_file bug210_a.brep] a 
 
 fixshape result a 0.01 0.01
 checkshape result
@@ -212,10 +225,10 @@ checkshape result
 Standard OCCT tests are located in subdirectory tests of the OCCT root folder ($CASROOT).
 
 Additional test folders can be added to the test system by defining environment variable *CSF_TestScriptsPath*. This should be list of paths separated by semicolons (*;*) on Windows 
-or colons (*:*) on Linux or Mac. Upon DRAW launch, path to tests subfolder of OCCT is added at the end of this variable automatically. 
+or colons (*:*) on Linux or Mac. Upon DRAW launch, path to *tests* subfolder of OCCT is added at the end of this variable automatically. 
 
 Each test folder is expected to contain:
-  * Optional file parse.rules defining patterns for interpretation of test results, common for all groups in this folder
+  * Optional file *parse.rules* defining patterns for interpretation of test results, common for all groups in this folder
   * One or several test group directories. 
 
 Each group directory contains:
@@ -286,7 +299,7 @@ This file is a TCL script. It is executed after every test in the current group.
 
 Note: *TEST COMPLETED* string should be present in the output to indicate that the test is finished without crash. 
 
-See <a href="#testmanual_3">section 3</a> for more information.
+See @ref testmanual_3 "Creation and modification of tests" chapter for more information.
 
 Example:
 ~~~~~
@@ -304,22 +317,22 @@ The test group may contain *parse.rules* file. This file defines patterns used f
 
 Each line in the file should specify a status (single word), followed by a regular expression delimited by slashes (*/*) that will be matched against lines in the test output log to check if it corresponds to this status.
 
-The regular expressions support a subset of the Perl *re* syntax. See also <a href="http://perldoc.perl.org/perlre.html">Perl regular expressions</a>.
+The regular expressions should follow <a href="http://www.tcl.tk/man/tcl/TclCmd/re_syntax.htm">Tcl syntax</a>, with a special exception that "\b" is considered as word limit (Perl-style), in addition to "\y" used in Tcl.
 
 The rest of the line can contain a comment message, which will be added to the test report when this status is detected.
 
 Example:
 
 ~~~~~
-    FAILED /\\b[Ee]xception\\b/ exception
-    FAILED /\\bError\\b/ error
+    FAILED /\b[Ee]xception\b/ exception
+    FAILED /\bError\b/ error
     SKIPPED /Cannot open file for reading/ data file is missing
     SKIPPED /Could not read file .*, abandon/ data file is missing
 ~~~~~
 
 Lines starting with a *#* character and blank lines are ignored to allow comments and spacing.
 
-See <a href="#testmanual_3_5">Interpretation of test results</a> chapter for details.
+See @ref testmanual_details_results "Interpretation of test results" chapter for details.
 
 If a line matches several rules, the first one applies. Rules defined in the grid are checked first, then rules in the group, then rules in the test root directory. This allows defining some rules on the grid level with status *IGNORE* to ignore messages that would otherwise be treated as errors due to the group level rules.
 
@@ -332,7 +345,7 @@ Example:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @subsubsection testmanual_2_2_6  Directory "data"
-The test group may contain subdirectory *data*, where test scripts shared by different test grids can be put. See also <a href="#testmanual_2_3_5">Directory *data*</a>.
+The test group may contain subdirectory *data*, where test scripts shared by different test grids can be put. See also @ref testmanual_2_3_5 "Directory data".
 
 @subsection testmanual_2_3 Test Grids
 
@@ -438,7 +451,7 @@ This section describes how to add new tests and update existing ones.
 
 The new tests are usually added in the frame of processing issues in OCCT Mantis tracker. 
 Such tests in general should be added to group bugs, in the grid 
-corresponding to the affected OCCT functionality. See <a href="#testmanual_5_2">Mapping of OCCT functionality to grid names in group *bugs*</a>.
+corresponding to the affected OCCT functionality. See @ref testmanual_5_2 "Mapping of OCCT functionality to grid names in group bugs".
 
 New grids can be added as necessary to contain tests for the functionality not yet covered by existing test grids. 
 The test case name in the bugs group should be prefixed by the ID of the corresponding issue in Mantis (without leading zeroes) with prefix *bug*. It is recommended to add a suffix providing a hint on the tested situation. If more than one test is added for a bug, they should be distinguished by suffixes; either meaningful or just ordinal numbers.
@@ -558,16 +571,17 @@ Other Tcl variables defined during the test execution are:
 
 In order to ensure that the test works as expected in different environments, observe the following additional rules:
 * Avoid using external commands such as *grep, rm,* etc., as these commands can be absent on another system (e.g. on Windows); use facilities provided by Tcl instead.
-* Do not put call to *locate_data_file* in catch statement – this can prevent correct interpretation of the missing data file by the test system.
+* Do not put call to *locate_data_file* in catch statement -- this can prevent correct interpretation of the missing data file by the test system.
+* Do not use commands *decho* and *dlog* in the test script, to avoid interference with use of these commands by the test system.
 
-@subsection testmanual_3_5 Interpretation of test results
+@subsection testmanual_details_results Interpretation of test results
 
 The result of the test is evaluated by checking its output against patterns defined in the files *parse.rules* of the grid and group.
 
 The OCCT test system recognizes five statuses of the test execution:
 * SKIPPED: reported if a line matching SKIPPED pattern is found (prior to any FAILED pattern). This indicates that the test cannot be run in the current environment; the most typical case is the absence of the required data file.
-* FAILED: reported if a line matching pattern with status FAILED is found (unless it is masked by the preceding IGNORE pattern or a TODO statement), or if message TEST COMPLETED is not found at the end. This indicates that the test has produced a bad or unexpected result, and usually means a regression.
-* BAD: reported if the test script output contains one or several TODO statements and the corresponding number of matching lines in the log. This indicates a known problem . The lines matching TODO statements are not checked against other patterns and thus will not cause a FAILED status.  
+* FAILED: reported if a line matching pattern with status FAILED is found (unless it is masked by the preceding IGNORE pattern or a TODO or REQUIRED statement), or if message TEST COMPLETED or at least one of REQUIRED patterns is not found. This indicates that the test has produced a bad or unexpected result, and usually means a regression.
+* BAD: reported if the test script output contains one or several TODO statements and the corresponding number of matching lines in the log. This indicates a known problem. The lines matching TODO statements are not checked against other patterns and thus will not cause a FAILED status.  
 * IMPROVEMENT: reported if the test script output contains a TODO statement for which no corresponding line is found. This is a possible indication of improvement (a known problem has disappeared).
 * OK: reported if none of the above statuses have been assigned. This means that the test has passed without problems.
 
@@ -587,7 +601,7 @@ puts "TODO BugNumber ListOfPlatforms: RegularExpression"
 
 Here:
 * *BugNumber* is the bug ID in the tracker. For example: #12345.
-* *ListOfPlatforms* is a list of platforms, at which the bug is reproduced (e.g. Mandriva2008, Windows or All). Note that the platform name is custom for the OCCT test system; it corresponds to the value of environment variable *os_type* defined in DRAW.
+* *ListOfPlatforms* is a list of platforms, at which the bug is reproduced (Linux, Windows, MacOS, or All). Note that the platform name is custom for the OCCT test system; it corresponds to the value of environment variable *os_type* defined in DRAW.
 
 Example:
 ~~~~~
@@ -616,7 +630,27 @@ puts "TODO OCC22817 All: \\*\\* Exception \\*\\*"
 puts "TODO OCC22817 All: TEST INCOMPLETE"
 ~~~~~
 
+@subsection testmanual_3_7 Marking required output
 
+To check the obtained test output matches the expected results considered correct, add REQUIRED statement for each specific message.
+For that, the following statement should be added to the corresponding test script:
+
+~~~~~
+puts "REQUIRED ListOfPlatforms: RegularExpression"
+~~~~~
+
+Here *ListOfPlatforms* and *RegularExpression* have the same meaning as in TODO statements described above.
+
+The REQUIRED statement can also be used to mask the message that would normally be interpreted as error (according to the rules defined in *parse.rules*) but should not be considered as such within the current test.
+
+Example:
+~~~~~
+puts "REQUIRED Linux: Faulty shapes in variables faulty_1 to faulty_5"
+~~~~~
+
+This statement notifies test system that errors reported by *checkshape* command are expected in that test case, and test should be considered as OK if this message appears, despite of presence of general rule stating that 'Faulty' signals failure.
+
+If output does not contain required statement, test case will be marked as FAILED.
 
 @section testmanual_4 Advanced Use
 
@@ -672,15 +706,15 @@ testdiff dir1 dir2 [groupname [gridname]] [options...]
 Here *dir1* and *dir2* are directories containing logs of two test runs.
 
 Possible options are:
-* <i>-save \<filename\> </i> - saves the resulting log in a specified file (<i>$dir1/diff-$dir2.log</i> by default). HTML log is saved with the same name and extension .html;
-* <i>-status {same|ok|all}</i> - allows filtering compared cases by their status:
-	* *same* - only cases with same status are compared (default);
-	* *ok*   - only cases with OK status in both logs are compared;
-	* *all*  - results are compared regardless of status;
-* <i>-verbose \<level\> </i> - defines the scope of output data:
-	* 1 - outputs only differences;
-	* 2 - additionally outputs the list of logs and directories present in one of directories only;
-	* 3 - (by default) additionally outputs progress messages;
+* <i>-save \<filename\> </i> -- saves the resulting log in a specified file (<i>$dir1/diff-$dir2.log</i> by default). HTML log is saved with the same name and extension .html;
+* <i>-status {same|ok|all}</i> -- allows filtering compared cases by their status:
+	* *same* -- only cases with same status are compared (default);
+	* *ok*   -- only cases with OK status in both logs are compared;
+	* *all*  -- results are compared regardless of status;
+* <i>-verbose \<level\> </i> -- defines the scope of output data:
+	* 1 -- outputs only differences;
+	* 2 -- additionally outputs the list of logs and directories present in one of directories only;
+	* 3 -- (by default) additionally outputs progress messages;
 
 Example:
 
@@ -727,9 +761,9 @@ This group allows testing Boolean operations.
 DRAW module: MODELING (packages *BOPTest* and *BRepTest*).
 
 Grids names are based on name of the command used, with suffixes: 
-* <i>_2d</i> – for tests operating with 2d objects (wires, wires, 3d objects, etc.); 
-* <i>_simple</i> – for tests operating on simple shapes (boxes, cylinders, toruses, etc.);
-* <i>_complex</i> – for tests dealing with complex shapes.
+* <i>_2d</i> -- for tests operating with 2d objects (wires, wires, 3d objects, etc.); 
+* <i>_simple</i> -- for tests operating on simple shapes (boxes, cylinders, toruses, etc.);
+* <i>_complex</i> -- for tests dealing with complex shapes.
 
 | Grid	| Commands	| Functionality |
 | :---- | :----- | :------- | 
@@ -763,7 +797,7 @@ Grids names are based on name of the command used, with suffixes:
 This group allows testing cases coming from Mantis issues.
 
 The grids are organized following OCCT module and category set for the issue in the Mantis tracker. 
-See <a href="#testmanual_5_2">Mapping of OCCT functionality to grid names in group *bugs*</a> for details.
+See @ref testmanual_5_2 "Mapping of OCCT functionality to grid names in group bugs" chapter for details.
 
 @subsubsection testmanual_5_1_5 caf
 
@@ -987,7 +1021,7 @@ This group allows  testing extended data exchange packages.
 | Foundation Classes |	TKernel, TKMath	| fclasses |
 | Modeling_algorithms |	TKGeomAlgo, TKTopAlgo, TKPrim, TKBO, TKBool, TKHLR, TKFillet, TKOffset, TKFeat, TKXMesh |	modalg |
 | Modeling Data | TKG2d, TKG3d, TKGeomBase, TKBRep	| moddata |
-| Visualization | TKService, TKV2d, TKV3d, TKOpenGl, TKMeshVS, TKNIS, TKVoxel	| vis |
+| Visualization | TKService, TKV2d, TKV3d, TKOpenGl, TKMeshVS, TKNIS	| vis |
 
 
 @subsection testmanual_5_3 Recommended approaches to checking test results
@@ -1032,6 +1066,7 @@ Error : Number of faults is UNSTABLE
 ~~~~~
 
 @subsubsection testmanual_5_3_2 Shape tolerance
+
 The maximal tolerance of sub-shapes of each kind of the resulting shape can be extracted from output of tolerance command as follows:
 
 ~~~~~
@@ -1046,10 +1081,10 @@ It is possible to use command *checkmaxtol* to check maximal tolerance of shape 
 Use: checkmaxtol shape [options...]
 
 Allowed options are:
- *   -ref: reference value of maximum tolerance
- *   -source: list of shapes to compare with
- *   -min_tol: minimum tolerance for comparison
- *   -multi_tol: tolerance multiplier
+ *   <i>-ref</i> -- reference value of maximum tolerance;
+ *   <i>-source</i> -- list of shapes to compare with;
+ *   <i>-min_tol</i> -- minimum tolerance for comparison;
+ *   <i>-multi_tol</i> -- tolerance multiplier.
 
 The default syntax of *checkmaxtol* command for comparison with the reference value:
 ~~~~~
@@ -1088,9 +1123,10 @@ if { abs($area - $expected) > 0.1 + 0.01 * abs ($area) } {
 
 @subsubsection testmanual_5_3_4 Memory leaks
 
-The test system measures the amount of memory used by each test case, and considerable deviations (as well as overall difference) comparing with reference results will be reported by *testdiff* command.
+The test system measures the amount of memory used by each test case. Considerable deviations (as well as the overall difference) in comparison with reference results can be reported by command *testdiff*  (see @ref testmanual_4_4).
 
-The typical approach to checking memory leak on a particular operation is to run this operation in cycle measuring memory consumption at each step and comparing it with some threshold value. Note that file begin in group bugs defines command *checktrend* that can be used to analyze a sequence of memory measurements to get statistically based evaluation of the leak presence.
+To check memory leak on a particular operation, run it in a cycle, measure the memory consumption at each step and compare it with a threshold value.
+The command *checktrend* (defined in *tests/bugs/begin*) can be used to analyze a sequence of memory measurements and to get a statistically based evaluation of the leak presence.
 
 Example: 
 ~~~~~
@@ -1109,7 +1145,7 @@ for {set i 1} {$i < 100} {incr i} {
 
 @subsubsection testmanual_5_3_5 Visualization
 
-Take a snapshot of the viewer, give it the name of the test case, and save in the directory indicated by Tcl variable *imagedir*. 
+The following command sequence allows you to take a snapshot of the viewer, give it the name of the test case, and save in the directory indicated by Tcl variable *imagedir*. 
 
 ~~~~~
 vinit
@@ -1123,27 +1159,71 @@ vdump $imagedir/${casename}_shading.png
 
 This image will be included in the HTML log produced by *testgrid* command and will be checked for non-regression through comparison of images by command *testdiff*.
 
+Also it is possible to use command *checkview* to make a snapshot of the viewer.
+
+Use: checkview [options...]
+Allowed options are:
+*   <i>-display shapename </i>  -- displays shape with name *shapename*;
+*   <i>-3d </i> -- displays shape in 3d viewer;
+*   <i>-2d [ v2d / smallview ] </i> - displays shape in 2d viewer (the default viewer is *smallview*);
+*   <i>-path PATH</i> -- sets the location of the saved viewer screenshot;
+*   <i>-vdispmode N</i> -- sets *vdispmode* for 3d viewer (default value is 1)
+*   <i>-screenshot</i> -- makes a screenshot of already created viewer
+*   The procedure can check a property of shape (length, area or volume) and compare it with value *N*:
+	* <i>-l [N]</i>
+	* <i>-s [N]</i>
+	* <i>-v [N]</i>
+	* If the current property is equal to value *N*, the shape is marked as valid in the procedure.
+	* If value *N* is not given, the procedure will mark the shape as valid if the current property is non-zero.
+*   <i>-with {a b c}</i> -- displays shapes *a, b* and *c* together with the shape (if the shape is valid)
+*   <i>-otherwise {d e f}</i> -- displays shapes *d, e* and *f* instead of the shape (if the shape is NOT valid)
+
+Note that is required to use either option <i> -2d </i> or option <i> -3d</i>.
+
+Examples:
+~~~~~
+checkview -display result -2d -path ${imagedir}/${test_image}.png
+checkview -display result -3d -path ${imagedir}/${test_image}.png
+checkview -display result_2d -2d v2d -path ${imagedir}/${test_image}.png
+~~~~~
+
+~~~~~
+box a 10 10 10
+box b 5 5 5 10 10 10
+bcut result b a
+set result_vertices [explode result v]
+checkview -display result -2d -with ${result_vertices} -otherwise { a b } -l -path ${imagedir}/${test_image}.png
+~~~~~
+
+~~~~~
+box a 10 10 10
+box b 5 5 5 10 10 10
+bcut result b a
+vinit
+vdisplay a b
+vfit
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png
+~~~~~
+
 @subsubsection testmanual_5_3_6 Number of free edges
 
-To check the number of free edges run the command *checkfreebounds*.
-
-It compares number of free edges with reference value.
+Procedure *checkfreebounds* compares the number of free edges with a reference value.
 
 Use: checkfreebounds shape ref_value [options...]
 
 Allowed options are:
- * -tol N: used tolerance (default -0.01)
- * -type N: used type, possible values are "closed" and "opened" (default "closed")
+ * <i>-tol N</i> -- used tolerance (default -0.01);
+ * <i>-type N</i> -- used type, possible values are "closed" and "opened" (default "closed").
 
 ~~~~~
 checkfreebounds result 13
 ~~~~~
 
-Option -tol N is used to set tolerance for command *freebounds*, which is used within command *checkfreebounds*.
+Option <i>-tol N</i> defines tolerance for command *freebounds*, which is used within command *checkfreebounds*.
 
-Option -type N is used to select the type of counted free edges - closed or opened.
+Option <i>-type N</i> is used to select the type of counted free edges: closed or open.
 
-If the number of free edges in the resulting shape is unstable, reference value should be set to "-1".
+If the number of free edges in the resulting shape is unstable, the reference value should be set to "-1".
 As a result command *checkfreebounds* will return the following error:
 
 ~~~~~
@@ -1153,7 +1233,7 @@ Error : Number of free edges is UNSTABLE
 
 @subsubsection testmanual_5_3_7 Compare numbers
 
-Procedure to check equality of two reals with some tolerance (relative and absolute)
+Procedure *checkreal* checks the equality of two reals with a tolerance (relative and absolute).
 
 Use: checkreal name value expected tol_abs tol_rel
 
@@ -1163,11 +1243,12 @@ checkreal "Some important value" $value 5 0.0001 0.01
 
 @subsubsection testmanual_5_3_8 Check number of sub-shapes
 
-Compare number of sub-shapes in "shape" with given reference data
+Procedure *checknbshapes* compares the number of sub-shapes in "shape" with the given reference data.
 
 Use: checknbshapes shape [options...]
+
 Allowed options are:
- * -vertex N
+ * <i>-vertex N
  * -edge N
  * -wire N
  * -face N
@@ -1176,9 +1257,9 @@ Allowed options are:
  * -compsolid N
  * -compound N
  * -shape N
- * -t: compare the number of sub-shapes in "shape" counting
+ * -t</i> -- compares the number of sub-shapes in "shape" counting
       the same sub-shapes with different location as different sub-shapes.
- * -m msg: print "msg" in case of error
+ * <i>-m msg</i> -- prints "msg" in case of error
 
 ~~~~~
 checknbshapes result -vertex 8 -edge 4
@@ -1186,18 +1267,127 @@ checknbshapes result -vertex 8 -edge 4
 
 @subsubsection testmanual_5_3_9 Check pixel color
 
-To check pixel color command *checkcolor* can be used.
+Command *checkcolor* can be used to check pixel color.
 
 Use: checkcolor x y red green blue
 
-  x y - pixel coordinates
+where:
+ * <i>x, y</i> -- pixel coordinates;
+ * <i>red green blue</i> -- expected pixel color (values from 0 to 1).
 
-  red green blue - expected pixel color (values from 0 to 1)
-
-This procedure checks color with tolerance (5x5 area)
+This procedure checks color with tolerance (5x5 area).
 
 Next example will compare color of point with coordinates x=100 y=100 with RGB color R=1 G=0 B=0.
 If colors are not equal, procedure will check the nearest ones points (5x5 area)
 ~~~~~
 checkcolor 100 100 1 0 0
+~~~~~
+
+@subsubsection testmanual_5_3_10 Compute length, area and volume of input shape
+
+Procedure *checkprops* computes length, area and volume of the input shape.
+
+Use: checkprops shapename [options...]
+
+Allowed options are:
+ * <i>-l LENGTH</i> -- command *lprops*, computes the mass properties of all edges in the shape with a linear density of 1;
+ * <i>-s AREA</i> -- command *sprops*, computes the mass properties of all faces with a surface density of 1; 
+ * <i>-v VOLUME</i> -- command *vprops*, computes the mass properties of all solids with a density of 1;
+ * <i>-eps EPSILON</i> -- the epsilon defines relative precision of computation;
+ * <i>-equal SHAPE</i> -- compares area, volume and length of input shapes. Puts error if they are not equal;
+ * <i>-notequal SHAPE</i> -- compares area, volume and length of input shapes. Puts error if they are equal.
+
+Options <i> -l, -s </i> and <i> -v</i> are independent and can be used in any order. Tolerance *epsilon* is the same for all options.
+
+~~~~~
+checkprops result -s 6265.68 
+checkprops result -s -equal FaceBrep
+~~~~~
+
+@subsubsection testmanual_5_3_11 Parse output dump and compare it with reference values
+
+Procedure *checkdump* is used to parse output dump and compare it with reference values.
+
+Use: checkdump shapename [options...]
+
+Allowed options are:
+ * <i>-name NAME</i> -- list of parsing parameters (e.g. Center, Axis, etc.);
+ * <i>-ref VALUE</i> -- list of reference values for each parameter in *NAME*; 
+ * <i>-eps EPSILON</i> -- the epsilon defines relative precision of computation.
+
+~~~~~
+checkdump result -name {Center Axis XAxis YAxis Radii} -ref {{-70 0} {-1 -0} {-1 -0} {0 -1} {20 10}} -eps 0.01
+~~~~~
+
+@subsubsection testmanual_5_3_12 Compute length of input curve
+
+Procedure *checklength* computes length of the input curve.
+
+Use: checklength curvename [options...]
+  
+Allowed options are:
+ * <i>-l LENGTH</i> -- command *length*, computes the length of the input curve with precision of computation;
+ * <i>-eps EPSILON</i> -- the epsilon defines a relative precision of computation;
+ * <i>-equal CURVE</i> -- compares the length of input curves. Puts error if they are not equal;
+ * <i>-notequal CURVE</i> -- compares the length of input curves. Puts error if they are equal.
+
+~~~~~
+checklength cp1 -l 7.278
+checklength res -l -equal ext_1
+~~~~~
+@subsubsection testmanual_5_3_13 Check maximum deflection, number of triangles and nodes in mesh
+
+Command *checktrinfo* can be used to to check the maximum deflection, as well as the number of nodes and triangles in mesh.
+
+Use: checktrinfo shapename [options...]
+
+Allowed options are:
+ * <i>-tri [N]</i> --  compares the current number of triangles in *shapename* mesh with the given reference data.
+      If reference value N is not given and the current number of triangles is equal to 0, procedure *checktrinfo* will print an error.
+ * <i>-nod [N]</i> --  compares the current number of nodes in *shapename* mesh with the given reference data.
+      If reference value N is not given and the current number of nodes is equal to 0, procedure *checktrinfo* will print an error.
+ * <i>-defl [N]</i> -- compares the current value of maximum deflection in *shapename* mesh with the given reference data.
+      If reference value N is not given and current maximum deflection is equal to 0, procedure *checktrinfo* will print an error.
+ * <i>-max_defl N</i> --     compares the current value of maximum deflection in *shapename* mesh with the max possible value.
+ * <i>-tol_abs_tri N</i> --  absolute tolerance for comparison of number of triangles (default value 0).
+ * <i>-tol_rel_tri N</i> --  relative tolerance for comparison of number of triangles (default value 0).
+ * <i>-tol_abs_nod N</i> --  absolute tolerance for comparison of number of nodes (default value 0).
+ * <i>-tol_rel_nod N</i> --  relative tolerance for comparison of number of nodes (default value 0).
+ * <i>-tol_abs_defl N</i> -- absolute tolerance for deflection comparison (default value 0).
+ * <i>-tol_rel_defl N</i> -- relative tolerance for deflection comparison (default value 0).
+ * <i>-ref [trinfo a]</i> -- compares deflection, number of triangles and nodes in *shapename* and *a*.
+
+Note that options <i> -tri, -nod </i> and <i> -defl </i> do not work together with option <i> -ref</i>.
+
+Examples:
+
+Comparison with some reference values:
+~~~~~
+checktrinfo result -tri 129 -nod 131 -defl 0.01
+~~~~~
+
+Comparison with another mesh:
+~~~~~
+checktrinfo result -ref [tringo a]
+~~~~~
+
+Comparison of deflection with the max possible value:
+~~~~~
+checktrinfo result -max_defl 1
+~~~~~
+
+Check that the current values are not equal to zero:
+~~~~~
+checktrinfo result -tri -nod -defl
+~~~~~
+
+Check that the number of triangles and the number of nodes are not equal to some specific values:
+~~~~~
+checktrinfo result -tri !10 -nod !8
+~~~~~
+
+It is possible to compare current values with reference values with some tolerances.
+Use options <i>-tol_\* </i> for that.
+~~~~~
+checktrinfo result -defl 1 -tol_abs_defl 0.001
 ~~~~~

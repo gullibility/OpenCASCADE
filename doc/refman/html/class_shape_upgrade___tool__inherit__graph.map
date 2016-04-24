@@ -1,0 +1,13 @@
+<map id="ShapeUpgrade_Tool" name="ShapeUpgrade_Tool">
+<area shape="rect" id="node4" href="$class_shape_upgrade___edge_divide.html" title="ShapeUpgrade_EdgeDivide" alt="" coords="549,19,728,45"/>
+<area shape="rect" id="node6" href="$class_shape_upgrade___face_divide.html" title="Divides a Face (both edges in the wires, by splitting curves and pcurves, and the face itself..." alt="" coords="550,95,727,121"/>
+<area shape="rect" id="node9" href="$class_shape_upgrade___fix_small_curves.html" title="ShapeUpgrade_FixSmallCurves" alt="" coords="537,145,741,172"/>
+<area shape="rect" id="node11" href="$class_shape_upgrade___remove_internal_wires.html" title="Removes all internal wires having area less than specified min area. " alt="" coords="537,197,740,238"/>
+<area shape="rect" id="node12" href="$class_shape_upgrade___wire_divide.html" title="Divides edges in the wire lying on the face or free wires or free edges with a criterion. Splits 3D curve and pcurve(s) of the edge on the face. Other pcurves which may be associated with the edge are simply copied. If 3D curve is splitted then pcurve on the face is splitted as well, and wice&#45;versa. Input shape is not modified. The modifications made are recorded in external context (ShapeBuild_ReShape). This tool is applied to all edges before splitting them in order to keep sharing. " alt="" coords="551,263,726,289"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,145,301,172"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,145,141,172"/>
+<area shape="rect" id="node5" href="$class_shape_upgrade___closed_edge_divide.html" title="ShapeUpgrade_ClosedEdgeDivide" alt="" coords="789,5,1008,32"/>
+<area shape="rect" id="node7" href="$class_shape_upgrade___closed_face_divide.html" title="Divides a Face with one or more seam edge to avoid closed faces. Splitting is performed by U and V di..." alt="" coords="790,56,1007,83"/>
+<area shape="rect" id="node8" href="$class_shape_upgrade___face_divide_area.html" title="Divides face by max area criterium. " alt="" coords="797,107,1001,133"/>
+<area shape="rect" id="node10" href="$class_shape_upgrade___fix_small_bezier_curves.html" title="ShapeUpgrade_FixSmallBezier\lCurves" alt="" coords="797,158,1000,199"/>
+</map>

@@ -16,13 +16,14 @@
 #ifndef _D3DHost_View_HeaderFile
 #define _D3DHost_View_HeaderFile
 
-#include <d3d9.h>
-
 #include <D3DHost_FrameBuffer.hxx>
 #include <OpenGl_View.hxx>
 #include <OpenGl_Workspace.hxx>
 
 class D3DHost_GraphicDriver;
+struct IDirect3D9;
+struct IDirect3DDevice9;
+typedef struct _D3DPRESENT_PARAMETERS_ D3DPRESENT_PARAMETERS;
 
 //! The D3D host view implementation that overrides rendering methods.
 class D3DHost_View : public OpenGl_View
@@ -46,10 +47,8 @@ public:
   //! @param theDisplayCB [in] the display callback function. If is not a NULL value, then the callback will be
   //! invoked at the end of the OCC graphic traversal and just before the swap of buffers.
   //! @param theClientData [in] the client data for the callback.
-  Standard_EXPORT virtual void SetWindow (const Handle(Aspect_Window)& theWindow,
-                                          const Aspect_RenderingContext theContext,
-                                          const Aspect_GraphicCallbackProc& theDisplayCB,
-                                          const Standard_Address theClientData) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetWindow (const Handle(Aspect_Window)&  theWindow,
+                                          const Aspect_RenderingContext theContext) Standard_OVERRIDE;
 
   //! Resizes the window.
   Standard_EXPORT virtual void Resized() Standard_OVERRIDE;
@@ -77,7 +76,7 @@ public:
 protected:
 
   //! Auxiliary method.
-  Standard_EXPORT static TCollection_AsciiString d3dFormatError (HRESULT theErrCode);
+  Standard_EXPORT static TCollection_AsciiString d3dFormatError (const long theErrCode);
 
   //! Initialize the D3D library.
   Standard_EXPORT bool d3dInitLib();
@@ -106,15 +105,15 @@ protected:
 
   IDirect3D9*                 myD3dLib;      //!< Direct3D library instance
   IDirect3DDevice9*           myD3dDevice;   //!< Direct3D device object
-  D3DPRESENT_PARAMETERS       myD3dParams;   //!< parameters for created Direct3D device
-  D3DDISPLAYMODE              myCurrMode;    //!< temporary variable
-  UINT                        myRefreshRate; //!< refresh rate in fullscreen mode
+  NCollection_Handle<D3DPRESENT_PARAMETERS>
+                              myD3dParams;   //!< parameters for created Direct3D device
+  unsigned int                myRefreshRate; //!< refresh rate in fullscreen mode
   bool                        myIsD3dEx;     //!< D3dEx flag for WDDM
   Handle(D3DHost_FrameBuffer) myD3dWglFbo;   //!< D3D/WGL interop FBO
 
 public:
 
-  DEFINE_STANDARD_RTTI(D3DHost_View, OpenGl_View)
+  DEFINE_STANDARD_RTTIEXT(D3DHost_View,OpenGl_View)
 
 };
 

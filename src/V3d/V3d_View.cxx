@@ -103,6 +103,8 @@ To solve the problem (for lack of a better solution) I make 2 passes.
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(V3d_View,MMgt_TShared)
+
 #define V3d_FLAG_COMPUTATION   0x00000004
 
 // Perspective
@@ -135,6 +137,8 @@ V3d_View::V3d_View (const Handle(V3d_Viewer)& theViewer, const V3d_TypeOfView th
 
   myView->SetBackground         (theViewer->GetBackgroundColor());
   myView->SetGradientBackground (theViewer->GetGradientBackground());
+
+  ChangeRenderingParams() = theViewer->DefaultRenderingParams();
 
   // camera init
   Handle(Graphic3d_Camera) aCamera = new Graphic3d_Camera();
@@ -2186,21 +2190,31 @@ void V3d_View::Gravity (Standard_Real& theX,
   {
     const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key();
     if (!aStruct->IsVisible()
-    || (hasSelection && !aStruct->IsHighlighted())
-    ||  aStruct->IsEmpty())
+      || aStruct->IsInfinite()
+      || (hasSelection && !aStruct->IsHighlighted()))
     {
       continue;
     }
 
-    Bnd_Box aBox = aStruct->MinMaxValues();
-    if (aBox.IsVoid() || aStruct->IsInfinite())
+    const Graphic3d_BndBox4f& aBox = aStruct->CStructure()->BoundingBox();
+    if (!aBox.IsValid())
+    {
+      continue;
+    }
+
+    // skip transformation-persistent objects
+    if (aStruct->TransformPersistence().Flags != Graphic3d_TMF_None)
     {
       continue;
     }
 
     // use camera projection to find gravity point
-    aBox.Get (Xmin, Ymin, Zmin,
-              Xmax, Ymax, Zmax);
+    Xmin = (Standard_Real )aBox.CornerMin().x();
+    Ymin = (Standard_Real )aBox.CornerMin().y();
+    Zmin = (Standard_Real )aBox.CornerMin().z();
+    Xmax = (Standard_Real )aBox.CornerMax().x();
+    Ymax = (Standard_Real )aBox.CornerMax().y();
+    Zmax = (Standard_Real )aBox.CornerMax().z();
     gp_Pnt aPnts[THE_NB_BOUND_POINTS] =
     {
       gp_Pnt (Xmin, Ymin, Zmin), gp_Pnt (Xmin, Ymin, Zmax),
@@ -2224,21 +2238,10 @@ void V3d_View::Gravity (Standard_Real& theX,
 
   if (aNbPoints == 0)
   {
-    for (Graphic3d_MapIteratorOfMapOfStructure aStructIter (aSetOfStructures);
-         aStructIter.More(); aStructIter.Next())
+    // fallback - just use bounding box of entire scene
+    Bnd_Box aBox = myView->MinMaxValues (Standard_True);
+    if (!aBox.IsVoid())
     {
-      const Handle(Graphic3d_Structure)& aStruct = aStructIter.Key();
-      if (aStruct->IsEmpty())
-      {
-        continue;
-      }
-
-      Bnd_Box aBox = aStruct->MinMaxValues();
-      if (aBox.IsVoid() || aStruct->IsInfinite())
-      {
-        continue;
-      }
-
       aBox.Get (Xmin, Ymin, Zmin,
                 Xmax, Ymax, Zmax);
       gp_Pnt aPnts[THE_NB_BOUND_POINTS] =
@@ -2938,11 +2941,11 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
                                      const V3d_StereoDumpOptions theStereoOptions)
 {
   // always prefer hardware accelerated offscreen buffer
-  Graphic3d_PtrFrameBuffer aFBOPtr = NULL;
-  Graphic3d_PtrFrameBuffer aPrevFBOPtr = myView->FBO();
+  Handle(Standard_Transient) aFBOPtr;
+  Handle(Standard_Transient) aPrevFBOPtr = myView->FBO();
   Standard_Integer aFBOVPSizeX (theWidth), aFBOVPSizeY (theHeight), aFBOSizeXMax (0), aFBOSizeYMax (0);
   Standard_Integer aPrevFBOVPSizeX (0), aPrevFBOVPSizeY (0), aPrevFBOSizeXMax (0), aPrevFBOSizeYMax (0);
-  if (aPrevFBOPtr != NULL)
+  if (!aPrevFBOPtr.IsNull())
   {
     myView->FBOGetDimensions (aPrevFBOPtr,
                               aPrevFBOVPSizeX, aPrevFBOVPSizeY,
@@ -2954,11 +2957,11 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
     }
   }
 
-  if (aFBOPtr == NULL)
+  if (aFBOPtr.IsNull())
   {
     // Try to create hardware accelerated buffer
     aFBOPtr = myView->FBOCreate (aFBOVPSizeX, aFBOVPSizeY);
-    if (aFBOPtr != NULL)
+    if (!aFBOPtr.IsNull())
     {
       myView->FBOGetDimensions (aFBOPtr,
                                 aFBOVPSizeX,  aFBOVPSizeY,
@@ -2973,7 +2976,7 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
 
   // If hardware accelerated buffer - try to use onscreen buffer
   // Results may be bad!
-  if (aFBOPtr == NULL)
+  if (aFBOPtr.IsNull())
   {
     // retrieve window sizes
     Standard_Integer aWinWidth, aWinHeight;
@@ -3063,7 +3066,7 @@ Standard_Boolean V3d_View::ToPixMap (Image_PixMap&               theImage,
   {
     myView->FBORelease (aFBOPtr);
   }
-  else if (aPrevFBOPtr != NULL)
+  else if (!aPrevFBOPtr.IsNull())
   {
     myView->FBOChangeViewport (aPrevFBOPtr, aPrevFBOVPSizeX, aPrevFBOVPSizeY);
   }
@@ -3189,10 +3192,10 @@ Standard_Boolean V3d_View::FitMinMax (const Handle(Graphic3d_Camera)& theCamera,
   // 4) Determine new zooming in view space.
 
   // 1. Determine normalized projection asymmetry (if any).
-  Standard_Real anAssymX = Tan ( aCamSide.Angle (aFrustumPlane (1).Axis().Direction()))
-                         - Tan (-aCamSide.Angle (aFrustumPlane (2).Axis().Direction()));
-  Standard_Real anAssymY = Tan ( aCamUp.Angle   (aFrustumPlane (3).Axis().Direction()))
-                         - Tan (-aCamUp.Angle   (aFrustumPlane (4).Axis().Direction()));
+  Standard_Real anAssymX = Tan (( aCamSide).Angle (aFrustumPlane (1).Axis().Direction()))
+                         - Tan ((-aCamSide).Angle (aFrustumPlane (2).Axis().Direction()));
+  Standard_Real anAssymY = Tan (( aCamUp)  .Angle (aFrustumPlane (3).Axis().Direction()))
+                         - Tan ((-aCamUp)  .Angle (aFrustumPlane (4).Axis().Direction()));
 
   // 2. Determine how far should be the frustum planes placed from center
   //    of bounding box, in order to match the bounding box closely.
@@ -3232,12 +3235,12 @@ Standard_Boolean V3d_View::FitMinMax (const Handle(Graphic3d_Camera)& theCamera,
   //                            \//
   //                            //
   //                      (frustum plane)
-  aFitDistance.ChangeValue (1) *= Sqrt(1 + Pow (Tan ( aCamSide.Angle (aFrustumPlane (1).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (2) *= Sqrt(1 + Pow (Tan (-aCamSide.Angle (aFrustumPlane (2).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (3) *= Sqrt(1 + Pow (Tan ( aCamUp.Angle   (aFrustumPlane (3).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (4) *= Sqrt(1 + Pow (Tan (-aCamUp.Angle   (aFrustumPlane (4).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (5) *= Sqrt(1 + Pow (Tan ( aCamDir.Angle  (aFrustumPlane (5).Axis().Direction())), 2.0));
-  aFitDistance.ChangeValue (6) *= Sqrt(1 + Pow (Tan (-aCamDir.Angle  (aFrustumPlane (6).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (1) *= Sqrt(1 + Pow (Tan (  aCamSide .Angle (aFrustumPlane (1).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (2) *= Sqrt(1 + Pow (Tan ((-aCamSide).Angle (aFrustumPlane (2).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (3) *= Sqrt(1 + Pow (Tan (  aCamUp   .Angle (aFrustumPlane (3).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (4) *= Sqrt(1 + Pow (Tan ((-aCamUp)  .Angle (aFrustumPlane (4).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (5) *= Sqrt(1 + Pow (Tan (  aCamDir  .Angle (aFrustumPlane (5).Axis().Direction())), 2.0));
+  aFitDistance.ChangeValue (6) *= Sqrt(1 + Pow (Tan ((-aCamDir) .Angle (aFrustumPlane (6).Axis().Direction())), 2.0));
 
   Standard_Real aViewSizeXv = aFitDistance (1) + aFitDistance (2);
   Standard_Real aViewSizeYv = aFitDistance (3) + aFitDistance (4);

@@ -16,6 +16,8 @@
 #include <Prs3d_PresentationShadow.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(Prs3d_PresentationShadow,Prs3d_Presentation)
+
 //=======================================================================
 //function : Prs3d_PresentationShadow
 //purpose  :
@@ -25,6 +27,15 @@ Prs3d_PresentationShadow::Prs3d_PresentationShadow (const Handle(Graphic3d_Struc
 : Prs3d_Presentation (theViewer, thePrs),
   myParentStructId (thePrs->Identification()),
   myParentAffinity (thePrs->CStructure()->ViewAffinity)
+{
+  //
+}
+
+//=======================================================================
+//function : CalculateBoundBox
+//purpose  :
+//=======================================================================
+void Prs3d_PresentationShadow::CalculateBoundBox()
 {
   //
 }

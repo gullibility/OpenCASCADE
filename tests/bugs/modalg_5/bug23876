@@ -24,6 +24,7 @@ ttranslate b2 0 0 50
 bop b1 b2
 bopcommon result
 
-set square 2422.92
-set 2dviewer 0
+checkprops result -s 2422.92 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

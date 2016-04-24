@@ -24,5 +24,6 @@ if { ${aStatus} != 0 } {
    puts "OK ${BugNumber}"
 }
 
-set square 0.38266
-set 3dviewer 0
+checkprops result -s 0.38266 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

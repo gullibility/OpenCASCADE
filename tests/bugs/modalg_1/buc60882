@@ -41,5 +41,7 @@ if { $MaxTol_1 > $MaxTol } {
     puts " BUC60882 OK: Tolerance of Result edge is less or equal to tolerance of Sourse edge."
 }
 
-set length 1768.53
-set 2dviewer 0
+checkprops result -l 1768.53 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

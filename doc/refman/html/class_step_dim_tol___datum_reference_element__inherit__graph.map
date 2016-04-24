@@ -1,0 +1,6 @@
+<map id="StepDimTol_DatumReferenceElement" name="StepDimTol_DatumReferenceElement">
+<area shape="rect" id="node2" href="$class_step_dim_tol___general_datum_reference.html" title="Representation of STEP entity GeneralDatumReference. " alt="" coords="5,229,243,256"/>
+<area shape="rect" id="node3" href="$class_step_repr___shape_aspect.html" title="StepRepr_ShapeAspect" alt="" coords="43,155,204,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="69,80,179,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="57,5,191,32"/>
+</map>

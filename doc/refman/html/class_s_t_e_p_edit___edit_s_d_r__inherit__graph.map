@@ -1,0 +1,5 @@
+<map id="STEPEdit_EditSDR" name="STEPEdit_EditSDR">
+<area shape="rect" id="node2" href="$class_i_f_select___editor.html" title="An Editor defines a set of values and a way to edit them, on an entity or on the model (e..." alt="" coords="18,155,128,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="18,80,128,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,5,140,32"/>
+</map>

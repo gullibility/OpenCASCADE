@@ -63,24 +63,17 @@
 static Standard_Integer DPrsStd_AISDisplay (Draw_Interpretor&,
 					  Standard_Integer nb, 
 					  const char** arg) 
-{   
-       
+{
   Handle(TDocStd_Document) D;
   if (!DDocStd::GetDocument(arg[1],D)) return 1; 
   TDF_Label L;
   if (!DDF::FindLabel(D->GetData(),arg[2],L)) return 1;
   Handle(TPrsStd_AISPresentation) prs;
-  if(!L.FindAttribute( TPrsStd_AISPresentation::GetID(), prs) ) return 1;  
-  if (nb == 3) {
-    prs->Display(Standard_True);
-    TPrsStd_AISViewer::Update(L);
-    return 0;
-  }
-  else {
-    prs->Display();
-    TPrsStd_AISViewer::Update(L);
-    return 0;
-  }
+  if(!L.FindAttribute( TPrsStd_AISPresentation::GetID(), prs) )
+    return 1;
+  prs->Display(nb == 3);
+  TPrsStd_AISViewer::Update(L);
+  return 0;
 }
 
 //=======================================================================
@@ -103,7 +96,7 @@ static Standard_Integer DPrsStd_AISRemove (Draw_Interpretor& di,
      TPrsStd_AISViewer::Update(L);
      return 0;
    }
-   di << "DPrsStd_AISRedisplay : Error" << "\n";
+   di << "DPrsStd_AISRedisplay : Error\n";
    return 1;
 }
 
@@ -128,7 +121,7 @@ static Standard_Integer DPrsStd_AISErase (Draw_Interpretor& di,
     TPrsStd_AISViewer::Update(L);
     return 0;
   }
-  di << "DPrsStd_AISErase : Error" << "\n";
+  di << "DPrsStd_AISErase : Error\n";
   return 1;
 }
 
@@ -152,7 +145,7 @@ static Standard_Integer DPrsStd_AISUpdate (Draw_Interpretor& di,
     TPrsStd_AISViewer::Update(L);
     return 0;
   }
-  di << "DPrsStd_AISUpdate : Error" << "\n";
+  di << "DPrsStd_AISUpdate : Error\n";
   return 1;
 }
 
@@ -206,7 +199,7 @@ static Standard_Integer DPrsStd_AISSet (Draw_Interpretor& di,
     di<<resS;
     return 0; 
   }
-  di << "DPrsStd_AISSet : Error" << "\n";
+  di << "DPrsStd_AISSet : Error\n";
   return 1; 
 }
 
@@ -271,7 +264,7 @@ static Standard_Integer DPrsStd_AISDriver (Draw_Interpretor& di,
       }
     }
   }
-  di << "DPrsStd_AISDriver : Error" << "\n";
+  di << "DPrsStd_AISDriver : Error\n";
   return 1;  
 }
 
@@ -293,7 +286,7 @@ static Standard_Integer DPrsStd_AISUnset (Draw_Interpretor& di,
     TPrsStd_AISViewer::Update(L);
     return 0; 
   }
-  di << "DPrsStd_AISDriver : Error" << "\n";
+  di << "DPrsStd_AISDriver : Error\n";
   return 1;  
 }
 
@@ -328,7 +321,7 @@ static Standard_Integer DPrsStd_AISTransparency (Draw_Interpretor& di,
          di<<prs->Transparency();
        }
        else{
-         di << "DPrsStd_AISTransparency: Warning : Transparency wasn't set" << "\n";
+         di << "DPrsStd_AISTransparency: Warning : Transparency wasn't set\n";
          di<<(-1);
        }
       }
@@ -395,7 +388,7 @@ static Standard_Integer DPrsStd_AISColor (Draw_Interpretor& di,
          di<<prs->Color();
        }
        else{
-         di << "DPrsStd_AISColor: Warning : Color wasn't set" << "\n";
+         di << "DPrsStd_AISColor: Warning : Color wasn't set\n";
          di<<(-1);
        }
       return 0; 
@@ -464,7 +457,7 @@ static Standard_Integer DPrsStd_AISMaterial (Draw_Interpretor& di,
          di<<prs->Material();
        }
        else{
-         di << "DPrsStd_AISMaterial: Warning : Material wasn't set" << "\n";
+         di << "DPrsStd_AISMaterial: Warning : Material wasn't set\n";
          di<<(-1);
        }
       }
@@ -516,7 +509,7 @@ static Standard_Integer DPrsStd_AISHasOwnColor (Draw_Interpretor& di,
 {
   if (nb >= 3) {     
     if (nb > 3)
-      di << "DPrsStd_AISHasOwnColor : Warning : too many arguments" << "\n";
+      di << "DPrsStd_AISHasOwnColor : Warning : too many arguments\n";
 
     Handle(TDocStd_Document) D;
     if (!DDocStd::GetDocument(arg[1],D)) return 1;  
@@ -550,7 +543,7 @@ static Standard_Integer DPrsStd_AISHasOwnMaterial (Draw_Interpretor& di,
 {
   if (nb >= 3) {     
     if (nb > 3)
-      di << "DPrsStd_AISHasOwnMaterial : Warning : too many arguments" << "\n";
+      di << "DPrsStd_AISHasOwnMaterial : Warning : too many arguments\n";
 
     Handle(TDocStd_Document) D;
     if (!DDocStd::GetDocument(arg[1],D)) return 1;  
@@ -584,7 +577,7 @@ static Standard_Integer DPrsStd_AISHasOwnTransparency (Draw_Interpretor& di,
 {
   if (nb >= 3) {     
     if (nb > 3)
-      di << "DPrsStd_AISHasOwnTransparency : Warning : too many arguments" << "\n";
+      di << "DPrsStd_AISHasOwnTransparency : Warning : too many arguments\n";
 
     Handle(TDocStd_Document) D;
     if (!DDocStd::GetDocument(arg[1],D)) return 1;  

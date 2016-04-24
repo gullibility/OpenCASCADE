@@ -22,5 +22,6 @@ vfit
 
 checkcolor $x_coord $y_coord 0.77 0.54 0.09
 
-set square 206399
-set 3dviewer 1
+checkprops result -s 206399 
+checkshape result
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png

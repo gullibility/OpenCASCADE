@@ -13,5 +13,6 @@ offsetload b1 0.0
 offsetonface b1_1 1.0
 offsetperform result
 
-set square 10
-set 2dviewer 1
+checkprops result -s 10 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

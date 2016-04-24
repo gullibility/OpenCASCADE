@@ -18,11 +18,5 @@ bop b_1 b_2
 
 bopcut result
 
-set square 53698.1
-
-set 3dviewer 1
-
-
-
-
-
+checkprops result -s 53698.1
+checkview -display result -2d -otherwise { b_1 b_2 } -s -path ${imagedir}/${test_image}.png

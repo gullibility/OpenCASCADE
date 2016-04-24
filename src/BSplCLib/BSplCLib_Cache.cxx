@@ -22,6 +22,8 @@
 #include <TColStd_HArray2OfReal.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(BSplCLib_Cache,Standard_Transient)
+
 //! Converts handle of array of Standard_Real into the pointer to Standard_Real
 static Standard_Real* ConvertArray(const Handle(TColStd_HArray2OfReal)& theHArray)
 {
@@ -71,7 +73,8 @@ Standard_Boolean BSplCLib_Cache::IsCacheValid(Standard_Real theParameter) const
     PeriodicNormalization(myFlatKnots->Array1(), aNewParam);
 
   Standard_Real aDelta = aNewParam - mySpanStart;
-  return (aDelta >= 0.0 && (aDelta < mySpanLength || mySpanIndex == mySpanIndexMax));
+  return ((aDelta >= 0.0 || mySpanIndex == mySpanIndexMin) &&
+          (aDelta < mySpanLength || mySpanIndex == mySpanIndexMax));
 }
 
 void BSplCLib_Cache::PeriodicNormalization(const TColStd_Array1OfReal& theFlatKnots, 
@@ -124,6 +127,7 @@ void BSplCLib_Cache::BuildCache(const Standard_Real&           theParameter,
                             aNewParam, thePeriodic, mySpanIndex, aNewParam);
   mySpanStart  = theFlatKnots.Value(mySpanIndex);
   mySpanLength = theFlatKnots.Value(mySpanIndex + 1) - mySpanStart;
+  mySpanIndexMin = thePeriodic ? 0 : myDegree + 1;
   mySpanIndexMax = theFlatKnots.Length() - 1 - theDegree;
 
   // Calculate new cache data
@@ -162,6 +166,7 @@ void BSplCLib_Cache::BuildCache(const Standard_Real&           theParameter,
                             aNewParam, thePeriodic, mySpanIndex, aNewParam);
   mySpanStart  = theFlatKnots.Value(mySpanIndex);
   mySpanLength = theFlatKnots.Value(mySpanIndex + 1) - mySpanStart;
+  mySpanIndexMin = thePeriodic ? 0 : myDegree + 1;
   mySpanIndexMax = theFlatKnots.Length() - 1 - theDegree;
 
   // Calculate new cache data

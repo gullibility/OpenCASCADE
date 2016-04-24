@@ -1,0 +1,9 @@
+digraph schema_FWOSPlugin
+{
+	FWOSPlugin [ URL = "toolkit_fwosplugin.html", shape = box ]
+	TKernel [ URL = "toolkit_tkernel.html" , shape = box ]
+	FWOSPlugin -> TKernel [ color = "midnightblue", style = "solid" ]
+	TKCDF [ URL = "toolkit_tkcdf.html" , shape = box ]
+	FWOSPlugin -> TKCDF [ color = "midnightblue", style = "solid" ]
+	aspect = 1
+}

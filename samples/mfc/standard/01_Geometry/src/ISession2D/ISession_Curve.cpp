@@ -7,7 +7,6 @@
 #include "ISession_Curve.h"
 #include <StdPrs_PoleCurve.hxx>
 
-IMPLEMENT_STANDARD_HANDLE(ISession_Curve,AIS_InteractiveObject)
 IMPLEMENT_STANDARD_RTTIEXT(ISession_Curve,AIS_InteractiveObject)
 
 #ifdef _DEBUG
@@ -20,7 +19,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 
 
-ISession_Curve::ISession_Curve(Handle(Geom_Curve)& aCurve)
+ISession_Curve::ISession_Curve(const Handle(Geom_Curve)& aCurve)
 :AIS_InteractiveObject(),myCurve(aCurve)
 {
 

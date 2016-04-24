@@ -37,8 +37,8 @@ Follow the instructions to proceed (define proxy settings if needed, select a mi
 
 **MathJax** is used for rendering math formulas in browser (HTML and CHM outputs): http://www.mathjax.org.
 
-By default MathJAX scripts and fonts are taken from http://cdn.mathjax.org/mathjax/latest and no installation of MathJAX is necessary if Internet is accessible.
-If you need to use OCCT documentation while off-line, you can install a local copy of MatJAX, see http://www.mathjax.org/download/.
+By default MathJAX scripts and fonts work on-line and no installation of MathJAX is necessary if Internet is accessible.
+If you need to use OCCT documentation while off-line, you can install a local copy of MatJAX, see https://docs.mathjax.org/en/v2.6-latest/start.html#installing-your-own-copy-of-mathjax.
 See \ref OCCT_DM_SECTION_A_9 for more details on inserting mathematical expressions. 
 
 @section OCCT_DM_SECTION_2_1 Documentation Generation
@@ -117,16 +117,16 @@ If you want to use the same image for several documents, you can place it in *do
 
 
 The documentation is generated in subfolder *doc* :
-* *html* - a directory for generated HTML pages;
-* *pdf* - a directory for generated PDF files.
+* *html* -- a directory for generated HTML pages;
+* *pdf* -- a directory for generated PDF files.
 
 @section  OCCT_DM_SECTION_4 Adding a New Document
 
 Place a new document in the folder taking into account its logical position in the documentation hierarchy. For instance, the document *svn.md* about the use of SVN to work with OCCT source code can be placed into <i>/dox/dev_guides/</i>. 
 
 If there are images in the document, it should be placed in its own folder containing a subfolder for images. For instance:
-* <i> /dox/dev_guides/svn/ </i> - for *svn.md* file;
-* <i> /dox/dev_guides/svn/images/ </i> - for images.
+* <i> /dox/dev_guides/svn/ </i> -- for *svn.md* file;
+* <i> /dox/dev_guides/svn/images/ </i> -- for images.
 
 Add a relative path to *svn.md* in file <i>dox/FILES.txt</i>. For instance
 
@@ -136,7 +136,7 @@ dev_guides/svn/svn.md
 
 **Note** that the order of paths to documents in *FILES.txt* is reproduced in the Table of Contents in the HTML output. Please, place them logically.
 
-**Note** that you should specify a file tag, not the document name. See <a href="#OCCT_DM_SECTION_A_1">Header section</a> for details.
+**Note** that you should specify a file tag, not the document name. See @ref OCCT_DM_SECTION_A_1 "Header and hierarchic document structure" section for details.
 
 @section  OCCT_DOC_SECTION_5 Additional Resources
 
@@ -168,9 +168,9 @@ The table of contents, page numbers (in PDF), and figure numbers (in PDF) are ge
 @subsection  OCCT_DM_SECTION_A_1 Headers and hierarchic document structure
 
 Headers of different levels can be specified with the following tags:
-* <i>\@section</i> - for the first-level headers; 
-* <i>\@subsection</i> - for the second level headers;
-* <i>\@subsubsection</i> - for the third level headers.
+* <i>\@section</i> -- for the first-level headers; 
+* <i>\@subsection</i> -- for the second level headers;
+* <i>\@subsubsection</i> -- for the third level headers.
 
 For example:
 

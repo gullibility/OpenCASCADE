@@ -20,24 +20,14 @@
 #include <StepBasic_MeasureWithUnit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndMassUnit,StepBasic_ConversionBasedUnit)
+
 //=======================================================================
 //function : StepBasic_ConversionBasedUnitAndMassUnit
 //purpose  : 
 //=======================================================================
 StepBasic_ConversionBasedUnitAndMassUnit::StepBasic_ConversionBasedUnitAndMassUnit ()
 {
-}
-
-
-//=======================================================================
-//function : Init
-//purpose  : 
-//=======================================================================
-
-void StepBasic_ConversionBasedUnitAndMassUnit::Init
-  (const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
 }
 
 

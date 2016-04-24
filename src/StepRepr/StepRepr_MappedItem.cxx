@@ -18,14 +18,9 @@
 #include <StepRepr_RepresentationMap.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_MappedItem,StepRepr_RepresentationItem)
+
 StepRepr_MappedItem::StepRepr_MappedItem ()  {}
-
-void StepRepr_MappedItem::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepRepr_MappedItem::Init(
 	const Handle(TCollection_HAsciiString)& aName,

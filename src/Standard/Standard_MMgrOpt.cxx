@@ -18,6 +18,7 @@
 #include <Standard_Assert.hxx>
 
 #include <stdio.h>
+#include <errno.h>
 
 #ifdef _WIN32
 # include <windows.h>
@@ -130,10 +131,6 @@ extern "C" int getpagesize() ;
 // Get address of user area from block address, and vice-versa
 #define GET_USER(block)    (((Standard_Size*)(block)) + BLOCK_SHIFT)
 #define GET_BLOCK(storage) (((Standard_Size*)(storage))-BLOCK_SHIFT)
-
-// create static instance of out-of-memory exception to protect
-// against possible lack of memory for its raising
-static Handle(Standard_OutOfMemory) anOutOfMemError = new Standard_OutOfMemory;
 
 //=======================================================================
 //function : Standard_MMgr
@@ -399,7 +396,7 @@ Standard_Address Standard_MMgrOpt::Allocate(const Standard_Size aSize)
           aBlock = (Standard_Size*)calloc(RoundSizeN+BLOCK_SHIFT, sizeof(Standard_Size));
         // if still not succeeded, raise exception
         if ( ! aBlock )
-          anOutOfMemError->Reraise ("Standard_MMgrOpt::Allocate(): malloc failed");
+          Standard_OutOfMemory::Raise ("Standard_MMgrOpt::Allocate(): malloc failed");
       }
 
       // initialize new block header by its size
@@ -724,7 +721,7 @@ retry:
       if ( Purge(Standard_False) )
         goto retry;
       // if nothing helps, raise exception
-      anOutOfMemError->Reraise (strerror(errcode));
+      Standard_OutOfMemory::Raise (strerror(errcode));
     }
 
     // save actually allocated size into argument
@@ -758,7 +755,7 @@ retry:
       char message[BUFSIZE];
       if ( FormatMessage (FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, message, BUFSIZE-1, 0) <=0 )
         strcpy (message, "Standard_MMgrOpt::AllocMemory() failed to mmap");
-      anOutOfMemError->Reraise (message);
+      Standard_OutOfMemory::Raise (message);
     }
 
     // record map handle in the beginning
@@ -781,7 +778,7 @@ retry:
       if ( Purge(Standard_False) )
         goto retry;
       // if nothing helps, raise exception
-      anOutOfMemError->Reraise ("Standard_MMgrOpt::Allocate(): malloc failed");
+      Standard_OutOfMemory::Raise ("Standard_MMgrOpt::Allocate(): malloc failed");
     }
   }
   // clear whole block if clearing option is set

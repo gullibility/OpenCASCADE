@@ -1,0 +1,9 @@
+<map id="StepVisual_PresentationRepresentation" name="StepVisual_PresentationRepresentation">
+<area shape="rect" id="node5" href="$class_step_visual___mechanical_design_geometric_presentation_representation.html" title="StepVisual_MechanicalDesign\lGeometricPresentationRepresentation" alt="" coords="869,5,1112,46"/>
+<area shape="rect" id="node6" href="$class_step_visual___presentation_area.html" title="StepVisual_PresentationArea" alt="" coords="895,71,1087,97"/>
+<area shape="rect" id="node8" href="$class_step_visual___presentation_view.html" title="StepVisual_PresentationView" alt="" coords="894,121,1087,148"/>
+<area shape="rect" id="node2" href="$class_step_repr___representation.html" title="StepRepr_Representation" alt="" coords="349,71,520,97"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,71,301,97"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,71,141,97"/>
+<area shape="rect" id="node7" href="$class_step_visual___mechanical_design_geometric_presentation_area.html" title="StepVisual_MechanicalDesign\lGeometricPresentationArea" alt="" coords="1161,63,1359,105"/>
+</map>

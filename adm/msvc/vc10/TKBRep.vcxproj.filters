@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{AB10CF6D-076F-0124-0D8B-6F4A4E776E99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TopoDS">
+      <UniqueIdentifier>{FE227048-0A5A-14D0-0018-488A0E5FCC77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TopExp">
+      <UniqueIdentifier>{68A8354F-0F3A-096C-139B-65A81AFF55A1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TopTools">
+      <UniqueIdentifier>{4EC434E3-1030-03FF-03C1-3C9A67BD2173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BRep">
+      <UniqueIdentifier>{DF382D2E-093B-109E-02A2-C6C68012354A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BRepLProp">
+      <UniqueIdentifier>{68C5BAD8-07D4-0765-03BA-7086758BA47B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BRepAdaptor">
+      <UniqueIdentifier>{DBAA6558-0F46-0098-0E16-0D75C7AF8770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BRepTools">
+      <UniqueIdentifier>{E4FEBB10-0B2C-0AFE-027D-9314DE3F164C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\BinTools">
+      <UniqueIdentifier>{D0FE2C3D-1061-1061-0F98-87F7D29F319B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Builder.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_CompSolid.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Compound.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Edge.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Face.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_HShape.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Iterator.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Shape.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Shell.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Solid.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TCompSolid.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TCompound.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TEdge.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TFace.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TShape.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TShell.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TSolid.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TVertex.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_TWire.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Vertex.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopoDS\TopoDS_Wire.cxx">
+      <Filter>Source files\TopoDS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopExp\TopExp.cxx">
+      <Filter>Source files\TopExp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopExp\TopExp_Explorer.cxx">
+      <Filter>Source files\TopExp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools_LocationSet.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools_MutexForShapeProvider.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools_OrientedShapeMapHasher.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools_ShapeMapHasher.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TopTools\TopTools_ShapeSet.cxx">
+      <Filter>Source files\TopTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_Builder.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_Curve3D.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_CurveOn2Surfaces.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_CurveOnClosedSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_CurveOnSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_CurveRepresentation.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_GCurve.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PointOnCurve.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PointOnCurveOnSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PointOnSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PointRepresentation.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PointsOnSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_Polygon3D.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PolygonOnClosedSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PolygonOnClosedTriangulation.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PolygonOnSurface.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_PolygonOnTriangulation.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_TEdge.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_TFace.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_TVertex.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRep\BRep_Tool.cxx">
+      <Filter>Source files\BRep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepLProp\BRepLProp.cxx">
+      <Filter>Source files\BRepLProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepLProp\BRepLProp_CLProps_0.cxx">
+      <Filter>Source files\BRepLProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepLProp\BRepLProp_CurveTool.cxx">
+      <Filter>Source files\BRepLProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepLProp\BRepLProp_SLProps_0.cxx">
+      <Filter>Source files\BRepLProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepLProp\BRepLProp_SurfaceTool.cxx">
+      <Filter>Source files\BRepLProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_CompCurve.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_Curve.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_Curve2d.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_HCompCurve_0.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_HCurve2d_0.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_HCurve_0.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_HSurface_0.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepAdaptor\BRepAdaptor_Surface.cxx">
+      <Filter>Source files\BRepAdaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_Debug.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_GTrsfModification.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_Modification.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_Modifier.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_NurbsConvertModification.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_Quilt.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_ReShape.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_ShapeSet.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_Substitution.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_TrsfModification.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BRepTools\BRepTools_WireExplorer.cxx">
+      <Filter>Source files\BRepTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools_Curve2dSet.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools_CurveSet.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools_LocationSet.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools_ShapeSet.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BinTools\BinTools_SurfaceSet.cxx">
+      <Filter>Source files\BinTools</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

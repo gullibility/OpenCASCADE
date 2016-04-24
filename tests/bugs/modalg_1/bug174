@@ -9,6 +9,7 @@ puts ""
 
 restore [locate_data_file OCC174.brep] result
 
-set square 376.873
-set 2dviewer 0
+checkprops result -s 376.873 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

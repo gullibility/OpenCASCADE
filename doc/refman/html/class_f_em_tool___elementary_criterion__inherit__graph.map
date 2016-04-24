@@ -1,0 +1,7 @@
+<map id="FEmTool_ElementaryCriterion" name="FEmTool_ElementaryCriterion">
+<area shape="rect" id="node4" href="$class_f_em_tool___linear_flexion.html" title="Criterium of LinearFlexion To Hermit&#45;Jacobi elements. " alt="" coords="5,229,163,256"/>
+<area shape="rect" id="node5" href="$class_f_em_tool___linear_jerk.html" title="Criterion of LinearJerk To Hermit&#45;Jacobi elements. " alt="" coords="187,229,327,256"/>
+<area shape="rect" id="node6" href="$class_f_em_tool___linear_tension.html" title="Criterium of LinearTension To Hermit&#45;Jacobi elements. " alt="" coords="351,229,512,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="202,80,312,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="190,5,324,32"/>
+</map>

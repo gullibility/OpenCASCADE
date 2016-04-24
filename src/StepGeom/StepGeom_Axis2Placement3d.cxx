@@ -18,15 +18,9 @@
 #include <StepGeom_Direction.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Axis2Placement3d,StepGeom_Placement)
+
 StepGeom_Axis2Placement3d::StepGeom_Axis2Placement3d ()  {}
-
-void StepGeom_Axis2Placement3d::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepGeom_CartesianPoint)& aLocation)
-{
-
-	StepGeom_Placement::Init(aName, aLocation);
-}
 
 void StepGeom_Axis2Placement3d::Init(
 	const Handle(TCollection_HAsciiString)& aName,

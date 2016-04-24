@@ -22,4 +22,5 @@ shape result CS
 add b2 result
 add Solid1 result
 
-set square 750
+checkprops result -s 750
+checkview -display result -2d -s -otherwise { b1_6 b2_6 } -path ${imagedir}/${test_image}.png

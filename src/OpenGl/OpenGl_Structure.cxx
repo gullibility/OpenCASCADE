@@ -20,13 +20,14 @@
 #include <OpenGl_ShaderManager.hxx>
 #include <OpenGl_ShaderProgram.hxx>
 #include <OpenGl_StructureShadow.hxx>
-#include <OpenGl_telem_util.hxx>
 #include <OpenGl_Vec.hxx>
 #include <OpenGl_View.hxx>
 #include <OpenGl_Workspace.hxx>
 
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
 
+
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Structure,Graphic3d_CStructure)
 
 //! Auxiliary class for bounding box presentation
 class OpenGl_BndBoxPrs : public OpenGl_Element
@@ -85,6 +86,8 @@ public:
     {
       theWorkspace->EnableTexture (aPrevTexture);
     }
+  #else
+    (void )theWorkspace;
   #endif
   }
 
@@ -117,7 +120,6 @@ public:
 // =======================================================================
 OpenGl_Structure::OpenGl_Structure (const Handle(Graphic3d_StructureManager)& theManager)
 : Graphic3d_CStructure (theManager),
-  myTransformation     (NULL),
   myAspectLine         (NULL),
   myAspectFace         (NULL),
   myAspectMarker       (NULL),
@@ -139,7 +141,6 @@ OpenGl_Structure::OpenGl_Structure (const Handle(Graphic3d_StructureManager)& th
 OpenGl_Structure::~OpenGl_Structure()
 {
   Release (Handle(OpenGl_Context)());
-  delete myTransformation;  myTransformation  = NULL;
 }
 
 // =======================================================================
@@ -167,22 +168,14 @@ void OpenGl_Structure::UpdateAspects()
 // =======================================================================
 void OpenGl_Structure::UpdateTransformation()
 {
-  if (myTransformation == NULL)
-  {
-    myTransformation = new OpenGl_Matrix();
-  }
-
-  Standard_ShortReal (*aMat)[4] = Graphic3d_CStructure::Transformation;
-
+  const OpenGl_Mat4& aMat = Graphic3d_CStructure::Transformation;
   Standard_ShortReal aDet =
-    aMat[0][0] * (aMat[1][1] * aMat[2][2] - aMat[2][1] * aMat[1][2]) -
-    aMat[0][1] * (aMat[1][0] * aMat[2][2] - aMat[2][0] * aMat[1][2]) +
-    aMat[0][2] * (aMat[1][0] * aMat[2][1] - aMat[2][0] * aMat[1][1]);
+    aMat.GetValue(0, 0) * (aMat.GetValue(1, 1) * aMat.GetValue(2, 2) - aMat.GetValue(2, 1) * aMat.GetValue(1, 2)) -
+    aMat.GetValue(0, 1) * (aMat.GetValue(1, 0) * aMat.GetValue(2, 2) - aMat.GetValue(2, 0) * aMat.GetValue(1, 2)) +
+    aMat.GetValue(0, 2) * (aMat.GetValue(1, 0) * aMat.GetValue(2, 1) - aMat.GetValue(2, 0) * aMat.GetValue(1, 1));
 
   // Determinant of transform matrix less then 0 means that mirror transform applied.
   myIsMirrored = aDet < 0.0f;
-
-  matcpy (myTransformation->mat, &Graphic3d_CStructure::Transformation[0][0]);
 
   if (IsRaytracable())
   {
@@ -500,16 +493,41 @@ void OpenGl_Structure::Clear (const Handle(OpenGl_Context)& theGlCtx)
 }
 
 // =======================================================================
-// function : RenderGeometry
+// function : renderGeometry
 // purpose  :
 // =======================================================================
-void OpenGl_Structure::RenderGeometry (const Handle(OpenGl_Workspace) &theWorkspace) const
+void OpenGl_Structure::renderGeometry (const Handle(OpenGl_Workspace)& theWorkspace,
+                                       bool&                           theHasClosed) const
 {
-  // Render groups
-  const Graphic3d_SequenceOfGroup& aGroups = DrawGroups();
-  for (OpenGl_Structure::GroupIterator aGroupIter (aGroups); aGroupIter.More(); aGroupIter.Next())
+  if (myInstancedStructure != NULL)
   {
+    myInstancedStructure->renderGeometry (theWorkspace, theHasClosed);
+  }
+
+  for (OpenGl_Structure::GroupIterator aGroupIter (myGroups); aGroupIter.More(); aGroupIter.Next())
+  {
+    theHasClosed = theHasClosed || aGroupIter.Value()->IsClosed();
     aGroupIter.Value()->Render (theWorkspace);
+  }
+}
+
+// =======================================================================
+// function : renderClosedGeometry
+// purpose  :
+// =======================================================================
+void OpenGl_Structure::renderClosedGeometry (const Handle(OpenGl_Workspace)& theWorkspace) const
+{
+  if (myInstancedStructure != NULL)
+  {
+    myInstancedStructure->renderClosedGeometry (theWorkspace);
+  }
+
+  for (OpenGl_Structure::GroupIterator aGroupIter (myGroups); aGroupIter.More(); aGroupIter.Next())
+  {
+    if (aGroupIter.Value()->IsClosed())
+    {
+      aGroupIter.Value()->Render (theWorkspace);
+    }
   }
 }
 
@@ -534,26 +552,18 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
     theWorkspace->NamedStatus |= OPENGL_NS_HIGHLIGHT;
   }
 
-  // Do we need to restore GL_NORMALIZE?
-  const Standard_Boolean anOldGlNormalize = aCtx->IsGlNormalizeEnabled();
-
   // Apply local transformation
-  if (myTransformation)
-  {
-    OpenGl_Matrix aModelWorld;
-    OpenGl_Transposemat3 (&aModelWorld, myTransformation);
-    aCtx->ModelWorldState.Push();
-    aCtx->ModelWorldState.SetCurrent (OpenGl_Mat4::Map ((Standard_ShortReal* )aModelWorld.mat));
+  aCtx->ModelWorldState.Push();
+  aCtx->ModelWorldState.SetCurrent (Transformation);
 
-    Standard_ShortReal aScaleX = OpenGl_Vec3 (myTransformation->mat[0][0],
-                                              myTransformation->mat[0][1],
-                                              myTransformation->mat[0][2]).SquareModulus();
-    // Scale transform detected.
-    if (Abs (aScaleX - 1.f) > Precision::Confusion())
-    {
-      aCtx->SetGlNormalizeEnabled (Standard_True);
-    }
+  // detect scale transform
+  const Standard_Boolean   anOldGlNormalize = aCtx->IsGlNormalizeEnabled();
+  const Standard_ShortReal aScaleX          = Transformation.GetRow (0).xyz().SquareModulus();
+  if (Abs (aScaleX - 1.f) > Precision::Confusion())
+  {
+    aCtx->SetGlNormalizeEnabled (Standard_True);
   }
+
   if (TransformPersistence.Flags)
   {
     OpenGl_Mat4 aProjection = aCtx->ProjectionState.Current();
@@ -603,12 +613,6 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
   if (myHighlightColor)
     theWorkspace->HighlightColor = myHighlightColor;
 
-  // Render instanced structure (if exists)
-  if (myInstancedStructure != NULL)
-  {
-    myInstancedStructure->RenderGeometry (theWorkspace);
-  }
-
   // Set up plane equations for non-structure transformed global model-view matrix
   // List of planes to be applied to context state
   NCollection_Handle<Graphic3d_SequenceOfHClipPlane> aUserPlanes;
@@ -637,7 +641,7 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
   if (!aUserPlanes.IsNull() && !aUserPlanes->IsEmpty())
   {
     // add planes at loaded view matrix state
-    aCtx->ChangeClipping().AddWorld (*aUserPlanes, theWorkspace);
+    aCtx->ChangeClipping().AddWorld (aCtx, *aUserPlanes);
 
     // Set OCCT state uniform variables
     if (!aCtx->ShaderManager()->IsEmpty())
@@ -647,11 +651,8 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
   }
 
   // Render groups
-  const Graphic3d_SequenceOfGroup& aGroups = DrawGroups();
-  for (OpenGl_Structure::GroupIterator aGroupIter (aGroups); aGroupIter.More(); aGroupIter.Next())
-  {
-    aGroupIter.Value()->Render (theWorkspace);
-  }
+  bool hasClosedPrims = false;
+  renderGeometry (theWorkspace, hasClosedPrims);
 
   // Reset correction for mirror transform
   if (myIsMirrored)
@@ -660,15 +661,16 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
   }
 
   // Render capping for structure groups
-  if (!aCtx->Clipping().Planes().IsEmpty())
+  if (hasClosedPrims
+  && !aCtx->Clipping().Planes().IsEmpty())
   {
-    OpenGl_CappingAlgo::RenderCapping (theWorkspace, aGroups);
+    OpenGl_CappingAlgo::RenderCapping (theWorkspace, *this);
   }
 
   // Revert structure clippings
   if (!aUserPlanes.IsNull() && !aUserPlanes->IsEmpty())
   {
-    aCtx->ChangeClipping().Remove (*aUserPlanes);
+    aCtx->ChangeClipping().Remove (aCtx, *aUserPlanes);
 
     // Set OCCT state uniform variables
     if (!aCtx->ShaderManager()->IsEmpty())
@@ -678,11 +680,8 @@ void OpenGl_Structure::Render (const Handle(OpenGl_Workspace) &theWorkspace) con
   }
 
   // Restore local transformation
-  if (myTransformation)
-  {
-    aCtx->ModelWorldState.Pop();
-    aCtx->SetGlNormalizeEnabled (anOldGlNormalize);
-  }
+  aCtx->ModelWorldState.Pop();
+  aCtx->SetGlNormalizeEnabled (anOldGlNormalize);
   if (TransformPersistence.Flags)
   {
     aCtx->ProjectionState.Pop();

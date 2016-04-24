@@ -20,5 +20,7 @@ if {  $end >=  $end1} {
 
 renamevar result_1 result
 
-set length 191.044
-set 2dviewer 0
+checkprops result -l 191.044 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

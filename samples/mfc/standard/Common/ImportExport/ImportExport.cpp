@@ -92,12 +92,12 @@ Handle(TopTools_HSequenceOfShape) CImportExport::BuildSequenceFromContext(const 
 //=                                                                    =
 //======================================================================
 
-int CImportExport::ReadBREP (const Handle_AIS_InteractiveContext& anInteractiveContext)
+int CImportExport::ReadBREP (const Handle(AIS_InteractiveContext)& anInteractiveContext)
 {
     Handle(TopTools_HSequenceOfShape) aSequence = CImportExport::ReadBREP();
 	if(aSequence->IsEmpty())
 		return 1;
-	Handle_AIS_Shape aShape;
+	Handle(AIS_Shape) aShape;
     for(int i=1;i<= aSequence->Length();i++){
 		aShape = new AIS_Shape(aSequence->Value(i));
 		anInteractiveContext->SetDisplayMode(aShape, 1, Standard_False);
@@ -116,9 +116,9 @@ Handle(TopTools_HSequenceOfShape) CImportExport::ReadBREP()
 		  L"BREP Files (*.brep , *.rle)|*.brep;  *.BREP; *.rle; *.RLE; |All Files (*.*)|*.*||",
 		  NULL ); 
 
-  CString CASROOTValue;
-  CASROOTValue.GetEnvironmentVariable (L"CASROOT");
-  CString initdir = (CASROOTValue + "\\..\\data\\occ");
+  CString SHAREPATHValue;
+  SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+  CString initdir = (SHAREPATHValue + "\\occ");
 
   dlg.m_ofn.lpstrInitialDir = initdir;
 
@@ -164,7 +164,7 @@ Standard_Boolean CImportExport::ReadBREP(CString      aFileName,
   return !aShape.IsNull();
 }
 
-void CImportExport::SaveBREP(const Handle_AIS_InteractiveContext& anInteractiveContext)
+void CImportExport::SaveBREP(const Handle(AIS_InteractiveContext)& anInteractiveContext)
 {
 	anInteractiveContext->InitCurrent();
 	if (anInteractiveContext->NbCurrents() == 0){
@@ -201,9 +201,9 @@ Standard_Boolean CImportExport::SaveBREP(const TopoDS_Shape& aShape)
   CFileDialog dlg (FALSE, L"*.brep",NULL,OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
                    L"BREP Files (*.brep)|*.brep;|BREP Files (*.BREP)|*.BREP;||", NULL);
   
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable (L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\occ");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\occ");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
 
@@ -262,9 +262,9 @@ Handle(TopTools_HSequenceOfShape) CImportExport::ReadIGES()// not by reference -
                   L"IGES Files (*.iges , *.igs)|*.iges; *.igs|All Files (*.*)|*.*||",
                   NULL );
 
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable (L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\iges");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\iges");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
   
@@ -326,9 +326,9 @@ Standard_Boolean CImportExport::SaveIGES(const Handle(TopTools_HSequenceOfShape)
   CFileDialog dlg(FALSE, L"*.iges",NULL,OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
                   L"IGES Files (*.iges )|*.iges;|IGES Files (*.igs )| *.igs;||", NULL);
 
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable (L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\iges");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\iges");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
   
@@ -389,9 +389,9 @@ Handle(TopTools_HSequenceOfShape) CImportExport::ReadSTEP()// not by reference -
                   L"STEP Files (*.stp;*.step)|*.stp; *.step|All Files (*.*)|*.*||",
                   NULL );
 
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable(L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\step");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\step");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
   
@@ -594,9 +594,9 @@ Standard_Boolean CImportExport::SaveSTL(const Handle(TopTools_HSequenceOfShape)&
   CFileDialog dlg(FALSE, L"*.stl", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 	              L"stl Files (*.stl)|*.stl;|STL Files (*.STL)|*.STL;||", NULL);
 
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable(L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\stl");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\stl");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
 
@@ -685,9 +685,9 @@ Standard_Boolean CImportExport::SaveVRML(const Handle(TopTools_HSequenceOfShape)
   CFileDialog dlg(FALSE, L"*.vrml", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 	              L"vrml Files (*.vrml)|*.vrml;|vrm Files (*.vrm)|*.vrm;||", NULL);
 
-CString CASROOTValue;
-CASROOTValue.GetEnvironmentVariable(L"CASROOT");
-CString initdir = (CASROOTValue + "\\..\\data\\vrml");
+CString SHAREPATHValue;
+SHAREPATHValue.GetEnvironmentVariable (L"CSF_OCCTDataPath");
+CString initdir = (SHAREPATHValue + "\\vrml");
 
 dlg.m_ofn.lpstrInitialDir = initdir;
   
@@ -728,15 +728,15 @@ Standard_Boolean CImportExport::SaveVRML(const Standard_CString&                
     VrmlData_ShapeConvert converter(scene/*, 0.001*/); // from mm to meters 
     Standard_Integer iShape = 1; // Counter of shapes
 
-	for ( int i = 1; i <= aHSequenceOfShape->Length(); i++ )
-	{
+    for (int i = 1; i <= aHSequenceOfShape->Length(); i++)
+    {
         // Shape
-		TopoDS_Shape shape = aHSequenceOfShape->Value( i );
-		if ( shape.IsNull() )
-		{
-			ReturnMessage += " Error : Invalid shape \n";
-			ReturnValue = Standard_False;
-			continue;
+        TopoDS_Shape shape = aHSequenceOfShape->Value(i);
+        if (shape.IsNull())
+        {
+          ReturnMessage += " Error : Invalid shape \n";
+          ReturnValue = Standard_False;
+          continue;
         }
 
         // Color
@@ -793,8 +793,8 @@ Standard_Boolean CImportExport::SaveVRML(const Standard_CString&                
                 Handle(VrmlData_Node) node = itr.Value();
                 if (node->DynamicType() == STANDARD_TYPE(VrmlData_ShapeNode))
                 {
-                    Handle(VrmlData_ShapeNode) shape = Handle(VrmlData_ShapeNode)::DownCast(node);
-                    shape->SetAppearance(appearance);
+                    Handle(VrmlData_ShapeNode) aShape = Handle(VrmlData_ShapeNode)::DownCast(node);
+                    aShape->SetAppearance(appearance);
                 }
                 else if (itr.Value()->DynamicType() == STANDARD_TYPE(VrmlData_Group))
                 {

@@ -16,10 +16,13 @@
 #include <OpenGl_Font.hxx>
 
 #include <OpenGl_Context.hxx>
+#include <Font_FTFont.hxx>
 #include <Graphic3d_TextureParams.hxx>
 #include <Standard_Assert.hxx>
 #include <TCollection_ExtendedString.hxx>
 
+
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Font,OpenGl_Resource)
 
 // =======================================================================
 // function : OpenGl_Font
@@ -139,7 +142,7 @@ bool OpenGl_Font::createTexture (const Handle(OpenGl_Context)& theCtx)
     aMsg += "x";
     aMsg += aTextureSizeY;
     aMsg += " for textured font has failed.";
-    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION_ARB, GL_DEBUG_TYPE_ERROR_ARB, 0, GL_DEBUG_SEVERITY_HIGH_ARB, aMsg);
+    theCtx->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_ERROR, 0, GL_DEBUG_SEVERITY_HIGH, aMsg);
     return false;
   }
 

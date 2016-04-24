@@ -1,0 +1,7 @@
+<map id="NCollection_Buffer" name="NCollection_Buffer">
+<area shape="rect" id="node3" href="$class_graphic3d___bound_buffer.html" title="Bounds buffer. " alt="" coords="5,155,163,181"/>
+<area shape="rect" id="node4" href="$class_graphic3d___buffer.html" title="Buffer of vertex attributes. " alt="" coords="187,155,308,181"/>
+<area shape="rect" id="node6" href="$class_image___pix_map_data.html" title="Structure to manage image buffer. " alt="" coords="333,155,467,181"/>
+<area shape="rect" id="node2" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="181,5,315,32"/>
+<area shape="rect" id="node5" href="$class_graphic3d___index_buffer.html" title="Index buffer. " alt="" coords="172,229,324,256"/>
+</map>

@@ -15,14 +15,14 @@
 static char THIS_FILE[]=__FILE__;
 //#define new DEBUG_NEW
 #endif
-IMPLEMENT_STANDARD_HANDLE(ISession_Surface,AIS_InteractiveObject)
+
 IMPLEMENT_STANDARD_RTTIEXT(ISession_Surface,AIS_InteractiveObject)
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-ISession_Surface::ISession_Surface(Handle(Geom_Surface)& aSurface)
+ISession_Surface::ISession_Surface(const Handle(Geom_Surface)& aSurface)
 :AIS_InteractiveObject(),mySurface(aSurface)
 {
 }

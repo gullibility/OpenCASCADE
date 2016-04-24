@@ -17,7 +17,6 @@
 
 #include <OpenGl_FrameBuffer.hxx>
 #include <TColStd_Array2OfReal.hxx>
-#include <OpenGl_telem_util.hxx>
 #include <Graphic3d_GraphicDriver.hxx>
 
 #include <OpenGl_PrinterContext.hxx>
@@ -343,7 +342,7 @@ Standard_Boolean OpenGl_View::Print (const Aspect_Handle    thePrinterDC,
 
   // Frame buffer initialization
   OpenGl_FrameBuffer* aFrameBuffer = NULL;
-  OpenGl_FrameBuffer* aPrevBuffer = (OpenGl_FrameBuffer*)myFBO;
+  OpenGl_FrameBuffer* aPrevBuffer  = myFBO.operator->();
   Standard_Integer aFrameWidth (0),  aFrameHeight (0),
                    aPrevBufferX (0), aPrevBufferY (0);
 
@@ -440,7 +439,7 @@ Standard_Boolean OpenGl_View::Print (const Aspect_Handle    thePrinterDC,
         initBufferTiling (aFrameWidth, aFrameHeight, width, height);
 
       // try to initialize framebuffer
-      if (aFrameBuffer->Init (aCtx, aFrameWidth, aFrameHeight))
+      if (aFrameBuffer->Init (aCtx, aFrameWidth, aFrameHeight, GL_RGBA8, GL_DEPTH24_STENCIL8))
       {
 #ifdef HAVE_FREEIMAGE
         // try to allocate fipImage and necessary resources
@@ -761,6 +760,11 @@ Standard_Boolean OpenGl_View::Print (const Aspect_Handle    thePrinterDC,
   return (Standard_Boolean) isDone;
 
 #else // not _WIN32
+  (void )thePrinterDC;
+  (void )theToShowBackground;
+  (void )theFileName;
+  (void )thePrintAlgorithm;
+  (void )theScaleFactor;
   Standard_NotImplemented::Raise ("OpenGl_View::Print is implemented only on Windows");
   myWorkspace->PrinterContext().Nullify();
   return Standard_False;

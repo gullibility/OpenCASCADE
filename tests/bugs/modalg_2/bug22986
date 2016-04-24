@@ -23,5 +23,6 @@ if { [llength [explode result f]] != 3 } {
     puts "${BugNumber}  OK"
 }
 
-set square 414
-set 3dviewer 0
+checkprops result -s 414 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

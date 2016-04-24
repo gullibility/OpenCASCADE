@@ -1,0 +1,6 @@
+<map id="STEPConstruct_Tool" name="STEPConstruct_Tool">
+<area shape="rect" id="node2" href="$class_step_a_p209___construct.html" title="Basic tool for working with AP209 model. " alt="" coords="214,5,365,32"/>
+<area shape="rect" id="node3" href="$class_s_t_e_p_construct___extern_refs.html" title="Provides a tool for analyzing (reading) and creating (writing) references to external files in STEP..." alt="" coords="198,56,381,83"/>
+<area shape="rect" id="node4" href="$class_s_t_e_p_construct___styles.html" title="Provides a mechanism for reading and writing shape styles (such as color) to and from the STEP file T..." alt="" coords="211,107,367,133"/>
+<area shape="rect" id="node5" href="$class_s_t_e_p_construct___validation_props.html" title="This class provides tools for access (write and read) the validation properties on shapes in the STEP..." alt="" coords="201,158,377,199"/>
+</map>

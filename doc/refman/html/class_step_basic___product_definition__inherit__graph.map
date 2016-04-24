@@ -1,0 +1,6 @@
+<map id="StepBasic_ProductDefinition" name="StepBasic_ProductDefinition">
+<area shape="rect" id="node4" href="$class_step_basic___physically_modeled_product_definition.html" title="StepBasic_PhysicallyModeled\lProductDefinition" alt="" coords="585,5,783,46"/>
+<area shape="rect" id="node5" href="$class_step_basic___product_definition_with_associated_documents.html" title="StepBasic_ProductDefinition\lWithAssociatedDocuments" alt="" coords="591,70,777,111"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,45,301,72"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,45,141,72"/>
+</map>

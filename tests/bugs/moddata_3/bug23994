@@ -27,9 +27,10 @@ extrema airfl rhomb
 
 if { [isdraw ext_1] } {
    mkedge result ext_1
-   set length 5.14563
+   checkprops result -l 5.14563
+   checksection result
 } else {
    puts "${BugNumber}: invalid result"
 }
 
-set 2dviewer 1
+checkview -display result -2d -path ${imagedir}/${test_image}.png

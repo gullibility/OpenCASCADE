@@ -17,15 +17,9 @@
 #include <StepGeom_CylindricalSurface.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_CylindricalSurface,StepGeom_ElementarySurface)
+
 StepGeom_CylindricalSurface::StepGeom_CylindricalSurface ()  {}
-
-void StepGeom_CylindricalSurface::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepGeom_Axis2Placement3d)& aPosition)
-{
-
-	StepGeom_ElementarySurface::Init(aName, aPosition);
-}
 
 void StepGeom_CylindricalSurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

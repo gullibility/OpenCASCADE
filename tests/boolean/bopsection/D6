@@ -10,4 +10,6 @@ bop o t
 #pkv f
 bopsection result
 
-set length 144.712
+checkprops result -l 144.712
+checksection result
+checkview -display result -2d -otherwise { o t } -l -path ${imagedir}/${test_image}.png

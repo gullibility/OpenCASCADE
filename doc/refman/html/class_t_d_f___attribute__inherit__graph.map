@@ -1,0 +1,82 @@
+<map id="TDF_Attribute" name="TDF_Attribute">
+<area shape="rect" id="node4" href="$class_d_data_std___draw_presentation.html" title="draw presentaion of a label of a document " alt="" coords="501,5,688,32"/>
+<area shape="rect" id="node5" href="$class_t_data_std___ascii_string.html" title="Used to define an AsciiString attribute containing a TCollection_AsciiString. " alt="" coords="521,56,668,83"/>
+<area shape="rect" id="node6" href="$class_t_data_std___boolean_array.html" title="An array of boolean values. " alt="" coords="514,107,675,133"/>
+<area shape="rect" id="node7" href="$class_t_data_std___boolean_list.html" title="Contains a list of bolleans. " alt="" coords="519,157,670,184"/>
+<area shape="rect" id="node8" href="$class_t_data_std___byte_array.html" title="An array of Byte (unsigned char) values. " alt="" coords="524,208,665,235"/>
+<area shape="rect" id="node9" href="$class_t_data_std___comment.html" title="Comment attribute. may be associated to any label to store user comment. " alt="" coords="525,259,664,285"/>
+<area shape="rect" id="node10" href="$class_t_data_std___current.html" title="this attribute, located at root label, manage an access to a current label. " alt="" coords="532,309,657,336"/>
+<area shape="rect" id="node11" href="$class_t_data_std___directory.html" title="Associates a directory in the data framework with a TDataStd_TagSource attribute. You can create a ne..." alt="" coords="527,360,662,387"/>
+<area shape="rect" id="node12" href="$class_t_data_std___expression.html" title="Expression attribute. " alt="" coords="521,411,669,437"/>
+<area shape="rect" id="node13" href="$class_t_data_std___ext_string_array.html" title="ExtStringArray Attribute. Handles an array of UNICODE strings (represented by the TCollection_Extende..." alt="" coords="511,461,679,488"/>
+<area shape="rect" id="node14" href="$class_t_data_std___ext_string_list.html" title="Contains a list of ExtendedString. " alt="" coords="515,512,674,539"/>
+<area shape="rect" id="node15" href="$class_t_data_std___integer.html" title="The basis to define an integer attribute. " alt="" coords="533,563,656,589"/>
+<area shape="rect" id="node16" href="$class_t_data_std___integer_array.html" title="Contains an array of integers. " alt="" coords="518,613,671,640"/>
+<area shape="rect" id="node17" href="$class_t_data_std___integer_list.html" title="Contains a list of integers. " alt="" coords="523,664,666,691"/>
+<area shape="rect" id="node18" href="$class_t_data_std___int_packed_map.html" title="Attribute for storing TColStd_PackedMapOfInteger. " alt="" coords="511,715,678,741"/>
+<area shape="rect" id="node19" href="$class_t_data_std___name.html" title="Used to define a name attribute containing a string which specifies the name. " alt="" coords="536,765,653,792"/>
+<area shape="rect" id="node20" href="$class_t_data_std___named_data.html" title="Contains a named data. " alt="" coords="519,816,670,843"/>
+<area shape="rect" id="node21" href="$class_t_data_std___note_book.html" title="NoteBook Object attribute. " alt="" coords="525,867,665,893"/>
+<area shape="rect" id="node22" href="$class_t_data_std___real.html" title="The basis to define a real number attribute. " alt="" coords="540,917,649,944"/>
+<area shape="rect" id="node23" href="$class_t_data_std___real_array.html" title="A framework for an attribute composed of a real number array. " alt="" coords="525,968,665,995"/>
+<area shape="rect" id="node24" href="$class_t_data_std___real_list.html" title="Contains a list of doubles. " alt="" coords="529,1019,660,1045"/>
+<area shape="rect" id="node25" href="$class_t_data_std___reference_array.html" title="Contains an array of references to the labels. " alt="" coords="509,1069,681,1096"/>
+<area shape="rect" id="node26" href="$class_t_data_std___reference_list.html" title="Contains a list of references. " alt="" coords="513,1120,676,1147"/>
+<area shape="rect" id="node27" href="$class_t_data_std___relation.html" title="Relation attribute. " alt="" coords="529,1171,660,1197"/>
+<area shape="rect" id="node28" href="$class_t_data_std___tick.html" title="Defines a boolean attribute. If it exists at a label &#45; true, Otherwise &#45; false. " alt="" coords="541,1221,648,1248"/>
+<area shape="rect" id="node29" href="$class_t_data_std___tree_node.html" title="Allows you to define an explicit tree of labels which you can also edit. Without this class..." alt="" coords="525,1272,664,1299"/>
+<area shape="rect" id="node30" href="$class_t_data_std___u_attribute.html" title="TDataStd_UAttribute" alt="" coords="524,1323,665,1349"/>
+<area shape="rect" id="node31" href="$class_t_data_std___variable.html" title="Variable attribute. " alt="" coords="529,1373,660,1400"/>
+<area shape="rect" id="node32" href="$class_t_data_xtd___axis.html" title="The basis to define an axis attribute. " alt="" coords="541,1424,648,1451"/>
+<area shape="rect" id="node33" href="$class_t_data_xtd___constraint.html" title="The groundwork to define constraint attributes. The constraint attribute contains the following sorts..." alt="" coords="525,1475,665,1501"/>
+<area shape="rect" id="node34" href="$class_t_data_xtd___geometry.html" title="This class is used to model construction geometry. The specific geometric construction of the attribu..." alt="" coords="525,1525,664,1552"/>
+<area shape="rect" id="node35" href="$class_t_data_xtd___pattern.html" title="a general pattern model " alt="" coords="533,1576,656,1603"/>
+<area shape="rect" id="node37" href="$class_t_data_xtd___placement.html" title="TDataXtd_Placement" alt="" coords="523,1627,666,1653"/>
+<area shape="rect" id="node38" href="$class_t_data_xtd___plane.html" title="The basis to define a plane attribute. Warning: Use TDataXtd_Geometry attribute to retrieve the gp_Pl..." alt="" coords="537,1677,652,1704"/>
+<area shape="rect" id="node39" href="$class_t_data_xtd___point.html" title="The basis to define a point attribute. The topological attribute must contain a vertex. You use this class to create reference points in a design. " alt="" coords="539,1728,650,1755"/>
+<area shape="rect" id="node40" href="$class_t_data_xtd___position.html" title="Position of a Label. " alt="" coords="531,1779,659,1805"/>
+<area shape="rect" id="node41" href="$class_t_data_xtd___presentation.html" title="Attribute containing parameters of presentation of the shape, e.g. the shape attached to the same lab..." alt="" coords="517,1829,672,1856"/>
+<area shape="rect" id="node42" href="$class_t_data_xtd___shape.html" title="A Shape is associated in the framework with : a NamedShape attribute. " alt="" coords="535,1880,654,1907"/>
+<area shape="rect" id="node43" href="$class_t_d_f___reference.html" title="This attribute is used to store in the framework a reference to an other label. " alt="" coords="539,1931,650,1957"/>
+<area shape="rect" id="node44" href="$class_t_d_f___tag_source.html" title="This attribute manage a tag provider to create child labels of a given one. " alt="" coords="537,1981,652,2008"/>
+<area shape="rect" id="node45" href="$class_t_doc_std___modified.html" title="Transient attribute wich register modified labels. This attribute is attached to root label..." alt="" coords="531,2032,658,2059"/>
+<area shape="rect" id="node46" href="$class_t_doc_std___owner.html" title="This attribute located at the root label of the framework contains a back reference to the owner TDoc..." alt="" coords="537,2083,653,2109"/>
+<area shape="rect" id="node47" href="$class_t_doc_std___x_link.html" title="An attribute to store the path and the entry of external links. These refer from one data structure t..." alt="" coords="539,2133,650,2160"/>
+<area shape="rect" id="node48" href="$class_t_doc_std___x_link_root.html" title="This attribute is the root of all external references contained in a Data from TDF. Only one instance of this class is added to the TDF_Data root label. Starting from this attribute all the Reference are linked together, to be found easely. " alt="" coords="526,2184,663,2211"/>
+<area shape="rect" id="node49" href="$class_t_function___function.html" title="Provides the following two services. " alt="" coords="527,2235,663,2261"/>
+<area shape="rect" id="node50" href="$class_t_function___graph_node.html" title="Provides links between functions. " alt="" coords="519,2285,670,2312"/>
+<area shape="rect" id="node51" href="$class_t_function___logbook.html" title="This class contains information which is written and read during the solving process. Information is divided in three groups. " alt="" coords="527,2336,662,2363"/>
+<area shape="rect" id="node52" href="$class_t_function___scope.html" title="Keeps a scope of functions. " alt="" coords="533,2387,656,2413"/>
+<area shape="rect" id="node53" href="$class_t_naming___named_shape.html" title="The basis to define an attribute for the storage of topology and naming data. This attribute contains..." alt="" coords="515,2437,674,2464"/>
+<area shape="rect" id="node54" href="$class_t_naming___naming.html" title="This attribute store the topological naming of any selected shape, when this shape is not already att..." alt="" coords="533,2488,657,2515"/>
+<area shape="rect" id="node55" href="$class_t_naming___used_shapes.html" title="Global attribute located under root label to store all the shapes handled by the framework Set of Sha..." alt="" coords="517,2539,672,2565"/>
+<area shape="rect" id="node56" href="$class_t_obj___t_int_sparse_array.html" title="TObj_TIntSparseArray" alt="" coords="520,2589,669,2616"/>
+<area shape="rect" id="node57" href="$class_t_obj___t_model.html" title="TObj_TModel" alt="" coords="545,2640,644,2667"/>
+<area shape="rect" id="node58" href="$class_t_obj___t_name_container.html" title="TObj_TNameContainer" alt="" coords="519,2691,671,2717"/>
+<area shape="rect" id="node59" href="$class_t_obj___t_object.html" title="TObj_TObject" alt="" coords="544,2741,645,2768"/>
+<area shape="rect" id="node60" href="$class_t_obj___t_reference.html" title="TObj_TReference" alt="" coords="534,2792,655,2819"/>
+<area shape="rect" id="node61" href="$class_t_obj___t_x_y_z.html" title="TObj_TXYZ" alt="" coords="551,2843,638,2869"/>
+<area shape="rect" id="node62" href="$class_t_prs_std___a_i_s_presentation.html" title="An attribute to associate an AIS_InteractiveObject to a label in an AIS viewer. This attribute works ..." alt="" coords="509,2893,680,2920"/>
+<area shape="rect" id="node63" href="$class_t_prs_std___a_i_s_viewer.html" title="The groundwork to define an interactive viewer attribute. This attribute stores an interactive contex..." alt="" coords="527,2944,663,2971"/>
+<area shape="rect" id="node64" href="$class_x_c_a_f_doc___area.html" title="attribute to store area " alt="" coords="539,2995,651,3021"/>
+<area shape="rect" id="node65" href="$class_x_c_a_f_doc___centroid.html" title="attribute to store centroid " alt="" coords="528,3045,661,3072"/>
+<area shape="rect" id="node66" href="$class_x_c_a_f_doc___color.html" title="attribute to store color " alt="" coords="537,3096,652,3123"/>
+<area shape="rect" id="node67" href="$class_x_c_a_f_doc___color_tool.html" title="Provides tools to store and retrieve attributes (colors) of TopoDS_Shape in and from TDocStd_Document..." alt="" coords="525,3147,664,3173"/>
+<area shape="rect" id="node68" href="$class_x_c_a_f_doc___datum.html" title="attribute to store datum " alt="" coords="533,3197,656,3224"/>
+<area shape="rect" id="node69" href="$class_x_c_a_f_doc___dimension.html" title="attribute to store dimension " alt="" coords="521,3248,668,3275"/>
+<area shape="rect" id="node70" href="$class_x_c_a_f_doc___dim_tol.html" title="attribute to store dimension and tolerance " alt="" coords="532,3299,657,3325"/>
+<area shape="rect" id="node71" href="$class_x_c_a_f_doc___dim_tol_tool.html" title="Provides tools to store and retrieve attributes (colors) of TopoDS_Shape in and from TDocStd_Document..." alt="" coords="520,3349,669,3376"/>
+<area shape="rect" id="node72" href="$class_x_c_a_f_doc___document_tool.html" title="Defines sections structure of an XDE document. attribute marking CAF document as being DECAF document..." alt="" coords="511,3400,679,3427"/>
+<area shape="rect" id="node73" href="$class_x_c_a_f_doc___geom_tolerance.html" title="attribute to store dimension and tolerance " alt="" coords="507,3451,683,3477"/>
+<area shape="rect" id="node74" href="$class_x_c_a_f_doc___graph_node.html" title="This attribute allow user multirelation tree of labels. This GraphNode is experimental Graph that not..." alt="" coords="519,3501,670,3528"/>
+<area shape="rect" id="node75" href="$class_x_c_a_f_doc___layer_tool.html" title="Provides tools to store and retrieve attributes (Layers) of TopoDS_Shape in and from TDocStd_Document..." alt="" coords="524,3552,665,3579"/>
+<area shape="rect" id="node76" href="$class_x_c_a_f_doc___location.html" title="attribute to store TopLoc_Location " alt="" coords="527,3603,662,3629"/>
+<area shape="rect" id="node77" href="$class_x_c_a_f_doc___material.html" title="attribute to store material " alt="" coords="529,3653,660,3680"/>
+<area shape="rect" id="node78" href="$class_x_c_a_f_doc___material_tool.html" title="Provides tools to store and retrieve attributes (materials) of TopoDS_Shape in and from TDocStd_Docum..." alt="" coords="517,3704,672,3731"/>
+<area shape="rect" id="node79" href="$class_x_c_a_f_doc___shape_map_tool.html" title="attribute containing map of sub shapes " alt="" coords="509,3755,680,3781"/>
+<area shape="rect" id="node80" href="$class_x_c_a_f_doc___shape_tool.html" title="A tool to store shapes in an XDE document in the form of assembly structure, and to maintain this str..." alt="" coords="521,3805,668,3832"/>
+<area shape="rect" id="node81" href="$class_x_c_a_f_doc___volume.html" title="attribute to store volume " alt="" coords="530,3856,659,3883"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,1931,301,1957"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,1931,141,1957"/>
+<area shape="rect" id="node36" href="$class_t_data_xtd___pattern_std.html" title="to create a PatternStd (LinearPattern, CircularPattern, RectangularPattern, RadialCircularPattern, MirrorPattern) " alt="" coords="737,1576,879,1603"/>
+</map>

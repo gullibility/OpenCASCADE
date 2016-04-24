@@ -15,19 +15,11 @@ set filepath [locate_data_file trj12_b3-tu-203.stp]
 if { [catch { stepread $filepath a * } catch_result] } {
     puts "Faulty ${BugNumber} : here is reading problem"
 } else {
-    decho off
-    set che_a_1 [checkshape a_1 f]
-    set che_a_2 [checkshape a_1 f]
-    decho on
-    if { [regexp {Faulty} $che_a_1] } {
-        puts "Faulty ${BugNumber} : checkshape 1 is wrong for a"
-    }
-    if { [regexp {Faulty} $che_a_2] } {
-        puts "Faulty ${BugNumber} : checkshape 2 is wrong for a"
-    }
-    
+    checkshape a_1 f
+    checkshape a_1 f
     renamevar a_1 result
 }
 
-set square 1.48021e+06
-set 2dviewer 0
+checkprops result -s 1.48021e+06 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

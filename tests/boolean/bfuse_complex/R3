@@ -10,4 +10,5 @@ maxtolerance t
 
 bfuse result s t
 
-set square 14059.8
+checkprops result -s 14059.8
+checkview -display result -2d -otherwise { s t } -s -path ${imagedir}/${test_image}.png

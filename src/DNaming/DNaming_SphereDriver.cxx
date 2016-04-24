@@ -44,6 +44,8 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(DNaming_SphereDriver,TFunction_Driver)
+
 //=======================================================================
 //function : DNaming_SphereDriver
 //purpose  : Constructor
@@ -55,14 +57,14 @@ DNaming_SphereDriver::DNaming_SphereDriver()
 //function : Validate
 //purpose  : Validates labels of a function in <theLog>
 //=======================================================================
-void DNaming_SphereDriver::Validate(TFunction_Logbook&) const
+void DNaming_SphereDriver::Validate(Handle(TFunction_Logbook)&) const
 {}
 
 //=======================================================================
 //function : MustExecute
 //purpose  : Analyses in <theLog> if the loaded function must be executed
 //=======================================================================
-Standard_Boolean DNaming_SphereDriver::MustExecute(const TFunction_Logbook&) const {
+Standard_Boolean DNaming_SphereDriver::MustExecute(const Handle(TFunction_Logbook)&) const {
   return Standard_True;
 }
 
@@ -70,7 +72,7 @@ Standard_Boolean DNaming_SphereDriver::MustExecute(const TFunction_Logbook&) con
 //function : Execute
 //purpose  : Executes the function 
 //=======================================================================
-Standard_Integer DNaming_SphereDriver::Execute(TFunction_Logbook& theLog) const {
+Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog) const {
   Handle(TFunction_Function) aFunction;
   Label().FindAttribute(TFunction_Function::GetID(),aFunction);
   if(aFunction.IsNull()) return -1;
@@ -127,7 +129,7 @@ Standard_Integer DNaming_SphereDriver::Execute(TFunction_Logbook& theLog) const 
   if(!aLocation.IsIdentity()) 
     TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
   
-  theLog.SetValid(RESPOSITION(aFunction), Standard_True); 
+  theLog->SetValid(RESPOSITION(aFunction), Standard_True); 
   aFunction->SetFailure(DONE);
   return 0;
 }

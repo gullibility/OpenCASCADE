@@ -1,0 +1,9 @@
+<map id="Adaptor3d_HSurface" name="Adaptor3d_HSurface">
+<area shape="rect" id="node4" href="$class_b_rep_adaptor___h_surface.html" title="BRepAdaptor_HSurface" alt="" coords="577,5,735,32"/>
+<area shape="rect" id="node5" href="$class_geom_adaptor___g_h_surface.html" title="GeomAdaptor_GHSurface" alt="" coords="570,56,742,83"/>
+<area shape="rect" id="node7" href="$class_geom_adaptor___h_surface_of_linear_extrusion.html" title="GeomAdaptor_HSurfaceOfLinear\lExtrusion" alt="" coords="551,107,761,149"/>
+<area shape="rect" id="node8" href="$class_geom_adaptor___h_surface_of_revolution.html" title="GeomAdaptor_HSurfaceOfRevolution" alt="" coords="539,173,773,200"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,85,301,112"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,85,141,112"/>
+<area shape="rect" id="node6" href="$class_geom_adaptor___h_surface.html" title="An interface between the services provided by any surface from the package Geom and those required of..." alt="" coords="821,56,984,83"/>
+</map>

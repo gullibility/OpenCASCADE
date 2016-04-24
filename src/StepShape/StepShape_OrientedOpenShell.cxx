@@ -18,15 +18,9 @@
 #include <StepShape_OrientedOpenShell.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_OrientedOpenShell,StepShape_OpenShell)
+
 StepShape_OrientedOpenShell::StepShape_OrientedOpenShell ()  {}
-
-void StepShape_OrientedOpenShell::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepShape_HArray1OfFace)& aCfsFaces)
-{
-
-	StepShape_ConnectedFaceSet::Init(aName, aCfsFaces);
-}
 
 void StepShape_OrientedOpenShell::Init(
 	const Handle(TCollection_HAsciiString)& aName,

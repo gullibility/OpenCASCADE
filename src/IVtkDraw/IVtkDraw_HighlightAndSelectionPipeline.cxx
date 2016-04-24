@@ -28,6 +28,8 @@
 #include <IVtkTools_ShapeObject.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline,Standard_Transient)
+
 //===========================================================
 // Function : Constructor
 // Purpose  :
@@ -55,7 +57,7 @@ IVtkDraw_HighlightAndSelectionPipeline::IVtkDraw_HighlightAndSelectionPipeline (
   IVtkOCC_Shape::Handle anIVtkShape = new IVtkOCC_Shape (theShape);
   anIVtkShape->SetId (theShapeID);
   vtkSmartPointer<IVtkTools_ShapeDataSource> aDataSource = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
-  aDataSource->SetShape (IVtkOCC_Shape::Handle::DownCast (anIVtkShape) );
+  aDataSource->SetShape (anIVtkShape);
 
   IVtkTools_DisplayModeFilter*
     aDMFilter = IVtkTools_DisplayModeFilter::SafeDownCast (myFilterMap.Find(Filter_DM_Shape));

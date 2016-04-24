@@ -24,8 +24,9 @@ explode result sh
 
 renamevar result_1 result
 
-set square 6265.68
-set 3dviewer 1
+checkprops result -s 6265.68 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png
 
 
 

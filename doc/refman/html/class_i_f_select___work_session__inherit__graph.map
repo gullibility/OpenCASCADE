@@ -1,0 +1,5 @@
+<map id="IFSelect_WorkSession" name="IFSelect_WorkSession">
+<area shape="rect" id="node4" href="$class_x_s_control___work_session.html" title="This WorkSession completes the basic one, by adding : " alt="" coords="5,229,168,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="31,80,141,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="19,5,153,32"/>
+</map>

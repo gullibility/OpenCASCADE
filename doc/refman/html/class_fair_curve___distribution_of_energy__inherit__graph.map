@@ -1,0 +1,6 @@
+<map id="FairCurve_DistributionOfEnergy" name="FairCurve_DistributionOfEnergy">
+<area shape="rect" id="node3" href="$class_fair_curve___distribution_of_jerk.html" title="Compute the &quot;Jerk&quot; distribution. " alt="" coords="393,5,578,32"/>
+<area shape="rect" id="node4" href="$class_fair_curve___distribution_of_sagging.html" title="Compute the Sagging Distribution. " alt="" coords="405,57,566,98"/>
+<area shape="rect" id="node5" href="$class_fair_curve___distribution_of_tension.html" title="Compute the Tension Distribution. " alt="" coords="405,122,566,163"/>
+<area shape="rect" id="node2" href="$classmath___function_set.html" title="This abstract class describes the virtual functions associated to a set on N Functions of M independa..." alt="" coords="5,64,133,91"/>
+</map>

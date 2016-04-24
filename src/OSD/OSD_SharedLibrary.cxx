@@ -43,9 +43,6 @@ extern "C" {void    *dlerror (void);}
 
 #include <dlfcn.h>
 
-extern "C" {size_t  strlen  (const  char*  s      );}
-
-
 #define BAD(X)  ((X) == NULL)
 
 // ----------------------------------------------------------------

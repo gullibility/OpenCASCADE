@@ -17,14 +17,9 @@
 #include <StepGeom_Surface.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_PointOnSurface,StepGeom_Point)
+
 StepGeom_PointOnSurface::StepGeom_PointOnSurface ()  {}
-
-void StepGeom_PointOnSurface::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_PointOnSurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

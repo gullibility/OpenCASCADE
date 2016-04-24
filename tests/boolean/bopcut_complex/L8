@@ -10,4 +10,5 @@ add b fso
 bop a fso
 bopcut result 
 
-set square 254359
+checkprops result -s 254359
+checkview -display result -2d -otherwise { a fso } -s -path ${imagedir}/${test_image}.png

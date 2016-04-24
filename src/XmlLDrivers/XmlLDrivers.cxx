@@ -32,7 +32,7 @@
 #include <time.h>
 static Standard_GUID XmlLStorageDriver  ("13a56820-8269-11d5-aab2-0050044b1af1");
 static Standard_GUID XmlLRetrievalDriver("13a56822-8269-11d5-aab2-0050044b1af1");
-#define CURRENT_DOCUMENT_VERSION 7
+#define CURRENT_DOCUMENT_VERSION 8
 
 //=======================================================================
 //function : Factory
@@ -45,7 +45,7 @@ const Handle(Standard_Transient)& XmlLDrivers::Factory(const Standard_GUID& theG
 #ifdef OCCT_DEBUG
     cout << "XmlLDrivers : Storage Plugin" << endl;
 #endif
-    static Handle(XmlLDrivers_DocumentStorageDriver) model_sd =
+    static Handle(Standard_Transient) model_sd =
       new XmlLDrivers_DocumentStorageDriver
         ("Copyright: Open Cascade, 2001-2002"); // default copyright
     return model_sd;
@@ -56,7 +56,7 @@ const Handle(Standard_Transient)& XmlLDrivers::Factory(const Standard_GUID& theG
 #ifdef OCCT_DEBUG
     cout << "XmlLDrivers : Retrieval Plugin" << endl;
 #endif
-    static Handle (XmlLDrivers_DocumentRetrievalDriver) model_rd =
+    static Handle (Standard_Transient) model_rd =
       new XmlLDrivers_DocumentRetrievalDriver ();
     return model_rd;
   }

@@ -1,0 +1,5 @@
+<map id="D3DHost_FrameBuffer" name="D3DHost_FrameBuffer">
+<area shape="rect" id="node2" href="$class_open_gl___frame_buffer.html" title="Class implements FrameBuffer Object (FBO) resource intended for off&#45;screen rendering. " alt="" coords="9,155,151,181"/>
+<area shape="rect" id="node3" href="$class_open_gl___resource.html" title="Interface for OpenGl resource with following meaning: " alt="" coords="16,80,144,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="13,5,147,32"/>
+</map>

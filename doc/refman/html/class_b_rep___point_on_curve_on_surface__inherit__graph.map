@@ -1,0 +1,6 @@
+<map id="BRep_PointOnCurveOnSurface" name="BRep_PointOnCurveOnSurface">
+<area shape="rect" id="node2" href="$class_b_rep___points_on_surface.html" title="Root for points on surface. " alt="" coords="26,229,184,256"/>
+<area shape="rect" id="node3" href="$class_b_rep___point_representation.html" title="Root class for the points representations. Contains a location and a parameter. " alt="" coords="16,155,195,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="50,80,160,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="38,5,172,32"/>
+</map>

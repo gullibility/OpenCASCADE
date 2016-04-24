@@ -28,4 +28,5 @@ bop ba s
 
 bopcut result 
 
-set square 53.2832
+checkprops result -s 53.2832
+checkview -display result -2d -otherwise { ba s } -s -path ${imagedir}/${test_image}.png

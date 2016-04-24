@@ -17,15 +17,9 @@
 #include <StepGeom_Ellipse.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Ellipse,StepGeom_Conic)
+
 StepGeom_Ellipse::StepGeom_Ellipse ()  {}
-
-void StepGeom_Ellipse::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const StepGeom_Axis2Placement& aPosition)
-{
-
-	StepGeom_Conic::Init(aName, aPosition);
-}
 
 void StepGeom_Ellipse::Init(
 	const Handle(TCollection_HAsciiString)& aName,

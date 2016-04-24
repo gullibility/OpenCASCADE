@@ -73,5 +73,7 @@ dchrono h show
 
 renamevar result_1 result
 
-set length 1081.52
-set 2dviewer 0
+checkprops result -l 1081.52 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

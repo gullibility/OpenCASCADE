@@ -17,14 +17,9 @@
 #include <StepGeom_SurfacePatch.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_RectangularCompositeSurface,StepGeom_BoundedSurface)
+
 StepGeom_RectangularCompositeSurface::StepGeom_RectangularCompositeSurface ()  {}
-
-void StepGeom_RectangularCompositeSurface::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepGeom_RectangularCompositeSurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

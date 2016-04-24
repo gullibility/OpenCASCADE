@@ -29,7 +29,8 @@ bopfuse Union_1
 bop face_1 Union_1
 bopcut result
 
-set square 37172.6
+checkprops result -s 37172.6
+checkview -display result -2d -otherwise { face_1 Union_1 } -s -path ${imagedir}/${test_image}.png
 
 
 

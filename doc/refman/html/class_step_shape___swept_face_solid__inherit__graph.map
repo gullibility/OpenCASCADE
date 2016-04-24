@@ -1,0 +1,9 @@
+<map id="StepShape_SweptFaceSolid" name="StepShape_SweptFaceSolid">
+<area shape="rect" id="node7" href="$class_step_shape___extruded_face_solid.html" title="StepShape_ExtrudedFaceSolid" alt="" coords="5,453,208,480"/>
+<area shape="rect" id="node8" href="$class_step_shape___revolved_face_solid.html" title="StepShape_RevolvedFaceSolid" alt="" coords="233,453,433,480"/>
+<area shape="rect" id="node2" href="$class_step_shape___solid_model.html" title="StepShape_SolidModel" alt="" coords="141,304,299,331"/>
+<area shape="rect" id="node3" href="$class_step_geom___geometric_representation_item.html" title="StepGeom_GeometricRepresentationItem" alt="" coords="89,229,351,256"/>
+<area shape="rect" id="node4" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="123,155,317,181"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="165,80,275,107"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="153,5,287,32"/>
+</map>

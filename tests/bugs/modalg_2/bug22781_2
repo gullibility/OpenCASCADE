@@ -17,5 +17,7 @@ vfit
 vsetdispmode 0
 vselect 289 135
 
-set length 5.82393
-set only_screen 0
+checkprops result -l 5.82393 
+checkshape result 
+checksection result
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png

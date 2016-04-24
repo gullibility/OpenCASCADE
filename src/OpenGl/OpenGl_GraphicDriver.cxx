@@ -30,6 +30,8 @@
 #include <OSD_Environment.hxx>
 #include <Standard_NotImplemented.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_GraphicDriver,Graphic3d_GraphicDriver)
+
 #if defined(_WIN32)
   #include <WNT_Window.hxx>
 #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
@@ -38,11 +40,11 @@
   #include <Xw_Window.hxx>
 #endif
 
-#if !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
+#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__QNX__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
   #include <X11/Xlib.h> // XOpenDisplay()
 #endif
 
-#if defined(HAVE_EGL) || defined(__ANDROID__)
+#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
   #include <EGL/egl.h>
 #endif
 
@@ -59,7 +61,7 @@ OpenGl_GraphicDriver::OpenGl_GraphicDriver (const Handle(Aspect_DisplayConnectio
                                             const Standard_Boolean                  theToInitialize)
 : Graphic3d_GraphicDriver (theDisp),
   myIsOwnContext (Standard_False),
-#if defined(HAVE_EGL) || defined(__ANDROID__)
+#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
   myEglDisplay ((Aspect_Display )EGL_NO_DISPLAY),
   myEglContext ((Aspect_RenderingContext )EGL_NO_CONTEXT),
   myEglConfig  (NULL),
@@ -68,7 +70,7 @@ OpenGl_GraphicDriver::OpenGl_GraphicDriver (const Handle(Aspect_DisplayConnectio
   myMapOfView      (1, NCollection_BaseAllocator::CommonBaseAllocator()),
   myMapOfStructure (1, NCollection_BaseAllocator::CommonBaseAllocator())
 {
-#if !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
+#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__QNX__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
   if (myDisplayConnection.IsNull())
   {
     //Aspect_GraphicDeviceDefinitionError::Raise ("OpenGl_GraphicDriver: cannot connect to X server!");
@@ -202,7 +204,7 @@ void OpenGl_GraphicDriver::ReleaseContext()
     aWindow->GetGlContext()->forcedRelease();
   }
 
-#if defined(HAVE_EGL) || defined(__ANDROID__)
+#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
   if (myIsOwnContext)
   {
     if (myEglContext != (Aspect_RenderingContext )EGL_NO_CONTEXT)
@@ -237,9 +239,9 @@ void OpenGl_GraphicDriver::ReleaseContext()
 Standard_Boolean OpenGl_GraphicDriver::InitContext()
 {
   ReleaseContext();
-#if defined(HAVE_EGL) || defined(__ANDROID__)
+#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
 
-#if !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
+#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__QNX__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
   if (myDisplayConnection.IsNull())
   {
     return Standard_False;
@@ -328,7 +330,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitContext()
   return Standard_True;
 }
 
-#if defined(HAVE_EGL) || defined(__ANDROID__)
+#if defined(HAVE_EGL) || defined(__ANDROID__) || defined(__QNX__)
 // =======================================================================
 // function : InitEglContext
 // purpose  :
@@ -338,7 +340,7 @@ Standard_Boolean OpenGl_GraphicDriver::InitEglContext (Aspect_Display          t
                                                        void*                   theEglConfig)
 {
   ReleaseContext();
-#if !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
+#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__QNX__) && (!defined(__APPLE__) || defined(MACOSX_USE_GLX))
   if (myDisplayConnection.IsNull())
   {
     return Standard_False;
@@ -492,7 +494,8 @@ void OpenGl_GraphicDriver::TextSize (const Handle(Graphic3d_CView)& theView,
     { 1.F, 1.F, 1.F }, //ColorSubTitle
     0, //TextZoomable
     0.F, //TextAngle
-    (int)Font_FA_Regular //TextFontAspect
+    (int)Font_FA_Regular, //TextFontAspect
+    0 //ShaderProgram
   };
   aTextAspect.SetAspect(aDefaultContextText);
   TCollection_ExtendedString anExtText = theText;
@@ -751,7 +754,8 @@ Standard_Boolean OpenGl_GraphicDriver::ViewExists (const Handle(Aspect_Window)& 
   #else
     NSView* TheSpecifiedWindowId = THEWindow->HView();
   #endif
-#elif defined(__ANDROID__)
+#elif defined(__ANDROID__) || defined(__QNX__)
+  (void )AWindow;
   int TheSpecifiedWindowId = -1;
 #else
   const Handle(Xw_Window) THEWindow = Handle(Xw_Window)::DownCast (AWindow);
@@ -776,7 +780,7 @@ Standard_Boolean OpenGl_GraphicDriver::ViewExists (const Handle(Aspect_Window)& 
       #else
         NSView* TheWindowIdOfView = theWindow->HView();
       #endif
-#elif defined(__ANDROID__)
+#elif defined(__ANDROID__) || defined(__QNX__)
       int TheWindowIdOfView = 0;
 #else
       const Handle(Xw_Window) theWindow = Handle(Xw_Window)::DownCast (AspectWindow);

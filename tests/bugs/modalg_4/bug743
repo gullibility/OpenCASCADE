@@ -38,5 +38,7 @@ if { [catch { mkoffset result a 1 -15 } status] } {
     }
 }
 
-set length 3533.52
-set 2dviewer 0
+checkprops result -l 3533.52 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

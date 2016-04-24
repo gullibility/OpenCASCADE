@@ -1,0 +1,10 @@
+<map id="BOPAlgo_BuilderShape" name="BOPAlgo_BuilderShape">
+<area shape="rect" id="node3" href="$class_b_o_p_algo___builder.html" title="BOPAlgo_Builder" alt="" coords="293,155,416,181"/>
+<area shape="rect" id="node2" href="$class_b_o_p_algo___algo.html" title="provides the root interface for algorithms " alt="" coords="300,5,409,32"/>
+<area shape="rect" id="node4" href="$class_b_o_p_algo___b_o_p.html" title="BOPAlgo_BOP" alt="" coords="53,229,163,256"/>
+<area shape="rect" id="node7" href="$class_b_o_p_algo___cells_builder.html" title="The algorithm is based on the General Fuse algorithm (GFA). The result of GFA is all split parts of t..." alt="" coords="188,229,340,256"/>
+<area shape="rect" id="node8" href="$class_b_o_p_algo___maker_volume.html" title="The algorithm is to build solids from set of shapes. It uses the BOPAlgo_Builder algorithm to interse..." alt="" coords="364,229,527,256"/>
+<area shape="rect" id="node9" href="$class_b_o_p_algo___section.html" title="The algorithm to build a Secton between the arguments. The Section consists of vertices and edges..." alt="" coords="551,229,677,256"/>
+<area shape="rect" id="node5" href="$class_b_rep_feat___builder.html" title="Provides a basic tool to implement features topological operations. The main goal of the algorithm is..." alt="" coords="45,304,171,331"/>
+<area shape="rect" id="node6" href="$class_b_rep_feat___make_cylindrical_hole.html" title="Provides a tool to make cylindrical holes on a shape. " alt="" coords="5,379,211,405"/>
+</map>

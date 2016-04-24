@@ -1,0 +1,6 @@
+<map id="Geom_Axis1Placement" name="Geom_Axis1Placement">
+<area shape="rect" id="node2" href="$class_geom___axis_placement.html" title="The abstract class AxisPlacement describes the common behavior of positioning systems in 3D space..." alt="" coords="8,229,160,256"/>
+<area shape="rect" id="node3" href="$class_geom___geometry.html" title="The abstract class Geometry for 3D space is the root class of all geometric objects from the Geom pac..." alt="" coords="23,155,144,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="29,80,139,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="17,5,151,32"/>
+</map>

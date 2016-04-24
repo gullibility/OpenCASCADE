@@ -17,5 +17,7 @@ if { $err1== $err3 && $err2 == $err4 } {
     puts "OCC465 OK"
 }
 
-set length 4.21716
-set 2dviewer 0
+checkprops result -l 4.21716 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

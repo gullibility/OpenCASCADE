@@ -1,0 +1,6 @@
+<map id="BRep_Curve3D" name="BRep_Curve3D">
+<area shape="rect" id="node2" href="$class_b_rep___g_curve.html" title="Root class for the geometric curves representation. Contains a range. Contains a first and a last par..." alt="" coords="43,229,145,256"/>
+<area shape="rect" id="node3" href="$class_b_rep___curve_representation.html" title="Root class for the curve representations. Contains a location. " alt="" coords="5,155,184,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="39,80,149,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="27,5,161,32"/>
+</map>

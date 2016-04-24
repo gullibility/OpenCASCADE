@@ -22,6 +22,8 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(IGESData_FreeFormatEntity,IGESData_UndefinedEntity)
+
 //  Donne un acces simple a la constitution d une UndefinedEntity :
 //  Methodes de UndefinedContent, + Type & Form, + AddEntities (little gadget)
 IGESData_FreeFormatEntity::IGESData_FreeFormatEntity ()    {  }
@@ -41,7 +43,11 @@ IGESData_FreeFormatEntity::IGESData_FreeFormatEntity ()    {  }
     Standard_Boolean  IGESData_FreeFormatEntity::ParamData
   (const Standard_Integer num, Interface_ParamType& ptype,
    Handle(IGESData_IGESEntity)& ent, Handle(TCollection_HAsciiString)& val) const 
-{  return UndefinedContent()->ParamData (num,ptype,ent,val);  }
+{
+  Handle(Standard_Transient) anEnt = ent;
+  return UndefinedContent()->ParamData (num, ptype, anEnt, val) &&
+         ! (ent = Handle(IGESData_IGESEntity)::DownCast (anEnt)).IsNull();
+}
 
 
     Interface_ParamType  IGESData_FreeFormatEntity::ParamType

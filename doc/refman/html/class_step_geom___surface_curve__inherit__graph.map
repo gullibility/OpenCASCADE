@@ -1,0 +1,10 @@
+<map id="StepGeom_SurfaceCurve" name="StepGeom_SurfaceCurve">
+<area shape="rect" id="node7" href="$class_step_geom___intersection_curve.html" title="StepGeom_IntersectionCurve" alt="" coords="5,461,195,488"/>
+<area shape="rect" id="node8" href="$class_step_geom___seam_curve.html" title="StepGeom_SeamCurve" alt="" coords="220,461,377,488"/>
+<area shape="rect" id="node9" href="$class_step_geom___surface_curve_and_bounded_curve.html" title="complex type: bounded_curve + surface_curve needed for curve_bounded_surfaces (S4132) ..." alt="" coords="402,454,592,495"/>
+<area shape="rect" id="node2" href="$class_step_geom___curve.html" title="StepGeom_Curve" alt="" coords="237,304,360,331"/>
+<area shape="rect" id="node3" href="$class_step_geom___geometric_representation_item.html" title="StepGeom_GeometricRepresentationItem" alt="" coords="167,229,429,256"/>
+<area shape="rect" id="node4" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="201,155,396,181"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="243,80,353,107"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="231,5,365,32"/>
+</map>

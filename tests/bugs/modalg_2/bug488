@@ -18,5 +18,6 @@ if [catch {bcommon result a_1 a_2 } catch_result] {
 } else {
     puts "OCC488 OK: function COMMON works properly "
 }
-set square 92466.8
-set 2dviewer 0
+checkprops result -s 92466.8 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -1,0 +1,6 @@
+<map id="IFSelect_SelectControl" name="IFSelect_SelectControl">
+<area shape="rect" id="node5" href="$class_i_f_select___select_diff.html" title="A SelectDiff keeps the entities from a Selection, the Main Input, which are not listed by the Second ..." alt="" coords="17,304,148,331"/>
+<area shape="rect" id="node2" href="$class_i_f_select___selection.html" title="A Selection allows to define a set of Interface Entities. Entities to be put on an output file should..." alt="" coords="17,155,148,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="27,80,137,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="15,5,149,32"/>
+</map>

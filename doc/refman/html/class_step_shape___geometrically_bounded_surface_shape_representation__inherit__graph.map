@@ -1,0 +1,6 @@
+<map id="StepShape_GeometricallyBoundedSurfaceShapeRepresentation" name="StepShape_GeometricallyBoundedSurfaceShapeRepresentation">
+<area shape="rect" id="node2" href="$class_step_shape___shape_representation.html" title="StepShape_ShapeRepresentation" alt="" coords="9,229,225,256"/>
+<area shape="rect" id="node3" href="$class_step_repr___representation.html" title="StepRepr_Representation" alt="" coords="32,155,203,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="62,80,172,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="50,5,184,32"/>
+</map>

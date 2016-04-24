@@ -16,7 +16,8 @@ if { $num != 2 } {
     puts "PRO19626 OK : Result shape is CORRECT !!! "
 }
 
-set length 174.597
-set 2dviewer 0
+checkprops result -l 174.597 
+checkshape result 
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 

@@ -1,0 +1,5 @@
+<map id="StepBasic_DocumentProductAssociation" name="StepBasic_DocumentProductAssociation">
+<area shape="rect" id="node4" href="$class_step_basic___document_product_equivalence.html" title="Representation of STEP entity DocumentProductEquivalence. " alt="" coords="5,246,197,287"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="46,80,156,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="34,5,168,32"/>
+</map>

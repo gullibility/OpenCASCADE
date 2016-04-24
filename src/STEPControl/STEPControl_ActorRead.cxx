@@ -112,6 +112,8 @@
 #include <XSAlgo.hxx>
 #include <XSAlgo_AlgoContainer.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(STEPControl_ActorRead,Transfer_ActorOfTransientProcess)
+
 // #include <Interface_InterfaceModel.hxx>  // pour mise au point
 // MappedItem :
 // FaceSurface :
@@ -190,7 +192,7 @@ namespace {
   // The better way is to pass this information via binder or via TopoDS_Shape itself, however,
   // this is very specific info to do so...
   Standard_Boolean NM_DETECTED = Standard_False;
-};
+}
 
 // ============================================================================
 // Method  : STEPControl_ActorRead::STEPControl_ActorRead  ()    

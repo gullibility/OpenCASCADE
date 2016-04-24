@@ -531,7 +531,7 @@ void GeomSources::gpTest7(CGeometryDoc* aDoc)
   gp_Pnt2d P2(5.5,1);                                     
   gp_Pnt2d P3(-2,2);                                      
 
-  Handle(Geom2d_TrimmedCurve) C =                         
+  Handle(Geom2d_Curve) C =                         
     GCE2d_MakeArcOfCircle (P1,P2,P3).Value();           
 
   Standard_Real FirstParameter = C->FirstParameter();
@@ -569,7 +569,7 @@ C->D1(param,P,V);                                   \n\
   AddSeparator(aDoc,Message);
   //--------------------------------------------------------------
 
-  DisplayCurve(aDoc,Handle(Geom2d_Curve)::DownCast(C));
+  DisplayCurve(aDoc,C);
   Handle(ISession_Direction) aDirection = new ISession_Direction(P,V);
   aDoc->GetISessionContext()->Display(aDirection, Standard_False);
 
@@ -844,7 +844,7 @@ void GeomSources::gpTest12(CGeometryDoc* aDoc)
 
   gp_Pnt N,Q,P(1,2,3);
   Standard_Real distance, radius = 5;
-  Handle(Geom_Circle) C = new Geom_Circle(gp::XOY(),radius);
+  Handle(Geom_Curve) C = new Geom_Circle(gp::XOY(),radius);
   GeomAPI_ProjectPointOnCurve PPC (P,C);
   N = PPC.NearestPoint();
   Standard_Integer NbResults = PPC.NbPoints();
@@ -890,7 +890,7 @@ if(NbResults>0){                                            \n\
   aString += Message2;
 
   DisplayPoint(aDoc,N,aString.ToCString(),false,0.5,0,-0.5);
-  DisplayCurve(aDoc,Handle(Geom_Curve)::DownCast(C),Quantity_NOC_YELLOW,false);
+  DisplayCurve(aDoc,C,Quantity_NOC_YELLOW,false);
 
   if(NbResults>0)
   {
@@ -1052,8 +1052,8 @@ if (ICQ.IsDone()){                                        \n\
 
  DisplaySurface(aDoc,aSurface);
 
- Handle(Geom_Ellipse) anEllips = GC_MakeEllipse(EL).Value();
- DisplayCurve(aDoc,Handle(Geom_Curve)::DownCast(anEllips),Quantity_NOC_YELLOW,false);
+ Handle(Geom_Curve) anEllips = GC_MakeEllipse(EL).Value();
+ DisplayCurve(aDoc,anEllips,Quantity_NOC_YELLOW,false);
 
  TCollection_AsciiString aString;
 
@@ -1440,8 +1440,7 @@ Handle(Geom2d_BSplineCurve) SPL3 = anInterpolation2.Curve();         \n\
   AddSeparator(aDoc,Message);
   //--------------------------------------------------------------
   TCollection_AsciiString aString;
-	Standard_Integer i;
-  for(i = array.Lower();i<=array.Upper();i++)
+  for(int i = array.Lower();i<=array.Upper();i++)
   {
     gp_Pnt2d P = array(i);
     TCollection_AsciiString Message2 (i);
@@ -1455,7 +1454,7 @@ Handle(Geom2d_BSplineCurve) SPL3 = anInterpolation2.Curve();         \n\
     aString = "harray ";aString += Message2; 
     DisplayPoint(aDoc,P,aString.ToCString(),false,0.5);
   }
-  for( i = harray2->Lower();i<=harray2->Upper();i++)
+  for( int i = harray2->Lower();i<=harray2->Upper();i++)
   {
     gp_Pnt2d P = harray2->Value(i);
     TCollection_AsciiString Message2 (i);
@@ -1719,7 +1718,7 @@ gp_Ax2d C2DCircleXAxis = C2DCircle->XAxis();            \n\
  Message += aC2DEntityTypeName; Message += " \n";
 
  DisplayCurve(aDoc,circ2d,4,false);
- DisplayCurve(aDoc,Handle(Geom_Curve)::DownCast(C3D),Quantity_NOC_YELLOW,false);
+ DisplayCurve(aDoc,C3D,Quantity_NOC_YELLOW,false);
  DisplayCurve(aDoc,C2D,5,false);
 
  Handle(ISession_Direction) aC3DCircleXAxisDirection = new ISession_Direction(C3DCircleXAxis.Location(),C3DCircleXAxis.Direction(),5.2);
@@ -1881,10 +1880,10 @@ void GeomSources::gpTest26(CGeometryDoc* aDoc)
   TColgp_Array2OfPnt2d aSolutionArray(1,NbExtrema,1,2);
   for(int i=1;i <= NbExtrema; i++)
   {                                  
-    gp_Pnt2d P1,P2;
-    ECC2.Points(i,P1,P2);
-    aSolutionArray(i,1) = P1;
-    aSolutionArray(i,2) = P2;
+    gp_Pnt2d P1x,P2x;
+    ECC2.Points(i,P1x,P2x);
+    aSolutionArray(i,1) = P1x;
+    aSolutionArray(i,2) = P2x;
   }            
 
   //==============================================================
@@ -1955,17 +1954,17 @@ for(int i=1;i <= NbExtrema; i++)   {                                  \n\
 
  for(int i=1;i <= NbExtrema; i++)
  {
-   gp_Pnt2d P1 =aSolutionArray(i,1);
+   gp_Pnt2d P1x =aSolutionArray(i,1);
 
    TCollection_AsciiString Message2 (i);
    aString = "P1_";
    aString += Message2; 
-   DisplayPoint(aDoc,P1,aString.ToCString(),false,0.7*i);
+   DisplayPoint(aDoc,P1x,aString.ToCString(),false,0.7*i);
 
-   gp_Pnt2d P2 = aSolutionArray(i,2);
+   gp_Pnt2d P2x = aSolutionArray(i,2);
 
    Handle(Geom2d_TrimmedCurve) SolutionCurve =
-     GCE2d_MakeSegment(P1,P2);
+     GCE2d_MakeSegment(P1x,P2x);
    Handle(ISession2D_Curve) aSolutionCurve = new ISession2D_Curve(SolutionCurve);
    aDoc->GetISessionContext()->Display(aSolutionCurve, Standard_False);
  }
@@ -2162,10 +2161,9 @@ void GeomSources::gpTest30(CGeometryDoc* aDoc)
   gp_Circ2d C = gce_MakeCirc2d (P1,P2,P3);
   GccEnt_QualifiedCirc QC = GccEnt::Outside(C);
   GccAna_Lin2d2Tan LT (QC,P4,Precision::Confusion());
-  Standard_Integer NbSol = 0;
   if (LT.IsDone())
   {
-    NbSol = LT.NbSolutions();
+    Standard_Integer NbSol = LT.NbSolutions();
     for(Standard_Integer k=1; k<=NbSol; k++)
     {
       gp_Lin2d L = LT.ThisSolution(k);
@@ -2214,14 +2212,14 @@ if (LT.IsDone())                                     \n\
     {
       gp_Lin2d L = LT.ThisSolution(k);
       Handle(Geom2d_TrimmedCurve) aLine = GCE2d_MakeSegment(L,-10,20);
-      Handle(ISession2D_Curve) aCurve = new ISession2D_Curve(aLine);
-      aDoc->GetISessionContext()->Display(aCurve, Standard_False);
+      Handle(ISession2D_Curve) aCurveN = new ISession2D_Curve(aLine);
+      aDoc->GetISessionContext()->Display(aCurveN, Standard_False);
     }
   }
   Message += " C is Blue \n\n";
   Message += "LT.IsDone() = "; 
   if (LT.IsDone())  Message += "True \n"; else Message += "False \n";
-  TCollection_AsciiString Message2 (NbSol);
+  TCollection_AsciiString Message2 (LT.NbSolutions());
   Message += "NbSol       = "; Message += Message2      ; Message += "\n";
 
   PostProcess(aDoc,ID_BUTTON_Test_30,TheDisplayType,Message);
@@ -2324,9 +2322,9 @@ if (TR.IsDone())                                                              \n
     for (Standard_Integer k=1; k<=NbSol; k++)
     {
       circ = TR.ThisSolution(k);
-      Handle(Geom2d_Circle) aCircle = new Geom2d_Circle(circ);
-      Handle(ISession2D_Curve) aCurve = new ISession2D_Curve(aCircle);
-      aDoc->GetISessionContext()->Display(aCurve, Standard_False);
+      Handle(Geom2d_Circle) aCircleN = new Geom2d_Circle(circ);
+      Handle(ISession2D_Curve) aCurveN = new ISession2D_Curve(aCircleN);
+      aDoc->GetISessionContext()->Display(aCurveN, Standard_False);
 
       // find the solution circle
       TR.Tangency1(k,parsol,pararg,tangentpoint1);
@@ -2682,14 +2680,14 @@ if(CS.IsDone())                                             \n\
   Standard_Integer k;
   if(CS.IsDone())
   {
-    Standard_Integer NbSeg = CS.NbSegments();
+    NbSeg = CS.NbSegments();
     for (k=1; k<=NbSeg; k++)
     {
       TCollection_AsciiString Message2 (k);
       segment = CS.Segment(k);
       aString = "S_";aString += Message2;
-      Handle(ISession_Curve) aCurve = new ISession_Curve(segment);
-      aDoc->GetAISContext()->Display(aCurve, Standard_False);
+      Handle(ISession_Curve) aCurveN = new ISession_Curve(segment);
+      aDoc->GetAISContext()->Display(aCurveN, Standard_False);
     }
 
     for ( k=1; k<=NbPoints; k++)
@@ -2881,9 +2879,10 @@ if (PE.IsSpace())  { /* ... */  }                                \n\
   TCollection_AsciiString aString;
   for(Standard_Integer i = anArrayofPnt.Lower();i<=anArrayofPnt.Upper();i++){
     TCollection_AsciiString Message2(i);
-    gp_Pnt P = anArrayofPnt(i);
-    aString = "P";aString += Message2; 
-    DisplayPoint(aDoc,P,aString.ToCString(),false,0.5);
+    gp_Pnt aP = anArrayofPnt(i);
+    aString = "P";
+    aString += Message2; 
+    DisplayPoint(aDoc,aP,aString.ToCString(),false,0.5);
   }
 
   Message += " PE.IsPoint()  = ";  if (PE.IsPoint()) Message += "True \n";  else Message += "False\n";
@@ -3104,7 +3103,7 @@ void GeomSources::gpTest40(CGeometryDoc* aDoc)
   array1.SetValue(4,gp_Pnt (-5,4,-7));
   array1.SetValue(5,gp_Pnt (-3,5,-12));
 
-  Handle(Geom_BSplineCurve) SPL1 =
+  Handle(Geom_Curve) SPL1 =
   GeomAPI_PointsToBSpline(array1).Curve();
 
   GeomFill_Pipe aPipe(SPL1,1);
@@ -3127,7 +3126,7 @@ void GeomSources::gpTest40(CGeometryDoc* aDoc)
   GC_MakeSegment(gp_Pnt(1,1,1),gp_Pnt(5,5,5));
   Handle(Geom_TrimmedCurve) TC2 =
   GC_MakeSegment(gp_Pnt(1,1,0),gp_Pnt(4,5,6));
-  GeomFill_Pipe aPipe3(Handle(Geom_Curve)::DownCast(SPL1),TC1,TC2);
+  GeomFill_Pipe aPipe3(SPL1,TC1,TC2);
   aPipe3.Perform();
   Handle(Geom_Surface) aSurface3 = aPipe3.Surface();
   Standard_CString aSurfaceEntityTypeName3="Not Computed";
@@ -3668,8 +3667,8 @@ void GeomSources::gpTest46(CGeometryDoc* aDoc)
   GeomFill_BSplineCurves aGeomFill1(SPL1,SPL2,Type);
   Handle(Geom_BSplineSurface) aGeomSurface = aGeomFill1.Surface();
 
-  Handle(Geom_BSplineSurface) aTranslatedGeomSurface =
-    Handle(Geom_BSplineSurface)::DownCast(aGeomSurface->Copy());
+  Handle(Geom_BoundedSurface) aTranslatedGeomSurface =
+    Handle(Geom_BoundedSurface)::DownCast(aGeomSurface->Copy());
 
   Standard_Real extension = 3;
   Standard_Integer continuity = 2;
@@ -3695,8 +3694,8 @@ GeomFill_FillingStyle Type = GeomFill_StretchStyle;               \n\
 GeomFill_BSplineCurves aGeomFill1(SPL1,SPL2,Type);                \n\
 Handle(Geom_BSplineSurface) aGeomSurface = aGeomFill1.Surface();  \n\
                                                                   \n\
-Handle(Geom_BSplineSurface) aTranslatedGeomSurface =              \n\
-   Handle(Geom_BSplineSurface)::DownCast(aGeomSurface->Copy());   \n\
+Handle(Geom_BoundedSurface) aTranslatedGeomSurface =              \n\
+   Handle(Geom_BoundedSurface)::DownCast(aGeomSurface->Copy());   \n\
                                                                   \n\
 Standard_Real extension = 3;                                      \n\
 Standard_Integer continuity = 2;                                  \n\

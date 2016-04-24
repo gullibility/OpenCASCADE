@@ -54,11 +54,7 @@ static const Quantity_Color SurfaceColor     (1,1,0, Quantity_TOC_RGB);      // 
 static const Quantity_Color BSplineColor     (1,0.647,0, Quantity_TOC_RGB);  // orange
 static const Quantity_Color BSplineSurfaceColor (0,0,1, Quantity_TOC_RGB);   // blue
 
-#ifdef WNT
- #define EOL "\r\n"
-#else
- #define EOL "\n"
-#endif
+#define EOL "\r\n"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -90,7 +86,7 @@ void Convert_Presentation::DoSample()
 // Function : Convert_Presentation::drawSurfaceAndItsBSpline
 // Purpose  : 
 //================================================================
-void Convert_Presentation::drawSurfaceAndItsBSpline(const Handle_Geom_Surface & theSurface, 
+void Convert_Presentation::drawSurfaceAndItsBSpline(const Handle(Geom_Surface) & theSurface, 
                                                     const Standard_CString theName, 
                                                     TCollection_AsciiString& theText)
 {
@@ -99,7 +95,7 @@ void Convert_Presentation::drawSurfaceAndItsBSpline(const Handle_Geom_Surface & 
   aTitle += " to BSpline surface";
 
   theText += EOL
-    "  Handle_Geom_BSplineSurface aBSplineSurface = " EOL
+    "  Handle(Geom_BSplineSurface) aBSplineSurface = " EOL
     "    GeomConvert::SurfaceToBSplineSurface(aSurface);" EOL;
 
   setResultTitle (aTitle.ToCString());
@@ -109,7 +105,7 @@ void Convert_Presentation::drawSurfaceAndItsBSpline(const Handle_Geom_Surface & 
 
   if (WAIT_A_LITTLE) return;
 
-  Handle_Geom_BSplineSurface aBSplineSurface = GeomConvert::SurfaceToBSplineSurface(theSurface);
+  Handle(Geom_BSplineSurface) aBSplineSurface = GeomConvert::SurfaceToBSplineSurface(theSurface);
 
   _ASSERTE(!aBSplineSurface.IsNull());
 
@@ -120,7 +116,7 @@ void Convert_Presentation::drawSurfaceAndItsBSpline(const Handle_Geom_Surface & 
 // Function : Convert_Presentation::drawCurveAndItsBSpline
 // Purpose  : 
 //================================================================
-void Convert_Presentation::drawCurveAndItsBSpline(Handle_Geom_Curve theCurve, 
+void Convert_Presentation::drawCurveAndItsBSpline(Handle(Geom_Curve) theCurve, 
                                                   const Standard_CString theName, 
                                                   TCollection_AsciiString& theText)
 {
@@ -129,7 +125,7 @@ void Convert_Presentation::drawCurveAndItsBSpline(Handle_Geom_Curve theCurve,
   aTitle += " to BSpline curve";
 
   theText += EOL
-    "  Handle_Geom_BSplineCurve aBSpline = " EOL
+    "  Handle(Geom_BSplineCurve) aBSpline = " EOL
     "    GeomConvert::CurveToBSplineCurve(aCurve);" EOL;
 
   setResultTitle (aTitle.ToCString());
@@ -139,9 +135,9 @@ void Convert_Presentation::drawCurveAndItsBSpline(Handle_Geom_Curve theCurve,
   
   if (WAIT_A_LITTLE) return;
 
-  Handle_Geom_BSplineCurve aBSpline = GeomConvert::CurveToBSplineCurve(theCurve);
+  Handle(Geom_Curve) aBSpline = GeomConvert::CurveToBSplineCurve(theCurve);
 
-  drawCurve (Handle(Geom_Curve)::DownCast(aBSpline), BSplineColor);
+  drawCurve (aBSpline, BSplineColor);
 }
 
 
@@ -159,7 +155,7 @@ void Convert_Presentation::sampleCircle()
   gp_Dir aDir (1,0,0);
   gp_Ax2 aAxis (aOrigin, aDir);
   Standard_Real aRadius = 300;
-  Handle_Geom_Circle aCurve = new Geom_Circle (aAxis, aRadius);
+  Handle(Geom_Circle) aCurve = new Geom_Circle (aAxis, aRadius);
 
   TCollection_AsciiString aText (
     "  gp_Pnt aOrigin (0,0,0);" EOL
@@ -371,8 +367,8 @@ void Convert_Presentation::sampleRevolSurface()
   aPoles(3) = gp_Pnt(350, 150, 0);  aWeights(3) =120;
   aPoles(4) = gp_Pnt(500, 500, 0);  aWeights(4) = 1;
 
-  Handle(Geom_BezierCurve) aBezierCurve = new Geom_BezierCurve(aPoles, aWeights);
-  drawCurve(Handle(Geom_Curve)::DownCast(aBezierCurve));
+  Handle(Geom_Curve) aBezierCurve = new Geom_BezierCurve(aPoles, aWeights);
+  drawCurve(aBezierCurve);
 
   // creating a surface of revolution of the bezier curve around Y axis
   gp_Ax1 anAx(gp_Pnt(0,0,0), gp_Dir(0,1,0));

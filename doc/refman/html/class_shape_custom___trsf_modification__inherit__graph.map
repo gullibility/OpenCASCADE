@@ -1,0 +1,6 @@
+<map id="ShapeCustom_TrsfModification" name="ShapeCustom_TrsfModification">
+<area shape="rect" id="node2" href="$class_b_rep_tools___trsf_modification.html" title="Describes a modification that uses a gp_Trsf to change the geometry of a shape. All functions return ..." alt="" coords="14,229,196,256"/>
+<area shape="rect" id="node3" href="$class_b_rep_tools___modification.html" title="Defines geometric modifications to a shape, i.e. changes to faces, edges and vertices. " alt="" coords="25,155,185,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="50,80,160,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="38,5,172,32"/>
+</map>

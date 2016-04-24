@@ -4,4 +4,5 @@ pcylinder b2 0.5 2
 bop b1 b2
 bopcut result
 
-set square 23.5619
+checkprops result -s 23.5619
+checkview -display result -2d -otherwise { b1 b2 } -s -path ${imagedir}/${test_image}.png

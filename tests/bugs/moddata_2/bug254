@@ -12,5 +12,6 @@ checkshape shape3
 common result shape1 shape3
 checkshape result
 
-set length 1194.29
-set 2dviewer 0
+checkprops result -l 1194.29 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

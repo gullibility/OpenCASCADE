@@ -20,8 +20,9 @@
 #include <TDF_Label.hxx>
 #include <TDF_MapIteratorOfLabelMap.hxx>
 #include <TDF_RelocationTable.hxx>
-#include <TFunction_Logbook.hxx>
 #include <TFunction_Scope.hxx>
+
+IMPLEMENT_STANDARD_RTTIEXT(TFunction_Scope,TDF_Attribute)
 
 //=======================================================================
 //function : GetID
@@ -175,9 +176,11 @@ const TDF_Label& TFunction_Scope::GetFunction(const Standard_Integer ID) const
 //purpose  : Returns the Logbook.
 //=======================================================================
 
-TFunction_Logbook& TFunction_Scope::GetLogbook()
+Handle(TFunction_Logbook) TFunction_Scope::GetLogbook() const 
 {
-  return myLogbook;
+  Handle(TFunction_Logbook) logbook;
+  FindAttribute(TFunction_Logbook::GetID(), logbook);
+  return logbook;
 }
 
 //=======================================================================
@@ -192,26 +195,6 @@ void TFunction_Scope::Restore(const Handle(TDF_Attribute)& other)
   // Functions
   myFunctions = S->myFunctions; // copying...
   myFreeID = S->myFreeID;
-
-  // Logbook
-  myLogbook.Clear();
-  TDF_MapIteratorOfLabelMap itrm;
-  // Valid labels
-  for (itrm.Initialize(S->myLogbook.GetValid()); itrm.More(); itrm.Next())
-  {
-    myLogbook.SetValid(itrm.Key(), Standard_False);
-  }
-  // Touched labels
-  for (itrm.Initialize(S->myLogbook.GetTouched()); itrm.More(); itrm.Next())
-  {
-    myLogbook.SetTouched(itrm.Key());
-  }
-  // Impacted labels
-  for (itrm.Initialize(S->myLogbook.GetImpacted()); itrm.More(); itrm.Next())
-  {
-    myLogbook.SetImpacted(itrm.Key(), Standard_False);
-  }
-  myLogbook.Done(S->myLogbook.IsDone());
 }
 
 //=======================================================================

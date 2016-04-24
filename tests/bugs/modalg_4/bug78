@@ -14,5 +14,6 @@ checkshape w
 checkshape p
 
 pipe result w p
-set square 10191.8
-set 2dviewer 0
+checkprops result -s 10191.8 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

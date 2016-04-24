@@ -2,7 +2,9 @@ puts "================"
 puts "OCC1255"
 puts "================"
 puts ""
-# Exception in command 'section'
+###############################################
+## Exception in command 'section'
+###############################################
 
 restore [locate_data_file OCC1255.brep] a 
 checkshape a
@@ -12,5 +14,7 @@ mkface f1 p1
 
 bsection result a f1
 
-set length 5840.24
-set 2dviewer 0
+checkprops result -l 5837.18
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

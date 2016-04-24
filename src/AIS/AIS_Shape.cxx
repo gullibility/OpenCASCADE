@@ -68,6 +68,8 @@
 #include <TopoDS_Iterator.hxx>
 #include <TopoDS_Shape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Shape,AIS_InteractiveObject)
+
 static Standard_Boolean myFirstCompute;
 
 static Standard_Boolean IsInList(const TColStd_ListOfInteger& LL, const Standard_Integer aMode)
@@ -489,7 +491,7 @@ void AIS_Shape::setColor (const Handle(Prs3d_Drawer)& theDrawer,
   }
   if (!theDrawer->HasOwnPointAspect())
   {
-    theDrawer->SetPointAspect (new Prs3d_PointAspect (Aspect_TOM_POINT, Quantity_NOC_BLACK, 1.0));
+    theDrawer->SetPointAspect (new Prs3d_PointAspect (Aspect_TOM_PLUS, Quantity_NOC_BLACK, 1.0));
     if (theDrawer->HasLink())
     {
       *theDrawer->PointAspect()->Aspect() = *theDrawer->Link()->PointAspect()->Aspect();

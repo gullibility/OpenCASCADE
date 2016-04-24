@@ -177,7 +177,7 @@ static Standard_Integer hlr (Draw_Interpretor& di,
       di << "\n";
       if (withHLR) {
 	di << "Angle of discretization : ";
-	di << anglHLR * 180 / M_PI << " degrees" << "\n";
+	di << anglHLR * 180 / M_PI << " degrees\n";
       }
     }
     else di << " wireframe";
@@ -212,7 +212,7 @@ static Standard_Integer hlr (Draw_Interpretor& di,
     }
     else if (!strcasecmp(a[1],"ang"  )) {
       di << "Angle de discretisation : ";
-      di << anglHLR * 180 / M_PI << " degres" << "\n";
+      di << anglHLR * 180 / M_PI << " degres\n";
     }
     else return 1;
   }
@@ -228,7 +228,7 @@ static Standard_Integer hlr (Draw_Interpretor& di,
       if (anglHLR > HAngMax) anglHLR = HAngMax;
     }
     di << "Angle of discretization : ";
-    di << anglHLR * 180 / M_PI << " degrees" << "\n";
+    di << anglHLR * 180 / M_PI << " degrees\n";
   }
 
   if (n >= nFirst + 1) {
@@ -636,7 +636,7 @@ static Standard_Integer nexplode(Draw_Interpretor& di,
   // Check of equality of MidXYZ
   for (Index=1; Index < MaxShapes; Index++) {
     if (MidXYZ(OrderInd(Index+1)) == MidXYZ(OrderInd(Index)))
-      di<<"Warning! For this shape the results may be incorrect."<<"\n";
+      di<<"Warning! For this shape the results may be incorrect.\n";
   }
   
   for (Index=1 ;Index <= MaxShapes; Index++) {
@@ -1155,7 +1155,7 @@ static Standard_Integer normals(Draw_Interpretor& di,
       V.Multiply(l/x);
     else {
       V.SetCoord(l/2.,0,0);
-      di << "Null normal"<< "\n";
+      di << "Null normal\n";
     }
 
     P2 = P1;
@@ -1241,7 +1241,9 @@ static Standard_Integer XProgress (Draw_Interpretor& di, Standard_Integer argc, 
     if ( argv[i][1] == 't' ) Draw_ProgressIndicator::DefaultTextMode() = turn;
     else if ( argv[i][1] == 'g' ) Draw_ProgressIndicator::DefaultGraphMode() = turn;
     else if ( ! strcmp ( argv[i], "-stop" ) && i+1 < argc ) {
-      Draw_ProgressIndicator::StopIndicator() = atol(argv[++i]);
+      Standard_Address aPtr = 0;
+      if (sscanf (argv[++i], "%p", &aPtr) == 1)
+        Draw_ProgressIndicator::StopIndicator() = aPtr;
       return 0;
     }
   }

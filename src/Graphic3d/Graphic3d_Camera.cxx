@@ -26,6 +26,8 @@
 #include <NCollection_Sequence.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Camera,Standard_Transient)
+
 namespace
 {
   // (degrees -> radians) * 0.5
@@ -58,8 +60,8 @@ namespace
     Standard_Real aLogRadix = Log10 (anAbsValue) / Log10 (FLT_RADIX);
     Standard_Real aExp = Floor (aLogRadix);
     return FLT_EPSILON * Pow (FLT_RADIX, aExp);
-  };
-};
+  }
+}
 
 // =======================================================================
 // function : Graphic3d_Camera
@@ -103,20 +105,13 @@ Graphic3d_Camera::Graphic3d_Camera (const Handle(Graphic3d_Camera)& theOther)
 // =======================================================================
 void Graphic3d_Camera::CopyMappingData (const Handle(Graphic3d_Camera)& theOtherCamera)
 {
-  myFOVy       = theOtherCamera->myFOVy;
-  myZNear      = theOtherCamera->myZNear;
-  myZFar       = theOtherCamera->myZFar;
-  myAspect     = theOtherCamera->myAspect;
-  myScale      = theOtherCamera->myScale;
-  myZFocus     = theOtherCamera->myZFocus;
-  myZFocusType = theOtherCamera->myZFocusType;
-  myIOD        = theOtherCamera->myIOD;
-  myIODType    = theOtherCamera->myIODType;
-  myProjType   = theOtherCamera->myProjType;
-
-  myWorldViewProjState.ProjectionState() = theOtherCamera->ProjectionState();
-
-  InvalidateProjection();
+  SetFOVy           (theOtherCamera->FOVy());
+  SetZRange         (theOtherCamera->ZNear(), theOtherCamera->ZFar());
+  SetAspect         (theOtherCamera->Aspect());
+  SetScale          (theOtherCamera->Scale());
+  SetZFocus         (theOtherCamera->ZFocusType(), theOtherCamera->ZFocus());
+  SetIOD            (theOtherCamera->GetIODType(), theOtherCamera->IOD());
+  SetProjectionType (theOtherCamera->ProjectionType());
 }
 
 // =======================================================================
@@ -125,14 +120,10 @@ void Graphic3d_Camera::CopyMappingData (const Handle(Graphic3d_Camera)& theOther
 // =======================================================================
 void Graphic3d_Camera::CopyOrientationData (const Handle(Graphic3d_Camera)& theOtherCamera)
 {
-  myUp         = theOtherCamera->myUp;
-  myEye        = theOtherCamera->myEye;
-  myCenter     = theOtherCamera->myCenter;
-  myAxialScale = theOtherCamera->myAxialScale;
-
-  myWorldViewProjState.WorldViewState() = theOtherCamera->WorldViewState();
-
-  InvalidateOrientation();
+  SetUp         (theOtherCamera->Up());
+  SetEye        (theOtherCamera->Eye());
+  SetCenter     (theOtherCamera->Center());
+  SetAxialScale (theOtherCamera->AxialScale());
 }
 
 // =======================================================================
@@ -151,6 +142,11 @@ void Graphic3d_Camera::Copy (const Handle(Graphic3d_Camera)& theOther)
 // =======================================================================
 void Graphic3d_Camera::SetEye (const gp_Pnt& theEye)
 {
+  if (Eye().IsEqual (theEye, 0.0))
+  {
+    return;
+  }
+
   myEye = theEye;
   InvalidateOrientation();
 }
@@ -161,6 +157,11 @@ void Graphic3d_Camera::SetEye (const gp_Pnt& theEye)
 // =======================================================================
 void Graphic3d_Camera::SetCenter (const gp_Pnt& theCenter)
 {
+  if (Center().IsEqual (theCenter, 0.0))
+  {
+    return;
+  }
+
   myCenter = theCenter;
   InvalidateOrientation();
 }
@@ -171,6 +172,11 @@ void Graphic3d_Camera::SetCenter (const gp_Pnt& theCenter)
 // =======================================================================
 void Graphic3d_Camera::SetUp (const gp_Dir& theUp)
 {
+  if (Up().IsEqual (theUp, 0.0))
+  {
+    return;
+  }
+
   myUp = theUp;
   InvalidateOrientation();
 }
@@ -181,6 +187,11 @@ void Graphic3d_Camera::SetUp (const gp_Dir& theUp)
 // =======================================================================
 void Graphic3d_Camera::SetAxialScale (const gp_XYZ& theAxialScale)
 {
+  if (AxialScale().IsEqual (theAxialScale, 0.0))
+  {
+    return;
+  }
+
   myAxialScale = theAxialScale;
   InvalidateOrientation();
 }
@@ -191,6 +202,11 @@ void Graphic3d_Camera::SetAxialScale (const gp_XYZ& theAxialScale)
 // =======================================================================
 void Graphic3d_Camera::SetDistance (const Standard_Real theDistance)
 {
+  if (Distance() == theDistance)
+  {
+    return;
+  }
+
   gp_Vec aCenter2Eye (Direction());
   aCenter2Eye.Reverse();
 
@@ -214,6 +230,11 @@ Standard_Real Graphic3d_Camera::Distance() const
 // =======================================================================
 void Graphic3d_Camera::SetDirection (const gp_Dir& theDir)
 {
+  if (Direction().IsEqual (theDir, 0.0))
+  {
+    return;
+  }
+
   gp_Vec aScaledDir (theDir);
   aScaledDir.Scale (Distance());
   aScaledDir.Reverse();
@@ -392,8 +413,8 @@ void Graphic3d_Camera::SetZFocus(const FocusType theType, const Standard_Real th
 // =======================================================================
 void Graphic3d_Camera::SetIOD (const IODType theType, const Standard_Real theIOD)
 {
-  if (IODType() == theType
-   && IOD    () == theIOD)
+  if (GetIODType() == theType
+   && IOD       () == theIOD)
   {
     return;
   }
@@ -432,10 +453,14 @@ gp_Dir Graphic3d_Camera::OrthogonalizedUp() const
 // =======================================================================
 void Graphic3d_Camera::Transform (const gp_Trsf& theTrsf)
 {
-  myUp.Transform (theTrsf);
-  myEye.Transform (theTrsf);
-  myCenter.Transform (theTrsf);
-  InvalidateOrientation();
+  if (theTrsf.Form() == gp_Identity)
+  {
+    return;
+  }
+
+  SetUp     (myUp.Transformed (theTrsf));
+  SetEye    (myEye.Transformed (theTrsf));
+  SetCenter (myCenter.Transformed (theTrsf));
 }
 
 // =======================================================================
@@ -1055,7 +1080,11 @@ void Graphic3d_Camera::LookOrientation (const NCollection_Vec3<Elem_t>& theEye,
 //function : ZFitAll
 //purpose  :
 //=============================================================================
-void Graphic3d_Camera::ZFitAll (const Standard_Real theScaleFactor, const Bnd_Box& theMinMax, const Bnd_Box& theGraphicBB)
+bool Graphic3d_Camera::ZFitAll (const Standard_Real theScaleFactor,
+                                const Bnd_Box&      theMinMax,
+                                const Bnd_Box&      theGraphicBB,
+                                Standard_Real&      theZNear,
+                                Standard_Real&      theZFar) const
 {
   Standard_ASSERT_RAISE (theScaleFactor > 0.0, "Zero or negative scale factor is not allowed.");
 
@@ -1065,8 +1094,9 @@ void Graphic3d_Camera::ZFitAll (const Standard_Real theScaleFactor, const Bnd_Bo
   // scene with infinite or helper objects (third argument) for the sake of perspective projection.
   if (theGraphicBB.IsVoid())
   {
-    SetZRange (DEFAULT_ZNEAR, DEFAULT_ZFAR);
-    return;
+    theZNear = DEFAULT_ZNEAR;
+    theZFar  = DEFAULT_ZFAR;
+    return false;
   }
 
   // Measure depth of boundary points from camera eye.
@@ -1153,8 +1183,9 @@ void Graphic3d_Camera::ZFitAll (const Standard_Real theScaleFactor, const Bnd_Bo
     // Everything is behind the perspective camera.
     if (aZFar < zEpsilon())
     {
-      SetZRange (DEFAULT_ZNEAR, DEFAULT_ZFAR);
-      return;
+      theZNear = DEFAULT_ZNEAR;
+      theZFar  = DEFAULT_ZFAR;
+      return false;
     }
   }
 
@@ -1234,5 +1265,7 @@ void Graphic3d_Camera::ZFitAll (const Standard_Real theScaleFactor, const Bnd_Bo
     }
   }
 
-  SetZRange (aZNear, aZFar);
+  theZNear = aZNear;
+  theZFar  = aZFar;
+  return true;
 }

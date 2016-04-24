@@ -21,8 +21,8 @@ bfillds
 bbuild result
 checkshape result
 
-set square 595443
-set 2dviewer 1
+checkprops result -s 595443 
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 
 

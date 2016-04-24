@@ -17,14 +17,9 @@
 #include <StepShape_Vertex.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_Edge,StepShape_TopologicalRepresentationItem)
+
 StepShape_Edge::StepShape_Edge ()  {}
-
-void StepShape_Edge::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_Edge::Init(
 	const Handle(TCollection_HAsciiString)& aName,

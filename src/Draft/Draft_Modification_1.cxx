@@ -16,7 +16,7 @@
 
 #include <Adaptor3d_CurveOnSurface.hxx>
 #include <Adaptor3d_HCurveOnSurface.hxx>
-#include <Adaptor3d_SurfaceOfLinearExtrusion.hxx>
+#include <GeomAdaptor_SurfaceOfLinearExtrusion.hxx>
 #include <Approx_CurveOnSurface.hxx>
 #include <BRep_Builder.hxx>
 #include <BRep_Tool.hxx>
@@ -393,7 +393,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face& F,
                 TopTools_MapIteratorOfMapOfShape itm(MapOfE);
                 for ( ; itm.More(); itm.Next())
                 {
-                  Standard_Integer IndToReplace = myEMap.FindIndex(TopoDS::Edge(itm.Key()));
+                  IndToReplace = myEMap.FindIndex(TopoDS::Edge(itm.Key()));
                   if ( IndToReplace )
                   {
                     Standard_Integer LInd = myEMap.Extent();
@@ -630,7 +630,7 @@ Standard_Boolean Draft_Modification::Propagate ()
                 errStat = Draft_EdgeRecomputation;
                 break; // leave from while
               }
-              Adaptor3d_SurfaceOfLinearExtrusion SLE(HCur,Direc);
+              GeomAdaptor_SurfaceOfLinearExtrusion SLE(HCur,Direc);
               switch(SLE.GetType()){
 
               case GeomAbs_Plane :
@@ -801,18 +801,16 @@ void Draft_Modification::Perform ()
     }
 
     // Calculate new edges.
-
-    Handle(Geom_Surface) S1,S2;
-    Handle(Geom_Curve) C, newC;
-    Standard_Real f,l;
-    TopLoc_Location L;
-
     for (Standard_Integer ii = 1; ii <= myEMap.Extent(); ii++) 
     {
       Draft_EdgeInfo& Einf = myEMap.ChangeFromIndex(ii); 
 
       const TopoDS_Edge& theEdge = TopoDS::Edge(myEMap.FindKey(ii));
 
+      Handle(Geom_Surface) S1,S2;
+      Handle(Geom_Curve) C, newC;
+      Standard_Real f,l;
+      TopLoc_Location L;
       C = BRep_Tool::Curve(theEdge,L,f,l);
       C = Handle(Geom_Curve)::DownCast(C->Transformed(L.Transformation()));
 
@@ -948,13 +946,14 @@ void Draft_Modification::Perform ()
               return;
             }
 
-            Standard_Real Dist2, Dist2Min = 0., Glob2Min = RealLast();
+            Standard_Real Glob2Min = RealLast();
             GeomAdaptor_Curve TheCurve;
 
             Standard_Integer i,j; //,jmin;
 
             if (i2s.Line(1)->DynamicType() != STANDARD_TYPE(Geom_BSplineCurve))
             {
+              Standard_Real Dist2Min = RealLast();
               imin = 0;
               for (i=1; i<= i2s.NbLines(); i++) {
                 TheCurve.Load(i2s.Line(i));
@@ -1043,7 +1042,7 @@ void Draft_Modification::Perform ()
                     Dist2Min = myExtPC.SquareDistance(1);
                     locpmin = myExtPC.Point(1).Parameter();
                     for (j=2; j<=myExtPC.NbExt(); j++) {
-                      Dist2 = myExtPC.SquareDistance(j);
+                      const Standard_Real Dist2 = myExtPC.SquareDistance(j);
                       if (Dist2 < Dist2Min) {
                         Dist2Min = Dist2;
                         locpmin = myExtPC.Point(j).Parameter();
@@ -1144,15 +1143,15 @@ void Draft_Modification::Perform ()
               Handle( Geom_Curve ) FirstCurve;
               if (Candidates.Length() > 1)
               {
-                Dist2Min = RealLast();
+                Standard_Real DistMin = Precision::Infinite();
                 for (i = 1; i <= Candidates.Length(); i++)
                 {
                   Handle( Geom_Curve ) aCurve = Candidates(i);
                   gp_Pnt Pnt = aCurve->Value( aCurve->FirstParameter() );
-                  Dist2 = Pnt.SquareDistance( pfv );
-                  if (Dist2 < Dist2Min)
+                  const Standard_Real Dist = Pnt.Distance( pfv );
+                  if (Dist - DistMin < -Precision::Confusion())
                   {
-                    Dist2Min = Dist2;
+                    DistMin = Dist;
                     FirstCurve = aCurve;
                   }
                 }
@@ -1212,12 +1211,12 @@ void Draft_Modification::Perform ()
 
               TheCurve.Load( newC );
               Extrema_ExtPC myExtPC( pfv, TheCurve );
-              Dist2Min = RealLast();
+              Standard_Real Dist2Min = RealLast();
               for (i = 1; i <= myExtPC.NbExt(); i++)
               {
                 if (myExtPC.IsMin(i))
                 {
-                  Dist2 = myExtPC.SquareDistance(i);
+                  const Standard_Real Dist2 = myExtPC.SquareDistance(i);
                   if (Dist2 < Dist2Min)
                   {
                     Dist2Min = Dist2;
@@ -1414,8 +1413,8 @@ void Draft_Modification::Perform ()
             Standard_Real param = Parameter(Einf2.Geometry(), pvt, done);
             if (done != 0)
             {
-              S1 = myFMap.FindFromKey(Einf2.FirstFace()).Geometry();
-              S2 = myFMap.FindFromKey(Einf2.SecondFace()).Geometry();
+              Handle(Geom_Surface) S1 = myFMap.FindFromKey(Einf2.FirstFace()).Geometry();
+              Handle(Geom_Surface) S2 = myFMap.FindFromKey(Einf2.SecondFace()).Geometry();
               Vinf.ChangeParameter(Edg2) = SmartParameter( Einf2, BRep_Tool::Tolerance(Edg2), pvt, done, S1, S2 );
             }
             else
@@ -1428,8 +1427,8 @@ void Draft_Modification::Perform ()
           Standard_Real param = Parameter(Einf1.Geometry(), pvt, done);
           if (done != 0)
           {
-            S1 = myFMap.FindFromKey(Einf1.FirstFace()).Geometry();
-            S2 = myFMap.FindFromKey(Einf1.SecondFace()).Geometry();
+            Handle(Geom_Surface) S1 = myFMap.FindFromKey(Einf1.FirstFace()).Geometry();
+            Handle(Geom_Surface) S2 = myFMap.FindFromKey(Einf1.SecondFace()).Geometry();
             Vinf.ChangeParameter(Edg1) = SmartParameter( Einf1, BRep_Tool::Tolerance(Edg1), pvt, done, S1, S2 );
           }
           else
@@ -1508,6 +1507,7 @@ void Draft_Modification::Perform ()
 
       for (Vinf.InitEdgeIterator();Vinf.MoreEdge(); Vinf.NextEdge()) {
         const TopoDS_Edge& Edg = Vinf.Edge();
+        Standard_Real initpar = Vinf.Parameter(Edg);
         //const Draft_EdgeInfo& Einf = myEMap(Edg);
         Draft_EdgeInfo& Einf = myEMap.ChangeFromKey(Edg);
         //Vinf.ChangeParameter(Edg) = Parameter(Einf.Geometry(),pvt);
@@ -1515,12 +1515,24 @@ void Draft_Modification::Perform ()
         Standard_Real param = Parameter(Einf.Geometry(), pvt, done);
         if (done != 0)
         {
-          S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry();
-          S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry();
+          Handle(Geom_Surface) S1 = myFMap.FindFromKey(Einf.FirstFace()).Geometry();
+          Handle(Geom_Surface) S2 = myFMap.FindFromKey(Einf.SecondFace()).Geometry();
           Vinf.ChangeParameter(Edg) = SmartParameter( Einf, BRep_Tool::Tolerance(Edg), pvt, done, S1, S2 );
         }
         else
+        {
+          if(Abs(initpar - param) > Precision::PConfusion())
+          {
+            Standard_Real f, l;
+            TopLoc_Location Loc;
+            const Handle(Geom_Curve)& aC = BRep_Tool::Curve(Edg, Loc, f, l);
+            if(aC->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
+            {
+              Einf.SetNewGeometry(Standard_True);
+            }
+          }
           Vinf.ChangeParameter(Edg) = param;
+        }
       }
     }
   }

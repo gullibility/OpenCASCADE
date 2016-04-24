@@ -9,5 +9,6 @@ checkshape wire
 
 mkplane result wire
 
-set square 92131.6
-set 2dviewer 0
+checkprops result -s 92131.6 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

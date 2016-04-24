@@ -19,7 +19,7 @@
 #include <vtkInformationVector.h>
 #include <vtkObjectFactory.h>
 
-vtkStandardNewMacro(IVtkTools_DisplayModeFilter);
+vtkStandardNewMacro(IVtkTools_DisplayModeFilter)
 
 //============================================================================
 // Method: Constructor
@@ -135,7 +135,7 @@ void IVtkTools_DisplayModeFilter::SetDisplayMode(const IVtk_DisplayMode theMode)
 // Method: GetDisplayMode
 // Purpose:
 //============================================================================
-const IVtk_DisplayMode IVtkTools_DisplayModeFilter::GetDisplayMode () const
+IVtk_DisplayMode IVtkTools_DisplayModeFilter::GetDisplayMode () const
 {
   return myDisplayMode;
 }

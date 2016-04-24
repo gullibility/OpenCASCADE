@@ -17,5 +17,7 @@ if { [llength [explode result]] != 2 } {
   puts "OK: bsection works properly"
 }
 
-set length 11.7031
-set 2dviewer 1
+checkprops result -l 11.7031 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

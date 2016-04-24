@@ -31,6 +31,8 @@
 #include <TColStd_HSequenceOfAsciiString.hxx>
 
 #include <stdio.h>
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SessionPilot,IFSelect_Activator)
+
 #define MAXWORDS 200
 #define MAXCARS 1000
 
@@ -242,8 +244,11 @@ static TCollection_AsciiString nulword;
     char ligne[100];
     if (!lefic) std::cout << theprompt.ToCString();
     ligne[0] = '\0';
-    fgets(ligne,100,fic);
-    if (feof(fic)) break;
+    if (fgets(ligne,100,fic) == NULL
+     || feof(fic) != 0)
+    {
+      break;
+    }
     if (ligne[0] == '\0') continue;
 //    On interprete cette commande
     TCollection_AsciiString command(ligne);

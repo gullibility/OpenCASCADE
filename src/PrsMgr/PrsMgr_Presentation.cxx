@@ -27,6 +27,9 @@
 #include <PrsMgr_Prs.hxx>
 #include <Quantity_Color.hxx>
 #include <Standard_Type.hxx>
+#include <Graphic3d_CView.hxx>
+
+IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_Presentation,MMgt_TShared)
 
 namespace
 {
@@ -37,7 +40,7 @@ namespace
     State_Visible
   };
 
-  static BeforeHighlightState StructureState(const Handle(PrsMgr_Prs)& theStructure)
+  static BeforeHighlightState StructureState(const Handle(Prs3d_Presentation)& theStructure)
   {
     return !theStructure->IsDisplayed() ?
       State_Empty : !theStructure->IsVisible() ?
@@ -386,10 +389,10 @@ Handle(Prs3d_Projector) PrsMgr_Presentation::Projector (const Handle(Graphic3d_D
 }
 
 //=======================================================================
-//function : Destroy
+//function : ~PrsMgr_Presentation
 //purpose  :
 //=======================================================================
-void PrsMgr_Presentation::Destroy()
+PrsMgr_Presentation::~PrsMgr_Presentation()
 {
   Erase();
 }

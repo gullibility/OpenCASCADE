@@ -1,0 +1,8 @@
+<map id="StepGeom_CartesianTransformationOperator" name="StepGeom_CartesianTransformationOperator">
+<area shape="rect" id="node6" href="$class_step_geom___cartesian_transformation_operator2d.html" title="Added from StepGeom Rev2 to Rev4. " alt="" coords="1185,5,1415,46"/>
+<area shape="rect" id="node7" href="$class_step_geom___cartesian_transformation_operator3d.html" title="StepGeom_CartesianTransformation\lOperator3d" alt="" coords="1185,70,1415,111"/>
+<area shape="rect" id="node2" href="$class_step_geom___geometric_representation_item.html" title="StepGeom_GeometricRepresentationItem" alt="" coords="593,45,855,72"/>
+<area shape="rect" id="node3" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="349,45,544,72"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,45,301,72"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,45,141,72"/>
+</map>

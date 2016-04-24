@@ -20,5 +20,7 @@ if { [regexp {WIRE} $list] == 0 } {
 
 renamevar result_1 result
 
-set length 307.876
-set 2dviewer 1
+checkprops result -l 307.876 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

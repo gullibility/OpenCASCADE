@@ -16,13 +16,9 @@
 #include <StepBasic_DimensionalExponents.hxx>
 #include <StepBasic_SiUnit.hxx>
 
-StepBasic_SiUnit::StepBasic_SiUnit ()  {}
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_SiUnit,StepBasic_NamedUnit)
 
-void StepBasic_SiUnit::Init(
-	const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
-}
+StepBasic_SiUnit::StepBasic_SiUnit ()  {}
 
 void StepBasic_SiUnit::Init(const Standard_Boolean hasAprefix,
                             const StepBasic_SiPrefix aPrefix,

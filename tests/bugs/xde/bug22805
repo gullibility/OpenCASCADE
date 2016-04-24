@@ -20,6 +20,6 @@ if { [regexp {This shape seems to be valid} $info]} {
 }
 
 renamevar result_1 result
-set square 14447.5
-set 3dviewer 0
+checkprops result -s 14447.5
+checkview -display result -3d -path ${imagedir}/${test_image}.png
 

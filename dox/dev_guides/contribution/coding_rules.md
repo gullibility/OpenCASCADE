@@ -36,7 +36,6 @@ Open CASCADE Technology is an open source platform available for an internationa
 Names should be meaningful or, at least, contain a meaningful part. To better understand this requirement, let us examine the existing names of toolkits, packages, classes and methods:
 - Packages containing words *Geom* or *Geom2d* in their names are related to geometrical data and operations.
 - Packages containing words *TopoDS* or *BRep* in their names are related to topological data and operations.
-- In OCAF, packages that define transient, persistent data classes and drivers to map between them, have similar names prefixed by *T*, *P*, and *M* correspondingly (e.g. *TDocStd*, *PDocStd*, *MDocStd*).
 - Packages ending with <i>...Test</i> define Draw Harness plugins.
 - Methods starting with *Get...* and *Set...* are usually responsible for correspondingly retrieving and storing data.
 
@@ -67,10 +66,9 @@ Names of units should not contain underscores, unless the use of underscores is 
 
 The following extensions should be used for source files, depending on their type:
 
-* <i>.cdl</i> - CDL declaration files
-* <i>.cxx</i> - C++ source files
-* <i>.hxx</i> - C++ header files
-* <i>.lxx</i> - headers with definitions of inline methods (CDL packages)
+* <i>.cxx</i> -- C++ source files
+* <i>.hxx</i> -- C++ header files
+* <i>.lxx</i> -- additional headers containing definitions of inline methods and auxiliary code
 
 ### Prefix for toolkit names [MANDATORY]
 
@@ -83,7 +81,7 @@ Usually the names of source files located in a unit start from the unit name sep
 Thus, the names of files containing sources of C++ classes that belong to a package are constructed according to the following template:
 
 ~~~~~
-    <package-name>_<class-name>.cxx (or .hxx, or .cdl)
+    <package-name>_<class-name>.cxx (or .hxx)
 ~~~~~
 
 For example, file *Adaptor2d_Curve2d.cxx* belongs to the package *Adaptor2d*
@@ -452,7 +450,7 @@ The source code is one of the most important references for documentation.
 The comments in the source code should be complete enough to allow understanding the corresponding code and to serve as basis for other documents.
 
 The main reasons why the comments are regarded as documentation and should be maintained are:
-- The comments are easy to reach - they are always together with the source code;
+- The comments are easy to reach -- they are always together with the source code;
 - It is easy to update a description in the comment when the source is modified;
 - The source by itself is a good context to describe various details that would require much more explanations in a separate document;
 - As a summary, this is the most cost-effective documentation.
@@ -461,12 +459,12 @@ The comments should be compatible with Doxygen tool for automatic documentation 
 
 ### Documenting classes [MANDATORY]
 
-Each class should be documented in its header file (.hxx or .cdl).
+Each class should be documented in its header file (.hxx).
 The comment should give enough details for the reader to understand the purpose of the class and the main way of work with it.
 
 ### Documenting class methods [MANDATORY]
 
-Each class or package method should be documented in the header file (.hxx or .cdl).
+Each class or package method should be documented in the header file (.hxx).
 
 The comment should explain the purpose of the method, its parameters, and returned value(s).
 Accepted style is:
@@ -486,7 +484,7 @@ They should be detailed enough to allow any person to understand what each part 
 
 It is recommended to comment all static functions (like methods in headers), and to insert at least one comment per each 10-100 lines in the function body.
 
-There are also some rules that define how comments should be formatted, see <a href="#occt_coding_rules_3">Formatting Rules</a>.
+There are also some rules that define how comments should be formatted, see @ref occt_coding_rules_3 "Formatting Rules".
 
 Following these rules is important for good comprehension of the comments. Moreover, this approach  allows automatically generating user-oriented documentation directly from the commented sources.
 
@@ -692,71 +690,35 @@ Take care about cycling of handled references to avoid chains, which will never 
 
 See the following example:
 
-In *MyPackage.cdl* :
+~~~~{.cpp}
+    class Slave;
 
+    class Master : public Standard_Transient
+    {
+    ...
+      void SetSlave (const Handle(Slave)& theSlave)
+      { 
+        mySlave = theSlave;
+      }
+    ...
+    private:
+      Handle(Slave) theSlave; // smart pointer
+    ...
+    }
+
+    class Slave : public Standard_Transient
+    {
+    ...
+      void SetMaster (const Handle(Master)& theMaster)
+      { 
+        myMaster = theMaster.get();
+      }
+    ...
+    private:
+      Master* theMaster; // simple pointer
+    ...
+    }
 ~~~~
-    class MyFirstHandle;
-    class MySecondHandle;
-    pointer MySecondPointer to MySecondHandle;
-    ...
-~~~~
-
-In *MyPackage_MyFirstHandle.cdl* :
-
-~~~~
-    class MyFirstHandle from MyPackage
-    ...
-    is
-    ...
-      SetSecondHandleA (me: mutable; theSecond: MySecondHandle from MyPackage);
-      SetSecondHandleB (me: mutable; theSecond: MySecondHandle from MyPackage);
-    ...
-    fields
-    ...
-      mySecondHandle  : MySecondHandle  from MyPackage;
-      mySecondPointer : MySecondPointer from MyPackage;
-    ...
-    end MyFirstHandle from MyPackage;
-~~~~
-
-In *MyPackage_MySecondHandle.cdl* :
-
-~~~~
-    class MySecondHandle from MyPackage
-    ...
-    is
-    ...
-      SetFirstHandle (me: mutable; theFirst: MyFirstHandle from MyPackage);
-    ...
-    fields
-    ...
-      myFirstHandle : MyFirstHandle from MyPackage;
-    ...
-    end MySecondHandle from MyPackage;
-~~~~
-
-In C++ code:
-
-~~~~~{.cpp}
-void MyFunction()
-{
-  Handle(MyPackage_MyFirstHandle)  anObj1 = new MyPackage_MyFirstHandle();
-  Handle(MyPackage_MySecondHandle) anObj2 = new MyPackage_MySecondHandle();
-  Handle(MyPackage_MySecondHandle) anObj3 = new MyPackage_MySecondHandle();
-
-  anObj1->SetSecondHandleA(anObj2);
-  anObj1->SetSecondHandleB(anObj3);
-  anObj2->SetFirstHandle(anObj1);
-  anObj3->SetFirstHandle(anObj1);
-
-  // memory is not freed here !!!
-  anObj1.Nullify();
-  anObj2.Nullify();
-
-  // memory is freed here
-  anObj3.Nullify();
-}
-~~~~~
 
 ### C++ memory allocation
 
@@ -950,7 +912,7 @@ Command should warn the user about unknown arguments, including cases when extra
 
 ### Message printing
 
-Informative messages should be printed into standard output *std::cout*, whilst command results (if any) - into Draw Interpreter.
+Informative messages should be printed into standard output *std::cout*, whilst command results (if any) -- into Draw Interpreter.
 
 Information printed into Draw Interpreter should be well-structured to allow usage in TCL script.
 

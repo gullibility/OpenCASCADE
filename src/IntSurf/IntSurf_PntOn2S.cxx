@@ -16,7 +16,7 @@
 #include <gp_Pnt.hxx>
 #include <IntSurf_PntOn2S.hxx>
 
-IntSurf_PntOn2S::IntSurf_PntOn2S () : pt(0,0,0),u1(0),v1(0),u2(0),v2(0) {};
+IntSurf_PntOn2S::IntSurf_PntOn2S () : pt(0,0,0),u1(0),v1(0),u2(0),v2(0) {}
 
 void IntSurf_PntOn2S::SetValue (const gp_Pnt& Pt,
 				const Standard_Boolean OnFirst,
@@ -57,7 +57,7 @@ Standard_Boolean IntSurf_PntOn2S::IsSame( const IntSurf_PntOn2S& theOterPoint,
   if(pt.SquareDistance(theOterPoint.Value()) > theTol3D*theTol3D)
     return Standard_False;
 
-  if(IsEqual(theTol2D, 0.0))
+  if(theTol2D < 0.0)
   {//We need not compare 2D-coordinates of the points
     return Standard_True;
   }

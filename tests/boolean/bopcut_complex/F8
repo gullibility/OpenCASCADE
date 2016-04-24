@@ -4,4 +4,5 @@ restore [locate_data_file b11] b
 bop a b
 bopcut result
 
-set square 17478.5
+checkprops result -s 17478.5
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

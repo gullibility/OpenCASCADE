@@ -27,5 +27,6 @@ if { ${catch_status} != 0 } {
    puts "OK ${BugNumber}"
 }
 
-set square 220000
-set 2dviewer 0
+checkprops result -s 220000
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

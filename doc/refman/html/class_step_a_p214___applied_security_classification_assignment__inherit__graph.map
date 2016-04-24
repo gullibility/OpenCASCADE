@@ -1,0 +1,5 @@
+<map id="StepAP214_AppliedSecurityClassificationAssignment" name="StepAP214_AppliedSecurityClassificationAssignment">
+<area shape="rect" id="node2" href="$class_step_basic___security_classification_assignment.html" title="StepBasic_SecurityClassification\lAssignment" alt="" coords="5,155,219,197"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="57,80,167,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="45,5,179,32"/>
+</map>

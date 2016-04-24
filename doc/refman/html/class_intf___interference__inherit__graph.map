@@ -1,0 +1,6 @@
+<map id="Intf_Interference" name="Intf_Interference">
+<area shape="rect" id="node2" href="$class_h_l_r_b_rep___the_interference_of_inter_c_surf.html" title="HLRBRep_TheInterferenceOf\lInterCSurf" alt="" coords="180,5,367,46"/>
+<area shape="rect" id="node3" href="$class_int_curve_surface___the_interference_of_h_inter.html" title="IntCurveSurface_TheInterference\lOfHInter" alt="" coords="170,70,377,111"/>
+<area shape="rect" id="node4" href="$class_intf___interference_polygon2d.html" title="Computes the interference between two polygons or the self intersection of a polygon in two dimension..." alt="" coords="186,136,361,163"/>
+<area shape="rect" id="node5" href="$class_int_patch___interference_polyhedron.html" title="Computes the interference between two polyhedra or the self interference of a polyhedron. Points of intersection, polylines of intersection and zones of tangence. " alt="" coords="169,187,378,213"/>
+</map>

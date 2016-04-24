@@ -1,0 +1,6 @@
+<map id="StepBasic_Effectivity" name="StepBasic_Effectivity">
+<area shape="rect" id="node4" href="$class_step_basic___product_definition_effectivity.html" title="StepBasic_ProductDefinition\lEffectivity" alt="" coords="19,230,205,271"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="57,80,167,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="45,5,179,32"/>
+<area shape="rect" id="node5" href="$class_step_repr___configuration_effectivity.html" title="Representation of STEP entity ConfigurationEffectivity. " alt="" coords="5,320,219,347"/>
+</map>

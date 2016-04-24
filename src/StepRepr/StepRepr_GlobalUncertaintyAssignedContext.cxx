@@ -17,15 +17,9 @@
 #include <StepRepr_GlobalUncertaintyAssignedContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_GlobalUncertaintyAssignedContext,StepRepr_RepresentationContext)
+
 StepRepr_GlobalUncertaintyAssignedContext::StepRepr_GlobalUncertaintyAssignedContext ()  {}
-
-void StepRepr_GlobalUncertaintyAssignedContext::Init(
-	const Handle(TCollection_HAsciiString)& aContextIdentifier,
-	const Handle(TCollection_HAsciiString)& aContextType)
-{
-
-	StepRepr_RepresentationContext::Init(aContextIdentifier, aContextType);
-}
 
 void StepRepr_GlobalUncertaintyAssignedContext::Init(
 	const Handle(TCollection_HAsciiString)& aContextIdentifier,

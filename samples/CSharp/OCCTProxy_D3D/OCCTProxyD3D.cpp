@@ -353,7 +353,7 @@ public:
   {
     if (!myView().IsNull())
     {
-      myView()->SetProj (V3d_Xpos);
+      myView()->SetProj (V3d_Yneg);
     }
   }
 
@@ -375,7 +375,7 @@ public:
   {
     if (!myView().IsNull())
     {
-      myView()->SetProj (V3d_Ypos);
+      myView()->SetProj (V3d_Xneg);
     }
   }
 
@@ -386,7 +386,7 @@ public:
   {
     if (!myView().IsNull())
     {
-      myView()->SetProj (V3d_Xneg);
+      myView()->SetProj (V3d_Ypos);
     }
   }
 
@@ -397,7 +397,7 @@ public:
   {
     if (!myView().IsNull())
     {
-      myView()->SetProj (V3d_Yneg);
+      myView()->SetProj (V3d_Xpos);
     }
   }
 
@@ -693,7 +693,7 @@ public:
   /// <summary>
   ///Get AISContext
   /// </summary>
-  Handle_AIS_InteractiveContext GetContext()
+  Handle(AIS_InteractiveContext) GetContext()
   {
     return myAISContext();
   }
@@ -965,9 +965,9 @@ public:
 
 private:
 
-  NCollection_Haft<Handle_V3d_Viewer>             myViewer;
-  NCollection_Haft<Handle_V3d_View>               myView;
-  NCollection_Haft<Handle_AIS_InteractiveContext> myAISContext;
-  NCollection_Haft<Handle_D3DHost_GraphicDriver>  myGraphicDriver;
+  NCollection_Haft<Handle(V3d_Viewer)>             myViewer;
+  NCollection_Haft<Handle(V3d_View)>               myView;
+  NCollection_Haft<Handle(AIS_InteractiveContext)> myAISContext;
+  NCollection_Haft<Handle(D3DHost_GraphicDriver)>  myGraphicDriver;
 
 };

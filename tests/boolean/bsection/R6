@@ -57,4 +57,6 @@ if { $Jtime < $Ktime || $Jtime < $Ltime || $Jtime < $Mtime} {
 
 compound resab rescd resef resgh result
 
-set length 1.41538e+07
+checkprops result -l 1.41538e+07
+checksection result
+checkview -display result -2d -otherwise { a b c d e f g h } -l -path ${imagedir}/${test_image}.png

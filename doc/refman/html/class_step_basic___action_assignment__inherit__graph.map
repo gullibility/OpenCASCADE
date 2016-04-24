@@ -1,0 +1,6 @@
+<map id="StepBasic_ActionAssignment" name="StepBasic_ActionAssignment">
+<area shape="rect" id="node4" href="$class_step_a_p203___change.html" title="Representation of STEP entity Change. " alt="" coords="5,229,144,256"/>
+<area shape="rect" id="node5" href="$class_step_a_p203___start_work.html" title="Representation of STEP entity StartWork. " alt="" coords="168,229,323,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="105,80,215,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="93,5,227,32"/>
+</map>

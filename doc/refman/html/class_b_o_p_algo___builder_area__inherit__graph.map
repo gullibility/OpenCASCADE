@@ -1,0 +1,5 @@
+<map id="BOPAlgo_BuilderArea" name="BOPAlgo_BuilderArea">
+<area shape="rect" id="node3" href="$class_b_o_p_algo___builder_face.html" title="The algorithm to build faces from set of edges. " alt="" coords="5,155,157,181"/>
+<area shape="rect" id="node4" href="$class_b_o_p_algo___builder_solid.html" title="The algorithm to build solids from set of faces. " alt="" coords="181,155,333,181"/>
+<area shape="rect" id="node2" href="$class_b_o_p_algo___algo.html" title="provides the root interface for algorithms " alt="" coords="115,5,224,32"/>
+</map>

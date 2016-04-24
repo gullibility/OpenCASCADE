@@ -9,7 +9,8 @@ puts ""
 igesbrep [locate_data_file bug26573_loft.igs] a *
 tpcompound result
 
-set square 240.546
+checkprops result -s 240.546
+checkshape result
 
 set nbshapes_expected "
 Number of shapes in shape
@@ -24,5 +25,4 @@ Number of shapes in shape
  SHAPE     : 11
 "
 checknbshapes result -ref ${nbshapes_expected} -t -m "importing file"
-
-set 3dviewer 1
+checkview -display result -3d -path ${imagedir}/${test_image}.png

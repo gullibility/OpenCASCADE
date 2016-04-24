@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{57A5C784-0A85-0E90-04FA-838BA845CEA7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\D3DHost">
+      <UniqueIdentifier>{02555E63-11B7-0814-13F7-D835ACABEDB2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\D3DHost\D3DHost_FrameBuffer.cxx">
+      <Filter>Source files\D3DHost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\D3DHost\D3DHost_GraphicDriver.cxx">
+      <Filter>Source files\D3DHost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\D3DHost\D3DHost_View.cxx">
+      <Filter>Source files\D3DHost</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TKD3DHost.rc" />  </ItemGroup>
+</Project>

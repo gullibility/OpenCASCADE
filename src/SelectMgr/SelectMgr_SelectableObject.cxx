@@ -39,6 +39,8 @@
 #include <Standard_Type.hxx>
 #include <TopLoc_Location.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SelectableObject,PrsMgr_PresentableObject)
+
 static Standard_Integer Search (const SelectMgr_SequenceOfSelection& seq,
                                 const Handle (SelectMgr_Selection)& theSel)
 {
@@ -67,20 +69,29 @@ SelectMgr_SelectableObject::SelectMgr_SelectableObject (const PrsMgr_TypeOfPrese
   myHilightDrawer->Link (myDrawer);
 }
 
+//==================================================
+// Function: Destructor
+// Purpose : Clears all selections of the object
+//==================================================
+SelectMgr_SelectableObject::~SelectMgr_SelectableObject()
+{
+  for (Standard_Integer aSelIdx = 1; aSelIdx <= myselections.Length(); ++aSelIdx)
+  {
+    myselections.Value (aSelIdx)->Clear();
+  }
+}
 
 //==================================================
-// Function: 
+// Function: HasSelection
 // Purpose :
 //==================================================
-
-Standard_Boolean SelectMgr_SelectableObject
-::HasSelection(const Standard_Integer aMode) const
+Standard_Boolean SelectMgr_SelectableObject::HasSelection (const Standard_Integer theMode) const
 {
-  Standard_Boolean Found=Standard_False;
-  for (Standard_Integer I=1;I<= myselections.Length() && !Found;I++)
-    { if(((myselections.Value(I))->Mode())==aMode) 
-        return Standard_True;
-    }
+  for (Standard_Integer aSelIdx = 1; aSelIdx <= myselections.Length(); ++aSelIdx)
+  {
+    if (((myselections.Value (aSelIdx))->Mode()) == theMode)
+      return Standard_True;
+  }
   return Standard_False;
 }
 

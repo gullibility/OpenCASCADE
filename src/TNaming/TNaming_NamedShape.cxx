@@ -51,6 +51,8 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(TNaming_NamedShape,TDF_Attribute)
+
 // Defines the nodes classes
 //#define MDTV_DEB_HASL
 //=======================================================================
@@ -879,9 +881,9 @@ TNaming_Iterator::TNaming_Iterator(const TDF_Label&       Lab,
 				   const Standard_Integer Trans)
 :myTrans(Trans)
 {
-  Handle(TNaming_NamedShape) Att;
+  Handle(TDF_Attribute) Att;
   if (Lab.FindAttribute(TNaming_NamedShape::GetID(),Trans,Att)) {
-    myNode = Att->myNode;
+    myNode = Handle(TNaming_NamedShape)::DownCast (Att)->myNode;
   }
   else {
     myNode = 0L;

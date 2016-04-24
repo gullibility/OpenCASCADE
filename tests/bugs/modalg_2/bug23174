@@ -95,8 +95,9 @@ if { ${status} != 0 } {
    puts "OK ${BugNumber}"
 }
 renamevar f result
-set square 47123.9
-set 2dviewer 0
+checkprops result -s 47123.9 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 
 

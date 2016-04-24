@@ -4,4 +4,5 @@ restore [locate_data_file OCC315-2.brep] b
 bop b a
 bopcommon result
 
-set square 31415.9
+checkprops result -s 31415.9
+checkview -display result -2d -otherwise { b a } -s -path ${imagedir}/${test_image}.png

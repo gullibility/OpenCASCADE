@@ -1,0 +1,6 @@
+<map id="StepBasic_OrganizationAssignment" name="StepBasic_OrganizationAssignment">
+<area shape="rect" id="node4" href="$class_step_a_p214___applied_organization_assignment.html" title="StepAP214_AppliedOrganization\lAssignment" alt="" coords="641,5,852,46"/>
+<area shape="rect" id="node5" href="$class_step_a_p214___auto_design_organization_assignment.html" title="StepAP214_AutoDesignOrganization\lAssignment" alt="" coords="629,70,864,111"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,45,301,72"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,45,141,72"/>
+</map>

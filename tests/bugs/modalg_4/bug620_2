@@ -20,5 +20,6 @@ if [catch { boptuc result } catch_result] {
     puts "OCC620 OK: BOPTUC operation works OK"
 }
 
-set square 1.15562e+06
-set 2dviewer 0
+checkprops result -s 1.15562e+06 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

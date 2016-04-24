@@ -31,6 +31,8 @@ if { $z2 > 40 } {
 } else {
     puts "Elapsed time is less then 40 - OK"      
 }
-set length 42.879
-set 2dviewer 0
+checkprops result -l 42.879 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

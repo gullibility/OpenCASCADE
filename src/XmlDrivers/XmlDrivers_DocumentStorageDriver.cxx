@@ -24,6 +24,8 @@
 #include <XmlMNaming_NamedShapeDriver.hxx>
 #include <XmlObjMgt_Element.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(XmlDrivers_DocumentStorageDriver,XmlLDrivers_DocumentStorageDriver)
+
 //=======================================================================
 //function : XmlDrivers_DocumentStorageDriver
 //purpose  : Constructor
@@ -51,10 +53,12 @@ Handle(XmlMDF_ADriverTable) XmlDrivers_DocumentStorageDriver::AttributeDrivers
 Standard_Boolean XmlDrivers_DocumentStorageDriver::WriteShapeSection
                                          (XmlObjMgt_Element&  theElement)
 {
-  Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver;
   Standard_Boolean isShape(Standard_False);
-  if (myDrivers -> GetDriver (STANDARD_TYPE(TNaming_NamedShape),
-                              aNamedShapeDriver)) {
+  Handle(XmlMDF_ADriver) aDriver;
+  if (myDrivers->GetDriver (STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  {
+    Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver = 
+      Handle(XmlMNaming_NamedShapeDriver)::DownCast (aDriver);
     aNamedShapeDriver -> WriteShapeSection (theElement); 
     isShape = Standard_True;
   }

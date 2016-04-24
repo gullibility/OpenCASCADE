@@ -16,7 +16,7 @@ Open Cascade allows its users to employ STEP in the following domains:
 
 This manual is intended to provide technical documentation on the Open CASCADE Technology (**OCCT**) STEP processor and to help Open CASCADE Technology users with the use of the STEP processor (to read and write STEP files). 
 
-Only geometrical, topological STEP entities (shapes) and assembly structures are translated by the basic translator described in sections 2 to 6. Data that cannot be translated on this level are also loaded from a STEP file and can be translated later. XDE STEP translator (see section 7 <a href="#occt_step_7">Reading from and writing to XDE</a>) translates names, colors, layers, validation properties and other data associated with shapes and assemblies into XDE document. 
+Only geometrical, topological STEP entities (shapes) and assembly structures are translated by the basic translator described in sections 2 to 6. Data that cannot be translated on this level are also loaded from a STEP file and can be translated later. XDE STEP translator (see section 7 @ref occt_step_7 "Reading from and writing to XDE") translates names, colors, layers, validation properties and other data associated with shapes and assemblies into XDE document. 
 
 File translation is performed in the programming mode, via C++ calls. 
 
@@ -40,7 +40,7 @@ These modules share common architecture and capabilities with other exchange mod
 In addition, Open Cascade provides tools to process models described using STEP: to reflect EXPRESS descriptions, to read, write and check data, to analyze the whole models ... Their key features are:
 
 * Modularity by sets of data types, which can be hierarchized to reflect the original modularity describing the resources and application protocols;
-* Implementation as CDL/C++ classes, providing comprehensive access to their members;
+* Implementation as C++ classes, providing comprehensive access to their members;
 * Early binding is basically used, providing good performance, easy installation and use as well as the capability to support non-compiled descriptions.
 
 This provides a natural way to deal with non-supported protocols when they share common definitions, as for geometry, which can then be exploited. The common frame, as the already supported data types, give a good foundation to go towards new uses of STEP, either on data definition (protocols from ISO or from industrial consortia) or on mapping with applicative data.
@@ -56,7 +56,7 @@ Basic interface reads and writes geometrical, topological STEP data and assembly
 
 The interface is able to translate one entity, a group of entities or a whole file.
 
-Other kinds of data such as colors, validation properties, layers, names and the structure of assemblies can be read or written with the help of XDE tools - <i> STEPCAFControl_Reader</i> and <i> STEPCAFControl_Writer</i>. 
+Other kinds of data such as colors, validation properties, layers, names and the structure of assemblies can be read or written with the help of XDE tools: <i> STEPCAFControl_Reader</i> and <i> STEPCAFControl_Writer</i>. 
 
 To choose a translation mode when exporting to a STEP format, use <i> STEPControl_STEPModelType</i>.
 
@@ -105,7 +105,7 @@ The types of STEP topological entities that can be translated are:
   * faces 
   * shells 
   * solids
-For further information see <a href="#occt_step_2_4">Mapping STEP entities to Open CASCADE Technology shapes</a>.
+For further information see @ref occt_step_2_4 "Mapping STEP entities to Open CASCADE Technology shapes".
 
 @subsubsection occt_step_2_2_4 Geometrical entities
 The types of STEP geometrical entities that can be translated are: 
@@ -139,9 +139,9 @@ If *failsonly* is true only fail messages are displayed. All messages are displa
 IFSelect_PrintCount mode = IFSelect_xxx 
 ~~~~~
 Where xxx can be one of the following: 
-* *ItemsByEntity*  -       gives a sequential list of all messages per STEP entity, 
-* *CountByItem*   -   gives the number of STEP entities with their types per message 
-* *ListByItem*  - gives the number of STEP entities with their types and rank numbers per message 
+* *ItemsByEntity*  --       gives a sequential list of all messages per STEP entity, 
+* *CountByItem*   --   gives the number of STEP entities with their types per message 
+* *ListByItem*  -- gives the number of STEP entities with their types and rank numbers per message 
 
 @subsubsection occt_step_2_3_3 Setting the translation parameters
 The following parameters can be used to translate a STEP file into an OCCT shape. 
@@ -150,8 +150,8 @@ If you give a value that is not within the range of possible values it will simp
 
 <h4>read.precision.mode</h4>
 Defines which precision value will be used during translation (see section 2.5 below for details on precision and tolerances). 
-* *File (0)* - the precision value is set to length_measure in uncertainty_measure_with_unit from STEP file. 
-* *User (1)* - the precision value is that of the *read.precision.val* parameter. 
+* *File (0)* -- the precision value is set to length_measure in uncertainty_measure_with_unit from STEP file. 
+* *User (1)* -- the precision value is that of the *read.precision.val* parameter. 
 
 Read this parameter with: 
 
@@ -201,8 +201,8 @@ Note that maximum tolerance even explicitly defined by the user may be insuffici
 
 <h4>read.maxprecision.mode:</h4>
 Defines the mode of applying the maximum allowed tolerance. Its possible values are: 
-* 0 (Preferred) - maximum tolerance is used as a limit but sometimes it can be exceeded (currently, only for deviation of a 3D curve and pcurves of an edge, and vertices of such edge) to ensure the shape validity, 
-* 1 (Forced) -    maximum tolerance is used as a rigid limit, i.e. no tolerance can exceed it and if it is the case, the tolerance is trimmed by the maximum tolerance. 
+* 0 (Preferred) -- maximum tolerance is used as a limit but sometimes it can be exceeded (currently, only for deviation of a 3D curve and pcurves of an edge, and vertices of such edge) to ensure the shape validity, 
+* 1 (Forced) --    maximum tolerance is used as a rigid limit, i.e. no tolerance can exceed it and if it is the case, the tolerance is trimmed by the maximum tolerance. 
 
 Read this parameter with: 
 ~~~~~
@@ -218,8 +218,8 @@ Default value is 0 ("Preferred").
 <h4>read.stdsameparameter.mode</h4>
 defines the use of *BRepLib::SameParameter*. Its possible values are: 
 
-* 0 (Off) - *BRepLib::SameParameter* is not called, 
-* 1 (On) - *BRepLib::SameParameter* is called. 
+* 0 (Off) -- *BRepLib::SameParameter* is not called, 
+* 1 (On) -- *BRepLib::SameParameter* is called. 
 The functionality of *BRepLib::SameParameter* is used through *ShapeFix_Edge::SameParameter*. It ensures that the resulting edge will have the lowest tolerance taking pcurves either unmodified from the STEP file or modified by *BRepLib::SameParameter*.
  
 Read this parameter with: 
@@ -273,19 +273,15 @@ Default value is File
 
 <h4>read.step.resource.name and read.step.sequence</h4>
 
-These two parameters define the name of the resource file and the name of the sequence of operators (defined in that file) for Shape Processing, which is automatically performed by the STEP translator. Shape Processing is a user-configurable step, which is performed after translation and consists in applying a set of operators to a resulting shape. This is a very powerful tool allowing customizing the shape and adapting it to the needs of a receiving application. By default the sequence consists of a single operator ShapeFix - that is how Shape Healing is called from the STEP translator. 
+These two parameters define the name of the resource file and the name of the sequence of operators (defined in that file) for Shape Processing, which is automatically performed by the STEP translator. Shape Processing is a user-configurable step, which is performed after translation and consists in applying a set of operators to a resulting shape. This is a very powerful tool allowing customizing the shape and adapting it to the needs of a receiving application. By default the sequence consists of a single operator ShapeFix -- that is how Shape Healing is called from the STEP translator. 
 
 Please find an example of the resource file for STEP (which defines parameters corresponding to the sequence applied by default, i.e. if the resource file is not found) in the Open CASCADE Technology installation, by the path <i>%CASROOT%/src/XSTEPResource/STEP</i>.
  
 In order for the STEP translator to use that file, you have to define the *CSF_STEPDefaults* environment variable, which should point to the directory where the resource file resides. Note that if you change parameter *read.step.resource.name*, you will change the name of the resource file and the environment variable correspondingly. 
 
 Default values:  
-* read.step.resource.name - STEP, 
-* read.step.sequence - FromSTEP. 
-
-<h4>read.scale.unit</h4>
-This parameter is obsolete (the parameter *xstep.cascade.unit* should be used instead when necessary). If it is set to 'M', the shape is scaled 0.001 times (as if it were in meters) after translation from IGES or STEP. 
-Default value is MM. 
+* read.step.resource.name -- STEP, 
+* read.step.sequence -- FromSTEP. 
 
 <h4>xstep.cascade.unit</h4>
 This parameter defines units to which a shape should be converted when translated from IGES or STEP to CASCADE. Normally it is MM; only those applications that work internally in units other than MM should use this parameter. 
@@ -294,8 +290,8 @@ Default value is MM.
 
 <h4>read.step.product.mode:</h4>
 Defines the approach used for selection of top-level STEP entities for translation, and for recognition of assembly structures 
-* 1 (ON) - *PRODUCT_DEFINITION* entities are taken as top-level ones; assembly structure is recognized by *NEXT_ASSEMBLY_USAGE_OCCURRENCE* entities. This is regular mode for reading valid STEP files conforming to AP 214, AP203 or AP 209. 
-* 0 (OFF) - *SHAPE_DEFINITION_REPRESENTATION* entities are taken as top-level ones; assembly is recognized by *CONTEXT_DEPENDENT_SHAPE_REPRESENTATION* entities. This is compatibility mode, which can be used for reading legacy STEP files produced by older versions of STEP translators and having incorrect or incomplete product information. 
+* 1 (ON) -- *PRODUCT_DEFINITION* entities are taken as top-level ones; assembly structure is recognized by *NEXT_ASSEMBLY_USAGE_OCCURRENCE* entities. This is regular mode for reading valid STEP files conforming to AP 214, AP203 or AP 209. 
+* 0 (OFF) -- *SHAPE_DEFINITION_REPRESENTATION* entities are taken as top-level ones; assembly is recognized by *CONTEXT_DEPENDENT_SHAPE_REPRESENTATION* entities. This is compatibility mode, which can be used for reading legacy STEP files produced by older versions of STEP translators and having incorrect or incomplete product information. 
 
 Read this parameter with: 
 ~~~~~
@@ -314,9 +310,9 @@ Note that the following parameters have effect only if *read.step.product.mode* 
 <h4>read.step.product.context:</h4>
 
 When reading AP 209 STEP files, allows selecting either only ‘design’ or ‘analysis’, or both types of products for translation 
-* 1 (all) -  translates all products;
-* 2 (design) - translates only products that have *PRODUCT_DEFINITION_CONTEXT* with field *life_cycle_stage* set to ‘design’; 
-* 3 (analysis) -   translates only products associated with *PRODUCT_DEFINITION_CONTEXT* entity whose field *life_cycle_stage* set to ‘analysis’. 
+* 1 (all) --  translates all products;
+* 2 (design) -- translates only products that have *PRODUCT_DEFINITION_CONTEXT* with field *life_cycle_stage* set to ‘design’; 
+* 3 (analysis) --   translates only products associated with *PRODUCT_DEFINITION_CONTEXT* entity whose field *life_cycle_stage* set to ‘analysis’. 
 
 Note that in AP 203 and AP214 files all products should be marked as ‘design’, so if this mode is set to ‘analysis’, nothing will be read. 
 
@@ -335,13 +331,13 @@ Default value is 1 (all).
 <h4>read.step.shape.repr:</h4>
 
 Specifies preferred type of representation of the shape of the product, in case if a STEP file contains more than one representation (i.e. multiple PRODUCT_DEFINITION_SHAPE entities) for a single product 
-* 1 (All) -           Translate all representations (if more than one, put in compound). 
+* 1 (All) --          Translate all representations (if more than one, put in compound). 
 * 2 (ABSR) -      Prefer ADVANCED_BREP_SHAPE_REPRESENTATION 
-* 3 (MSSR) -     Prefer MANIFOLD_SURFACE_SHAPE_REPRESENTATION 
-* 4 (GBSSR) -   Prefer GEOMETRICALLY_BOUNDED_SURFACE_SHAPE_REPRESENTATION 
-* 5 (FBSR) -      Prefer FACETTED_BREP_SHAPE_REPRESENTATION 
-* 6 (EBWSR) -   Prefer EDGE_BASED_WIREFRAME_SHAPE_REPRESENTATION 
-* 7 (GBWSR) -   Prefer GEOMETRICALLY_BOUNDED_WIREFRAME _SHAPE_REPRESENTATION  
+* 3 (MSSR)  --    Prefer MANIFOLD_SURFACE_SHAPE_REPRESENTATION 
+* 4 (GBSSR) --   Prefer GEOMETRICALLY_BOUNDED_SURFACE_SHAPE_REPRESENTATION 
+* 5 (FBSR) --      Prefer FACETTED_BREP_SHAPE_REPRESENTATION 
+* 6 (EBWSR) --   Prefer EDGE_BASED_WIREFRAME_SHAPE_REPRESENTATION 
+* 7 (GBWSR) --   Prefer GEOMETRICALLY_BOUNDED_WIREFRAME _SHAPE_REPRESENTATION  
 
 When this option is not equal to 1, for products with multiple representations the representation having a type closest to the selected one in this list will be translated. 
 
@@ -359,10 +355,10 @@ Default value is 1 (All).
 <h4>read.step.assembly.level:</h4>
 
 Specifies which data should be read for the products found in the STEP file: 
-* 1 (All) -           Translate both the assembly structure and all associated shapes. If both shape and sub-assemblies are associated with the same product, all of them are read and put in a single compound. Note that this situation is confusing, as semantics of such configuration is not defined clearly by the STEP standard (whether this shape is an alternative representation of the assembly or is an addition to it), therefore warning will be issued in such case. 
-* 2 (assembly) - Translate the assembly structure and shapes associated with parts only (not with sub-assemblies). 
-* 3 (structure) -  Translate only the assembly structure without shapes (a structure of empty compounds). This mode can be useful as an intermediate step in applications requiring specialized processing of assembly parts. 
-* 4 (shape) -      Translate only shapes associated with the product, ignoring the assembly structure (if any). This can be useful to translate only a shape associated with specific product, as a complement to *assembly* mode. 
+* 1 (All) --         Translate both the assembly structure and all associated shapes. If both shape and sub-assemblies are associated with the same product, all of them are read and put in a single compound. Note that this situation is confusing, as semantics of such configuration is not defined clearly by the STEP standard (whether this shape is an alternative representation of the assembly or is an addition to it), therefore warning will be issued in such case. 
+* 2 (assembly) -- Translate the assembly structure and shapes associated with parts only (not with sub-assemblies). 
+* 3 (structure) --  Translate only the assembly structure without shapes (a structure of empty compounds). This mode can be useful as an intermediate step in applications requiring specialized processing of assembly parts. 
+* 4 (shape) --      Translate only shapes associated with the product, ignoring the assembly structure (if any). This can be useful to translate only a shape associated with specific product, as a complement to *assembly* mode. 
 
 Read this parameter with: 
 ~~~~~
@@ -378,8 +374,8 @@ Default value is 1 (All).
 
 <h4>read.step.shape.relationship:</h4>
 Defines whether shapes associated with the main *SHAPE_DEFINITION_REPRESENTATION* entity of the product via *SHAPE_REPRESENTATIONSHIP_RELATION* should be translated. This kind of association is used for the representation of hybrid models (i.e. models whose shape is composed of different types of representations) in AP 203 files since 1998, but it can be also used to associate auxiliary data with the product. This parameter allows to avoid translation of such auxiliary data. 
-* 1 (ON) -          translate 
-* 0 (OFF) -        do not translate 
+* 1 (ON) --          translate 
+* 0 (OFF) --        do not translate 
 
 Read this parameter with: 
 ~~~~~
@@ -395,8 +391,8 @@ Default value is 1 (ON).
 <h4>read.step.shape.aspect:</h4>
 Defines whether shapes associated with the *PRODUCT_DEFINITION_SHAPE* entity of the product via *SHAPE_ASPECT* should be translated. This kind of association was used for the representation of hybrid models (i.e. models whose shape is composed of different types of representations) in AP 203 files before 1998, but it is also used to associate auxiliary information with the sub-shapes of the part. Though STEP translator tries to recognize such cases correctly, this parameter may be useful to avoid unconditionally translation of shapes associated via *SHAPE_ASPECT* entities. 
 
-* 1 (ON) -          translate 
-* 0 (OFF) -        do not translate 
+* 1 (ON) --          translate 
+* 0 (OFF) --        do not translate 
 
 Read this parameter with: 
 ~~~~~
@@ -430,10 +426,10 @@ Perform the translation according to what you want to translate. You can choose 
   
 The following methods are used for translation:
 
-* *Standard_Boolean ok = reader.TransferRoot(rank)* - translates a root entity identified by its rank;
-* *Standard_Boolean ok = reader.TransferOne(rank)* - translates an entity identified by its rank;
-* *Standard_Integer num = reader.TransferList(list)* - translates a list of entities in one operation (this method returns the number of successful translations);
-* *Standard_Integer NbRoots = reader.NbRootsForTransfer()* and *Standard_Integer num = reader.TransferRoots()* - translate all transferable roots. 
+* *Standard_Boolean ok = reader.TransferRoot(rank)* -- translates a root entity identified by its rank;
+* *Standard_Boolean ok = reader.TransferOne(rank)* -- translates an entity identified by its rank;
+* *Standard_Integer num = reader.TransferList(list)* -- translates a list of entities in one operation (this method returns the number of successful translations);
+* *Standard_Integer NbRoots = reader.NbRootsForTransfer()* and *Standard_Integer num = reader.TransferRoots()* -- translate all transferable roots. 
 
 @subsubsection occt_step_2_3_5 Getting the translation results
 Each successful translation operation outputs one shape. A series of translations gives a set of shapes. 
@@ -445,10 +441,10 @@ reader.ClearShapes();
 between two translation operations, if you do not, the results from the next translation will be added to the accumulation. 
 
 *TransferRoots()* operations automatically clear all existing results before they start. 
-* *Standard_Integer num = reader.NbShapes()* - gets the number of shapes recorded in the result; 
-* *TopoDS_Shape shape = reader.Shape(rank)* gets the result identified by its rank, where rank is an integer between 1 and NbShapes;
-* *TopoDS_Shape shape = reader.Shape()* gets the first result of translation; 
-* *TopoDS_Shape shape = reader.OneShape()* - gets all results in a single shape which is:
+* *Standard_Integer num = reader.NbShapes()* -- gets the number of shapes recorded in the result; 
+* *TopoDS_Shape shape = reader.Shape(rank)* -- gets the result identified by its rank, where rank is an integer between 1 and NbShapes;
+* *TopoDS_Shape shape = reader.Shape()* -- gets the first result of translation; 
+* *TopoDS_Shape shape = reader.OneShape()* -- gets all results in a single shape, which is:
   * a null shape if there are no results, 
   * in case of a single result, a shape that is specific to that result, 
   * a compound that lists the results if there are several results. 
@@ -509,20 +505,20 @@ for (i = 1; i <= nb; i ++) {
 
 <h4>Selections</h4>
 There is a number of predefined operators that can be used. They are: 
-  * *step214-placed-items* - selects all mapped_items or context_depended_shape_representations. 
-  * *step214-shape-def-repr* - selects all shape_definition_representations. 
-  * *step214-shape-repr* - selects all shape_representations. 
-  * *step214-type(\<entity_type\>)* - selects all entities of a given type 
-  * *step214-faces* - selects all faces_surface, advanced_face entities and the surface entity or any sub type if these entities are not shared by any face entity or shared by geometric_set entity. 
-  * *step214-derived(\<entity_type\>)* - selects entities of a given type or any subtype. 
-  * *step214-GS-curves* - selects all curve entities or any subtype except the composite_curve if these entities are shared by the geometric_set entity. 
-  * *step214-assembly* - selects all mapped_items or context_depended_shape_representations involved into the assembly structure. 
-  * *xst-model-all* - selects all entities. 
-  * *xst-model-roots* - selects all roots. 
-  * *xst-shared + \<selection\>* - selects all entities shared by at least one entity selected by selection. 
-  * *xst-sharing + \<selection\>* - selects all entities sharing at least one entity selected by selection. 
-  * *xst-transferrable-all* - selects all transferable entities. 
-  * *xst-transferrable-roots* selects all translatable roots. 
+  * *step214-placed-items* -- selects all mapped_items or context_depended_shape_representations. 
+  * *step214-shape-def-repr* -- selects all shape_definition_representations. 
+  * *step214-shape-repr* -- selects all shape_representations. 
+  * *step214-type(\<entity_type\>)* -- selects all entities of a given type 
+  * *step214-faces* -- selects all faces_surface, advanced_face entities and the surface entity or any sub type if these entities are not shared by any face entity or shared by geometric_set entity. 
+  * *step214-derived(\<entity_type\>)* -- selects entities of a given type or any subtype. 
+  * *step214-GS-curves* -- selects all curve entities or any subtype except the composite_curve if these entities are shared by the geometric_set entity. 
+  * *step214-assembly* -- selects all mapped_items or context_depended_shape_representations involved into the assembly structure. 
+  * *xst-model-all* -- selects all entities. 
+  * *xst-model-roots* -- selects all roots. 
+  * *xst-shared + \<selection\>* -- selects all entities shared by at least one entity selected by selection. 
+  * *xst-sharing + \<selection\>* -- selects all entities sharing at least one entity selected by selection. 
+  * *xst-transferrable-all* -- selects all transferable entities. 
+  * *xst-transferrable-roots* -- selects all translatable roots. 
 Cumulative lists can be used as well.
  
 <h5>Single entities</h5>
@@ -656,11 +652,11 @@ During the STEP to OCCT translation several parameters are used as tolerances an
 <h4>3D (spatial) tolerance</h4>
 * Package method *Precision::Confusion()* Value is 10-7. It is used as the minimal distance between points, which are considered to be distinct. 
 * Uncertainty parameter is attached to each shape_representation entity in a STEP file and defined as *length_measure* in *uncertainty_measure_with_unit*. It is used as a fundamental value of precision during translation. 
-* User - defined variable *read.precision.val* is used instead of uncertainty from a STEP file when parameter *read.precision.mode* is 1 (User).
+* User-defined variable *read.precision.val* is used instead of uncertainty from a STEP file when parameter *read.precision.mode* is 1 (User).
  
 <h4>2D (parametric) tolerances</h4>
 * Package method *Precision\::PConfusion()* is a value of *0.01\*Precision\::Confusion()*. It is used to compare parametric bounds of curves. 
-* Methods *UResolution* and *VResolution (tolerance3d)* of the class *GeomAdaptor_Surface* or *BRepAdaptor_Surface* - return tolerance in parametric space of a surface computed from 3d tolerance. When one tolerance value is to be used for both U and V parametric directions, the maximum or the minimum value of *UResolution* and *VResolution* is used. 
+* Methods *UResolution* and *VResolution (tolerance3d)* of the class *GeomAdaptor_Surface* or *BRepAdaptor_Surface* return tolerance in parametric space of a surface computed from 3d tolerance. When one tolerance value is to be used for both U and V parametric directions, the maximum or the minimum value of *UResolution* and *VResolution* is used. 
 * Methods *Resolution (tolerance3d)* of the class *GeomAdaptor_Curve* or *BRepAdaptor_Curve* return tolerance in parametric space of a curve computed from 3d tolerance. 
 
 @subsubsection occt_step_2_5_2 Initial setting of tolerances in translating objects
@@ -680,7 +676,7 @@ If the starting STEP entity is a geometric_curve_set all the edges and vertices 
 If the starting STEP entity is not a geometric_curve_set the sub-shapes of the resulting shape have the following tolerance: 
   * all the faces are constructed with *Precision::Confusion()*, 
   * edges are constructed with *Precision::Confusion()*. It can be modified later by: 
-  * *ShapeFix::SameParameter()* - the tolerance of edge shows real deviation of the 3D curve and pcurves. 
+  * *ShapeFix::SameParameter()* -- the tolerance of edge shows real deviation of the 3D curve and pcurves. 
   * *ShapeFix_Wire::FixSelfIntersection()* if a pcurve of a self-intersecting edge is modified. 
   * vertices are constructed with Precision::Confusion(). It can be modified later by: 
   *StepToTopoDS_TranslateEdge* 
@@ -797,7 +793,7 @@ The shapes organized in a structure of nested compounds can be translated either
 The assembly structure placed in the produced STEP file corresponds to the structure described in the ProSTEP Agreement Log (item 21) as the second alternative (assembly structure through *representation_relationship* / *item_defined_transformation*). To represent an assembly it uses entities of the *representation_relationship_with_transformation* type. Transformation operators used for locating assembly components are represented by *item_defined_transformation* entities. 
 If mode *write.step.assembly* is set to the values *ON* or *Auto* then an OCC shape consisting of nested compounds will be written as an assembly, otherwise it will be written as separate solids. 
 
-Please see also <a href="#occt_step_3_4">Mapping OCCT shapes to STEP entities</a>
+Please see also @ref occt_step_3_4 "Mapping OCCT shapes to STEP entities".
 
 @subsection occt_step_3_3 Description of the process
 @subsubsection occt_step_3_3_1 Initializing the process
@@ -915,8 +911,8 @@ These two parameters define the name of the resource file and the name of the se
 See description of parameter read.step.resource.name above for more details on using resource files. 
 
 Default values:  
-* read.step.resource.name - STEP, 
-* read.step.sequence - ToSTEP.
+* read.step.resource.name -- STEP, 
+* read.step.sequence -- ToSTEP.
 
 <h4>write.step.vertex.mode</h4>
 This parameter indicates which of free vertices writing mode is switch on. 
@@ -951,11 +947,11 @@ The following values of enumeration are allowed:
 * *STEPControl_GeometricCurveSet* resulting entity is *geometric_curve_set*;
 
 The following list shows which shapes can be translated in which mode: 
-* *STEP214Control_AsIs* - any OCCT shape
-* *STEP214Control_ManifoldSolidBrep* - *TopoDS_Solid, TopoDS_Shell, TopoDS_Compound* (if it contains *TopoDS_Solids* and *TopoDS_Shells*.
-* *STEP214Control_FacetedBrep* - *TopoDS_Solid* or *TopoDS_Compound* containing *TopoDS_Solids* if all its surfaces are *Geom_Planes* and all curves are *Geom_Lines*.
-* *STEP214Control_ShellBasedSurfaceModel* - *TopoDS_Solid, TopoDS_Shell, TopoDS_Face* and *TopoDS_Compound* (if it contains all mentioned shapes)
-* *STEP214Control_GeometricCurveSet* - any OCCT shape.
+* *STEP214Control_AsIs* -- any OCCT shape
+* *STEP214Control_ManifoldSolidBrep* -- *TopoDS_Solid, TopoDS_Shell, TopoDS_Compound* (if it contains *TopoDS_Solids* and *TopoDS_Shells*.
+* *STEP214Control_FacetedBrep* -- *TopoDS_Solid* or *TopoDS_Compound* containing *TopoDS_Solids* if all its surfaces are *Geom_Planes* and all curves are *Geom_Lines*.
+* *STEP214Control_ShellBasedSurfaceModel* -- *TopoDS_Solid, TopoDS_Shell, TopoDS_Face* and *TopoDS_Compound* (if it contains all mentioned shapes)
+* *STEP214Control_GeometricCurveSet* -- any OCCT shape.
 
 If *TopoDS_Compound* contains any other types besides the ones mentioned in the table, these sub-shapes will be ignored. 
 
@@ -1109,14 +1105,14 @@ writer.Write(;Output.stp;);
 @subsection occt_step_4_1 Architecture of STEP Read and Write classes
 @subsubsection occt_step_4_1_1 General principles
 
-To perform data loading from a STEP file and to translate this data it is necessary to create correspondence between the EXPRESS schema and the structure of CDL classes. There are two possibilities to organize such correspondence: the so-called early binding and late binding. 
+To perform data loading from a STEP file and to translate this data it is necessary to create correspondence between the EXPRESS schema and the structure of the classes. There are two possibilities to organize such correspondence: the so-called early binding and late binding. 
 * Late binding means that the processor works with a description of the schema. The processor builds a dictionary of entities and can recognize and read any entity that is described in the schema. To change the behavior and the scope of processor based on late binding it is enough to change the description of the schema. However, this binding has some disadvantages (for example low speed of reading process). 
-* In case of early binding, the structure of CDL classes is created beforehand with the help of a specific automatic tool or manually. If the processor finds an entity that is not found in this schema, it will simply be ignored. The processor calls constructors of appropriate classes and their read methods. To add a new type in the scope of the processor it is necessary to create a class corresponding to the new entity. 
+* In case of early binding, the structure of the classes is created beforehand with the help of a specific automatic tool or manually. If the processor finds an entity that is not found in this schema, it will simply be ignored. The processor calls constructors of appropriate classes and their read methods. To add a new type in the scope of the processor it is necessary to create a class corresponding to the new entity. 
 
-The STEP processor is based on early binding principles. It means that specific classes for each EXPRESS type have been created with the help of an automatic tool from the EXPRESS schema. There are two CDL classes for each EXPRESS type. The first class (named the representing class) represents the STEP entity in memory. The second one (RW - class) is intended to perform the initialization of the representing class and to output data to an intermediate structure to be written in a STEP file. 
+The STEP processor is based on early binding principles. It means that specific classes for each EXPRESS type have been created with the help of an automatic tool from the EXPRESS schema. There are two classes for each EXPRESS type. The first class (named the representing class) represents the STEP entity in memory. The second one (RW-class) is intended to perform the initialization of the representing class and to output data to an intermediate structure to be written in a STEP file. 
 
 @subsubsection occt_step_4_1_2 Complex entities
-EXPRESS schema allows multiple inheritance. Entities that are built on the basis of multiple inheritance are called complex entities. Multiple inheritance is not available in CDL. EXPRESS enables any type of complex entities that can be inherited from any EXPRESS type. In the manner of early binding it is not possible to create a CDL class for any possible complex type. Thus, only widespread complex entities have corresponding representing classes and RW-classes that are created manually beforehand. 
+EXPRESS schema allows multiple inheritance. Entities that are built on the basis of multiple inheritance are called complex entities. EXPRESS enables any type of complex entities that can be inherited from any EXPRESS type. In the manner of early binding it is not possible to create a C++ class for any possible complex type. Thus, only widespread complex entities have corresponding representing classes and RW-classes that are created manually beforehand. 
 
 @subsection occt_step_4_2 Physical file reading
 Physical file reading consists of the following steps: 
@@ -1138,13 +1134,13 @@ For each entity specified by its rank number the arrays storing its identifier, 
 @subsubsection occt_step_4_2_3 Creating empty Open CASCADE Technology objects that represent STEP entities
 For each STEP entity an empty OCCT object representing this entity is created. A map of correspondence between entity rank and OCCT object is created and filled out. If a STEP entity is not recognized by the STEP processor then the *StepData_UndefinedEntity* object is created. 
 @subsubsection occt_step_4_2_4 Initializing Open CASCADE Technology objects
-Each OCCT object (including StepData_UndefinedEntity) is initialized by its parameters with the help of the appropriate RW - class. If some entity has another entity as its parameter, the object that represents the latter entity will be initialized immediately. All initialized objects are put into a special map to avoid repeated initialization. 
+Each OCCT object (including StepData_UndefinedEntity) is initialized by its parameters with the help of the appropriate RW-class. If an entity has another entity as its parameter, the object that represents the latter entity will be initialized immediately. All initialized objects are put into a special map to avoid repeated initialization. 
 @subsubsection occt_step_4_2_5 Building a graph
 The final phase is building a graph of references between entities. For each entity its RW-class is used to find entities referenced by this entity. Back references are built on the basis of direct references. In addition to explicit references defined in the STEP entities some additional (implicit) references are created for entities representing assembly structures (links from assemblies to their components). 
 @subsection occt_step_4_3 How to add a new entity in scope of the STEP processor
 If it is necessary to read and translate a new entity by the STEP processor the Reader and Actor scope should be enhanced. Note that some actions to be made for adding a new type are different for simple and complex types. 
 The following steps should be taken: 
-* Create a CDL class representing a new entity. This can be *Stepxxx_NewEntity* class where xxx can be one of the following: 
+* Create a class representing a new entity. This can be *Stepxxx_NewEntity* class where xxx can be one of the following: 
      * Basic 
      * Geom 
      * Shape 
@@ -1172,7 +1168,7 @@ Each field of a STEP entity should be represented by a corresponding field of th
 @subsection occt_step_4_4 Physical file writing
 Physical file writing consists of the following steps: 
    1. Building a references graph. Physical writing starts when STEP model, which was either loaded from a STEP file or created from OCCT shape with the help of translator, is available together with corresponding graph of references. During this step the graph of references can be recomputed. 
-   2. Transferring data from a model to a sequence of strings. For each representing entity from the model a corresponding RW - class is called. RW - class performs the writing of data that is contained in the representing class into an intermediate data structure. The mentioned structure is a sequence of strings in memory. 
+   2. Transferring data from a model to a sequence of strings. For each representing entity from the model a corresponding RW-class is called. RW-class writes data that is contained in the representing class into an intermediate data structure. The mentioned structure is a sequence of strings in memory. 
    3. Writing the sequence of strings into the file. The sequence of strings is written into the file. This is the last phase of physical STEP writing.
    
 
@@ -1180,7 +1176,7 @@ Physical file writing consists of the following steps:
 
 If it is necessary to write and translate an OCCT shape into a new entity by the STEP processor the Writer and Actor scope should be enhanced. 
 
-For a description of steps, which should be taken for adding a new entity type to the STEP processor, see <a href="#occt_step_4_2">Physical file reading</a>. Then, enhance the *STEPControl_ActorWrite* class i.e. methods *Recognize()* and *Transfer()*, or other classes from *TopoDSToStep*, to translate the OCCT shape into a new STEP entity. 
+For a description of steps, which should be taken for adding a new entity type to the STEP processor, see @ref occt_step_4_2 "Physical file reading". Then, enhance the *STEPControl_ActorWrite* class i.e. methods *Recognize()* and *Transfer()*, or other classes from *TopoDSToStep*, to translate the OCCT shape into a new STEP entity. 
 
 @section occt_step_6 Using DRAW
 @subsection occt_step_6_1 DRAW STEP Commands Overview
@@ -1202,16 +1198,16 @@ The third argument is used to set a new value of the given parameter. The result
 During all interface operations, the protocol of the process (fail and warning messages, mapping of loaded entities into OCCT shapes etc.) can be output to the trace file. Two parameters are defined in the DRAW session: trace level (integer value from 0 to 9, default is 0), and trace file (default is standard output). 
 
 Command xtrace is intended to view and change these parameters: 
-* *Draw:> xtrace* - prints current settings (e.g.: `Level=1 - Standard Output'); 
-* *Draw:> xtrace \#* - sets trace level to the value #; 
-* *Draw:> xtrace tracefile.log* - sets the trace file as *tracefile.log*;
-* *Draw:> xtrace.* - directs all messages to the standard output. 
+* *Draw:> xtrace* -- prints current settings (e.g.: `Level=1 - Standard Output'); 
+* *Draw:> xtrace \#* -- sets trace level to the value #; 
+* *Draw:> xtrace tracefile.log* -- sets the trace file as *tracefile.log*;
+* *Draw:> xtrace.* -- directs all messages to the standard output. 
 
 @subsection occt_step_6_3 Reading a STEP file
 
-For a description of parameters used in reading a STEP file refer to <a href="#occt_step_2_3_3">Setting the translation parameters</a> section.
+For a description of parameters used in reading a STEP file refer to @ref occt_step_2_3_3 "Setting the translation parameters" section.
 
-For reading a STEP file, the following parameters are defined (see above, <a href="#occt_step_6_2">the command *param*</a>):
+For reading a STEP file, the following parameters are defined (see above, @ref occt_step_6_2 "the command *param*"):
 
 | Description | Name | Values | Meaning |
 | :------------ | :---- | :------- | :------- |
@@ -1271,16 +1267,16 @@ Draw:> data <symbol>
 
 Information printed by this command depends on the symbol specified: 
 
-* *g* - Prints the information contained in the header of the file;
-* *c* or *f* - Prints messages generated during the loading of the STEP file (when the procedure of the integrity of the loaded data check is performed) and the resulting statistics (f works only with fails while c with both fail and warning messages) ;
-* *t* - The same as *c* or *f*, with a list of failed or warned entities;
-* *m* or *l* - The same as *t* but also prints a status for each entity;
-* *e*  - Lists all entities of the model with their numbers, types, validity status etc.
-* *R* - The same as e but lists only root entities
+* *g* -- Prints the information contained in the header of the file;
+* *c* or *f* -- Prints messages generated during the loading of the STEP file (when the procedure of the integrity of the loaded data check is performed) and the resulting statistics (f works only with fails while c with both fail and warning messages) ;
+* *t* -- The same as *c* or *f*, with a list of failed or warned entities;
+* *m* or *l* -- The same as *t* but also prints a status for each entity;
+* *e*  -- Lists all entities of the model with their numbers, types, validity status etc;
+* *R* -- The same as e but lists only root entities.
 
 There is a set of special objects, which can be used to operate with a loaded model. They can be of the following types: 
-* Selection Filters - allow selecting subsets of entities of the loaded model;
-* Counter - calculates some statistics on the model data.
+* Selection Filters -- allow selecting subsets of entities of the loaded model;
+* Counter -- calculates some statistics on the model data.
 
 A list of these objects defined in the current session can be printed in DRAW by command @code Draw:> listitems. @endcode 
 
@@ -1304,8 +1300,8 @@ Draw:> listcount <counter> [<selection>]
 The former only prints a count of entities while the latter also gives a list of them. 
 
 The optional selection argument, if specified, defines a subset of entities, which are to be taken into account. The first argument should be one of the currently defined counters: 
-* *xst-types* - calculates how many entities of each OCCT type exist
-* *step214-types* - calculates how many entities of each STEP type exist
+* *xst-types* -- calculates how many entities of each OCCT type exist
+* *step214-types* -- calculates how many entities of each STEP type exist
 
 Entities in the STEP file are numbered in the succeeding order. An entity can be identified either by its number or by its label. Label is the letter \# followed by the rank. 
 * *Draw:> elab \#* outputs a label for an entity with a known number. 
@@ -1321,17 +1317,17 @@ All the following commands are available only after data is converted into OCCT 
 
 Command *Draw:> tpstat [*|?]\<symbol\> [\<selection\>]* is provided to get all statistics on the last transfer, including a list of transferred entities with mapping from STEP to OCCT types, as well as fail and warning messages. The parameter <i>\<symbol\></i> defines what information will be printed: 
 
-* *g* - General statistics (a list of results and messages)
-* *c* - Count of all warning and fail messages
-* *C* - List of all warning and fail messages
-* *f* - Count of all fail messages
-* *F* - List of all fail messages
-* *n* - List of all transferred roots
-* *s* - The same, with types of source entity and the type of result
-* *b* - The same, with messages
-* *t* - Count of roots for geometrical types
-* *r* - Count of roots for topological types
-* *l* - The same, with the type of the source entity
+* *g* -- General statistics (a list of results and messages)
+* *c* -- Count of all warning and fail messages
+* *C* -- List of all warning and fail messages
+* *f* -- Count of all fail messages
+* *F* -- List of all fail messages
+* *n* -- List of all transferred roots
+* *s* -- The same, with types of source entity and the type of result
+* *b* -- The same, with messages
+* *t* -- Count of roots for geometrical types
+* *r* -- Count of roots for topological types
+* *l* -- The same, with the type of the source entity
 
 The sign \* before parameters *n, s, b, t, r* makes it work on all entities (not only on roots).
 
@@ -1355,13 +1351,13 @@ To get information on tolerances of the shape use command <i>Draw:> tolerance \<
 When specifying min and max arguments this command saves shapes with tolerances in the range [min, max] with names shape_name_... and gives their total number. 
 
 <i>\<Symbol\></i> is used for specifying the kind of sub-shapes to analyze: 
-* *v* - for vertices, 
-* *e* - for edges, 
-* *f* - for faces, 
-* *c* - for shells and faces. 
+* *v* -- for vertices, 
+* *e* -- for edges, 
+* *f* -- for faces, 
+* *c* -- for shells and faces. 
 
 @subsection occt_step_6_5 Writing a STEP file
-For writing shapes to a STEP file, the following parameters are defined (see above, <a href="#occt_step_6_2">the command *param*</a>):
+For writing shapes to a STEP file, the following parameters are defined (see above, @ref occt_step_6_2 "the command *param*"):
 
 | Description | Name | Values | Meaning | 
 | :------------ | :----- | :------ | :------- | 
@@ -1376,21 +1372,22 @@ Draw:> stepwrite <mode> <shape_name> [<file_name>]
 ~~~~~
 
 The following  modes are available : 
-    * *a* - as is - the mode is selected automatically depending on the type & geometry of the shape;
-    * *m* - *manifold_solid_brep* or *brep_with_voids* 
-    * *f* - *faceted_brep* 
-    * *w* - *geometric_curve_set* 
-    * *s* - *shell_based_surface_model* 
+    * *a* -- "as is" -- the mode is selected automatically depending on the type & geometry of the shape;
+    * *m* -- *manifold_solid_brep* or *brep_with_voids* 
+    * *f* -- *faceted_brep* 
+    * *w* -- *geometric_curve_set* 
+    * *s* -- *shell_based_surface_model* 
  
-After a successful translation, if file_name parameter is not specified, the procedure asks you whether to write a STEP model in the file or not: 
+After a successful translation, if *file_name* parameter is not specified, the procedure asks you whether to write a STEP model in the file or not: 
 ~~~~~
 execution status : 1 
 Mode (0 end, 1 file) : 
 ~~~~~
 It is necessary to call command *newmodel* to perform a new translation of the next OCCT shape. 
 
-@section occt_step_7 Reading from and writing to XDE
-The *STEPCAFControl* package (TKXDESTEP toolkit) provides tools to read and write STEP files to and from XDE format (see XDE User’s Guide). 
+@section occt_step_7 Reading from and writing to STEP
+
+The *STEPCAFControl* package (TKXDESTEP toolkit) provides tools to read and write STEP files (see XDE User’s Guide). 
 
 In addition to the translation of shapes implemented in basic translator, it provides the following: 
   * STEP assemblies, read as OCCT compounds by basic translator, are translated to XDE assemblies;
@@ -1399,9 +1396,9 @@ In addition to the translation of shapes implemented in basic translator, it pro
   * Colors, layers, materials and validation properties assigned to parts or subparts are translated;
   * STEP dimensional tolerances are translated.
   
-@subsection occt_step_7_1 Description of the process
+@subsection occt_step_7_1 Reading from STEP
 
-@subsubsection occt_step_7_1_1 Loading a STEP file
+### Load a STEP file
 Before performing any other operation, you must load a STEP file with: 
 ~~~~~
 STEPCAFControl_Reader reader(XSDRAW::Session(), Standard_False); 
@@ -1409,11 +1406,12 @@ IFSelect_ReturnStatus stat = reader.ReadFile("filename.stp");
 ~~~~~
 Loading the file only memorizes the data, it does not translate it. 
 
-@subsubsection occt_step_7_1_2 Checking the loaded STEP file
-This step is not obligatory. See a description of this step in section <a href="#occt_step_2_3_2">Checking the STEP file</a>. 
+### Check the loaded STEP file
+This step is not obligatory. See a description of this step in section @ref occt_step_2_3_2 "Checking the STEP file". 
 
-@subsubsection occt_step_7_1_3 Setting the parameters for translation to XDE
-See a description of this step in section <a href="#occt_step_2_3_3">Setting the translation parameters</a>. 
+### Set parameters for translation to XDE
+
+See a description of this step in section @ref occt_step_2_3_3 "Setting the translation parameters". 
 
 In addition, the following parameters can be set for XDE translation of attributes: 
   *  Parameter for transferring colors: 
@@ -1426,38 +1424,46 @@ reader.SetColorMode(mode);
 reader.SetNameMode(mode); 
 // mode can be Standard_True or Standard_False 
 ~~~~~
-@subsubsection occt_step_7_1_4 Performing the translation of a STEP file to XDE
+
+### Translate a STEP file to XDE
+
 The following function performs a translation of the whole document: 
 ~~~~~
 Standard_Boolean ok = reader.Transfer(doc); 
 ~~~~~
 where *doc* is a variable which contains a handle to the output document and should have a type *Handle(TDocStd_Document)*. 
-@subsubsection occt_step_7_1_5 Initializing the process of translation from XDE to STEP
-Here is how to initialize the process: 
+
+@subsection occt_step_7_2 Writing to STEP
+
+The translation from XDE to STEP can be initialized as follows: 
 ~~~~~
 STEPCAFControl_Writer aWriter(XSDRAW::Session(),Standard_False); 
 ~~~~~
-@subsubsection occt_step_7_1_6 Setting the parameters for translation from XDE to STEP
+
+### Set parameters for translation from XDE to STEP
 
 The following parameters can be set for a translation of attributes to STEP: 
-  *  Parameter for transferring colors: 
+  *  For transferring colors: 
 ~~~~~
 aWriter.SetColorMode(mode); 
 // mode can be Standard_True or Standard_False 
 ~~~~~
-  *  Parameter for transferring names: 
+  *  For transferring names: 
 ~~~~~
 aWriter.SetNameMode(mode); 
 // mode can be Standard_True or Standard_False 
 ~~~~~
-@subsubsection occt_step_7_1_7 Performing the translation of an XDE document to STEP
+
+### Translate an XDE document to STEP
+
 You can perform the translation of document by calling the function: 
 ~~~~~
 IFSelect_ReturnStatus aRetSt = aWriter.Transfer(doc); 
 ~~~~~
 where *doc*  is a variable, which contains a handle to the input document for transferring and should have a type *Handle(TDocStd_Document)*. 
 
-@subsubsection occt_step_7_18 Writing a STEP file
+### Write a STEP file
+
 Write a STEP file with: 
 ~~~~~
 IFSelect_ReturnStatus statw = aWriter.WriteFile("filename.stp"); 

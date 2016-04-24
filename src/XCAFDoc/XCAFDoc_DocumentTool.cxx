@@ -31,6 +31,8 @@
 #include <XCAFDoc_MaterialTool.hxx>
 #include <XCAFDoc_ShapeTool.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_DocumentTool,TDF_Attribute)
+
 //=======================================================================
 //function : GetID
 //purpose  : 
@@ -310,14 +312,4 @@ Standard_Boolean XCAFDoc_DocumentTool::IsXCAFDocument(const  Handle(TDocStd_Docu
   const Standard_GUID& aRefGuid = GetDocumentToolRefID();
   Handle(TDataStd_TreeNode) aRootNode;
   return RootL.FindAttribute (aRefGuid, aRootNode);
-}
-
-
-//=======================================================================
-//function : Destroy
-//purpose  : No longer required. Kept for binary compatibility only.
-//=======================================================================
-
-void XCAFDoc_DocumentTool::Destroy()
-{
 }

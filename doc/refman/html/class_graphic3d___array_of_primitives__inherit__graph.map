@@ -1,0 +1,13 @@
+<map id="Graphic3d_ArrayOfPrimitives" name="Graphic3d_ArrayOfPrimitives">
+<area shape="rect" id="node4" href="$class_graphic3d___array_of_points.html" title="Contains points array definition. " alt="" coords="606,5,775,32"/>
+<area shape="rect" id="node5" href="$class_graphic3d___array_of_polygons.html" title="Contains polygons array definition. " alt="" coords="597,56,784,83"/>
+<area shape="rect" id="node6" href="$class_graphic3d___array_of_polylines.html" title="Contains polylines array definition. " alt="" coords="598,107,783,133"/>
+<area shape="rect" id="node7" href="$class_graphic3d___array_of_quadrangles.html" title="Contains quatrangles array definition. " alt="" coords="588,157,793,184"/>
+<area shape="rect" id="node8" href="$class_graphic3d___array_of_quadrangle_strips.html" title="Contains quadrangles strip array definition. " alt="" coords="591,209,790,250"/>
+<area shape="rect" id="node9" href="$class_graphic3d___array_of_segments.html" title="Contains segments array definition. " alt="" coords="595,275,786,301"/>
+<area shape="rect" id="node10" href="$class_graphic3d___array_of_triangle_fans.html" title="Contains triangles fan array definition. " alt="" coords="587,325,794,352"/>
+<area shape="rect" id="node11" href="$class_graphic3d___array_of_triangles.html" title="Contains triangles array definition. " alt="" coords="599,376,783,403"/>
+<area shape="rect" id="node12" href="$class_graphic3d___array_of_triangle_strips.html" title="Contains triangles strip array definition. " alt="" coords="602,427,779,469"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,216,301,243"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,216,141,243"/>
+</map>

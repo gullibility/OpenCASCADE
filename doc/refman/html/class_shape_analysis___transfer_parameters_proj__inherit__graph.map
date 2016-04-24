@@ -1,0 +1,5 @@
+<map id="ShapeAnalysis_TransferParametersProj" name="ShapeAnalysis_TransferParametersProj">
+<area shape="rect" id="node2" href="$class_shape_analysis___transfer_parameters.html" title="This tool is used for transferring parameters from 3d curve of the edge to pcurve and vice versa..." alt="" coords="16,155,245,181"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="75,80,185,107"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="63,5,197,32"/>
+</map>

@@ -4,4 +4,5 @@ restore [locate_data_file b110] b
 bop a b
 bopcommon result
 
-set square 5827.66
+checkprops result -s 5827.66
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

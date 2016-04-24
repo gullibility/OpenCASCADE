@@ -1,0 +1,6 @@
+<map id="Adaptor3d_TopolTool" name="Adaptor3d_TopolTool">
+<area shape="rect" id="node4" href="$class_b_rep_top_adaptor___topol_tool.html" title="BRepTopAdaptor_TopolTool" alt="" coords="5,229,187,256"/>
+<area shape="rect" id="node5" href="$class_int_tools___topol_tool.html" title="Class redefine methods of TopolTool from Adaptor3d concerning sample points. " alt="" coords="211,229,340,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="130,80,240,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="118,5,252,32"/>
+</map>

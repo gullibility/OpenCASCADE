@@ -1,0 +1,7 @@
+<map id="Aspect_Window" name="Aspect_Window">
+<area shape="rect" id="node4" href="$class_cocoa___window.html" title="This class defines Cocoa window. " alt="" coords="5,229,117,256"/>
+<area shape="rect" id="node5" href="$class_w_n_t___window.html" title="This class defines Windows NT window. " alt="" coords="141,229,245,256"/>
+<area shape="rect" id="node6" href="$class_xw___window.html" title="This class defines XLib window intended for creation of OpenGL context. " alt="" coords="269,229,360,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="138,80,248,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="126,5,260,32"/>
+</map>

@@ -17,6 +17,8 @@ bsection result sh f
 
 checknbshapes result -edge 5 -m "SECTION operation"
 
-set length 4.5
-set 2dviewer 0
+checkprops result -l 4.5 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

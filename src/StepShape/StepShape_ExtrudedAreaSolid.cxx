@@ -18,15 +18,9 @@
 #include <StepShape_ExtrudedAreaSolid.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_ExtrudedAreaSolid,StepShape_SweptAreaSolid)
+
 StepShape_ExtrudedAreaSolid::StepShape_ExtrudedAreaSolid ()  {}
-
-void StepShape_ExtrudedAreaSolid::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepGeom_CurveBoundedSurface)& aSweptArea)
-{
-
-	StepShape_SweptAreaSolid::Init(aName, aSweptArea);
-}
 
 void StepShape_ExtrudedAreaSolid::Init(
 	const Handle(TCollection_HAsciiString)& aName,

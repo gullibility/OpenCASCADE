@@ -17,15 +17,9 @@
 #include <StepGeom_Parabola.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_Parabola,StepGeom_Conic)
+
 StepGeom_Parabola::StepGeom_Parabola ()  {}
-
-void StepGeom_Parabola::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const StepGeom_Axis2Placement& aPosition)
-{
-
-	StepGeom_Conic::Init(aName, aPosition);
-}
 
 void StepGeom_Parabola::Init(
 	const Handle(TCollection_HAsciiString)& aName,

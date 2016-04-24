@@ -4,4 +4,5 @@ explode sh
 bop sh_2 sh_1
 bopfuse result
 
-set square 73561.9
+checkprops result -s 73561.9
+checkview -display result -2d -otherwise { sh_2 sh_1 } -s -path ${imagedir}/${test_image}.png

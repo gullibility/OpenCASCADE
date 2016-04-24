@@ -46,6 +46,8 @@
 #include <TopoDS_Solid.hxx>
 #include <TopoDS_Vertex.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(IntTools_Context,MMgt_TShared)
+
 // 
 //=======================================================================
 //function : 
@@ -479,12 +481,13 @@ Standard_Integer IntTools_Context::ComputePE
   (const gp_Pnt& aP1,
    const Standard_Real aTolP1,
    const TopoDS_Edge& aE2,
-   Standard_Real& aT)
+   Standard_Real& aT,
+   Standard_Real& aDist)
 {
   if (!BRep_Tool::IsGeometric(aE2)) { 
     return -2;
   }
-  Standard_Real aDist, aTolE2, aTolSum;
+  Standard_Real aTolE2, aTolSum;
   Standard_Integer aNbProj;
   //
   GeomAPI_ProjectPointOnCurve& aProjector=ProjPC(aE2);
@@ -498,7 +501,7 @@ Standard_Integer IntTools_Context::ComputePE
   aDist=aProjector.LowerDistance();
   //
   aTolE2=BRep_Tool::Tolerance(aE2);
-  aTolSum=aTolP1+aTolE2;
+  aTolSum = aTolP1 + aTolE2 + Precision::Confusion();
   //
   aT=aProjector.LowerDistanceParameter();
   if (aDist > aTolSum) {
@@ -513,7 +516,8 @@ Standard_Integer IntTools_Context::ComputePE
 Standard_Integer IntTools_Context::ComputeVE
   (const TopoDS_Vertex& aV1, 
    const TopoDS_Edge&   aE2,
-   Standard_Real& aT)
+   Standard_Real& aParam,
+   Standard_Real& aTolVnew)
 {
   if (BRep_Tool::Degenerated(aE2)) {
     return -1;
@@ -536,29 +540,29 @@ Standard_Integer IntTools_Context::ComputeVE
   }
   //
   aDist=aProjector.LowerDistance();
-
-  // tolerance of check for coincidence is sum of tolerances of edge and vertex 
-  // extended by additional Precision::Confusion() to allow for interference where
-  // it is very close but not fit to tolerance (see #24108)
+  //
   aTolV1=BRep_Tool::Tolerance(aV1);
   aTolE2=BRep_Tool::Tolerance(aE2);
   aTolSum = aTolV1 + aTolE2 + Precision::Confusion();
   //
-  aT=aProjector.LowerDistanceParameter();
+  aTolVnew=aDist+aTolE2;
+  //
+  aParam=aProjector.LowerDistanceParameter();
   if (aDist > aTolSum) {
     return -4;
   }
   return 0;
 }
 //=======================================================================
-//function : ComputeVS
+//function : ComputeVF
 //purpose  : 
 //=======================================================================
 Standard_Integer IntTools_Context::ComputeVF
   (const TopoDS_Vertex& aV1, 
    const TopoDS_Face&   aF2,
    Standard_Real& U,
-   Standard_Real& V)
+   Standard_Real& V,
+   Standard_Real& aTolVnew)
 {
   Standard_Real aTolV1, aTolF2, aTolSum, aDist;
   gp_Pnt aP;
@@ -576,10 +580,13 @@ Standard_Integer IntTools_Context::ComputeVF
   // 2. Check the distance between the projection point and 
   //    the original point
   aDist=aProjector.LowerDistance();
-
+  //
   aTolV1=BRep_Tool::Tolerance(aV1);
   aTolF2=BRep_Tool::Tolerance(aF2);
-  aTolSum=aTolV1+aTolF2;
+  //
+  aTolSum = aTolV1 + aTolF2 + Precision::Confusion();
+  aTolVnew = aDist + aTolF2;
+  //
   if (aDist > aTolSum) {
     // the distance is too large
     return -2;
@@ -852,6 +859,35 @@ Standard_Boolean IntTools_Context::IsVertexOnLine
              (aPCFirst.Distance(aPOncurve.Value()) < Precision::Confusion()))
             aT = aFirst;
         }
+        else
+        {
+          // Local search may fail. Try to use more precise algo.
+          Extrema_ExtPC anExt2(aPv, aGAC, 1.e-10);
+          Standard_Real aMinDist = RealLast();
+          Standard_Integer aMinIdx = -1;
+          if (anExt2.IsDone()) {
+            for (Standard_Integer anIdx = 1; anIdx <= anExt2.NbExt(); anIdx++)
+            {
+              if ( anExt2.IsMin(anIdx) &&
+                   anExt2.SquareDistance(anIdx) < aMinDist )
+              {
+                aMinDist = anExt2.SquareDistance(anIdx);
+                aMinIdx = anIdx;
+              }
+            }
+          }
+          if (aMinIdx != -1)
+          {
+            const Extrema_POnCurv& aPOncurve = anExt2.Point(aMinIdx);
+            aT = aPOncurve.Parameter();
+
+            if((aT > (aLast + aFirst) * 0.5) ||
+              (aPv.Distance(aPOncurve.Value()) > aTolSum) ||
+              (aPCFirst.Distance(aPOncurve.Value()) < Precision::Confusion()))
+              aT = aFirst;
+          }
+        }
+
       }
       //
       return Standard_True;
@@ -876,6 +912,34 @@ Standard_Boolean IntTools_Context::IsVertexOnLine
              (aPv.Distance(aPOncurve.Value()) > aTolSum) ||
              (aPCLast.Distance(aPOncurve.Value()) < Precision::Confusion()))
             aT = aLast;
+        }
+        else
+        {
+          // Local search may fail. Try to use more precise algo.
+          Extrema_ExtPC anExt2(aPv, aGAC, 1.e-10);
+          Standard_Real aMinDist = RealLast();
+          Standard_Integer aMinIdx = -1;
+          if (anExt2.IsDone()) {
+            for (Standard_Integer anIdx = 1; anIdx <= anExt2.NbExt(); anIdx++)
+            {
+              if ( anExt2.IsMin(anIdx) &&
+                   anExt2.SquareDistance(anIdx) < aMinDist )
+              {
+                aMinDist = anExt2.SquareDistance(anIdx);
+                aMinIdx = anIdx;
+              }
+            }
+          }
+          if (aMinIdx != -1)
+          {
+            const Extrema_POnCurv& aPOncurve = anExt2.Point(aMinIdx);
+            aT = aPOncurve.Parameter();
+
+            if((aT < (aLast + aFirst) * 0.5) ||
+              (aPv.Distance(aPOncurve.Value()) > aTolSum) ||
+              (aPCLast.Distance(aPOncurve.Value()) < Precision::Confusion()))
+              aT = aLast;
+          }
         }
       }
       //

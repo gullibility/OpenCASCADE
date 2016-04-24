@@ -16,8 +16,6 @@
 #include <AIS_Shape.hxx>
 #include <AIS_InteractiveObject.hxx>
 
-#include <FSD_File.hxx>
-
 #include <IGESControl_Reader.hxx>
 #include <IGESControl_Writer.hxx>
 #include <IGESControl_Controller.hxx>
@@ -365,8 +363,6 @@ TranslateDlg* Translate::getDialog( const int format, const bool import )
 	  myDlg->setWindowTitle( QObject::tr( "INF_APP_EXPORT" ) );
     ((QFileDialog*)myDlg)->setFileMode( QFileDialog::AnyFile );
   }
-
-  QString datadir = (QString (qgetenv ("CASROOT").constData()) + QObject::tr( QString("INF_PATH_%1").arg( format ).toLatin1().constData() ) );
 
   myDlg->clear();
 

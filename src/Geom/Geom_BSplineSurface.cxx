@@ -43,6 +43,8 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(Geom_BSplineSurface,Geom_BoundedSurface)
+
 //=======================================================================
 //function : CheckSurfaceData
 //purpose  : Internal use only.
@@ -58,7 +60,7 @@ static void CheckSurfaceData
  const Standard_Boolean         UPeriodic,
  const Standard_Boolean         VPeriodic)
 {
-  if (UDegree < 1 || UDegree > Geom_BSplineSurface::MaxDegree () ||
+  if (UDegree < 1 || UDegree > Geom_BSplineSurface::MaxDegree () || 
       VDegree < 1 || VDegree > Geom_BSplineSurface::MaxDegree ()) {
     Standard_ConstructionError::Raise("Geom_BSplineSurface");
   }
@@ -83,7 +85,7 @@ static void CheckSurfaceData
       Standard_ConstructionError::Raise("Geom_BSplineSurface");
     }
   }
-
+  
   if (SPoles.ColLength() != BSplCLib::NbPoles(UDegree,UPeriodic,SUMults))
     Standard_ConstructionError::Raise("Geom_BSplineSurface");
 
@@ -106,7 +108,7 @@ static void Rational(const TColStd_Array2OfReal& Weights,
   while (!Vrational && J <= Weights.UpperCol()) {
     I = Weights.LowerRow();
     while (!Vrational && I <= Weights.UpperRow() - 1) {
-      Vrational = (Abs(Weights (I, J) - Weights (I+1, J))
+      Vrational = (Abs(Weights (I, J) - Weights (I+1, J)) 
                    > Epsilon (Abs(Weights (I, J))));
       I++;
     }
@@ -128,39 +130,39 @@ static void Rational(const TColStd_Array2OfReal& Weights,
 
 //=======================================================================
 //function : Copy
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 Handle(Geom_Geometry) Geom_BSplineSurface::Copy () const
 {
   Handle(Geom_BSplineSurface) S;
-  if (urational || vrational)
-    S = new Geom_BSplineSurface (poles->Array2() , weights->Array2(),
-				 uknots->Array1(), vknots->Array1(),
-				 umults->Array1(), vmults->Array1(),
-				 udeg     , vdeg,
+  if (urational || vrational) 
+    S = new Geom_BSplineSurface (poles->Array2() , weights->Array2(), 
+				 uknots->Array1(), vknots->Array1(), 
+				 umults->Array1(), vmults->Array1(), 
+				 udeg     , vdeg, 
 				 uperiodic, vperiodic);
   else
     S = new Geom_BSplineSurface (poles->Array2(),
-				 uknots->Array1(), vknots->Array1(),
-				 umults->Array1(), vmults->Array1(),
-				 udeg     , vdeg,
+				 uknots->Array1(), vknots->Array1(), 
+				 umults->Array1(), vmults->Array1(), 
+				 udeg     , vdeg, 
 				 uperiodic, vperiodic);
   return S;
 }
 
 //=======================================================================
 //function : Geom_BSplineSurface
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 Geom_BSplineSurface::Geom_BSplineSurface
-(const TColgp_Array2OfPnt&      Poles,
- const TColStd_Array1OfReal&    UKnots,
+(const TColgp_Array2OfPnt&      Poles, 
+ const TColStd_Array1OfReal&    UKnots, 
  const TColStd_Array1OfReal&    VKnots,
- const TColStd_Array1OfInteger& UMults,
+ const TColStd_Array1OfInteger& UMults, 
  const TColStd_Array1OfInteger& VMults,
- const Standard_Integer         UDegree,
+ const Standard_Integer         UDegree, 
  const Standard_Integer         VDegree,
  const Standard_Boolean         UPeriodic,
  const Standard_Boolean         VPeriodic
@@ -176,7 +178,7 @@ Geom_BSplineSurface::Geom_BSplineSurface
 {
 
   // check
-
+  
   CheckSurfaceData(Poles,
 		   UKnots   , VKnots,
 		   UMults   , VMults,
@@ -210,7 +212,7 @@ Geom_BSplineSurface::Geom_BSplineSurface
 
 //=======================================================================
 //function : Geom_BSplineSurface
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 Geom_BSplineSurface::Geom_BSplineSurface
@@ -218,7 +220,7 @@ Geom_BSplineSurface::Geom_BSplineSurface
  const TColStd_Array2OfReal&    Weights,
  const TColStd_Array1OfReal&    UKnots,
  const TColStd_Array1OfReal&    VKnots,
- const TColStd_Array1OfInteger& UMults,
+ const TColStd_Array1OfInteger& UMults, 
  const TColStd_Array1OfInteger& VMults,
  const Standard_Integer         UDegree,
  const Standard_Integer         VDegree,
@@ -243,17 +245,17 @@ Geom_BSplineSurface::Geom_BSplineSurface
   Standard_Integer i,j;
   for (i = Weights.LowerRow(); i <= Weights.UpperRow(); i++) {
     for (j = Weights.LowerCol(); j <= Weights.UpperCol(); j++) {
-      if (Weights(i,j) <= gp::Resolution())
+      if (Weights(i,j) <= gp::Resolution())  
 	Standard_ConstructionError::Raise("Geom_BSplineSurface");
     }
   }
-
+  
   // check really rational
-
+  
   Rational(Weights, urational, vrational);
 
   // check
-
+  
   CheckSurfaceData(Poles,
 		   UKnots   , VKnots,
 		   UMults   , VMults,
@@ -288,7 +290,7 @@ Geom_BSplineSurface::Geom_BSplineSurface
 
 //=======================================================================
 //function : ExchangeUV
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::ExchangeUV ()
@@ -298,17 +300,17 @@ void Geom_BSplineSurface::ExchangeUV ()
   Standard_Integer LR = poles->LowerRow();
   Standard_Integer UR = poles->UpperRow();
 
-  Handle(TColgp_HArray2OfPnt)   npoles   =
+  Handle(TColgp_HArray2OfPnt)   npoles   = 
     new TColgp_HArray2OfPnt  (LC, UC, LR, UR);
-  Handle(TColStd_HArray2OfReal) nweights =
+  Handle(TColStd_HArray2OfReal) nweights = 
     new TColStd_HArray2OfReal (LC, UC, LR, UR);
 
   const TColgp_Array2OfPnt   & spoles   = poles->Array2();
   const TColStd_Array2OfReal & sweights = weights->Array2();
-
+  
   TColgp_Array2OfPnt&   snpoles   = npoles->ChangeArray2();
   TColStd_Array2OfReal& snweights = nweights->ChangeArray2();
-
+  
   Standard_Integer i, j;
   for (i = LC; i <= UC; i++) {
     for (j = LR; j <= UR; j++) {
@@ -331,7 +333,7 @@ void Geom_BSplineSurface::ExchangeUV ()
   Standard_Integer tempdeg = udeg;
   udeg = vdeg;
   vdeg = tempdeg;
-
+  
 
   Handle(TColStd_HArray1OfReal) tempknots = uknots;
   uknots = vknots;
@@ -347,16 +349,16 @@ void Geom_BSplineSurface::ExchangeUV ()
 
 //=======================================================================
 //function : IncreaseDegree
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
 					  const Standard_Integer VDegree)
-{
+{ 
   if (UDegree != udeg) {
     if ( UDegree < udeg || UDegree > Geom_BSplineSurface::MaxDegree())
       Standard_ConstructionError::Raise();
-
+    
     Standard_Integer FromK1 = FirstUKnotIndex();
     Standard_Integer ToK2   = LastUKnotIndex();
 
@@ -369,18 +371,18 @@ void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
     Standard_Integer nbknots = BSplCLib::IncreaseDegreeCountKnots
       (udeg,UDegree,uperiodic,umults->Array1());
 
-    Handle(TColStd_HArray1OfReal) nknots =
+    Handle(TColStd_HArray1OfReal) nknots = 
       new TColStd_HArray1OfReal(1,nbknots);
-
-    Handle(TColStd_HArray1OfInteger) nmults =
+    
+    Handle(TColStd_HArray1OfInteger) nmults = 
       new TColStd_HArray1OfInteger(1,nbknots);
 
-    Handle(TColStd_HArray2OfReal) nweights
+    Handle(TColStd_HArray2OfReal) nweights 
       = new TColStd_HArray2OfReal(1,npoles->ColLength(),
 				  1,npoles->RowLength(), 1.);
 
     if (urational || vrational) {
-
+      
       BSplSLib::IncreaseDegree
 	(Standard_True, udeg, UDegree, uperiodic,
 	 poles->Array2(),&weights->Array2(),
@@ -408,7 +410,7 @@ void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
   if (VDegree != vdeg) {
     if ( VDegree < vdeg || VDegree > Geom_BSplineSurface::MaxDegree())
       Standard_ConstructionError::Raise();
-
+    
     Standard_Integer FromK1 = FirstVKnotIndex();
     Standard_Integer ToK2   = LastVKnotIndex();
 
@@ -421,10 +423,10 @@ void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
     Standard_Integer nbknots = BSplCLib::IncreaseDegreeCountKnots
       (vdeg,VDegree,vperiodic,vmults->Array1());
 
-    Handle(TColStd_HArray1OfReal) nknots =
+    Handle(TColStd_HArray1OfReal) nknots = 
       new TColStd_HArray1OfReal(1,nbknots);
-
-    Handle(TColStd_HArray1OfInteger) nmults =
+    
+    Handle(TColStd_HArray1OfInteger) nmults = 
       new TColStd_HArray1OfInteger(1,nbknots);
 
     Handle(TColStd_HArray2OfReal) nweights
@@ -432,7 +434,7 @@ void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
 				  1,npoles->RowLength(), 1.);
 
     if (urational || vrational) {
-
+      
       BSplSLib::IncreaseDegree
 	(Standard_False, vdeg, VDegree, vperiodic,
 	 poles->Array2(),&weights->Array2(),
@@ -460,11 +462,11 @@ void Geom_BSplineSurface::IncreaseDegree (const Standard_Integer UDegree,
 
 //=======================================================================
 //function : IncreaseUMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::IncreaseUMultiplicity
-(const Standard_Integer UIndex,
+(const Standard_Integer UIndex, 
  const Standard_Integer M)
 {
   TColStd_Array1OfReal k(1,1);
@@ -476,29 +478,29 @@ void Geom_BSplineSurface::IncreaseUMultiplicity
 
 //=======================================================================
 //function : IncreaseUMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::IncreaseUMultiplicity
-(const Standard_Integer FromI1,
+(const Standard_Integer FromI1, 
  const Standard_Integer ToI2,
  const Standard_Integer M)
 {
   Handle(TColStd_HArray1OfReal) tk = uknots;
   TColStd_Array1OfReal k((uknots->Array1())(FromI1),FromI1,ToI2);
   TColStd_Array1OfInteger m(FromI1, ToI2);
-  for (Standard_Integer i = FromI1; i <= ToI2; i++)
+  for (Standard_Integer i = FromI1; i <= ToI2; i++) 
     m(i) = M - umults->Value(i);
   InsertUKnots(k,m,Epsilon(1.),Standard_True);
 }
 
 //=======================================================================
 //function : IncreaseVMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::IncreaseVMultiplicity
-(const Standard_Integer VIndex,
+(const Standard_Integer VIndex, 
  const Standard_Integer M)
 {
   TColStd_Array1OfReal k(1,1);
@@ -510,7 +512,7 @@ void Geom_BSplineSurface::IncreaseVMultiplicity
 
 //=======================================================================
 //function : IncreaseVMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::IncreaseVMultiplicity
@@ -528,24 +530,37 @@ void Geom_BSplineSurface::IncreaseVMultiplicity
 
 //=======================================================================
 //function : Segment
-//purpose  :
+//purpose  : 
 //=======================================================================
 
-void Geom_BSplineSurface::Segment(const Standard_Real U1,
+void Geom_BSplineSurface::Segment(const Standard_Real U1, 
 				  const Standard_Real U2,
 				  const Standard_Real V1,
-				  const Standard_Real V2)
+				  const Standard_Real V2) 
 {
-
-  Standard_DomainError_Raise_if ( (U2 < U1) || (V2 < V1),
-				 "Geom_BSplineCurve::Segment");
+  if ((U2 < U1) || (V2 < V1))
+    Standard_DomainError::Raise("Geom_BSplineSurface::Segment");
   Standard_Real deltaU = Max(Abs(U2),Abs(U1));
   Standard_Real EpsU = Epsilon(deltaU);
   deltaU = U2 - U1;
-
+  if (uperiodic) {
+    Standard_Real aUPeriod = uknots->Last() - uknots->First();
+    if (deltaU - aUPeriod > Precision::PConfusion())
+      Standard_DomainError::Raise("Geom_BSplineSurface::Segment");
+    if (deltaU > aUPeriod)
+      deltaU = aUPeriod;
+  }
+  
   Standard_Real deltaV = Max(Abs(V2),Abs(V1));
   Standard_Real EpsV = Epsilon(deltaV);
   deltaV = V2 - V1;
+  if (vperiodic) {
+    Standard_Real aVPeriod = vknots->Last() - vknots->First();
+    if (deltaV - aVPeriod > Precision::PConfusion())
+      Standard_DomainError::Raise("Geom_BSplineSurface::Segment");
+    if (deltaV > aVPeriod)
+      deltaV = aVPeriod;
+  }
 
   Standard_Real NewU1, NewU2, NewV1, NewV2;
   Standard_Real U,V;
@@ -597,7 +612,7 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
     SetUNotPeriodic();
   }
 
-  // compute index1 and index2 to set the new knots and mults
+  // compute index1 and index2 to set the new knots and mults 
   Standard_Integer index1U = 0, index2U = 0;
   Standard_Integer FromU1 = uknots->Lower();
   Standard_Integer ToU2   = uknots->Upper();
@@ -607,12 +622,12 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
 			    NewU1 + deltaU,uperiodic,FromU1,ToU2,index2U,U);
   if ( Abs(uknots->Value(index2U+1)-U) <= EpsU)
     index2U++;
-
+  
   Standard_Integer nbuknots = index2U - index1U + 1;
 
-  Handle(TColStd_HArray1OfReal)
+  Handle(TColStd_HArray1OfReal) 
     nuknots = new TColStd_HArray1OfReal(1,nbuknots);
-  Handle(TColStd_HArray1OfInteger)
+  Handle(TColStd_HArray1OfInteger) 
     numults = new TColStd_HArray1OfInteger(1,nbuknots);
 
   Standard_Integer i , k = 1;
@@ -636,7 +651,7 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
     SetVNotPeriodic();
   }
 
-  // compute index1 and index2 to set the new knots and mults
+  // compute index1 and index2 to set the new knots and mults 
   Standard_Integer index1V = 0, index2V = 0;
   Standard_Integer FromV1 = vknots->Lower();
   Standard_Integer ToV2   = vknots->Upper();
@@ -646,12 +661,12 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
 			    NewV1 + deltaV,vperiodic,FromV1,ToV2,index2V,V);
   if ( Abs(vknots->Value(index2V+1)-V) <= EpsV)
     index2V++;
-
+  
   Standard_Integer nbvknots = index2V - index1V + 1;
 
-  Handle(TColStd_HArray1OfReal)
+  Handle(TColStd_HArray1OfReal) 
     nvknots = new TColStd_HArray1OfReal(1,nbvknots);
-  Handle(TColStd_HArray1OfInteger)
+  Handle(TColStd_HArray1OfInteger) 
     nvmults = new TColStd_HArray1OfInteger(1,nbvknots);
 
   k = 1;
@@ -665,9 +680,9 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
 
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1U
+  Standard_Integer pindex1U 
     = BSplCLib::PoleIndex(udeg,index1U,uperiodic,umults->Array1());
-  Standard_Integer pindex2U
+  Standard_Integer pindex2U 
     = BSplCLib::PoleIndex(udeg,index2U,uperiodic,umults->Array1());
 
   pindex1U++;
@@ -676,9 +691,9 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
   Standard_Integer nbupoles  = pindex2U - pindex1U + 1;
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1V
+  Standard_Integer pindex1V 
     = BSplCLib::PoleIndex(vdeg,index1V,vperiodic,vmults->Array1());
-  Standard_Integer pindex2V
+  Standard_Integer pindex2V 
     = BSplCLib::PoleIndex(vdeg,index2V,vperiodic,vmults->Array1());
 
   pindex1V++;
@@ -687,7 +702,7 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
   Standard_Integer nbvpoles  = pindex2V - pindex1V + 1;
 
 
-  Handle(TColStd_HArray2OfReal) nweights;
+  Handle(TColStd_HArray2OfReal) nweights; 
 
   Handle(TColgp_HArray2OfPnt)
     npoles = new TColgp_HArray2OfPnt(1,nbupoles,1,nbvpoles);
@@ -722,9 +737,9 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
   vknots = nvknots;
   vmults = nvmults;
   poles = npoles;
-  if ( urational || vrational)
+  if ( urational || vrational) 
     weights = nweights;
-  else
+  else 
     weights = new TColStd_HArray2OfReal (1,poles->ColLength(),
 					 1,poles->RowLength(), 1.0);
 
@@ -736,24 +751,38 @@ void Geom_BSplineSurface::Segment(const Standard_Real U1,
 
 //=======================================================================
 //function : CheckAndSegment
-//purpose  :
+//purpose  : 
 //=======================================================================
 
-void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
+void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1, 
 					  const Standard_Real U2,
 					  const Standard_Real V1,
-					  const Standard_Real V2)
+					  const Standard_Real V2) 
 {
 
-  Standard_DomainError_Raise_if ( (U2 < U1) || (V2 < V1),
-				 "Geom_BSplineCurve::Segment");
+  if ((U2 < U1) || (V2 < V1))
+    Standard_DomainError::Raise("Geom_BSplineSurface::CheckAndSegment");
   Standard_Real deltaU = Max(Abs(U2),Abs(U1));
   Standard_Real EpsU = Epsilon(deltaU);
   deltaU = U2 - U1;
-
+  if (uperiodic) {
+    Standard_Real aUPeriod = uknots->Last() - uknots->First();
+    if (deltaU - aUPeriod > Precision::PConfusion())
+      Standard_DomainError::Raise("Geom_BSplineSurface::CheckAndSegment");
+    if (deltaU > aUPeriod)
+      deltaU = aUPeriod;
+  }
+  
   Standard_Real deltaV = Max(Abs(V2),Abs(V1));
   Standard_Real EpsV = Epsilon(deltaV);
   deltaV = V2 - V1;
+  if (vperiodic) {
+    Standard_Real aVPeriod = vknots->Last() - vknots->First();
+    if (deltaV - aVPeriod > Precision::PConfusion())
+      Standard_DomainError::Raise("Geom_BSplineSurface::CheckAndSegment");
+    if (deltaV > aVPeriod)
+      deltaV = aVPeriod;
+  }
 
   Standard_Real NewU1, NewU2, NewV1, NewV2;
   Standard_Real U,V;
@@ -781,7 +810,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
     UKnots( 1) = Min( NewU1, NewU2);
     UKnots( 2) = Max( NewU1, NewU2);
     UMults( 1) = UMults( 2) = udeg;
-
+    
     InsertUKnots( UKnots, UMults, EpsU);
   }
 
@@ -797,7 +826,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
     // Inserting the VKnots
     TColStd_Array1OfReal    VKnots(1,2);
     TColStd_Array1OfInteger VMults(1,2);
-
+    
     VKnots( 1) = Min( NewV1, NewV2);
     VKnots( 2) = Max( NewV1, NewV2);
     VMults( 1) = VMults( 2) = vdeg;
@@ -815,7 +844,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
     SetUNotPeriodic();
   }
 
-  // compute index1 and index2 to set the new knots and mults
+  // compute index1 and index2 to set the new knots and mults 
   Standard_Integer index1U = 0, index2U = 0;
   Standard_Integer FromU1 = uknots->Lower();
   Standard_Integer ToU2   = uknots->Upper();
@@ -825,12 +854,12 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
 			    NewU1 + deltaU,uperiodic,FromU1,ToU2,index2U,U);
   if ( Abs(uknots->Value(index2U+1)-U) <= EpsU)
     index2U++;
-
+  
   Standard_Integer nbuknots = index2U - index1U + 1;
 
-  Handle(TColStd_HArray1OfReal)
+  Handle(TColStd_HArray1OfReal) 
     nuknots = new TColStd_HArray1OfReal(1,nbuknots);
-  Handle(TColStd_HArray1OfInteger)
+  Handle(TColStd_HArray1OfInteger) 
     numults = new TColStd_HArray1OfInteger(1,nbuknots);
 
   Standard_Integer i , k = 1;
@@ -855,7 +884,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
     SetVNotPeriodic();
   }
 
-  // compute index1 and index2 to set the new knots and mults
+  // compute index1 and index2 to set the new knots and mults 
   Standard_Integer index1V = 0, index2V = 0;
   Standard_Integer FromV1 = vknots->Lower();
   Standard_Integer ToV2   = vknots->Upper();
@@ -865,12 +894,12 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
 			    NewV1 + deltaV,vperiodic,FromV1,ToV2,index2V,V);
   if ( Abs(vknots->Value(index2V+1)-V) <= EpsV)
     index2V++;
-
+  
   Standard_Integer nbvknots = index2V - index1V + 1;
 
-  Handle(TColStd_HArray1OfReal)
+  Handle(TColStd_HArray1OfReal) 
     nvknots = new TColStd_HArray1OfReal(1,nbvknots);
-  Handle(TColStd_HArray1OfInteger)
+  Handle(TColStd_HArray1OfInteger) 
     nvmults = new TColStd_HArray1OfInteger(1,nbvknots);
 
   k = 1;
@@ -885,9 +914,9 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
   }
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1U
+  Standard_Integer pindex1U 
     = BSplCLib::PoleIndex(udeg,index1U,uperiodic,umults->Array1());
-  Standard_Integer pindex2U
+  Standard_Integer pindex2U 
     = BSplCLib::PoleIndex(udeg,index2U,uperiodic,umults->Array1());
 
   pindex1U++;
@@ -896,9 +925,9 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
   Standard_Integer nbupoles  = pindex2U - pindex1U + 1;
 
   // compute index1 and index2 to set the new poles and weights
-  Standard_Integer pindex1V
+  Standard_Integer pindex1V 
     = BSplCLib::PoleIndex(vdeg,index1V,vperiodic,vmults->Array1());
-  Standard_Integer pindex2V
+  Standard_Integer pindex2V 
     = BSplCLib::PoleIndex(vdeg,index2V,vperiodic,vmults->Array1());
 
   pindex1V++;
@@ -907,7 +936,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
   Standard_Integer nbvpoles  = pindex2V - pindex1V + 1;
 
 
-  Handle(TColStd_HArray2OfReal) nweights;
+  Handle(TColStd_HArray2OfReal) nweights; 
 
   Handle(TColgp_HArray2OfPnt)
     npoles = new TColgp_HArray2OfPnt(1,nbupoles,1,nbvpoles);
@@ -942,9 +971,9 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
   vknots = nvknots;
   vmults = nvmults;
   poles = npoles;
-  if ( urational || vrational)
+  if ( urational || vrational) 
     weights = nweights;
-  else
+  else 
     weights = new TColStd_HArray2OfReal (1,poles->ColLength(),
 					 1,poles->RowLength(), 1.0);
 
@@ -956,7 +985,7 @@ void Geom_BSplineSurface::CheckAndSegment(const Standard_Real U1,
 
 //=======================================================================
 //function : SetUKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetUKnot
@@ -976,12 +1005,12 @@ void Geom_BSplineSurface::SetUKnot
     }
   }
   else {
-    if (K <= uknots->Value (NewIndex-1) + DU ||
-	K >= uknots->Value (NewIndex+1) - DU ) {
+    if (K <= uknots->Value (NewIndex-1) + DU || 
+	K >= uknots->Value (NewIndex+1) - DU ) { 
       Standard_ConstructionError::Raise();
-    }
+    } 
   }
-
+  
   if (K != uknots->Value (NewIndex)) {
     uknots->SetValue (NewIndex, K);
     maxderivinvok = 0;
@@ -991,7 +1020,7 @@ void Geom_BSplineSurface::SetUKnot
 
 //=======================================================================
 //function : SetUKnots
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetUKnots (const TColStd_Array1OfReal& UK) {
@@ -1029,7 +1058,7 @@ void Geom_BSplineSurface::SetUKnots (const TColStd_Array1OfReal& UK) {
 
 //=======================================================================
 //function : SetUKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetUKnot
@@ -1043,7 +1072,7 @@ void Geom_BSplineSurface::SetUKnot
 
 //=======================================================================
 //function : SetVKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetVKnot
@@ -1064,19 +1093,19 @@ void Geom_BSplineSurface::SetVKnot
     }
   }
   else {
-    if (K <= vknots->Value (NewIndex-1) + DV ||
-	K >= vknots->Value (NewIndex+1) - DV ) {
+    if (K <= vknots->Value (NewIndex-1) + DV || 
+	K >= vknots->Value (NewIndex+1) - DV ) { 
       Standard_ConstructionError::Raise();
-    }
+    } 
   }
-
+  
   maxderivinvok = 0;
   UpdateVKnots();
 }
 
 //=======================================================================
 //function : SetVKnots
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetVKnots (const TColStd_Array1OfReal& VK) {
@@ -1114,7 +1143,7 @@ void Geom_BSplineSurface::SetVKnots (const TColStd_Array1OfReal& VK) {
 
 //=======================================================================
 //function : SetVKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetVKnot
@@ -1128,7 +1157,7 @@ void Geom_BSplineSurface::SetVKnot
 
 //=======================================================================
 //function : InsertUKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::InsertUKnot
@@ -1146,7 +1175,7 @@ void Geom_BSplineSurface::InsertUKnot
 
 //=======================================================================
 //function : InsertVKnot
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::InsertVKnot
@@ -1164,7 +1193,7 @@ void Geom_BSplineSurface::InsertVKnot
 
 //=======================================================================
 //function : IncrementUMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void  Geom_BSplineSurface::IncrementUMultiplicity
@@ -1181,7 +1210,7 @@ void  Geom_BSplineSurface::IncrementUMultiplicity
 
 //=======================================================================
 //function : IncrementVMultiplicity
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void  Geom_BSplineSurface::IncrementVMultiplicity
@@ -1194,13 +1223,13 @@ void  Geom_BSplineSurface::IncrementVMultiplicity
 
   TColStd_Array1OfInteger m( FromI1, ToI2) ;
   m.Init(Step);
-
+  
   InsertVKnots( k, m, Epsilon(1.));
 }
 
 //=======================================================================
 //function : UpdateUKnots
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::UpdateUKnots()
@@ -1208,23 +1237,23 @@ void Geom_BSplineSurface::UpdateUKnots()
 
   Standard_Integer MaxKnotMult = 0;
   BSplCLib::KnotAnalysis (udeg, uperiodic,
-		uknots->Array1(),
-		umults->Array1(),
+		uknots->Array1(), 
+		umults->Array1(), 
 		uknotSet, MaxKnotMult);
-
+  
   if (uknotSet == GeomAbs_Uniform && !uperiodic)  {
     ufknots = uknots;
   }
   else {
-    ufknots = new TColStd_HArray1OfReal
+    ufknots = new TColStd_HArray1OfReal 
       (1, BSplCLib::KnotSequenceLength(umults->Array1(),udeg,uperiodic));
 
-    BSplCLib::KnotSequence (uknots->Array1(),
+    BSplCLib::KnotSequence (uknots->Array1(), 
 			    umults->Array1(),
 			    udeg,uperiodic,
 			    ufknots->ChangeArray1());
   }
-
+  
   if (MaxKnotMult == 0)  Usmooth = GeomAbs_CN;
   else {
     switch (udeg - MaxKnotMult) {
@@ -1239,30 +1268,30 @@ void Geom_BSplineSurface::UpdateUKnots()
 
 //=======================================================================
 //function : UpdateVKnots
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::UpdateVKnots()
 {
   Standard_Integer MaxKnotMult = 0;
   BSplCLib::KnotAnalysis (vdeg, vperiodic,
-		vknots->Array1(),
-		vmults->Array1(),
+		vknots->Array1(), 
+		vmults->Array1(), 
 		vknotSet, MaxKnotMult);
-
+  
   if (vknotSet == GeomAbs_Uniform && !vperiodic)  {
     vfknots = vknots;
   }
   else {
-    vfknots = new TColStd_HArray1OfReal
+    vfknots = new TColStd_HArray1OfReal 
       (1, BSplCLib::KnotSequenceLength(vmults->Array1(),vdeg,vperiodic));
 
-    BSplCLib::KnotSequence (vknots->Array1(),
+    BSplCLib::KnotSequence (vknots->Array1(), 
 			    vmults->Array1(),
 			    vdeg,vperiodic,
 			    vfknots->ChangeArray1());
   }
-
+  
   if (MaxKnotMult == 0)  Vsmooth = GeomAbs_CN;
   else {
     switch (vdeg - MaxKnotMult) {
@@ -1282,18 +1311,18 @@ void Geom_BSplineSurface::UpdateVKnots()
 //=======================================================================
 
 void Geom_BSplineSurface::PeriodicNormalization
-(Standard_Real&  Uparameter,
- Standard_Real&  Vparameter) const
+(Standard_Real&  Uparameter, 
+ Standard_Real&  Vparameter) const 
 {
   Standard_Real Period, aMaxVal, aMinVal;
-
+  
   if (uperiodic) {
     aMaxVal = ufknots->Value(ufknots->Upper() - udeg);
     aMinVal = ufknots->Value (udeg + 1);
     Standard_Real eps = Abs(Epsilon(Uparameter));
     Period =  aMaxVal - aMinVal;
 
-    if(Period <= eps)
+    if(Period <= eps) 
       Standard_OutOfRange::Raise("Geom_BSplineSurface::PeriodicNormalization: Uparameter is too great number");
 
     Standard_Boolean isLess, isGreater;
@@ -1312,7 +1341,7 @@ void Geom_BSplineSurface::PeriodicNormalization
     Standard_Real eps = Abs(Epsilon(Vparameter));
     Period = aMaxVal - aMinVal;
 
-    if(Period <= eps)
+    if(Period <= eps) 
       Standard_OutOfRange::Raise("Geom_BSplineSurface::PeriodicNormalization: Vparameter is too great number");
 
     Standard_Boolean isLess, isGreater;
@@ -1329,14 +1358,14 @@ void Geom_BSplineSurface::PeriodicNormalization
 
 //=======================================================================
 //function : SetWeight
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetWeight (const Standard_Integer UIndex,
 				     const Standard_Integer VIndex,
 				     const Standard_Real    Weight)
 {
-  if (Weight <= gp::Resolution())  Standard_ConstructionError::Raise();
+  if (Weight <= gp::Resolution())  Standard_ConstructionError::Raise(); 
   TColStd_Array2OfReal & Weights = weights->ChangeArray2();
   if (UIndex < 1 || UIndex > Weights.ColLength() ||
       VIndex < 1 || VIndex > Weights.RowLength() ) {
@@ -1348,18 +1377,18 @@ void Geom_BSplineSurface::SetWeight (const Standard_Integer UIndex,
 
 //=======================================================================
 //function : SetWeightCol
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetWeightCol
-(const Standard_Integer       VIndex,
+(const Standard_Integer       VIndex, 
  const TColStd_Array1OfReal&  CPoleWeights)
 {
-  TColStd_Array2OfReal & Weights = weights->ChangeArray2();
+  TColStd_Array2OfReal & Weights = weights->ChangeArray2();   
   if (VIndex < 1 || VIndex > Weights.RowLength()) {
     Standard_OutOfRange::Raise();
   }
-  if (CPoleWeights.Lower() < 1 ||
+  if (CPoleWeights.Lower() < 1 || 
       CPoleWeights.Lower() > Weights.ColLength() ||
       CPoleWeights.Upper() < 1 ||
       CPoleWeights.Upper() > Weights.ColLength()  ) {
@@ -1367,10 +1396,10 @@ void Geom_BSplineSurface::SetWeightCol
   }
   Standard_Integer I = CPoleWeights.Lower();
   while (I <= CPoleWeights.Upper()) {
-    if (CPoleWeights(I) <= gp::Resolution()) {
+    if (CPoleWeights(I) <= gp::Resolution()) { 
       Standard_ConstructionError::Raise();
     }
-    Weights (I+Weights.LowerRow()-1, VIndex+Weights.LowerCol()-1) =
+    Weights (I+Weights.LowerRow()-1, VIndex+Weights.LowerCol()-1) = 
       CPoleWeights (I);
     I++;
   }
@@ -1380,14 +1409,14 @@ void Geom_BSplineSurface::SetWeightCol
 
 //=======================================================================
 //function : SetWeightRow
-//purpose  :
+//purpose  : 
 //=======================================================================
 
 void Geom_BSplineSurface::SetWeightRow
-(const Standard_Integer       UIndex,
+(const Standard_Integer       UIndex, 
  const TColStd_Array1OfReal&  CPoleWeights)
 {
-  TColStd_Array2OfReal & Weights = weights->ChangeArray2();
+  TColStd_Array2OfReal & Weights = weights->ChangeArray2();   
   if (UIndex < 1 || UIndex > Weights.ColLength()) {
     Standard_OutOfRange::Raise();
   }
@@ -1395,7 +1424,7 @@ void Geom_BSplineSurface::SetWeightRow
       CPoleWeights.Lower() > Weights.RowLength() ||
       CPoleWeights.Upper() < 1 ||
       CPoleWeights.Upper() > Weights.RowLength()  ) {
-
+    
     Standard_ConstructionError::Raise();
   }
   Standard_Integer I = CPoleWeights.Lower();
@@ -1404,7 +1433,7 @@ void Geom_BSplineSurface::SetWeightRow
     if (CPoleWeights(I)<=gp::Resolution()) {
       Standard_ConstructionError::Raise();
     }
-    Weights (UIndex+Weights.LowerRow()-1, I+Weights.LowerCol()-1) =
+    Weights (UIndex+Weights.LowerRow()-1, I+Weights.LowerCol()-1) = 
       CPoleWeights (I);
     I++;
   }

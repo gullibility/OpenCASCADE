@@ -18,5 +18,6 @@ if { [catch { bcut result a_1 a_2 } status] } {
     puts "Faulty OCC774 (case 1)"
 } 
 
-set square 50704.6
-set 2dviewer 0
+checkprops result -s 50704.6 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -18,5 +18,6 @@ checkshape -top sec
 bfuse result a b
 checkshape -top result
 
-set square 508496.
-set 2dviewer 0
+checkprops result -s 508496. 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -1,8 +1,9 @@
+Setlocal EnableDelayedExpansion
+
 call "%~dp0env.bat" %1 %2 %3
 
 set "BIN_DIR=win%ARCH%\%VCVER%\bind"
-
-IF ["%CASDEB%"] == [""] (
+if ["%CASDEB%"] == [""] (
   set "BIN_DIR=win%ARCH%\%VCVER%\bin"
 )
 

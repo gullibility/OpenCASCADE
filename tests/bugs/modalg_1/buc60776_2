@@ -9,7 +9,8 @@ restore [locate_data_file buc60776d.brep] b
 checkshape b
 bsection result a b
 
-set length 112.906
-
-set 2dviewer 1
+checkprops result -l 112.906 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

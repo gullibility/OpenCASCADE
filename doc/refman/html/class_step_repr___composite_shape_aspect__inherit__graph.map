@@ -1,0 +1,10 @@
+<map id="StepRepr_CompositeShapeAspect" name="StepRepr_CompositeShapeAspect">
+<area shape="rect" id="node5" href="$class_step_dim_tol___common_datum.html" title="Representation of STEP entity CommonDatum. " alt="" coords="848,5,1035,32"/>
+<area shape="rect" id="node6" href="$class_step_repr___composite_group_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="833,57,1050,98"/>
+<area shape="rect" id="node7" href="$class_step_repr___continuos_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="832,123,1051,149"/>
+<area shape="rect" id="node2" href="$class_step_repr___shape_aspect.html" title="StepRepr_ShapeAspect" alt="" coords="350,64,511,91"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,64,301,91"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,64,141,91"/>
+<area shape="rect" id="node8" href="$class_step_repr___all_around_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="1099,97,1317,124"/>
+<area shape="rect" id="node9" href="$class_step_repr___between_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="1103,148,1313,175"/>
+</map>

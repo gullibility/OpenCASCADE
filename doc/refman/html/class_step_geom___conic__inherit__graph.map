@@ -1,0 +1,11 @@
+<map id="StepGeom_Conic" name="StepGeom_Conic">
+<area shape="rect" id="node7" href="$class_step_geom___circle.html" title="StepGeom_Circle" alt="" coords="5,453,128,480"/>
+<area shape="rect" id="node8" href="$class_step_geom___ellipse.html" title="StepGeom_Ellipse" alt="" coords="153,453,284,480"/>
+<area shape="rect" id="node9" href="$class_step_geom___hyperbola.html" title="StepGeom_Hyperbola" alt="" coords="308,453,457,480"/>
+<area shape="rect" id="node10" href="$class_step_geom___parabola.html" title="StepGeom_Parabola" alt="" coords="482,453,624,480"/>
+<area shape="rect" id="node2" href="$class_step_geom___curve.html" title="StepGeom_Curve" alt="" coords="239,304,361,331"/>
+<area shape="rect" id="node3" href="$class_step_geom___geometric_representation_item.html" title="StepGeom_GeometricRepresentationItem" alt="" coords="169,229,431,256"/>
+<area shape="rect" id="node4" href="$class_step_repr___representation_item.html" title="StepRepr_RepresentationItem" alt="" coords="203,155,397,181"/>
+<area shape="rect" id="node5" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="245,80,355,107"/>
+<area shape="rect" id="node6" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="233,5,367,32"/>
+</map>

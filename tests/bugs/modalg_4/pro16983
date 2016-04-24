@@ -13,5 +13,6 @@ wire w e
 featlf B w p -5 0 0 5 0 0 1 1
 featperform lf result
 
-set square 796476
-set 2dviewer 0
+checkprops result -s 796476 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

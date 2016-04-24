@@ -1,0 +1,7 @@
+<map id="Graphic3d_DataStructureManager" name="Graphic3d_DataStructureManager">
+<area shape="rect" id="node4" href="$class_graphic3d___c_view.html" title="Base class of a graphical view that carries out rendering process for a concrete implementation of gr..." alt="" coords="52,229,177,256"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="59,80,169,107"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="47,5,181,32"/>
+<area shape="rect" id="node5" href="$class_open_gl___view.html" title="Implementation of OpenGl view. " alt="" coords="64,304,165,331"/>
+<area shape="rect" id="node6" href="$class_d3_d_host___view.html" title="The D3D host view implementation that overrides rendering methods. " alt="" coords="60,379,169,405"/>
+</map>

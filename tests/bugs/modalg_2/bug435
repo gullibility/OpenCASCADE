@@ -24,5 +24,7 @@ repeat 8 {
     incr j
 } 
 
-set length 17.2848
-set 3dviewer 1
+checkprops result -l 17.2848 
+checkshape result 
+checksection result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

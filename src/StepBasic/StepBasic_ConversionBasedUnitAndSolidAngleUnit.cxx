@@ -20,15 +20,11 @@
 #include <StepBasic_SolidAngleUnit.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ConversionBasedUnitAndSolidAngleUnit,StepBasic_ConversionBasedUnit)
+
 StepBasic_ConversionBasedUnitAndSolidAngleUnit::StepBasic_ConversionBasedUnitAndSolidAngleUnit ()
 {
 }
-
-void StepBasic_ConversionBasedUnitAndSolidAngleUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions)
-{
-  StepBasic_NamedUnit::Init(aDimensions);
-}
-
 
 void StepBasic_ConversionBasedUnitAndSolidAngleUnit::Init(const Handle(StepBasic_DimensionalExponents)& aDimensions,
 							  const Handle(TCollection_HAsciiString)& aName,

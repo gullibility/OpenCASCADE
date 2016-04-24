@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{F38678A0-0553-12F6-019D-046F642D0FC8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\TPrsStd">
+      <UniqueIdentifier>{671FDE65-00EB-1003-084F-9FCB23D16A3A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_AISPresentation.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_AISViewer.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_AxisDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_ConstraintDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_ConstraintTools.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_Driver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_DriverTable.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_GeometryDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_NamedShapeDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_PlaneDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TPrsStd\TPrsStd_PointDriver.cxx">
+      <Filter>Source files\TPrsStd</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TKVCAF.rc" />  </ItemGroup>
+</Project>

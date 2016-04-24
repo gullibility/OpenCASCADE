@@ -18,21 +18,9 @@
 #include <StepGeom_RationalBSplineSurface.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_QuasiUniformSurfaceAndRationalBSplineSurface,StepGeom_BSplineSurface)
+
 StepGeom_QuasiUniformSurfaceAndRationalBSplineSurface::StepGeom_QuasiUniformSurfaceAndRationalBSplineSurface ()  {}
-
-void StepGeom_QuasiUniformSurfaceAndRationalBSplineSurface::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Standard_Integer aUDegree,
-	const Standard_Integer aVDegree,
-	const Handle(StepGeom_HArray2OfCartesianPoint)& aControlPointsList,
-	const StepGeom_BSplineSurfaceForm aSurfaceForm,
-	const StepData_Logical aUClosed,
-	const StepData_Logical aVClosed,
-	const StepData_Logical aSelfIntersect)
-{
-
-	StepGeom_BSplineSurface::Init(aName, aUDegree, aVDegree, aControlPointsList, aSurfaceForm, aUClosed, aVClosed, aSelfIntersect);
-}
 
 void StepGeom_QuasiUniformSurfaceAndRationalBSplineSurface::Init(
 	const Handle(TCollection_HAsciiString)& aName,

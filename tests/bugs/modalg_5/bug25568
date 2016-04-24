@@ -22,5 +22,6 @@ if ![isdraw result] {
   }
 }
 
-set square 25.236
-set 2dviewer 0
+checkprops result -s 25.236 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

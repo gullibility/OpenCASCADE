@@ -18,15 +18,9 @@
 #include <StepBasic_Organization.hxx>
 #include <StepBasic_OrganizationRole.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepAP214_AutoDesignOrganizationAssignment,StepBasic_OrganizationAssignment)
+
 StepAP214_AutoDesignOrganizationAssignment::StepAP214_AutoDesignOrganizationAssignment ()  {}
-
-void StepAP214_AutoDesignOrganizationAssignment::Init(
-	const Handle(StepBasic_Organization)& aAssignedOrganization,
-	const Handle(StepBasic_OrganizationRole)& aRole)
-{
-
-	StepBasic_OrganizationAssignment::Init(aAssignedOrganization, aRole);
-}
 
 void StepAP214_AutoDesignOrganizationAssignment::Init(
 	const Handle(StepBasic_Organization)& aAssignedOrganization,

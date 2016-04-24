@@ -1,0 +1,11 @@
+<map id="StepRepr_ProductDefinitionUsage" name="StepRepr_ProductDefinitionUsage">
+<area shape="rect" id="node5" href="$class_step_repr___assembly_component_usage.html" title="Representation of STEP entity AssemblyComponentUsage. " alt="" coords="821,103,1027,145"/>
+<area shape="rect" id="node10" href="$class_step_repr___make_from_usage_option.html" title="Representation of STEP entity MakeFromUsageOption. " alt="" coords="814,169,1034,196"/>
+<area shape="rect" id="node2" href="$class_step_basic___product_definition_relationship.html" title="Representation of STEP entity ProductDefinitionRelationship. " alt="" coords="349,133,536,174"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,140,301,167"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,140,141,167"/>
+<area shape="rect" id="node6" href="$class_step_repr___next_assembly_usage_occurrence.html" title="Representation of STEP entity NextAssemblyUsageOccurrence. " alt="" coords="1083,5,1288,46"/>
+<area shape="rect" id="node7" href="$class_step_repr___promissory_usage_occurrence.html" title="StepRepr_PromissoryUsage\lOccurrence" alt="" coords="1092,70,1279,111"/>
+<area shape="rect" id="node8" href="$class_step_repr___quantified_assembly_component_usage.html" title="Representation of STEP entity QuantifiedAssemblyComponentUsage. " alt="" coords="1086,135,1285,177"/>
+<area shape="rect" id="node9" href="$class_step_repr___specified_higher_usage_occurrence.html" title="Representation of STEP entity SpecifiedHigherUsageOccurrence. " alt="" coords="1099,201,1272,242"/>
+</map>

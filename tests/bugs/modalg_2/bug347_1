@@ -13,19 +13,7 @@ vinit
 vdisplay result
 vfit
 vsetdispmode result 1
-set 3dviewer 1
 
-set tri 0
-set nod 0
-set tri_info [trinfo result]
-regexp { +([-0-9.+eE]+) +triangles} $tri_info full tri
-regexp { +([-0-9.+eE]+) +nodes} $tri_info full nod
-
-if { $tri == 72 && $nod == 74} {
-    puts " OCC347  case 1: OK"
-} else {
-    puts " OCC347  case 1: Faulty"
-}
-
-set square 314.159
-set 2dviewer 0
+checktrinfo result -tri 72 -nod 74
+checkprops result -s 314.159 
+checkview -display result -2d -path ${imagedir}/${test_image}.png

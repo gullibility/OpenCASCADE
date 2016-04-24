@@ -18,6 +18,8 @@
 #include <Standard_Assert.hxx>
 
 
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Sampler,OpenGl_Resource)
+
 // =======================================================================
 // function : OpenGl_Sampler
 // purpose  :
@@ -95,6 +97,9 @@ void OpenGl_Sampler::Bind (OpenGl_Context& theContext,
   {
   #if !defined(GL_ES_VERSION_2_0) || defined(GL_ES_VERSION_3_0)
     theContext.core33->glBindSampler (theUnit, mySamplerID);
+  #else
+    (void )theContext;
+    (void )theUnit;
   #endif
   }
 }
@@ -110,6 +115,9 @@ void OpenGl_Sampler::Unbind (OpenGl_Context& theContext,
   {
   #if !defined(GL_ES_VERSION_2_0) || defined(GL_ES_VERSION_3_0)
     theContext.core33->glBindSampler (theUnit, NO_SAMPLER);
+  #else
+    (void )theContext;
+    (void )theUnit;
   #endif
   }
 }
@@ -126,6 +134,10 @@ void OpenGl_Sampler::SetParameter (OpenGl_Context& theContext,
   {
   #if !defined(GL_ES_VERSION_2_0) || defined(GL_ES_VERSION_3_0)
     theContext.core33->glSamplerParameteri (mySamplerID, theParam, theValue);
+  #else
+    (void )theContext;
+    (void )theParam;
+    (void )theValue;
   #endif
   }
 }

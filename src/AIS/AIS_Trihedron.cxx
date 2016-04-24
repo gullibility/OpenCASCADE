@@ -57,19 +57,20 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <UnitsAPI.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Trihedron,AIS_InteractiveObject)
+
 //=======================================================================
 //function : AIS_Trihedron
 //purpose  : 
 //=======================================================================
 AIS_Trihedron::AIS_Trihedron(const Handle(Geom_Axis2Placement)& aComponent):
-myComponent(aComponent),
-myHasOwnSize(Standard_False),
-myHasOwnTextColor(Standard_False),
-myHasOwnArrowColor(Standard_False)
-
-{  LoadSubObjects();}
-
-
+myComponent (aComponent),
+myHasOwnSize (Standard_False),
+myHasOwnTextColor (Standard_False),
+myHasOwnArrowColor (Standard_False)
+{
+  LoadSubObjects();
+}
 
 //=======================================================================
 //function : SetComponent
@@ -182,7 +183,10 @@ Standard_Real AIS_Trihedron::Size() const
 Handle(AIS_Axis) AIS_Trihedron::XAxis() const 
 {
   Handle(AIS_Axis) anAxis = Handle(AIS_Axis)::DownCast(myShapes[1]);
-  if (anAxis.IsNull()) anAxis = new AIS_Axis (myComponent,AIS_TOAX_XAxis);
+  if (anAxis.IsNull())
+  {
+    anAxis = new AIS_Axis (myComponent,AIS_TOAX_XAxis);
+  }
   return anAxis;
 }
 
@@ -193,7 +197,11 @@ Handle(AIS_Axis) AIS_Trihedron::XAxis() const
 Handle(AIS_Axis) AIS_Trihedron::YAxis() const 
 {
   Handle(AIS_Axis) anAxis = Handle(AIS_Axis)::DownCast(myShapes[2]);
-  if (anAxis.IsNull()) anAxis = new AIS_Axis (myComponent,AIS_TOAX_YAxis);
+  if (anAxis.IsNull())
+  {
+    anAxis = new AIS_Axis (myComponent,AIS_TOAX_YAxis);
+  }
+
   return anAxis;
 }
 
@@ -204,7 +212,10 @@ Handle(AIS_Axis) AIS_Trihedron::YAxis() const
 Handle(AIS_Axis) AIS_Trihedron::Axis() const 
 {
   Handle(AIS_Axis) anAxis = Handle(AIS_Axis)::DownCast(myShapes[3]);
-  if (anAxis.IsNull()) anAxis = new AIS_Axis (myComponent,AIS_TOAX_ZAxis);
+  if (anAxis.IsNull())
+  {
+    anAxis = new AIS_Axis (myComponent,AIS_TOAX_ZAxis);
+  }
   return anAxis;
 }
 
@@ -366,9 +377,7 @@ void AIS_Trihedron::ComputeSelection(const Handle(SelectMgr_Selection)& aSelecti
           Handle(AIS_Axis) anAxis = Handle(AIS_Axis)::DownCast(myShapes[anIdx]);
           Handle(Prs3d_Drawer) aDrawer = anAxis->Attributes();
           Handle(Prs3d_DatumAspect) aDatum = myDrawer->DatumAspect();
-          aDrawer->DatumAspect()->SetAxisLength (aDatum->FirstAxisLength(),
-                                                 aDatum->SecondAxisLength(),
-                                                 aDatum->ThirdAxisLength());
+          aDrawer->SetDatumAspect (aDatum);
           anAxisType = anAxis->TypeOfAxis();
           anAxis->SetAxis2Placement (myComponent, anAxisType);
 

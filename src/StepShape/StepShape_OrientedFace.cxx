@@ -18,15 +18,9 @@
 #include <StepShape_OrientedFace.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_OrientedFace,StepShape_Face)
+
 StepShape_OrientedFace::StepShape_OrientedFace ()  {}
-
-void StepShape_OrientedFace::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepShape_HArray1OfFaceBound)& aBounds)
-{
-
-	StepShape_Face::Init(aName, aBounds);
-}
 
 void StepShape_OrientedFace::Init(
 	const Handle(TCollection_HAsciiString)& aName,

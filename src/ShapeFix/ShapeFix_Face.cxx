@@ -101,6 +101,8 @@
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_Face,ShapeFix_Root)
+
 #ifdef OCCT_DEBUG
 #define DEBUG
 #endif
@@ -363,7 +365,7 @@ Standard_Boolean ShapeFix_Face::Perform()
 {
   myStatus = ShapeExtend::EncodeStatus ( ShapeExtend_OK );
   myFixWire->SetContext ( Context() );
-  Handle(ShapeFix_Wire) theAdvFixWire = Handle(ShapeFix_Wire)::DownCast(myFixWire);
+  Handle(ShapeFix_Wire) theAdvFixWire = myFixWire;
   if (theAdvFixWire.IsNull()) return Standard_False;
 
   BRep_Builder B;
@@ -842,7 +844,7 @@ Standard_Boolean ShapeFix_Face::FixAddNaturalBound()
     Handle(ShapeFix_Edge) sfe = myFixWire->FixEdgeTool();
     for (TopExp_Explorer Eed (myFace, TopAbs_EDGE); Eed.More(); Eed.Next()) {
       TopoDS_Edge edg = TopoDS::Edge (Eed.Current());
-      sfe->FixVertexTolerance(edg);
+      sfe->FixVertexTolerance(edg, myFace);
     }
 
 //    B.UpdateFace (myFace,myPrecision);

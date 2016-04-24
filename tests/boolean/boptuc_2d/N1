@@ -1,7 +1,10 @@
 restore [locate_data_file case_9_wire.brep] a
 restore [locate_data_file case_9_edge2.brep] b
+
 bop a b
 boptuc result
-set length 111.749
-set nbsh_v 2
-set nbsh_e 1
+
+checkprops result -l 111.749
+checksection result
+checknbshapes result -vertex 2 -edge 1 -t
+

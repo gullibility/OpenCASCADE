@@ -18,5 +18,5 @@ if { [catch { OCC22586 shape result } catch_result] } {
     puts "${BugNumber}  OK"
 }
 
-set 3dviewer 1 
-set square 10975
+checkprops result -s 10975
+checkview -display result -3d -path ${imagedir}/${test_image}.png

@@ -14,13 +14,13 @@ TKG2d
 TKTopTest
 TKG3d
 TKOffset
-TKVoxel
 TKMesh
 TKV3d
 TKDraw
 TKOpenGl
 CSF_TclLibs
 CSF_TclTkLibs
+CSF_XwLibs
 CSF_user32
 CSF_gdi32
 CSF_OpenGlLibs

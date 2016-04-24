@@ -20,5 +20,6 @@ smallview -2D-
 mat
 result
 
-set square 5844.21
-set 2dviewer 0
+checkprops result -s 5844.21 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -1,0 +1,8 @@
+<map id="StepRepr_ContinuosShapeAspect" name="StepRepr_ContinuosShapeAspect">
+<area shape="rect" id="node6" href="$class_step_repr___all_around_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="5,379,221,405"/>
+<area shape="rect" id="node7" href="$class_step_repr___between_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="247,379,457,405"/>
+<area shape="rect" id="node2" href="$class_step_repr___composite_shape_aspect.html" title="Added for Dimensional Tolerances. " alt="" coords="121,229,343,256"/>
+<area shape="rect" id="node3" href="$class_step_repr___shape_aspect.html" title="StepRepr_ShapeAspect" alt="" coords="151,155,312,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="177,80,287,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="165,5,299,32"/>
+</map>

@@ -638,13 +638,15 @@ namespace IE_WinForms
     public void DeleteObjects()
     {
       myOCCTProxy.EraseObjects();
+      IE_WinForms.Form1 parent = (IE_WinForms.Form1)this.ParentForm;
+      parent.SelectionChanged();
     }
     public void ImportModel(IE_WinForms.ModelFormat format)
     {
       int theformat = 10;
       System.Windows.Forms.OpenFileDialog openDialog = new OpenFileDialog();
 
-      string DataDir = ((Environment.GetEnvironmentVariable("CASROOT")) + "\\..\\data");
+      string DataDir = Environment.GetEnvironmentVariable("CSF_OCCTDataPath");
 
       string filter = "";
 
@@ -687,7 +689,7 @@ namespace IE_WinForms
     {
       int theformat = 10;
       System.Windows.Forms.SaveFileDialog saveDialog = new SaveFileDialog();
-      string DataDir = ((Environment.GetEnvironmentVariable("CASROOT")) + "\\..\\data");
+      string DataDir = Environment.GetEnvironmentVariable("CSF_OCCTDataPath");
       string filter = "";
       switch (format)
       {

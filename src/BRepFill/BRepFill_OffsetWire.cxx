@@ -17,7 +17,7 @@
 //  Modified by skv - Fri Jul  8 11:21:38 2005 OCC9145
 
 #include <Adaptor3d_Curve.hxx>
-#include <Adaptor3d_OffsetCurve.hxx>
+#include <Adaptor2d_OffsetCurve.hxx>
 #include <Bisector_Bisec.hxx>
 #include <BRep_Builder.hxx>
 #include <BRep_CurveRepresentation.hxx>
@@ -269,7 +269,7 @@ static Standard_Boolean KPartCircle
     {
       if (E.Orientation() == TopAbs_REVERSED)
         anOffset *= -1;
-      Adaptor3d_OffsetCurve Off(AHC,anOffset);
+      Adaptor2d_OffsetCurve Off(AHC,anOffset);
       OC = new Geom2d_Line(Off.Line());
     }
     else if (AHC->GetType() == GeomAbs_Circle)
@@ -299,7 +299,7 @@ static Standard_Boolean KPartCircle
     
     myShape.Orientation(E.Orientation());
     myShape.Location(L);
-    if (Alt != 0.) {
+    if (fabs(Alt) > gp::Resolution()) {
       BRepAdaptor_Surface S(mySpine,0);
       gp_Ax1 Nor = S.Plane().Axis();
       gp_Trsf T;
@@ -775,12 +775,14 @@ void BRepFill_OffsetWire::PerformWithBiLo
   TopTools_ListOfShape                      EmptyList;
   TColStd_SequenceOfReal                    EmptySeqOfReal;
 
-  Standard_Real ALT = Alt;
   Handle(Geom_Plane) RefPlane = 
     Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(myWorkSpine));
-  if ( myWorkSpine.Orientation() == TopAbs_REVERSED) ALT = -Alt;
-  RefPlane = Handle(Geom_Plane)::DownCast
-    (RefPlane->Translated( ALT * gp_Vec(RefPlane->Axis().Direction() )));
+  if (fabs(Alt) > gp::Resolution()) {
+    Standard_Real anAlt = Alt;
+    if ( myWorkSpine.Orientation() == TopAbs_REVERSED) anAlt = -Alt;
+    RefPlane = Handle(Geom_Plane)::DownCast
+      (RefPlane->Translated( anAlt * gp_Vec(RefPlane->Axis().Direction() )));
+  }
 
   //---------------------------------------------------------------
   // Construction of Circles and OffsetCurves
@@ -938,7 +940,8 @@ void BRepFill_OffsetWire::PerformWithBiLo
     // Construction of vertices on edges parallel to the spine.
     //-----------------------------------------------------------
 
-    Trim.IntersectWith(E [0], E [1], myJoinType, Params);
+    Trim.IntersectWith(E[0], E[1], S[0], S[1], Ends[0], Ends[1],
+                       myJoinType, myIsOpenResult, Params);
 
     for (Standard_Integer s = 1; s <= Params.Length(); s++) {
       TopoDS_Vertex VC;
@@ -1291,69 +1294,76 @@ void BRepFill_OffsetWire::UpdateDetromp (BRepFill_DataMapOfOrientedShapeListOfSh
                                          const BRepFill_TrimEdgeTool&    Trim) const
 {
   Standard_Integer ii = 1;
-  Standard_Real    U1,U2;
-  TopoDS_Vertex    V1,V2;
 
-  Handle(Geom2d_Curve) Bis (Bisec.Value());
-
-  U1 = Bis->FirstParameter();
-  
-  if (SOnE) { 
-    // the first point of the bissectrice is on the offset
-    V1 = TopoDS::Vertex(Vertices.Value(ii));
-    ii++; 
-  }
-
-  while (ii <= Vertices.Length()) {
-    U2 = Params.Value(ii).X();
-    V2 = TopoDS::Vertex(Vertices.Value(ii));
-
-    gp_Pnt2d P = Bis->Value((U2 + U1)*0.5);
-    Standard_Boolean IsP_inside = Standard_True;
-    if ((myJoinType != GeomAbs_Intersection) || EOnE)
-      IsP_inside = Trim.IsInside(P);
-    if (!IsP_inside) {
-      if (!V1.IsNull()) {
-        Detromp(Shape1).Append(V1);
-        Detromp(Shape2).Append(V1);
-      }
-      Detromp(Shape1).Append(V2);
-      Detromp(Shape2).Append(V2);
+  if (myJoinType == GeomAbs_Intersection)
+  {
+    for (; ii <= Vertices.Length(); ii++)
+    {
+      const TopoDS_Vertex& aVertex = TopoDS::Vertex(Vertices.Value(ii));
+      Detromp(Shape1).Append(aVertex);
+      Detromp(Shape2).Append(aVertex);
     }
-    U1 = U2;
-    V1 = V2;
-    ii ++;
   }
-
-  // test medium point between the last parameter and the end of the bissectrice.
-  U2 = Bis->LastParameter();
-  if (!EOnE) {
-    if (!Precision::IsInfinite(U2)) {
-      gp_Pnt2d P = Bis->Value((U2 + U1)*0.5);  
-      Standard_Boolean IsP_inside = Standard_False;
-      if (myJoinType == GeomAbs_Arc)
-        IsP_inside = Trim.IsInside(P);
-      if (!IsP_inside) {
+  else //myJoinType == GeomAbs_Arc
+  {
+    Standard_Real    U1,U2;
+    TopoDS_Vertex    V1,V2;
+    
+    const Handle(Geom2d_Curve)& Bis = Bisec.Value();
+    
+    U1 = Bis->FirstParameter();
+    
+    if (SOnE) { 
+      // the first point of the bissectrice is on the offset
+      V1 = TopoDS::Vertex(Vertices.Value(ii));
+      ii++; 
+    }
+    
+    while (ii <= Vertices.Length()) {
+      U2 = Params.Value(ii).X();
+      V2 = TopoDS::Vertex(Vertices.Value(ii));
+      
+      gp_Pnt2d P = Bis->Value((U2 + U1)*0.5);
+      if (!Trim.IsInside(P)) {
+        if (!V1.IsNull()) {
+          Detromp(Shape1).Append(V1);
+          Detromp(Shape2).Append(V1);
+        }
+        Detromp(Shape1).Append(V2);
+        Detromp(Shape2).Append(V2);
+      }
+      U1 = U2;
+      V1 = V2;
+      ii ++;
+    }
+    
+    // test medium point between the last parameter and the end of the bissectrice.
+    U2 = Bis->LastParameter();
+    if (!EOnE) {
+      if (!Precision::IsInfinite(U2)) {
+        gp_Pnt2d P = Bis->Value((U2 + U1)*0.5);
+        if (!Trim.IsInside(P)) {
+          if (!V1.IsNull()) {
+            Detromp(Shape1).Append(V1);
+            Detromp(Shape2).Append(V1);
+          }
+        }
+      }
+      else {
         if (!V1.IsNull()) {
           Detromp(Shape1).Append(V1);
           Detromp(Shape2).Append(V1);
         }
       }
-    }
-    else {
-      if (!V1.IsNull()) {
-        Detromp(Shape1).Append(V1);
-        Detromp(Shape2).Append(V1);
-      }
-    }
-  }    
-  //else if(myJoinType != GeomAbs_Arc)
-  //{
-  //  if (!V1.IsNull()) {
-  //    Detromp(Shape1).Append(V1);
-  //    Detromp(Shape2).Append(V1);
-  //  }
-  //}
+    }    
+    //else if(myJoinType != GeomAbs_Arc)
+    //{
+    //  if (!V1.IsNull()) {
+    //    Detromp(Shape1).Append(V1);
+    //    Detromp(Shape2).Append(V1);
+    //  }
+    //}
+  } //end of else (myJoinType==GeomAbs_Arc)
 }
 
 //=======================================================================
@@ -2081,7 +2091,7 @@ void MakeOffset (const TopoDS_Edge&        E,
 
       Handle(Geom2dAdaptor_HCurve) AHC = 
         new Geom2dAdaptor_HCurve(G2d);
-      Adaptor3d_OffsetCurve   Off(AHC,-anOffset);
+      Adaptor2d_OffsetCurve   Off(AHC,-anOffset);
       Handle(Geom2d_Circle) CC = new Geom2d_Circle(Off.Circle());      
 
       Standard_Real Delta = 2*M_PI - l + f;
@@ -2116,7 +2126,7 @@ void MakeOffset (const TopoDS_Edge&        E,
   else if (AC.GetType() == GeomAbs_Line) {
     Handle(Geom2dAdaptor_HCurve) AHC = 
       new Geom2dAdaptor_HCurve(G2d);
-    Adaptor3d_OffsetCurve Off(AHC,anOffset);
+    Adaptor2d_OffsetCurve Off(AHC,anOffset);
     Handle(Geom2d_Line)       CC = new Geom2d_Line(Off.Line());
     Standard_Real Delta = (l - f);
     if (ToExtendFirstPar)

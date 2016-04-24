@@ -30,6 +30,8 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Drawable,Draw_Drawable3D)
+
 //=======================================================================
 //function : DrawTrSurf_Drawable
 //purpose  : initialise the discretisation
@@ -174,6 +176,7 @@ void DrawTrSurf_Drawable::DrawCurveOn (Adaptor3d_Curve&   C,
       case GeomAbs_Hyperbola:
       case GeomAbs_BezierCurve:
       case GeomAbs_BSplineCurve:
+      case GeomAbs_OffsetCurve:
       case GeomAbs_OtherCurve:
         const Standard_Integer nIter = myDiscret/2;
         for (j = 1; j < nIter; j++)

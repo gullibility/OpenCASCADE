@@ -6,4 +6,6 @@ renamevar m_3 coque
 bop coque m_2
 bopsection result
 
-set length 83.7197
+checkprops result -l 83.7197
+checksection result
+checkview -display result -2d -otherwise { coque m_2 } -l -path ${imagedir}/${test_image}.png

@@ -17,14 +17,9 @@
 #include <StepShape_Torus.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_Torus,StepGeom_GeometricRepresentationItem)
+
 StepShape_Torus::StepShape_Torus ()  {}
-
-void StepShape_Torus::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_Torus::Init(
 	const Handle(TCollection_HAsciiString)& aName,

@@ -1,0 +1,18 @@
+<map id="StepShape_ShapeRepresentation" name="StepShape_ShapeRepresentation">
+<area shape="rect" id="node5" href="$class_step_shape___advanced_brep_shape_representation.html" title="StepShape_AdvancedBrepShape\lRepresentation" alt="" coords="868,5,1081,46"/>
+<area shape="rect" id="node6" href="$class_step_shape___compound_shape_representation.html" title="Representation of STEP entity CompoundShapeRepresentation. " alt="" coords="835,71,1114,97"/>
+<area shape="rect" id="node7" href="$class_step_shape___csg_shape_representation.html" title="StepShape_CsgShapeRepresentation" alt="" coords="855,121,1095,148"/>
+<area shape="rect" id="node8" href="$class_step_shape___edge_based_wireframe_shape_representation.html" title="Representation of STEP entity EdgeBasedWireframeShapeRepresentation. " alt="" coords="865,173,1084,214"/>
+<area shape="rect" id="node9" href="$class_step_shape___faceted_brep_shape_representation.html" title="StepShape_FacetedBrepShape\lRepresentation" alt="" coords="873,238,1077,279"/>
+<area shape="rect" id="node10" href="$class_step_shape___geometrically_bounded_surface_shape_representation.html" title="StepShape_GeometricallyBounded\lSurfaceShapeRepresentation" alt="" coords="863,303,1087,345"/>
+<area shape="rect" id="node11" href="$class_step_shape___geometrically_bounded_wireframe_shape_representation.html" title="StepShape_GeometricallyBounded\lWireframeShapeRepresentation" alt="" coords="863,369,1087,410"/>
+<area shape="rect" id="node12" href="$class_step_shape___manifold_surface_shape_representation.html" title="StepShape_ManifoldSurface\lShapeRepresentation" alt="" coords="882,434,1067,475"/>
+<area shape="rect" id="node13" href="$class_step_shape___non_manifold_surface_shape_representation.html" title="Representation of STEP entity NonManifoldSurfaceShapeRepresentation. " alt="" coords="871,499,1079,541"/>
+<area shape="rect" id="node14" href="$class_step_shape___point_representation.html" title="Representation of STEP entity PointRepresentation. " alt="" coords="869,565,1080,592"/>
+<area shape="rect" id="node15" href="$class_step_shape___shape_dimension_representation.html" title="Representation of STEP entity ShapeDimensionRepresentation. " alt="" coords="879,617,1070,658"/>
+<area shape="rect" id="node16" href="$class_step_shape___shape_representation_with_parameters.html" title="Representation of STEP entity ShapeRepresentationWithParameters. " alt="" coords="866,682,1083,723"/>
+<area shape="rect" id="node17" href="$class_step_shape___transitional_shape_representation.html" title="StepShape_TransitionalShape\lRepresentation" alt="" coords="877,747,1073,789"/>
+<area shape="rect" id="node2" href="$class_step_repr___representation.html" title="StepRepr_Representation" alt="" coords="349,376,520,403"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,376,301,403"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,376,141,403"/>
+</map>

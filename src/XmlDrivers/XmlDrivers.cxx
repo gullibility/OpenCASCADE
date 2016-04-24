@@ -28,7 +28,6 @@
 #include <XmlMDocStd.hxx>
 #include <XmlMFunction.hxx>
 #include <XmlMNaming.hxx>
-#include <XmlMPrsStd.hxx>
 
 #include <locale.h>
 #include <time.h>
@@ -46,7 +45,7 @@ const Handle(Standard_Transient)& XmlDrivers::Factory(const Standard_GUID& theGU
 #ifdef OCCT_DEBUG
     cout << "XmlDrivers : Storage Plugin" << endl;
 #endif
-    static Handle(XmlDrivers_DocumentStorageDriver) model_sd =
+    static Handle(Standard_Transient) model_sd =
       new XmlDrivers_DocumentStorageDriver
         ("Copyright: Open Cascade, 2001-2002"); // default copyright
     return model_sd;
@@ -57,7 +56,7 @@ const Handle(Standard_Transient)& XmlDrivers::Factory(const Standard_GUID& theGU
 #ifdef OCCT_DEBUG
     cout << "XmlDrivers : Retrieval Plugin" << endl;
 #endif
-    static Handle (XmlDrivers_DocumentRetrievalDriver) model_rd =
+    static Handle (Standard_Transient) model_rd =
       new XmlDrivers_DocumentRetrievalDriver ();
     return model_rd;
   }
@@ -82,7 +81,6 @@ Handle(XmlMDF_ADriverTable) XmlDrivers::AttributeDrivers
   XmlMNaming    ::AddDrivers (aTable, theMessageDriver);
   XmlMFunction  ::AddDrivers (aTable, theMessageDriver); 
   XmlMDocStd    ::AddDrivers (aTable, theMessageDriver); 
-  XmlMPrsStd    ::AddDrivers (aTable, theMessageDriver); 
   //
   return aTable;
 }

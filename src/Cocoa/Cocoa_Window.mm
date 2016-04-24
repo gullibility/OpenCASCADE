@@ -29,6 +29,8 @@
 #include <Aspect_Convert.hxx>
 #include <Aspect_WindowDefinitionError.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(Cocoa_Window,Aspect_Window)
+
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
   //
 #else
@@ -141,10 +143,10 @@ Cocoa_Window::Cocoa_Window (NSView* theViewNS)
 }
 
 // =======================================================================
-// function : Destroy
+// function : ~Cocoa_Window
 // purpose  :
 // =======================================================================
-void Cocoa_Window::Destroy()
+Cocoa_Window::~Cocoa_Window()
 {
 #if !defined(HAVE_OBJC_ARC)
   Cocoa_LocalPool aLocalPool;

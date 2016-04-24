@@ -15,4 +15,6 @@ btolx b
 bop a b
 bopsection result
 
-set length 128.364
+checkprops result -l 128.364
+checksection result
+checkview -display result -2d -otherwise { a b } -l -path ${imagedir}/${test_image}.png

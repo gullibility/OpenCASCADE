@@ -21,6 +21,8 @@
 #include <TFunction_Driver.hxx>
 #include <TFunction_Logbook.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(TFunction_Driver,MMgt_TShared)
+
 //=======================================================================
 //function : TFunction_Driver
 //purpose  : Constructor
@@ -47,14 +49,15 @@ void TFunction_Driver::Init(const TDF_Label& L)
 //purpose  : Validates labels of a function
 //=======================================================================
 
-void TFunction_Driver::Validate(TFunction_Logbook& log) const
+void TFunction_Driver::Validate(Handle(TFunction_Logbook)& log) const
 {
   TDF_LabelList res;
   Results(res);
+
   TDF_ListIteratorOfLabelList itr(res);
   for (; itr.More(); itr.Next())
   {
-    log.SetValid(itr.Value(), Standard_True);
+    log->SetValid(itr.Value(), Standard_True);
   }
 }
 
@@ -64,15 +67,16 @@ void TFunction_Driver::Validate(TFunction_Logbook& log) const
 //purpose  : Analyzes the labels in the logbook
 //=======================================================================
 
-Standard_Boolean TFunction_Driver::MustExecute(const TFunction_Logbook& log) const
+Standard_Boolean TFunction_Driver::MustExecute(const Handle(TFunction_Logbook)& log) const
 {
   // Check modification of arguments.
   TDF_LabelList args;
   Arguments(args);
+
   TDF_ListIteratorOfLabelList itr(args);
   for (; itr.More(); itr.Next())
   {
-    if (log.IsModified(itr.Value()))
+    if (log->IsModified(itr.Value()))
       return Standard_True;
   }
   return Standard_False;

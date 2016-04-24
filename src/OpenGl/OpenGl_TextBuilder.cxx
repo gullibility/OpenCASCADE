@@ -16,6 +16,8 @@
 #include <OpenGl_TextBuilder.hxx>
 #include <OpenGl_VertexBufferCompat.hxx>
 
+#include <Font_FTFont.hxx>
+
 namespace
 {
   //! Apply floor to vector components.
@@ -55,7 +57,7 @@ void OpenGl_TextBuilder::createGlyphs (const Font_TextFormatter&                
   theVertsPerTexture.Clear();
   theTCrdsPerTexture.Clear();
 
-  OpenGl_Font::Tile aTile = {};
+  OpenGl_Font::Tile aTile = {Font_Rect(), Font_Rect(), 0u};
   OpenGl_Vec2       aPen (0.0f, 0.0f);
   Standard_Integer  aRectsNb = 0;
   Standard_Integer  aSymbolsCounter = 0;
@@ -81,13 +83,13 @@ void OpenGl_TextBuilder::createGlyphs (const Font_TextFormatter&                
     else if (aCharThis == ' ')
     {
       ++aSymbolsCounter;
-      aPen.x() += theFont.AdvanceX (' ', aCharNext);
+      aPen.x() += theFont.FTFont()->AdvanceX (' ', aCharNext);
       continue;
     }
     else if (aCharThis == '\t')
     {
       const Standard_Integer aSpacesNum = (theFormatter.TabSize() - (aSymbolsCounter - 1) % theFormatter.TabSize());
-      aPen.x() += theFont.AdvanceX (' ', aCharNext) * Standard_ShortReal(aSpacesNum);
+      aPen.x() += theFont.FTFont()->AdvanceX (' ', aCharNext) * Standard_ShortReal(aSpacesNum);
       aSymbolsCounter += aSpacesNum;
       continue;
     }
@@ -101,8 +103,8 @@ void OpenGl_TextBuilder::createGlyphs (const Font_TextFormatter&                
     aTile.px.Left   += aTopLeft.x();
     aTile.px.Bottom += aTopLeft.y();
     aTile.px.Top    += aTopLeft.y();
-    const Font_FTFont::Rect& aRectUV  = aTile.uv;
-    const GLuint             aTexture = aTile.texture;
+    const Font_Rect& aRectUV  = aTile.uv;
+    const GLuint     aTexture = aTile.texture;
 
     Standard_Integer aListId = 0;
     for (aListId = 0; aListId < theTextures.Length(); ++aListId)

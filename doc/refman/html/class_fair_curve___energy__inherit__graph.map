@@ -1,0 +1,7 @@
+<map id="FairCurve_Energy" name="FairCurve_Energy">
+<area shape="rect" id="node5" href="$class_fair_curve___energy_of_batten.html" title="Energy Criterium to minimize in Batten. " alt="" coords="5,336,179,363"/>
+<area shape="rect" id="node6" href="$class_fair_curve___energy_of_m_v_c.html" title="Energy Criterium to minimize in MinimalVariationCurve. " alt="" coords="203,336,369,363"/>
+<area shape="rect" id="node2" href="$classmath___multiple_var_function_with_hessian.html" title="math_MultipleVarFunction\lWithHessian" alt="" coords="103,171,276,213"/>
+<area shape="rect" id="node3" href="$classmath___multiple_var_function_with_gradient.html" title="The abstract class MultipleVarFunctionWithGradient describes the virtual functions associated with a ..." alt="" coords="103,81,276,122"/>
+<area shape="rect" id="node4" href="$classmath___multiple_var_function.html" title="Describes the virtual functions associated with a multiple variable function. " alt="" coords="103,5,276,32"/>
+</map>

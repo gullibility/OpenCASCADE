@@ -18,19 +18,9 @@
 #include <StepGeom_RationalBSplineCurve.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_QuasiUniformCurveAndRationalBSplineCurve,StepGeom_BSplineCurve)
+
 StepGeom_QuasiUniformCurveAndRationalBSplineCurve::StepGeom_QuasiUniformCurveAndRationalBSplineCurve ()  {}
-
-void StepGeom_QuasiUniformCurveAndRationalBSplineCurve::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Standard_Integer aDegree,
-	const Handle(StepGeom_HArray1OfCartesianPoint)& aControlPointsList,
-	const StepGeom_BSplineCurveForm aCurveForm,
-	const StepData_Logical aClosedCurve,
-	const StepData_Logical aSelfIntersect)
-{
-
-	StepGeom_BSplineCurve::Init(aName, aDegree, aControlPointsList, aCurveForm, aClosedCurve, aSelfIntersect);
-}
 
 void StepGeom_QuasiUniformCurveAndRationalBSplineCurve::Init(
 	const Handle(TCollection_HAsciiString)& aName,

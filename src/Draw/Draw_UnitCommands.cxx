@@ -34,7 +34,7 @@ static Standard_Integer parsing
   (Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2) {
-    di << "Usage : " << argv[0] << " string [nbiter]" << "\n";
+    di << "Usage : " << argv[0] << " string [nbiter]\n";
     return 1;
   }
 
@@ -47,7 +47,7 @@ static Standard_Integer parsing
   Units_UnitSentence aUnitSent(aStrTok.ToCString());
   
   if(!aUnitSent.IsDone()) {
-    di<<"can not create a sentence"<<"\n";
+    di<<"can not create a sentence\n";
     return 1;
   }
 
@@ -85,7 +85,7 @@ static Standard_Integer converttoSI
   (Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3) {
-    di<<"Invalid number of parameter, use: unitconvtoSI real string"<<"\n";
+    di<<"Invalid number of parameter, use: unitconvtoSI real string\n";
     return 1;
   }
 
@@ -107,7 +107,7 @@ static Standard_Integer converttoMDTV
   (Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3) {
-    di<<"Invalid number of parameter, use: unitconvtoMDTV real string"<<"\n";
+    di<<"Invalid number of parameter, use: unitconvtoMDTV real string\n";
     return 1;
   }
 
@@ -127,10 +127,10 @@ static Standard_Integer converttoMDTV
 //purpose  : 
 //=======================================================================
 
-static Standard_Integer unit(Draw_Interpretor& , Standard_Integer n, const char** a)
+static Standard_Integer unit(Draw_Interpretor& di, Standard_Integer n, const char** a)
 {
   if(n == 4) {
-    cout << Units::Convert(Draw::Atof(a[1]), a[2], a[3]) << endl;
+    di << Units::Convert(Draw::Atof(a[1]), a[2], a[3]);
     return 0;
   }
   else

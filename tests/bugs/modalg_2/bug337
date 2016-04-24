@@ -29,8 +29,9 @@ if { [regexp {Faulty} $che ] == 1 } {
     }
 }
 
-set square 35009.9
-set 2dviewer 0
+checkprops result -s 35009.9 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 
 
 

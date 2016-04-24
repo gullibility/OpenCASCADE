@@ -8,5 +8,6 @@ checkshape w
 
 prism result w 0 0 10
 
-set square 148.875
-set 2dviewer 0
+checkprops result -s 148.875 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

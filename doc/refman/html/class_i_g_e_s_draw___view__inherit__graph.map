@@ -1,0 +1,6 @@
+<map id="IGESDraw_View" name="IGESDraw_View">
+<area shape="rect" id="node2" href="$class_i_g_e_s_data___view_kind_entity.html" title="defines required type for ViewKind in directory part that is, Single view or Multiple view An effecti..." alt="" coords="5,229,179,256"/>
+<area shape="rect" id="node3" href="$class_i_g_e_s_data___i_g_e_s_entity.html" title="defines root of IGES Entity definition, including Directory Part, lists of (optionnal) Properties and..." alt="" coords="16,155,168,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="37,80,147,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="25,5,159,32"/>
+</map>

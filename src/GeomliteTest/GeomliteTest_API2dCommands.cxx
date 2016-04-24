@@ -241,18 +241,26 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
   char name[100];
 
   Geom2dAPI_ExtremaCurveCurve Ex(GC1,GC2,U1f,U1l,U2f,U2l);
-
-// modified by APV (compilation error - LINUX)
-//  for ( Standard_Integer i = 1; i <= Ex.NbExtrema(); i++) {
-  Standard_Integer i;
+  Standard_Boolean isInfinitySolutions = Ex.Extrema().IsParallel();
   const Standard_Integer aNExtr = Ex.NbExtrema();
-  for ( i = 1; i <= aNExtr; i++) {
-// modified by APV (compilation error - LINUX)
 
+  if (aNExtr == 0 || isInfinitySolutions)
+  {
+    // Infinity solutions flag may be set with 0 number of 
+    // solutions in analytic extrema Curve/Curve.
+    if (isInfinitySolutions) 
+      di << "Infinite number of extremas, distance = " << Ex.LowerDistance() << "\n";
+    else
+      di << "No solutions!\n";
+  }
+
+  for (Standard_Integer i = 1; i <= aNExtr; i++)
+  {
     gp_Pnt2d P1,P2;
     Ex.Points(i,P1,P2);
     di << "dist " << i << ": " << Ex.Distance(i) << "  ";
-    if (Ex.Distance(i) <= Precision::PConfusion()) {
+    if (Ex.Distance(i) <= Precision::PConfusion())
+    {
       Handle(Draw_Marker2D) mark = new Draw_Marker2D( P1, Draw_X, Draw_vert); 
       dout << mark;
       dout.Flush();
@@ -261,7 +269,8 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
       DrawTrSurf::Set(temp, P1);
       di << name << "\n";
     }
-    else {
+    else
+    {
       Handle(Geom2d_Line) L = new Geom2d_Line(P1,gp_Vec2d(P1,P2));
       Handle(Geom2d_TrimmedCurve) CT = new Geom2d_TrimmedCurve(L, 0., P1.Distance(P2));
       Sprintf(name,"%s%d","ext_",i);
@@ -270,8 +279,6 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
       di << name << "\n";
     }
   }
-  if (i==1)
-    di << "No solutions!\n";
 
   return 0;
 }
@@ -280,16 +287,14 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
 //function : intersect
 //purpose  : 
 //=======================================================================
-
 static Standard_Integer intersect(Draw_Interpretor& di, Standard_Integer n, const char** a)
 {
   if( n < 2) 
   {
-#ifdef OCCT_DEBUG
     cout<< "2dintersect curve curve [Tol]"<<endl;
-#endif
     return 1;
   }
+
   Standard_Integer k = 1;
   Handle(Geom2d_Curve) C1 = DrawTrSurf::GetCurve2d(a[k++]);
   if ( C1.IsNull()) 
@@ -331,6 +336,7 @@ static Standard_Integer intersect(Draw_Interpretor& di, Standard_Integer n, cons
   Handle(Geom2d_Curve) S1,S2;
   Handle(DrawTrSurf_Curve2d) CD;
   for ( i = 1; i <= Intersector.NbSegments(); i++) {
+    di << "Segment #" << i << " found.\n";
     Intersector.Segment(i,S1,S2);
     CD = new DrawTrSurf_Curve2d(S1, Draw_bleu, 30);
     dout << CD;

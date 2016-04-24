@@ -1,0 +1,312 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+		1618194F17BD1246030610A9 = {isa = PBXBuildFile; fileRef = 06AD00B80B1302DA036F160B ;};
+		0D3913FD023709CE045502B4 = {isa = PBXBuildFile; fileRef = 173D05AF0EA4105005E30C68 ;};
+		0BCC119513BB09E90693168D = {isa = PBXBuildFile; fileRef = 0604085409EB106005980D8D ;};
+		0F13078817BE10F716500ED5 = {isa = PBXBuildFile; fileRef = 14251492032C054208FA129C ;};
+		10141006102415F118D71855 = {isa = PBXBuildFile; fileRef = 02D80D3C00E117800D200D0F ;};
+		04DD0F3A04E609B306D01156 = {isa = PBXBuildFile; fileRef = 0F1606060979010E02860C00 ;};
+		16BB08A70A1B0429043A125A = {isa = PBXBuildFile; fileRef = 045B03970E510A7A12CC117F ;};
+		103817120CEE08A80E941279 = {isa = PBXBuildFile; fileRef = 01A206D305FC171D13881050 ;};
+
+		054E004407500C2A098E16C3 = {isa = PBXBuildFile; fileRef = 12CB080415A10664131617B9 ; };
+		04680303179D15001108046C = {isa = PBXBuildFile; fileRef = 12B703051241115911E708BA ; };
+		1820132E0370088C095F00E3 = {isa = PBXBuildFile; fileRef = 06E60922185F156F12350CD1 ; };
+		1250043D10600C0704921562 = {isa = PBXBuildFile; fileRef = 075A0E7F096E135811F814BF ; };
+		028B07D80514171B0DDF1370 = {isa = PBXBuildFile; fileRef = 04450C9E16AF025F09300972 ; };
+		021D01DD01530F290DDB0C66 = {isa = PBXBuildFile; fileRef = 01120BA814E404000984037D ; };
+
+		0C2C13360A3E151E194C11F8 = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libTKBinTObj.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		06AD00B80B1302DA036F160B = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers.cxx; sourceTree = "<group>"; };
+		173D05AF0EA4105005E30C68 = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_DocumentRetrievalDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_DocumentRetrievalDriver.cxx; sourceTree = "<group>"; };
+		0604085409EB106005980D8D = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_DocumentStorageDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_DocumentStorageDriver.cxx; sourceTree = "<group>"; };
+		14251492032C054208FA129C = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_IntSparseArrayDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_IntSparseArrayDriver.cxx; sourceTree = "<group>"; };
+		02D80D3C00E117800D200D0F = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_ModelDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_ModelDriver.cxx; sourceTree = "<group>"; };
+		0F1606060979010E02860C00 = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_ObjectDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_ObjectDriver.cxx; sourceTree = "<group>"; };
+		045B03970E510A7A12CC117F = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_ReferenceDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_ReferenceDriver.cxx; sourceTree = "<group>"; };
+		01A206D305FC171D13881050 = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinTObjDrivers_XYZDriver.cxx; path = ../../../src/BinTObjDrivers/BinTObjDrivers_XYZDriver.cxx; sourceTree = "<group>"; };
+
+		12CB080415A10664131617B9 = {isa = PBXFileReference; lastKnownFileType = file; name = libTKCDF.dylib; path = libTKCDF.dylib; sourceTree = "<group>"; };
+		12B703051241115911E708BA = {isa = PBXFileReference; lastKnownFileType = file; name = libTKernel.dylib; path = libTKernel.dylib; sourceTree = "<group>"; };
+		06E60922185F156F12350CD1 = {isa = PBXFileReference; lastKnownFileType = file; name = libTKTObj.dylib; path = libTKTObj.dylib; sourceTree = "<group>"; };
+		075A0E7F096E135811F814BF = {isa = PBXFileReference; lastKnownFileType = file; name = libTKMath.dylib; path = libTKMath.dylib; sourceTree = "<group>"; };
+		04450C9E16AF025F09300972 = {isa = PBXFileReference; lastKnownFileType = file; name = libTKLCAF.dylib; path = libTKLCAF.dylib; sourceTree = "<group>"; };
+		01120BA814E404000984037D = {isa = PBXFileReference; lastKnownFileType = file; name = libTKBinL.dylib; path = libTKBinL.dylib; sourceTree = "<group>"; };
+
+		09030104148310E7063901AA = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				054E004407500C2A098E16C3 ,
+				04680303179D15001108046C ,
+				1820132E0370088C095F00E3 ,
+				1250043D10600C0704921562 ,
+				028B07D80514171B0DDF1370 ,
+				021D01DD01530F290DDB0C66 ,
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		0BAB00D715B315380C771299 = {
+			isa = PBXGroup;
+			children = (
+				06AD00B80B1302DA036F160B ,
+				173D05AF0EA4105005E30C68 ,
+				0604085409EB106005980D8D ,
+				14251492032C054208FA129C ,
+				02D80D3C00E117800D200D0F ,
+				0F1606060979010E02860C00 ,
+				045B03970E510A7A12CC117F ,
+				01A206D305FC171D13881050 ,
+			);
+			name = BinTObjDrivers;
+			sourceTree = "<group>";
+		};
+
+		14630A7304C70DF917120CED = {
+			isa = PBXGroup;
+			children = (
+				12CB080415A10664131617B9 ,
+				12B703051241115911E708BA ,
+				06E60922185F156F12350CD1 ,
+				075A0E7F096E135811F814BF ,
+				04450C9E16AF025F09300972 ,
+				01120BA814E404000984037D ,
+
+				195E004A094F0542067B0916 ,
+				0C2C13360A3E151E194C11F8 ,
+			);
+			sourceTree = "<group>";
+		};
+		195E004A094F0542067B0916 = {
+			isa = PBXGroup;
+			children = (
+				0BAB00D715B315380C771299 ,
+			);
+			name = "Source files";
+			sourceTree = "<group>";
+		};
+
+		02A9145F07A215370059062E = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		0B6D174C0D1A067D1273111C = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 086E0B8502FF0AB40F4A169A ;
+			buildPhases = (
+				0015137B03540E5D08BD16AC ,
+				09030104148310E7063901AA ,
+				02A9145F07A215370059062E ,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TKBinTObj;
+			productName = TKBinTObj;
+			productReference = 0C2C13360A3E151E194C11F8 ;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+
+		01D41203130A09AE04EB1962 = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 0FA202E40D77040C00BF1128 ;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14630A7304C70DF917120CED;
+			productRefGroup = 14630A7304C70DF917120CED;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0B6D174C0D1A067D1273111C ,
+			);
+		};
+
+		0015137B03540E5D08BD16AC = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1618194F17BD1246030610A9 ,
+				0D3913FD023709CE045502B4 ,
+				0BCC119513BB09E90693168D ,
+				0F13078817BE10F716500ED5 ,
+				10141006102415F118D71855 ,
+				04DD0F3A04E609B306D01156 ,
+				16BB08A70A1B0429043A125A ,
+				103817120CEE08A80E941279 ,
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		026C06420D14108717AF1632 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "$(CSF_OPT_LNK64D)"; 
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		02D2011E1342164304D50AB7 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "$(CSF_OPT_LNK64)";
+			};
+			name = Release;
+		};
+		09BA16740AC716EB15380750 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OCC_CONVERT_SIGNALS ,
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../inc,
+					/usr/local/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc,
+					"$(CSF_OPT_INC)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr,
+					/usr/lib,
+					/Users/mnt/tools/WOK680/site/../3rdparty/mac64/gl2ps/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/lib,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/adm/mac/xcd/build/Release,
+				);
+				OTHER_CFLAGS = (
+					"$(CSF_OPT_CMPL)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = " ../../../inc /usr/local/include /Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include /Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype /Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include /Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc";
+				WRAPPER_EXTENSION = dylib;
+			};
+			name = Debug;
+		};
+		0799016D0C8709F904C60F7F = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OCC_CONVERT_SIGNALS ,
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../inc,
+					/usr/local/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc,
+					"$(CSF_OPT_INC)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr,
+					/usr/lib,
+					/Users/mnt/tools/WOK680/site/../3rdparty/mac64/gl2ps/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/lib,
+					/Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/lib,
+					/Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/adm/mac/xcd/build/Release,
+				);
+				OTHER_CFLAGS = (
+					"$(CSF_OPT_CMPL)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = " ../../../inc /usr/local/include /Users/mnt/tools/WOK680/3rdparty/mac64/gl2ps/include /Users/mnt/tools/WOK680/3rdparty/mac64/tbb42_20140416oss/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include /Users/mnt/tools/WOK680/3rdparty/mac64/FreeType2/include/freetype /Users/mnt/tools/WOK680/3rdparty/mac64/FreeImage/include /Users/mnt/builds/CR0-OCCT700_CR0-OCCT700/MacOS-opt/OCCT/inc";
+				WRAPPER_EXTENSION = dylib;
+			};
+			name = Release;
+		};
+
+		0FA202E40D77040C00BF1128 = {
+			isa = XCConfigurationList;
+		buildConfigurations = (
+				026C06420D14108717AF1632 ,
+				02D2011E1342164304D50AB7 ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		086E0B8502FF0AB40F4A169A = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09BA16740AC716EB15380750 ,
+				0799016D0C8709F904C60F7F ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+	};
+	rootObject = 01D41203130A09AE04EB1962 ;
+}

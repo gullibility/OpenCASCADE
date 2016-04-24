@@ -18,6 +18,7 @@ addsweep w
 #does'nt work
 buildsweep result -C -S
 
-set square 1979.9
-set 2dviewer 0
+checkprops result -s 1979.9 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

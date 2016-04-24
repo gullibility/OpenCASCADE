@@ -13,5 +13,5 @@ psphere s 6
 bfuse result s b 
 checkshape result
 
-set square 618.85
-set 2dviewer 0
+checkprops result -s 618.85
+checkview -display result -2d -path ${imagedir}/${test_image}.png

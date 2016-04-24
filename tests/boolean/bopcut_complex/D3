@@ -5,4 +5,5 @@ explode sh
 bop sh_2 sh_1
 bopcut result
 
-set square 202369
+checkprops result -s 202369
+checkview -display result -2d -otherwise { sh_2 sh_1 } -s -path ${imagedir}/${test_image}.png

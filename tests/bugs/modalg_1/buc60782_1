@@ -29,5 +29,7 @@ if { [regexp {OK} $che ] != 1} {
     }
 }
 
-set length 9026.65
-set 2dviewer 0
+checkprops result -l 9026.65 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

@@ -34,5 +34,7 @@ if { $ed == 1 } {
 	}
     }
 }
-set length 1424.94
-set 2dviewer 0
+checkprops result -l 1424.94 
+checkshape result
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

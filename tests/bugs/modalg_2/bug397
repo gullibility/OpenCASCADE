@@ -27,7 +27,8 @@ if { ${stat} != 1 } {
 
 vselect 220 170
 
-set square 92.9029
-set only_screen 1
+checkprops result -s 92.9029 
+checkshape result
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png
 
 

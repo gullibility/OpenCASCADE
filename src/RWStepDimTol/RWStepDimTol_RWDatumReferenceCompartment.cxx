@@ -23,6 +23,8 @@
 #include <StepDimTol_GeneralDatumReference.hxx>
 #include <StepDimTol_HArray1OfDatumReferenceElement.hxx>
 #include <StepRepr_ProductDefinitionShape.hxx>
+#include <StepDimTol_DatumReferenceElement.hxx>
+#include <StepDimTol_DatumReferenceModifierWithValue.hxx>
 
 //=======================================================================
 //function : RWStepDimTol_RWDatumReferenceCompartment
@@ -101,7 +103,7 @@ void RWStepDimTol_RWDatumReferenceCompartment::ReadStep (const Handle(StepData_S
     Standard_Integer nbElements = data->NbParams(nbSub);
     aModifiers = new StepDimTol_HArray1OfDatumReferenceModifier (1, nbElements);
     for (Standard_Integer i = 1; i <= nbElements; i++) {
-      Interface_ParamType aType = data->ParamType (nbSub, i);
+      aType = data->ParamType (nbSub, i);
       if (aType == Interface_ParamIdent) {
         Handle(StepDimTol_DatumReferenceModifierWithValue) aDRMWV;
         data->ReadEntity(nbSub, i,"datum_reference_modifier_with_value", ach, STANDARD_TYPE(StepDimTol_DatumReferenceModifierWithValue), aDRMWV);
@@ -156,7 +158,7 @@ void RWStepDimTol_RWDatumReferenceCompartment::WriteStep (StepData_StepWriter& S
   else if (aBaseType == 2) {
     Handle(StepDimTol_HArray1OfDatumReferenceElement) anArray = ent->Base().CommonDatumList();
     Standard_Integer i, nb = (anArray.IsNull() ? 0 : anArray->Length());
-    SW.OpenSub();
+    SW.OpenTypedSub("COMMON_DATUM_LIST");
     for (i = 1; i <= nb; i++)  
       SW.Send (anArray->Value(i));
     SW.CloseSub();
@@ -170,12 +172,14 @@ void RWStepDimTol_RWDatumReferenceCompartment::WriteStep (StepData_StepWriter& S
       Standard_Integer aType = aModifier.CaseNum(aModifier.Value());
       switch (aType) {
         case 1: SW.Send(aModifier.DatumReferenceModifierWithValue()); break;
-        case 2: SW.SendEnum(aModifier.SimpleDatumReferenceModifierMember()->EnumText());break;
+        case 2: SW.Send(aModifier.SimpleDatumReferenceModifierMember());break;
       }
     }
     SW.CloseSub();
-  }  
-  
+  }
+  else {
+    SW.SendUndef();
+  }
 }
 
 //=======================================================================

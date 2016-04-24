@@ -13,6 +13,8 @@ restore [locate_data_file case_4_wire3.brep] b
  puts [bopcommon result]
 
  checknbshapes result -vertex 12 -edge 11
- set length 1808.02
- set 2dviewer 0
+ checkprops result -l 1808.02 
+checkshape result 
+checksection result
+ checkview -display result -2d -path ${imagedir}/${test_image}.png
  

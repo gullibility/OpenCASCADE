@@ -1,0 +1,6 @@
+<map id="BRepBlend_AppFuncRstRst" name="BRepBlend_AppFuncRstRst">
+<area shape="rect" id="node2" href="$class_b_rep_blend___app_func_root.html" title="Function to approximate by AppSurface. " alt="" coords="12,229,185,256"/>
+<area shape="rect" id="node3" href="$class_approx___sweep_function.html" title="defined the function used by SweepApproximation to perform sweeping application. " alt="" coords="19,155,177,181"/>
+<area shape="rect" id="node4" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="43,80,153,107"/>
+<area shape="rect" id="node5" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="31,5,165,32"/>
+</map>

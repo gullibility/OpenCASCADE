@@ -34,7 +34,6 @@
 //#include <ctype.h>
 
 const int XML_MIN_BUFFER = 10;
-const int FILE_NONVALUE  = -1;
 
 typedef enum {
   STATE_WAITING = 0,
@@ -63,38 +62,18 @@ static Standard_Boolean isName          (const char             * aString,
 //purpose  : Constructor (file descriptor)
 //=======================================================================
 
-LDOM_XmlReader::LDOM_XmlReader (const int                       theFileDes,
+LDOM_XmlReader::LDOM_XmlReader (
                                 const Handle(LDOM_MemManager)&  theDocument,
-                                TCollection_AsciiString&        theErrorString)
+                                TCollection_AsciiString&        theErrorString,
+                                const Standard_Boolean theTagPerStep)
 : myEOF      (Standard_False),
-  myFileDes  (theFileDes),
-  myIStream  (cin),  // just a placeholder, myIStream will never be used anyway
   myError    (theErrorString),
   myDocument (theDocument),
   myElement  (NULL),
   myLastChild(NULL), 
   myPtr      (&myBuffer[0]),
-  myEndPtr   (&myBuffer[0])
-{
-}
-
-//=======================================================================
-//function : LDOM_XmlReader()
-//purpose  : Constructor (istream)
-//=======================================================================
-
-LDOM_XmlReader::LDOM_XmlReader (istream&                        theInput,
-                                const Handle(LDOM_MemManager)&  theDocument,
-                                TCollection_AsciiString&        theErrorString)
-: myEOF      (Standard_False),
-  myFileDes  (FILE_NONVALUE),
-  myIStream  (theInput),
-  myError    (theErrorString),
-  myDocument (theDocument),
-  myElement  (NULL),
-  myLastChild(NULL), 
-  myPtr      (&myBuffer[0]),
-  myEndPtr   (&myBuffer[0])
+  myEndPtr   (&myBuffer[0]),
+  myTagPerStep (theTagPerStep)
 {
 }
 
@@ -103,8 +82,8 @@ LDOM_XmlReader::LDOM_XmlReader (istream&                        theInput,
 //purpose  : Read a record from XML file
 //=======================================================================
 
-LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord
-                                        (LDOM_OSStream& theData)
+LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord (Standard_IStream& theIStream,
+                                        LDOM_OSStream& theData)
 {
   theData.Clear();
   myError.Clear();
@@ -112,17 +91,25 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord
   const char * aStartData = NULL, * aNameEnd = NULL, * aPtr;
   LDOMBasicString anAttrName, anAttrValue;
   char anAttDelimiter = '\0';
+  Standard_Boolean aHasRead = Standard_False;
 
   for(;;) {
     //  Check if the current file buffer is exhausted
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //  There should always be some bytes available in the buffer for analysis
     Standard_Integer aBytesRest = (Standard_Integer)(myEndPtr - myPtr);
-    if (aBytesRest < XML_MIN_BUFFER) {
-      if (myEOF == Standard_True) {
+    if (aBytesRest < XML_MIN_BUFFER)
+    {
+      if (myEOF == Standard_True)
+      {
         if (aBytesRest <= 0)
           break;                        // END of processing
-      } else {
+      }
+      else if (myTagPerStep && aHasRead)
+      {
+      }
+      else
+      {
       // If we are reading some data, save the beginning and preserve the state
         if (aStartData /* && aState != STATE_WAITING */) {
           if (myPtr > aStartData)
@@ -136,16 +123,27 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord
       // Read the full buffer and reset start and end buffer pointers
         myPtr    = &myBuffer[0];
         Standard_Size aNBytes;
-        if (myFileDes != FILE_NONVALUE)
-          aNBytes = read (myFileDes, &myBuffer[aBytesRest],
-                          XML_BUFFER_SIZE - aBytesRest);
-        else {
-          myIStream.read (&myBuffer[aBytesRest],
-                          XML_BUFFER_SIZE - aBytesRest);
-          aNBytes = (Standard_Size)myIStream.gcount();
+
+        if (myTagPerStep)
+        {
+          theIStream.getline (&myBuffer[aBytesRest], XML_BUFFER_SIZE - aBytesRest, '>');
+          aHasRead = Standard_True;
         }
+        else
+        {
+          theIStream.read (&myBuffer[aBytesRest], XML_BUFFER_SIZE - aBytesRest);
+        }
+        aNBytes = (Standard_Size)theIStream.gcount();
+        
         if (aNBytes == 0)
+        {
           myEOF = Standard_True;                  // END-OF-FILE
+        }
+        else if (myTagPerStep)
+        {
+          // replace \0 (being inserted by getline method) with > 
+          myBuffer[aBytesRest + aNBytes - 1] = '>';
+        }
         myEndPtr = &myBuffer[aBytesRest + aNBytes];
         myBuffer[aBytesRest + aNBytes] = '\0';
       }
@@ -562,6 +560,15 @@ static Standard_Boolean isName (const char  * aString,
     aResult = Standard_False;
   }
   return aResult;
+}
+
+//=======================================================================
+//function : CreateElement
+//purpose  : 
+//=======================================================================
+void LDOM_XmlReader::CreateElement( const char *theName, const Standard_Integer theLen )
+{
+  myElement = &LDOM_BasicElement::Create (theName, theLen, myDocument);
 }
 
 //=======================================================================

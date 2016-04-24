@@ -4,4 +4,5 @@ restore [locate_data_file b189] b
 bop a b
 boptuc result
 
-set square 21697.8
+checkprops result -s 21697.8
+checkview -display result -2d -otherwise { a b } -s -path ${imagedir}/${test_image}.png

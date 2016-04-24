@@ -29,7 +29,14 @@ if { [info exists tk_library] } {
 
 #fills menu "Load" with submenus
 proc fillloadmenu {} {
-  set chan [open [file nativename $::env(CASROOT)/src/DrawResources/DrawPlugin]]
+  set drawplugpath ""
+  if {[array names ::env CSF_OCCTResourcePath] != "" && "$::env(CSF_OCCTResourcePath)" != "" && [file exists $::env(CSF_OCCTResourcePath)/DrawResources/DrawPlugin]} {
+    set drawplugpath "$::env(CSF_OCCTResourcePath)/DrawResources/DrawPlugin"
+  } elseif {[array names ::env CASROOT] != "" && "$::env(CASROOT)" != "" && [file exists $::env(CASROOT)/src/DrawResources/DrawPlugin]} {
+    set drawplugpath "$::env(CASROOT)/src/DrawResources/DrawPlugin"
+  }
+
+  set chan [open [file nativename $drawplugpath]]
   while {[gets $chan line] >= 0} {
     if {[lindex [split $line ""] 0] != "!"} {
       if {[lindex [split $line ""] 0] == ""} {continue}
@@ -230,8 +237,16 @@ proc vsource {} {
 proc vsamples {} {
   #create list {{category} {title} {filename}}
   set alistofthree ""
-  foreach fname [file nativename  [glob -path $::env(CASROOT)/samples/tcl/ *]] {
-   if {[lindex [split $fname "."] end] != "tcl"} {continue}
+
+  set samplespath ""
+  if { [array names ::env CSF_OCCTSamplesPath] != "" && "$::env(CSF_OCCTSamplesPath)" != "" && [file exists $::env(CSF_OCCTSamplesPath)/tcl/]} {
+    set samplespath "$::env(CSF_OCCTSamplesPath)/tcl/"
+  } elseif { [array names ::env CASROOT] != "" && "$::env(CASROOT)" != "" && [file exists $::env(CASROOT)/samples/tcl/]} {
+    set samplespath "$::env(CASROOT)/samples/tcl/"
+  }
+
+  foreach fname [glob -path "${samplespath}" *.tcl] {
+
     set chan [open $fname]
     set istitlefound 0
     while {[gets $chan line] >= 0} {
@@ -394,7 +409,15 @@ proc about {} {
   set screenheight [expr {int([winfo screenheight .]*0.5-200)}]
   set screenwidth [expr {int([winfo screenwidth .]*0.5-200)}]
   wm geometry .about 400x200+$screenwidth+$screenheight
-  image create photo occlogo -file $::env(CASROOT)/src/DrawResources/OCC_logo.png -format png
+
+  set logopath ""
+  if {[array names ::env CSF_OCCTResourcePath] != "" && "$::env(CSF_OCCTResourcePath)" != "" && [file exists $::env(CSF_OCCTResourcePath)/DrawResources/OCC_logo.png]} {
+    set logopath "$::env(CSF_OCCTResourcePath)/DrawResources/OCC_logo.png"
+  } elseif {[array names ::env CASROOT] != "" && "$::env(CASROOT)" != "" && [file exists $::env(CASROOT)/src/DrawResources/OCC_logo.png]} {
+    set logopath "$::env(CASROOT)/src/DrawResources/OCC_logo.png"
+  }
+
+  image create photo occlogo -file $logopath -format png
   frame .about.logo -bg red
   frame .about.links -bg blue
   frame .about.copyright
@@ -445,13 +468,17 @@ proc _launchBrowser {url} {
 # Else opens a site with this guide
 ################################################################
 proc openuserguide {} {
-  if [file exists $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf] {
-  _launchBrowser $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf
-  } elseif [file exists $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html] {
-      _launchBrowser $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html
+  if { [array names ::env CSF_OCCTDocPath] != "" && "$::env(CSF_OCCTDocPath)" != "" && [file exists $::env(CSF_OCCTDocPath)/pdf/user_guides/occt_test_harness.pdf]} {
+    _launchBrowser $::env(CSF_OCCTDocPath)/pdf/user_guides/occt_test_harness.pdf
+  } elseif {  [array names ::env CSF_OCCTDocPath] != "" && "$::env(CSF_OCCTDocPath)" != "" && [file exists $::env(CSF_OCCTDocPath)/overview/html/occt_user_guides__test_harness.html]} {
+    _launchBrowser $::env(CSF_OCCTDocPath)/overview/html/occt_user_guides__test_harness.html
+  } elseif { [array names ::env CASROOT] != "" && "$::env(CASROOT)" != "" && [file exists $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf]} {
+    _launchBrowser $::env(CASROOT)/doc/pdf/user_guides/occt_test_harness.pdf
+  } elseif {  [array names ::env CASROOT] != "" && "$::env(CASROOT)" != "" && [file exists $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html]} {
+    _launchBrowser $::env(CASROOT)/doc/overview/html/occt_user_guides__test_harness.html
   } else {
-      _launchBrowser {http://dev.opencascade.org/doc/overview/html/occt_user_guides__test_harness.html}
-    }
+    launchBrowser {http://dev.opencascade.org/doc/overview/html/occt_user_guides__test_harness.html}
+  }
 }
 
 #Search through commands and display the result

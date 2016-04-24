@@ -27,6 +27,8 @@
 #include <VrmlData_TextureTransform.hxx>
 #include <VrmlData_Texture.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(VrmlData_Node,Standard_Transient)
+
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_DEPRECATE
 #pragma warning (disable:4996)
@@ -368,13 +370,21 @@ VrmlData_ErrorStatus VrmlData_ShapeNode::Read (VrmlData_InBuffer& theBuffer)
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer))) {
     if (VRMLDATA_LCOMPARE (theBuffer.LinePtr, "appearance"))
-      aStatus = ReadNode (theBuffer, myAppearance,
+    {
+      Handle(VrmlData_Node) aNode;
+      aStatus = ReadNode (theBuffer, aNode,
                           STANDARD_TYPE(VrmlData_Appearance));
+      myAppearance = Handle(VrmlData_Appearance)::DownCast (aNode);
+    }
     else if (VRMLDATA_LCOMPARE (theBuffer.LinePtr, "geometry"))
-      aStatus = ReadNode (theBuffer, myGeometry);
+    {
+      Handle(VrmlData_Node) aNode;
+      aStatus = ReadNode (theBuffer, aNode);
+      myGeometry = Handle(VrmlData_Geometry)::DownCast (aNode);
 // here we do not check for the Geometry type because unknown node types can
 // occur (IndexedLineSet, etc.)
 //                          STANDARD_TYPE(VrmlData_Geometry));
+    }
     else
       break;
 
@@ -507,14 +517,26 @@ VrmlData_ErrorStatus VrmlData_Appearance::Read (VrmlData_InBuffer& theBuffer)
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer))) {
     if (VRMLDATA_LCOMPARE (theBuffer.LinePtr, "material"))
-      aStatus = ReadNode (theBuffer, myMaterial,
+    {
+      Handle(VrmlData_Node) aNode;
+      aStatus = ReadNode (theBuffer, aNode,
                           STANDARD_TYPE(VrmlData_Material));
+      myMaterial = Handle(VrmlData_Material)::DownCast (aNode);
+    }
     else if (VRMLDATA_LCOMPARE (theBuffer.LinePtr, "textureTransform"))
-      aStatus = ReadNode (theBuffer, myTTransform
+    {
+      Handle(VrmlData_Node) aNode;
+      aStatus = ReadNode (theBuffer, aNode
                           /*,STANDARD_TYPE(VrmlData_TextureTransform)*/);
+      myTTransform = Handle(VrmlData_TextureTransform)::DownCast (aNode);
+    }
     else if (VRMLDATA_LCOMPARE (theBuffer.LinePtr, "texture"))
-      aStatus = ReadNode (theBuffer, myTexture,
+    {
+      Handle(VrmlData_Node) aNode;
+      aStatus = ReadNode (theBuffer, aNode,
                           STANDARD_TYPE(VrmlData_Texture));
+      myTexture = Handle(VrmlData_Texture)::DownCast (aNode);
+    }
     else
       break;
 

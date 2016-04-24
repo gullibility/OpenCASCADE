@@ -15,14 +15,9 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_OrdinalDate.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_OrdinalDate,StepBasic_Date)
+
 StepBasic_OrdinalDate::StepBasic_OrdinalDate ()  {}
-
-void StepBasic_OrdinalDate::Init(
-	const Standard_Integer aYearComponent)
-{
-
-	StepBasic_Date::Init(aYearComponent);
-}
 
 void StepBasic_OrdinalDate::Init(
 	const Standard_Integer aYearComponent,

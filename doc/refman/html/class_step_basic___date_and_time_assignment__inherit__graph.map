@@ -1,0 +1,8 @@
+<map id="StepBasic_DateAndTimeAssignment" name="StepBasic_DateAndTimeAssignment">
+<area shape="rect" id="node4" href="$class_step_a_p203___cc_design_date_and_time_assignment.html" title="Representation of STEP entity CcDesignDateAndTimeAssignment. " alt="" coords="639,5,841,46"/>
+<area shape="rect" id="node5" href="$class_step_a_p214___applied_date_and_time_assignment.html" title="StepAP214_AppliedDateAnd\lTimeAssignment" alt="" coords="646,70,834,111"/>
+<area shape="rect" id="node6" href="$class_step_a_p214___auto_design_actual_date_and_time_assignment.html" title="StepAP214_AutoDesignActual\lDateAndTimeAssignment" alt="" coords="641,135,839,177"/>
+<area shape="rect" id="node7" href="$class_step_a_p214___auto_design_nominal_date_and_time_assignment.html" title="StepAP214_AutoDesignNominal\lDateAndTimeAssignment" alt="" coords="635,201,845,242"/>
+<area shape="rect" id="node2" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,111,301,137"/>
+<area shape="rect" id="node3" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,111,141,137"/>
+</map>

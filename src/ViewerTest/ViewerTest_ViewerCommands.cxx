@@ -16,6 +16,7 @@
 
 #include <OpenGl_GlCore20.hxx>
 #include <AIS_ColorScale.hxx>
+#include <AIS_RubberBand.hxx>
 #include <AIS_Shape.hxx>
 #include <AIS_InteractiveObject.hxx>
 #include <AIS_ListOfInteractive.hxx>
@@ -194,6 +195,18 @@ int Y_ButtonPress = 0;
 Standard_Boolean IsDragged = Standard_False;
 Standard_Boolean DragFirst = Standard_False;
 
+
+Standard_EXPORT const Handle(AIS_RubberBand)& GetRubberBand()
+{
+  static Handle(AIS_RubberBand) aBand;
+  if (aBand.IsNull())
+  {
+    aBand = new AIS_RubberBand (Quantity_NOC_LIGHTBLUE, Aspect_TOL_SOLID, Quantity_NOC_LIGHTBLUE, 0.4, 1.0);
+    aBand->SetDisplayMode (0);
+  }
+  return aBand;
+}
+
 //==============================================================================
 
 #ifdef _WIN32
@@ -221,7 +234,7 @@ const Handle(MMgt_TShared)& ViewerTest::WClass()
 #if defined(_WIN32)
   if (theWClass.IsNull())
   {
-    theWClass = new WNT_WClass ("GW3D_Class", AdvViewerWindowProc,
+    theWClass = new WNT_WClass ("GW3D_Class", (Standard_Address )AdvViewerWindowProc,
       CS_VREDRAW | CS_HREDRAW, 0, 0,
       ::LoadCursor (NULL, IDC_ARROW));
   }
@@ -935,7 +948,7 @@ static int VHLRType (Draw_Interpretor& di, Standard_Integer argc, const char** a
 
       if (!aMap.IsBound2 (aName))
       {
-        di << argv[0] << ":" << " Wrong shape name:" << aName.ToCString() << ".\n";
+        di << argv[0] << ": Wrong shape name:" << aName.ToCString() << ".\n";
         continue;
       }
       Handle(AIS_Shape) anAISObject =
@@ -1281,7 +1294,7 @@ static int VViewList (Draw_Interpretor& theDi, Standard_Integer theArgsNb, const
           if (isTreeView)
           {
             TCollection_AsciiString aContextName(aContextIter.Key1());
-            theDi << " " << aContextName.Split(aDriverIter.Key1().Length() + 1) << ":" << "\n";
+            theDi << " " << aContextName.Split(aDriverIter.Key1().Length() + 1) << ":\n";
           }
 
           for (NCollection_DoubleMap <TCollection_AsciiString, Handle(V3d_View)>::Iterator
@@ -1293,7 +1306,7 @@ static int VViewList (Draw_Interpretor& theDi, Standard_Integer theArgsNb, const
               if (isTreeView)
               {
                 if (aViewIter.Value() == ViewerTest::CurrentView())
-                  theDi << "  " << aViewName.Split(aContextIter.Key1().Length() + 1) << "(*)" << "\n";
+                  theDi << "  " << aViewName.Split(aContextIter.Key1().Length() + 1) << "(*)\n";
                 else
                   theDi << "  " << aViewName.Split(aContextIter.Key1().Length() + 1) << "\n";
               }
@@ -1733,7 +1746,7 @@ static int ViewProject(Draw_Interpretor& di, const V3d_TypeOfOrientation ori)
 {
   if ( ViewerTest::CurrentView().IsNull() )
   {
-    di<<"Call vinit before this command, please"<<"\n";
+    di<<"Call vinit before this command, please\n";
     return 1;
   }
 
@@ -1827,39 +1840,39 @@ static int VBack(Draw_Interpretor& di, Standard_Integer , const char** )
 static int VHelp(Draw_Interpretor& di, Standard_Integer , const char** )
 {
 
-  di << "Q : Quit the application" << "\n";
+  di << "Q : Quit the application\n";
 
-  di << "========================="<<"\n";
-  di << "F : FitAll" << "\n";
-  di << "T : TopView" << "\n";
-  di << "B : BottomView" << "\n";
-  di << "R : RightView" << "\n";
-  di << "L : LeftView" << "\n";
-  di << "A : AxonometricView" << "\n";
-  di << "D : ResetView" << "\n";
+  di << "=========================\n";
+  di << "F : FitAll\n";
+  di << "T : TopView\n";
+  di << "B : BottomView\n";
+  di << "R : RightView\n";
+  di << "L : LeftView\n";
+  di << "A : AxonometricView\n";
+  di << "D : ResetView\n";
 
-  di << "========================="<<"\n";
-  di << "S : Shading" << "\n";
-  di << "W : Wireframe" << "\n";
-  di << "H : HidelLineRemoval" << "\n";
-  di << "U : Unset display mode" << "\n";
-  di << "Delete : Remove selection from viewer" << "\n";
+  di << "=========================\n";
+  di << "S : Shading\n";
+  di << "W : Wireframe\n";
+  di << "H : HidelLineRemoval\n";
+  di << "U : Unset display mode\n";
+  di << "Delete : Remove selection from viewer\n";
 
-  di << "========================="<<"\n";
-  di << "Selection mode "<<"\n";
-  di << "0 : Shape" <<"\n";
-  di << "1 : Vertex" <<"\n";
-  di << "2 : Edge" <<"\n";
-  di << "3 : Wire" <<"\n";
-  di << "4 : Face" <<"\n";
-  di << "5 : Shell" <<"\n";
-  di << "6 : Solid" <<"\n";
-  di << "7 : Compound" <<"\n";
+  di << "=========================\n";
+  di << "Selection mode \n";
+  di << "0 : Shape\n";
+  di << "1 : Vertex\n";
+  di << "2 : Edge\n";
+  di << "3 : Wire\n";
+  di << "4 : Face\n";
+  di << "5 : Shell\n";
+  di << "6 : Solid\n";
+  di << "7 : Compound\n";
 
-  di << "========================="<<"\n";
-  di << "Z : Switch Z clipping On/Off" << "\n";
-  di << ", : Hilight next detected" << "\n";
-  di << ". : Hilight previous detected" << "\n";
+  di << "=========================\n";
+  di << "Z : Switch Z clipping On/Off\n";
+  di << ", : Hilight next detected\n";
+  di << ". : Hilight previous detected\n";
 
   return 0;
 }
@@ -1902,11 +1915,12 @@ static LRESULT WINAPI AdvViewerWindowProc( HWND hwnd,
     case WM_LBUTTONUP:
       if (!DragFirst)
       {
-        HDC hdc = GetDC( hwnd );
-        SelectObject( hdc, GetStockObject( HOLLOW_BRUSH ) );
-        SetROP2( hdc, R2_NOT );
-        Rectangle( hdc, X_ButtonPress, Y_ButtonPress, X_Motion, Y_Motion );
-        ReleaseDC( hwnd, hdc );
+        if (ViewerTest::GetAISContext()->IsDisplayed (GetRubberBand()))
+        {
+          ViewerTest::GetAISContext()->Remove (GetRubberBand(), Standard_False);
+          ViewerTest::GetAISContext()->CurrentViewer()->RedrawImmediate();
+        }
+
         VT_ProcessButton1Release (fwKeys & MK_SHIFT);
       }
       IsDragged = Standard_False;
@@ -1925,26 +1939,31 @@ static LRESULT WINAPI AdvViewerWindowProc( HWND hwnd,
       break;
 
     case WM_MOUSEMOVE:
-      if( IsDragged )
+      if (IsDragged)
       {
-        HDC hdc = GetDC( hwnd );
-
-        HGDIOBJ anObj = SelectObject( hdc, GetStockObject( WHITE_PEN ) );
-        SelectObject( hdc, GetStockObject( HOLLOW_BRUSH ) );
-        SetROP2( hdc, R2_NOT );
-
-        if( !DragFirst )
-          Rectangle( hdc, X_ButtonPress, Y_ButtonPress, X_Motion, Y_Motion );
+        bool toRedraw = false;
+        if (!DragFirst && ViewerTest::GetAISContext()->IsDisplayed (GetRubberBand()))
+        {
+          ViewerTest::GetAISContext()->Remove (GetRubberBand(), Standard_False);
+          toRedraw = true;
+        }
 
         DragFirst = Standard_False;
-        X_Motion = LOWORD(lParam);
-        Y_Motion = HIWORD(lParam);
+        X_Motion = LOWORD (lParam);
+        Y_Motion = HIWORD (lParam);
 
-        Rectangle( hdc, X_ButtonPress, Y_ButtonPress, X_Motion, Y_Motion );
-
-        SelectObject( hdc, anObj );
-
-        ReleaseDC( hwnd, hdc );
+        RECT aRect;
+        if (GetClientRect (hwnd, &aRect))
+        {
+          int aHeight = aRect.bottom - aRect.top;
+          GetRubberBand()->SetRectangle (X_ButtonPress, aHeight - Y_ButtonPress, X_Motion, aHeight - Y_Motion);
+          ViewerTest::GetAISContext()->Display (GetRubberBand(), 0, -1, Standard_False, Standard_True, AIS_DS_Displayed);
+          toRedraw = true;
+        }
+        if (toRedraw)
+        {
+          ViewerTest::GetAISContext()->CurrentViewer()->RedrawImmediate();
+        }
       }
       else
         return ViewerWindowProc( hwnd, Msg, wParam, lParam );
@@ -2297,9 +2316,11 @@ int ViewerMainLoop(Standard_Integer argc, const char** argv)
           {
             if( !DragFirst )
             {
-              Aspect_Handle aWindow = VT_GetWindow()->XWindow();
-              GC gc = XCreateGC( aDisplay, aWindow, 0, 0 );
-              XDrawRectangle( aDisplay, aWindow, gc, min( X_ButtonPress, X_Motion ), min( Y_ButtonPress, Y_Motion ), abs( X_Motion-X_ButtonPress ), abs( Y_Motion-Y_ButtonPress ) );
+              if (ViewerTest::GetAISContext()->IsDisplayed (GetRubberBand()))
+              {
+                ViewerTest::GetAISContext()->Remove (GetRubberBand(), Standard_False);
+                ViewerTest::GetAISContext()->CurrentViewer()->RedrawImmediate();
+              }
             }
 
             Handle( AIS_InteractiveContext ) aContext = ViewerTest::GetAISContext();
@@ -2350,18 +2371,26 @@ int ViewerMainLoop(Standard_Integer argc, const char** argv)
           }
           if( IsDragged )
           {
-            Aspect_Handle aWindow = VT_GetWindow()->XWindow();
-            GC gc = XCreateGC( aDisplay, aWindow, 0, 0 );
-            XSetFunction( aDisplay, gc, GXinvert );
-
             if( !DragFirst )
-              XDrawRectangle(aDisplay, aWindow, gc, min( X_ButtonPress, X_Motion ), min( Y_ButtonPress, Y_Motion ), abs( X_Motion-X_ButtonPress ), abs( Y_Motion-Y_ButtonPress ) );
+            {
+              if (ViewerTest::GetAISContext()->IsDisplayed (GetRubberBand()))
+              {
+                ViewerTest::GetAISContext()->Remove (GetRubberBand(), Standard_False);
+              }
+            }
 
             X_Motion = aReport.xmotion.x;
             Y_Motion = aReport.xmotion.y;
             DragFirst = Standard_False;
 
-            XDrawRectangle( aDisplay, aWindow, gc, min( X_ButtonPress, X_Motion ), min( Y_ButtonPress, Y_Motion ), abs( X_Motion-X_ButtonPress ), abs( Y_Motion-Y_ButtonPress ) );
+            Window aWindow = GetWindowHandle(VT_GetWindow());
+            Window aRoot;
+            int anX, anY;
+            unsigned int aWidth, aHeight, aBorderWidth, aDepth;
+            XGetGeometry (aDisplay, aWindow, &aRoot, &anX, &anY, &aWidth, &aHeight, &aBorderWidth, &aDepth);
+            GetRubberBand()->SetRectangle (X_ButtonPress, aHeight - Y_ButtonPress, X_Motion, aHeight - Y_Motion);
+            ViewerTest::GetAISContext()->Display (GetRubberBand(), 0, -1, Standard_False, Standard_True, AIS_DS_Displayed);
+            ViewerTest::GetAISContext()->CurrentViewer()->RedrawImmediate();
           }
           else
           {
@@ -2657,7 +2686,7 @@ static int VPick(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 { if (ViewerTest::CurrentView().IsNull() ) return 1;
 
 if ( argc < 4 ) {
-  di << argv[0] << "Invalid number of arguments" << "\n";
+  di << argv[0] << "Invalid number of arguments\n";
   return 1;
 }
 
@@ -2676,8 +2705,8 @@ static int VSetBg(Draw_Interpretor& di, Standard_Integer argc, const char** argv
 {
   if (argc < 2 || argc > 3)
   {
-    di << "Usage : " << argv[0] << " imagefile [filltype] : Load image as background" << "\n";
-    di << "filltype can be one of CENTERED, TILED, STRETCH, NONE" << "\n";
+    di << "Usage : " << argv[0] << " imagefile [filltype] : Load image as background\n";
+    di << "filltype can be one of CENTERED, TILED, STRETCH, NONE\n";
     return 1;
   }
 
@@ -2699,7 +2728,7 @@ static int VSetBg(Draw_Interpretor& di, Standard_Integer argc, const char** argv
     else
     {
       di << "Wrong fill type : " << szType << "\n";
-      di << "Must be one of CENTERED, TILED, STRETCH, NONE" << "\n";
+      di << "Must be one of CENTERED, TILED, STRETCH, NONE\n";
       return 1;
     }
   }
@@ -2719,8 +2748,8 @@ static int VSetBgMode(Draw_Interpretor& di, Standard_Integer argc, const char** 
 {
   if (argc != 2)
   {
-    di << "Usage : " << argv[0] << " filltype : Change background image mode" << "\n";
-    di << "filltype must be one of CENTERED, TILED, STRETCH, NONE" << "\n";
+    di << "Usage : " << argv[0] << " filltype : Change background image mode\n";
+    di << "filltype must be one of CENTERED, TILED, STRETCH, NONE\n";
     return 1;
   }
 
@@ -2739,7 +2768,7 @@ static int VSetBgMode(Draw_Interpretor& di, Standard_Integer argc, const char** 
   else
   {
     di << "Wrong fill type : " << szType << "\n";
-    di << "Must be one of CENTERED, TILED, STRETCH, NONE" << "\n";
+    di << "Must be one of CENTERED, TILED, STRETCH, NONE\n";
     return 1;
   }
   Handle(V3d_View) V3dView = ViewerTest::CurrentView();
@@ -2755,10 +2784,10 @@ static int VSetGradientBg(Draw_Interpretor& di, Standard_Integer argc, const cha
 {
   if (argc != 8 )
   {
-    di << "Usage : " << argv[0] << " R1 G1 B1 R2 G2 B2 Type : Mount gradient background" << "\n";
-    di << "R1,G1,B1,R2,G2,B2 = [0..255]" << "\n";
-    di << "Type must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2" << "\n";
-    di << "                    5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4" << "\n";
+    di << "Usage : " << argv[0] << " R1 G1 B1 R2 G2 B2 Type : Mount gradient background\n";
+    di << "R1,G1,B1,R2,G2,B2 = [0..255]\n";
+    di << "Type must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2\n";
+    di << "                    5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4\n";
     return 1;
   }
 
@@ -2784,9 +2813,9 @@ static int VSetGradientBg(Draw_Interpretor& di, Standard_Integer argc, const cha
     int aType = Draw::Atoi(argv[7]);
     if( aType < 0 || aType > 8 )
     {
-      di << "Wrong fill type " << "\n";
-      di << "Must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2" << "\n";
-      di << "               5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4" << "\n";
+      di << "Wrong fill type \n";
+      di << "Must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2\n";
+      di << "               5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4\n";
       return 1;
     }
 
@@ -2807,9 +2836,9 @@ static int VSetGradientBgMode(Draw_Interpretor& di, Standard_Integer argc, const
 {
   if (argc != 2 )
   {
-    di << "Usage : " << argv[0] << " Type : Change gradient background fill type" << "\n";
-    di << "Type must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2" << "\n";
-    di << "                    5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4" << "\n";
+    di << "Usage : " << argv[0] << " Type : Change gradient background fill type\n";
+    di << "Type must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2\n";
+    di << "                    5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4\n";
     return 1;
   }
 
@@ -2824,9 +2853,9 @@ static int VSetGradientBgMode(Draw_Interpretor& di, Standard_Integer argc, const
     int aType = Draw::Atoi(argv[1]);
     if( aType < 0 || aType > 8 )
     {
-      di << "Wrong fill type " << "\n";
-      di << "Must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2" << "\n";
-      di << "               5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4" << "\n";
+      di << "Wrong fill type \n";
+      di << "Must be one of 0 = NONE, 1 = HOR, 2 = VER, 3 = DIAG1, 4 = DIAG2\n";
+      di << "               5 = CORNER1, 6 = CORNER2, 7 = CORNER3, 8 = CORNER4\n";
       return 1;
     }
 
@@ -2847,8 +2876,8 @@ static int VSetColorBg(Draw_Interpretor& di, Standard_Integer argc, const char**
 {
   if (argc != 4 )
   {
-    di << "Usage : " << argv[0] << " R G B : Set color background" << "\n";
-    di << "R,G,B = [0..255]" << "\n";
+    di << "Usage : " << argv[0] << " R G B : Set color background\n";
+    di << "R,G,B = [0..255]\n";
     return 1;
   }
 
@@ -2936,7 +2965,7 @@ static int VScale(Draw_Interpretor& di, Standard_Integer argc, const char** argv
   if ( V3dView.IsNull() ) return 1;
 
   if ( argc != 4 ) {
-    di << argv[0] << "Invalid number of arguments" << "\n";
+    di << argv[0] << "Invalid number of arguments\n";
     return 1;
   }
   V3dView->SetAxialScale( Draw::Atof(argv[1]),  Draw::Atof(argv[2]),  Draw::Atof(argv[3]) );
@@ -3267,13 +3296,13 @@ static int VZoom( Draw_Interpretor& di, Standard_Integer argc, const char** argv
   if ( argc == 2 ) {
     Standard_Real coef = Draw::Atof(argv[1]);
     if ( coef <= 0.0 ) {
-      di << argv[1] << "Invalid value" << "\n";
+      di << argv[1] << "Invalid value\n";
       return 1;
     }
     V3dView->SetZoom( Draw::Atof(argv[1]) );
     return 0;
   } else {
-    di << argv[0] << " Invalid number of arguments" << "\n";
+    di << argv[0] << " Invalid number of arguments\n";
     return 1;
   }
 }
@@ -3291,7 +3320,7 @@ static int VPan( Draw_Interpretor& di, Standard_Integer argc, const char** argv 
     V3dView->Pan( Draw::Atoi(argv[1]), Draw::Atoi(argv[2]) );
     return 0;
   } else {
-    di << argv[0] << " Invalid number of arguments" << "\n";
+    di << argv[0] << " Invalid number of arguments\n";
     return 1;
   }
 }
@@ -3448,6 +3477,11 @@ static int VColorScale (Draw_Interpretor& theDI,
     std::cout << "Error: no active view!\n";
     return 1;
   }
+  if (theArgNb <= 1)
+  {
+    std::cout << "Error: wrong syntax at command '" << theArgVec[0] << "'!\n";
+    return 1;
+  }
 
   Handle(AIS_ColorScale) aCS;
   // find object
@@ -3478,7 +3512,7 @@ static int VColorScale (Draw_Interpretor& theDI,
 
   Standard_Real                   aMinRange    = aCS->GetMin();
   Standard_Real                   aMaxRange    = aCS->GetMax();
-  Standard_Integer                aWidth       = aCS->GetWidth();
+  Standard_Integer                aBreadth     = aCS->GetBreadth();
   Standard_Integer                aHeight      = aCS->GetHeight();
   Standard_Integer                aNbIntervals = aCS->GetNumberOfIntervals();
   Standard_Integer                aTextHeight  = aCS->GetTextHeight();
@@ -3488,11 +3522,6 @@ static int VColorScale (Draw_Interpretor& theDI,
 
   ViewerTest_AutoUpdater anUpdateTool (aContext, aView);
 
-  if (theArgNb <= 1)
-  {
-    std::cout << "Error: wrong syntax at command '" << theArgVec[0] << "'!\n";
-    return 1;
-  }
   if (theArgNb <= 2)
   {
     theDI << "Color scale parameters for '"<< theArgVec[1] << "':\n"
@@ -3609,6 +3638,22 @@ static int VColorScale (Draw_Interpretor& theDI,
         return 1;
       }
     }
+    else if (aFlag == "-logarithmic"
+          || aFlag == "-log")
+    {
+      if (anArgIter + 1 >= theArgNb)
+      {
+        std::cout << "Error: wrong syntax at argument '" << anArg << "'!\n";
+        return 1;
+      }
+      Standard_Boolean IsLog;
+      if (!ViewerTest::ParseOnOff(theArgVec[++anArgIter], IsLog))
+      {
+        std::cout << "Error: wrong syntax at argument '" << anArg << "'!\n";
+        return 1;
+      }
+      aCS->SetLogarithmic (IsLog);
+    }
     else if (aFlag == "-xy")
     {
       if (anArgIter + 2 >= theArgNb)
@@ -3645,7 +3690,7 @@ static int VColorScale (Draw_Interpretor& theDI,
         return 1;
       }
 
-      aWidth = aW.IntegerValue();
+      aBreadth = aW.IntegerValue();
     }
     else if (aFlag == "-height"
           || aFlag == "-h")
@@ -3696,16 +3741,15 @@ static int VColorScale (Draw_Interpretor& theDI,
       }
 
       Standard_Integer anIndex = anInd.IntegerValue();
-      if (anIndex < 0
-       || anIndex > aNbIntervals - 1)
+      if (anIndex <= 0 || anIndex > aNbIntervals)
       {
-        std::cout << "Error: Index value should be within range 0..." << (aNbIntervals - 1) <<"!\n";
+        std::cout << "Error: Index value should be within range 1.." << aNbIntervals <<"!\n";
         return 1;
       }
 
       if (Quantity_Color::ColorFromName (theArgVec[anArgIter + 2], aColorName))
       {
-        aCS->SetColor    (Quantity_Color (aColorName), anIndex);
+        aCS->SetIntervalColor (Quantity_Color (aColorName), anIndex);
         aCS->SetColorType (Aspect_TOCSD_USER);
         anArgIter += 2;
         continue;
@@ -3719,7 +3763,7 @@ static int VColorScale (Draw_Interpretor& theDI,
       {
         return 1;
       }
-      aCS->SetColor     (Quantity_Color (aRedValue, aGreenValue, aBlueValue, Quantity_TOC_RGB), anIndex);
+      aCS->SetIntervalColor (Quantity_Color (aRedValue, aGreenValue, aBlueValue, Quantity_TOC_RGB), anIndex);
       aCS->SetColorType (Aspect_TOCSD_USER);
       anArgIter += 4;
     }
@@ -3737,10 +3781,9 @@ static int VColorScale (Draw_Interpretor& theDI,
       }
 
       Standard_Integer anIndex = Draw::Atoi (theArgVec[anArgIter + 1]);
-      if (anIndex < 0
-       || anIndex > aNbIntervals)
+      if (anIndex <= 0 || anIndex > aNbIntervals+1)
       {
-        std::cout << "Error: Index value should be within range 0..." << aNbIntervals <<"!\n";
+        std::cout << "Error: Index value should be within range 1.." << aNbIntervals+1 <<"!\n";
         return 1;
       }
 
@@ -3874,7 +3917,7 @@ static int VColorScale (Draw_Interpretor& theDI,
       aMinRange    = 0.0;
       aMaxRange    = 100;
       aNbIntervals = 10;
-      aWidth       = 0;
+      aBreadth     = 0;
       aHeight      = 0;
       aLabPosition = Aspect_TOCSP_RIGHT;
       aCS->SetColorType (Aspect_TOCSD_AUTO);
@@ -3886,26 +3929,26 @@ static int VColorScale (Draw_Interpretor& theDI,
       return 1;
     }
   }
-  if (!aWidth || !aHeight)
+  if (!aBreadth || !aHeight)
   {
     Standard_Integer aWinWidth, aWinHeight;
     aView->Window()->Size (aWinWidth, aWinHeight);
-    if (!aWidth)
+    if (!aBreadth)
     {
-      aWidth = aWinWidth;
+      aBreadth = aWinWidth;
     }
     if (!aHeight)
     {
       aHeight = aWinHeight;
     }
   }
-  aCS->SetSize              (aWidth, aHeight);
+  aCS->SetSize              (aBreadth, aHeight);
   aCS->SetPosition          (aPosX, aPosY);
   aCS->SetTextHeight        (aTextHeight);
   aCS->SetRange             (aMinRange, aMaxRange);
   aCS->SetNumberOfIntervals (aNbIntervals);
   aCS->SetLabelPosition     (aLabPosition);
-  aCS->SetBGColor           (aView->BackgroundColor());
+//  aCS->SetColor             (aView->BackgroundColor().Invert());
   aCS->SetToUpdate();
   aContext->Display (aCS);
 
@@ -4037,7 +4080,7 @@ static int VGraduatedTrihedron (Draw_Interpretor& /*theDi*/, Standard_Integer th
   Handle(AIS_InteractiveContext) anAISContext = ViewerTest::GetAISContext();
   if (anAISContext.IsNull())
   {
-    std::cout << theArgs[0] << ": " << " please use 'vinit' command to initialize view.\n";
+    std::cout << theArgs[0] << ":  please use 'vinit' command to initialize view.\n";
     return 1;
   }
 
@@ -4259,6 +4302,8 @@ static int VPrintView (Draw_Interpretor& di, Standard_Integer argc,
                        const char** argv)
 {
 #ifndef _WIN32
+  (void )argc;
+  (void )argv;
   di << "Printing implemented only for WNT!\n";
   return 0;
 #else
@@ -4352,9 +4397,9 @@ static int VPrintView (Draw_Interpretor& di, Standard_Integer argc,
     {
       if (isTileSizeProvided)
       {
-        Handle(Graphic3d_CView) aGraphicView = ViewerTest::CurrentView()->View();
-        Graphic3d_PtrFrameBuffer anOldBuffer = aGraphicView->FBO();
-        Graphic3d_PtrFrameBuffer aNewBuffer  = aGraphicView->FBOCreate (aTileWidth, aTileHeight);
+        Handle(Graphic3d_CView)    aGraphicView = ViewerTest::CurrentView()->View();
+        Handle(Standard_Transient) anOldBuffer  = aGraphicView->FBO();
+        Handle(Standard_Transient) aNewBuffer   = aGraphicView->FBOCreate (aTileWidth, aTileHeight);
         aGraphicView->SetFBO (aNewBuffer);
 
         isPrinted = aView->Print (anDC, 1, 1, 0, Aspect_PA_TILE);
@@ -4636,7 +4681,7 @@ class V3d_LineItem : public AIS_InteractiveObject
 {
 public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTI(V3d_LineItem, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTI_INLINE(V3d_LineItem,AIS_InteractiveObject)
 
   // constructor
   Standard_EXPORT V3d_LineItem(Standard_Real X1, Standard_Real Y1,
@@ -4649,10 +4694,11 @@ public:
 
   void Compute (const Handle(PrsMgr_PresentationManager3d)& thePresentationManager,
                 const Handle(Prs3d_Presentation)& thePresentation,
-                const Standard_Integer theMode);
+                const Standard_Integer theMode) Standard_OVERRIDE;
 
   void ComputeSelection (const Handle(SelectMgr_Selection)& /*aSelection*/,
-                         const Standard_Integer /*aMode*/){};
+                         const Standard_Integer /*aMode*/) Standard_OVERRIDE
+  {}
 
 private:
 
@@ -5756,7 +5802,7 @@ static Standard_Integer VSelect (Draw_Interpretor& di,
 {
   if(argc < 3)
   {
-    di << "Usage : " << argv[0] << " x1 y1 [x2 y2 [... xn yn]] [shift_selection = 1|0]" << "\n";
+    di << "Usage : " << argv[0] << " x1 y1 [x2 y2 [... xn yn]] [shift_selection = 1|0]\n";
     return 1;
   }
 
@@ -5828,7 +5874,7 @@ static Standard_Integer VMoveTo (Draw_Interpretor& di,
 {
   if(argc != 3)
   {
-    di << "Usage : " << argv[0] << " x y" << "\n";
+    di << "Usage : " << argv[0] << " x y\n";
     return 1;
   }
 
@@ -6089,8 +6135,8 @@ static Standard_Integer VZClipping (Draw_Interpretor& di,
 {
   if(argc>4)
   {
-    di << "Usage : " << argv[0] << " [mode] [depth  width]" << "\n"
-      <<"mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]" << "\n";
+    di << "Usage : " << argv[0] << " [mode] [depth  width]\n"
+      <<"mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]\n";
     return -1;
   }
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
@@ -6151,8 +6197,8 @@ static Standard_Integer VZClipping (Draw_Interpretor& di,
       }
       if (aStatus != 1)
       {
-        di << "Bad mode; Usage : " << argv[0] << " [mode] [depth width]" << "\n"
-          << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]" << "\n";
+        di << "Bad mode; Usage : " << argv[0] << " [mode] [depth width]\n"
+          << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]\n";
         return 1;
       }
       aView->SetZClippingType(aZClippingMode);
@@ -6173,14 +6219,14 @@ static Standard_Integer VZClipping (Draw_Interpretor& di,
 
       if(aDepth<0. || aDepth>1.)
       {
-        di << "Bad depth; Usage : " << argv[0] << " [mode] [depth width]" << "\n"
-        << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]" << "\n";
+        di << "Bad depth; Usage : " << argv[0] << " [mode] [depth width]\n"
+        << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]\n";
         return 1;
       }
       if(aWidth<0. || aWidth>1.)
       {
-        di << "Bad width; Usage : " << argv[0] << " [mode] [depth width]" << "\n"
-        << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]" << "\n";
+        di << "Bad width; Usage : " << argv[0] << " [mode] [depth width]\n"
+        << "mode = OFF|BACK|FRONT|SLICE depth = [0..1] width = [0..1]\n";
         return 1;
       }
 
@@ -6225,7 +6271,7 @@ static Standard_Integer VAntialiasing (Draw_Interpretor& di,
 {
   if(argc > 2)
   {
-    di << "Usage : " << argv[0] << " [1|0]" << "\n";
+    di << "Usage : " << argv[0] << " [1|0]\n";
     return 1;
   }
 
@@ -6415,12 +6461,9 @@ public:
                             const Standard_ShortReal theXShift,
                             const Standard_ShortReal theYShift,
                             const Standard_ShortReal theAngle);
-  DEFINE_STANDARD_RTTI(OCC_TextureEnv, Graphic3d_TextureEnv);
+  DEFINE_STANDARD_RTTI_INLINE(OCC_TextureEnv,Graphic3d_TextureEnv)
 };
-DEFINE_STANDARD_HANDLE(OCC_TextureEnv, Graphic3d_TextureEnv);
-
-
-
+DEFINE_STANDARD_HANDLE(OCC_TextureEnv, Graphic3d_TextureEnv)
 
 OCC_TextureEnv::OCC_TextureEnv(const Standard_CString theFileName)
   : Graphic3d_TextureEnv(theFileName)
@@ -7049,7 +7092,7 @@ static int VAutoZFit (Draw_Interpretor& theDi, Standard_Integer theArgsNb, const
 
   if (theArgsNb < 2)
   {
-    theDi << "Auto z-fit mode: " << "\n"
+    theDi << "Auto z-fit mode: \n"
           << "On: " << (aCurrentView->AutoZFitMode() ? "enabled" : "disabled") << "\n"
           << "Scale: " << aScale << "\n";
     return 0;
@@ -7391,6 +7434,33 @@ static int VStereo (Draw_Interpretor& theDI,
 
     Standard_Boolean isActive = ViewerTest_myDefaultCaps.contextStereo;
     theDI << "Stereo " << (isActive ? "ON" : "OFF") << "\n";
+    if (isActive)
+    {
+      TCollection_AsciiString aMode;
+      switch (aView->RenderingParams().StereoMode)
+      {
+        case Graphic3d_StereoMode_QuadBuffer       : aMode = "quadBuffer";       break;
+        case Graphic3d_StereoMode_RowInterlaced    : aMode = "rowInterlaced";    break;
+        case Graphic3d_StereoMode_ColumnInterlaced : aMode = "columnInterlaced"; break;
+        case Graphic3d_StereoMode_ChessBoard       : aMode = "chessBoard";       break;
+        case Graphic3d_StereoMode_SideBySide       : aMode = "sideBySide";       break;
+        case Graphic3d_StereoMode_OverUnder        : aMode = "overUnder";        break;
+        case Graphic3d_StereoMode_SoftPageFlip     : aMode = "softpageflip";     break;
+        case Graphic3d_StereoMode_Anaglyph  :
+          aMode = "anaglyph";
+          switch (aView->RenderingParams().AnaglyphFilter)
+          {
+            case Graphic3d_RenderingParams::Anaglyph_RedCyan_Simple      : aMode.AssignCat (" (redCyanSimple)");      break;
+            case Graphic3d_RenderingParams::Anaglyph_RedCyan_Optimized   : aMode.AssignCat (" (redCyan)");            break;
+            case Graphic3d_RenderingParams::Anaglyph_YellowBlue_Simple   : aMode.AssignCat (" (yellowBlueSimple)");   break;
+            case Graphic3d_RenderingParams::Anaglyph_YellowBlue_Optimized: aMode.AssignCat (" (yellowBlue)");         break;
+            case Graphic3d_RenderingParams::Anaglyph_GreenMagenta_Simple : aMode.AssignCat (" (greenMagentaSimple)"); break;
+            default: break;
+          }
+        default: break;
+      }
+      theDI << "Mode " << aMode << "\n";
+    }
     return 0;
   }
 
@@ -8224,10 +8294,11 @@ static Standard_Integer VRenderParams (Draw_Interpretor& theDI,
       case Graphic3d_RM_RAYTRACING:    theDI << "raytrace ";      break;
     }
     theDI << "\n";
+    theDI << "msaa:         " <<  aParams.NbMsaaSamples << "\n";
+    theDI << "rayDepth:     " <<  aParams.RaytracingDepth                             << "\n";
     theDI << "fsaa:         " << (aParams.IsAntialiasingEnabled       ? "on" : "off") << "\n";
     theDI << "shadows:      " << (aParams.IsShadowEnabled             ? "on" : "off") << "\n";
     theDI << "reflections:  " << (aParams.IsReflectionEnabled         ? "on" : "off") << "\n";
-    theDI << "rayDepth:     " <<  aParams.RaytracingDepth                             << "\n";
     theDI << "gleam:        " << (aParams.IsTransparentShadowEnabled  ? "on" : "off") << "\n";
     theDI << "GI:           " << (aParams.IsGlobalIlluminationEnabled ? "on" : "off") << "\n";
     theDI << "blocked RNG:  " << (aParams.CoherentPathTracingMode     ? "on" : "off") << "\n";
@@ -8301,6 +8372,30 @@ static Standard_Integer VRenderParams (Draw_Interpretor& theDI,
       }
 
       aParams.Method = Graphic3d_RM_RASTERIZATION;
+    }
+    else if (aFlag == "-msaa")
+    {
+      if (toPrint)
+      {
+        theDI << aParams.NbMsaaSamples << " ";
+        continue;
+      }
+      else if (++anArgIter >= theArgNb)
+      {
+        std::cerr << "Error: wrong syntax at argument '" << anArg << "'\n";
+        return 1;
+      }
+
+      const Standard_Integer aNbSamples = Draw::Atoi (theArgVec[anArgIter]);
+      if (aNbSamples < 0)
+      {
+        std::cerr << "Error: invalid number of MSAA samples " << aNbSamples << ".\n";
+        return 1;
+      }
+      else
+      {
+        aParams.NbMsaaSamples = aNbSamples;
+      }
     }
     else if (aFlag == "-raydepth"
           || aFlag == "-ray_depth")
@@ -8554,7 +8649,7 @@ static Standard_Integer VProgressiveMode (Draw_Interpretor& /*theDI*/,
     Standard_Boolean toExit = Standard_False;
 
     MSG aMsg;
-    while (PeekMessage (&aMsg, NULL, NULL, NULL, PM_REMOVE))
+    while (PeekMessage (&aMsg, NULL, 0, 0, PM_REMOVE))
     {
       if (aMsg.message == WM_KEYDOWN && (aMsg.wParam == 0x0d || aMsg.wParam == 0x1b))
       {
@@ -8697,13 +8792,13 @@ static Standard_Integer VXRotate (Draw_Interpretor& di,
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
-    di << argv[0] << "ERROR : use 'vinit' command before " << "\n";
+    di << argv[0] << "ERROR : use 'vinit' command before \n";
     return 1;
   }
   
   if (argc != 3)
   {
-    di << "ERROR : Usage : " << argv[0] << " name angle" << "\n";
+    di << "ERROR : Usage : " << argv[0] << " name angle\n";
     return 1;
   }
 
@@ -8715,7 +8810,7 @@ static Standard_Integer VXRotate (Draw_Interpretor& di,
   Handle(AIS_InteractiveObject) anIObj;
   if (!aMap.IsBound2 (aName) )
   {
-    di << "Use 'vdisplay' before" << "\n";
+    di << "Use 'vdisplay' before\n";
     return 1;
   }
   else
@@ -9227,8 +9322,9 @@ void ViewerTest::ViewerCommands(Draw_Interpretor& theCommands)
     __FILE__, VRenderParams, group);
   theCommands.Add("vrenderparams",
     "\n    Manages rendering parameters: "
-    "\n      '-rayTrace'             Enables  GPU ray-tracing"
     "\n      '-raster'               Disables GPU ray-tracing"
+    "\n      '-msaa         0..4'    Specifies number of samples for MSAA"
+    "\n      '-rayTrace'             Enables  GPU ray-tracing"
     "\n      '-rayDepth     0..10'   Defines maximum ray-tracing depth"
     "\n      '-shadows      on|off'  Enables/disables shadows rendering"
     "\n      '-reflections  on|off'  Enables/disables specular reflections"

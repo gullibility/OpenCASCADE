@@ -18,15 +18,9 @@
 #include <StepGeom_Vector.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepGeom_SurfaceOfLinearExtrusion,StepGeom_SweptSurface)
+
 StepGeom_SurfaceOfLinearExtrusion::StepGeom_SurfaceOfLinearExtrusion ()  {}
-
-void StepGeom_SurfaceOfLinearExtrusion::Init(
-	const Handle(TCollection_HAsciiString)& aName,
-	const Handle(StepGeom_Curve)& aSweptCurve)
-{
-
-	StepGeom_SweptSurface::Init(aName, aSweptCurve);
-}
 
 void StepGeom_SurfaceOfLinearExtrusion::Init(
 	const Handle(TCollection_HAsciiString)& aName,

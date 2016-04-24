@@ -10,4 +10,6 @@ updatetolerance b 1
 
 bsection result a b
 
-set length 135.096
+checkprops result -l 130.625
+checksection result
+checkview -display result -2d -otherwise { a b } -l -path ${imagedir}/${test_image}.png

@@ -114,7 +114,7 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve
   Handle(Geom_Surface) aSF = BRep_Tool::Surface(aF);
   //
   bComp = IntTools_Tools::ComputeTolerance
-    (aCE1, aC2DT, aSF, aT11, aT12, aTolSP, aTMax);
+    (aCE1, aC2DT, aSF, aT11, aT12, aTolSP, aTMax, aTolPPC);
   if (!bComp) {
     iRet = 3;
     return iRet;
@@ -294,7 +294,8 @@ Standard_Boolean IsToReverse(const TopoDS_Edge& aEold,
   aCnew->D1(aTnew, aP, aVnew);
   aVnew.Normalize(); 
   //
-  aCtx->ProjectPointOnEdge(aP, aEold, aTold);
+  if (!aCtx->ProjectPointOnEdge(aP, aEold, aTold))
+    return Standard_False;
   aCold->D1(aTold, aP, aVold);
   aVold.Normalize(); 
   //

@@ -14,6 +14,7 @@ if [catch {evolved result b p o } catch_result] {
   puts "PRO19424 OK: function EVOLVED works properly"
 }
 
-set square 246.506
-set 2dviewer 0
+checkprops result -s 246.506 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

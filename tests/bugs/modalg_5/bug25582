@@ -15,5 +15,6 @@ if ![isdraw result] {
   puts "Error : thrusections failed"
 }
 
-set square 1.5708
-set 2dviewer 0
+checkprops result -s 1.5708 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

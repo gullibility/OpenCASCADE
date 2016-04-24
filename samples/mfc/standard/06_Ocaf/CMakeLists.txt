@@ -51,19 +51,20 @@ add_executable (Ocaf WIN32 ${Ocaf_SOURCE_FILES}
 
 set_property (TARGET Ocaf PROPERTY FOLDER Samples)
 
-install (TARGETS Ocaf
-         CONFIGURATIONS Release
-         DESTINATION "${INSTALL_DIR}/${OS_WITH_BIT}/${COMPILER}/bin")
-install (TARGETS Ocaf
-         CONFIGURATIONS RelWithDebInfo
-         DESTINATION "${INSTALL_DIR}/${OS_WITH_BIT}/${COMPILER}/bin")
-install (TARGETS Ocaf
-         CONFIGURATIONS Debug
-         DESTINATION "${INSTALL_DIR}/${OS_WITH_BIT}/${COMPILER}/bind")
+if (SINGLE_GENERATOR)
+  install (TARGETS Ocaf DESTINATION "${INSTALL_DIR}/${INSTALL_DIR_BIN}")
+else()
+  install (TARGETS Ocaf
+           CONFIGURATIONS Release RelWithDebInfo
+           DESTINATION "${INSTALL_DIR}/${INSTALL_DIR_BIN}")
+  install (TARGETS Ocaf
+           CONFIGURATIONS Debug
+           DESTINATION "${INSTALL_DIR}/${INSTALL_DIR_BIN}d")
+endif()
 
 include_directories (${CMAKE_BINARY_DIR}/inc
                      ${MFC_STANDARD_SAMPLES_DIR}/06_Ocaf
                      ${Ocaf_SRC_DIR}
                      ${MFC_STANDARD_SAMPLES_DIR}/Common)
 
-target_link_libraries (Ocaf mfcsample TKLCAF TKBO)
+target_link_libraries (Ocaf mfcsample TKLCAF TKVCAF TKBO)

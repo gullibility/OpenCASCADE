@@ -14,5 +14,6 @@ checkshape p
 bop t p
 bopfuse result
 
-set square 681.87
-set 2dviewer 1
+checkprops result -s 681.87 
+checkshape result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

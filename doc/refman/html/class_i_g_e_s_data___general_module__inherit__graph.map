@@ -1,0 +1,14 @@
+<map id="IGESData_GeneralModule" name="IGESData_GeneralModule">
+<area shape="rect" id="node5" href="$class_i_g_e_s_appli___general_module.html" title="Definition of General Services for IGESAppli (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="791,5,967,32"/>
+<area shape="rect" id="node6" href="$class_i_g_e_s_basic___general_module.html" title="Definition of General Services for IGESBasic (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="789,56,969,83"/>
+<area shape="rect" id="node7" href="$class_i_g_e_s_data___default_general.html" title="Processes the specific case of UndefinedEntity from IGESData (Case Number 1) " alt="" coords="793,107,965,133"/>
+<area shape="rect" id="node8" href="$class_i_g_e_s_defs___general_module.html" title="Definition of General Services for IGESDefs (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="792,157,965,184"/>
+<area shape="rect" id="node9" href="$class_i_g_e_s_dimen___general_module.html" title="Definition of General Services for IGESDimen (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="787,208,971,235"/>
+<area shape="rect" id="node10" href="$class_i_g_e_s_draw___general_module.html" title="Definition of General Services for IGESDraw (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="791,259,967,285"/>
+<area shape="rect" id="node11" href="$class_i_g_e_s_geom___general_module.html" title="Definition of General Services for IGESGeom (specific part) This Services comprise : Shared &amp; Implied..." alt="" coords="787,309,970,336"/>
+<area shape="rect" id="node12" href="$class_i_g_e_s_graph___general_module.html" title="Definition of General Services for IGESGraph (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="787,360,970,387"/>
+<area shape="rect" id="node13" href="$class_i_g_e_s_solid___general_module.html" title="Definition of General Services for IGESSolid (specific part) This Services comprise : Shared &amp; Implie..." alt="" coords="791,411,967,437"/>
+<area shape="rect" id="node2" href="$class_interface___general_module.html" title="This class defines general services, which must be provided for each type of Entity (i..." alt="" coords="349,208,515,235"/>
+<area shape="rect" id="node3" href="$class_m_mgt___t_shared.html" title="Intermediate class between Standard_Transient and descendants. The abstract class TShared is the root..." alt="" coords="190,208,301,235"/>
+<area shape="rect" id="node4" href="$class_standard___transient.html" title="Abstract class which forms the root of the entire Transient class hierarchy. " alt="" coords="6,208,141,235"/>
+</map>

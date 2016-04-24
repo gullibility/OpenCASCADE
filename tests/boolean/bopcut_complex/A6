@@ -45,4 +45,5 @@ tcopy buc60706i.brep s
 bop s t
 bopcut result
 
-set square 865172
+checkprops result -s 865172
+checkview -display result -2d -otherwise { s t } -s -path ${imagedir}/${test_image}.png

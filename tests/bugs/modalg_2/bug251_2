@@ -29,5 +29,7 @@ if {[llength ${status}] < 1} {
     }
 }
 
-set length 1.
-set 2dviewer 0
+checkprops result -l 1. 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png

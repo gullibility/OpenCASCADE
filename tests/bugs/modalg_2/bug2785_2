@@ -35,6 +35,6 @@ checkshape fuse1
 
 bfuse result fuse1 ff
 
-set square 125.664
-set 3dviewer 1
-
+checkprops result -s 125.664 
+checkshape result
+checkview -display result -3d -path ${imagedir}/${test_image}.png

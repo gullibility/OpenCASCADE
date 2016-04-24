@@ -16,6 +16,5 @@ vinit
 vdisplay result
 vfit
 
-set square 812.984
-set 3dviewer 1
-
+checkprops result -s 812.984
+checkview -screenshot -3d -path ${imagedir}/${test_image}.png

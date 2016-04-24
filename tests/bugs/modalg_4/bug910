@@ -44,6 +44,8 @@ if { ${TopoDS_Iterator1} != ${TopoDS_Iterator2} || \
 
 renamevar a_7 result
 
-set length 149.816
-set 2dviewer 0
+checkprops result -l 149.816 
+checkshape result 
+checksection result
+checkview -display result -2d -path ${imagedir}/${test_image}.png
 

@@ -20,7 +20,6 @@
 #include <Standard.hxx>
 #endif
 #ifndef _Handle_OCAFSample_Driver_HeaderFile
-#include <Handle_OCAFSample_Driver.hxx>
 #endif
 
 #ifndef _TFunction_Driver_HeaderFile
@@ -33,7 +32,7 @@
 #include <Standard_Integer.hxx>
 #endif
 class TFunction_Logbook;
-class TDF_LabelMap;
+#include <TDF_LabelMap.hxx>
 
 
 class OCAFSample_Driver : public TFunction_Driver {
@@ -59,8 +58,8 @@ public:
  // Methods PUBLIC
  // 
 Standard_EXPORT   void Validate(TFunction_Logbook& log) const;
-Standard_EXPORT virtual  Standard_Boolean MustExecute(const TFunction_Logbook& log) const;
-Standard_EXPORT virtual  Standard_Integer Execute(TFunction_Logbook& log) const;
+Standard_EXPORT virtual  Standard_Boolean MustExecute(const Handle(TFunction_Logbook)& log) const;
+Standard_EXPORT virtual  Standard_Integer Execute(Handle(TFunction_Logbook)& log) const;
 Standard_EXPORT virtual  Standard_Boolean Arguments(TDF_LabelMap& theArgs) const;
 Standard_EXPORT virtual  Standard_Boolean Results(TDF_LabelMap& theRes) const;
 Standard_EXPORT ~OCAFSample_Driver();
@@ -70,7 +69,7 @@ Standard_EXPORT ~OCAFSample_Driver();
 
  // Type management
  //
- Standard_EXPORT friend Handle_Standard_Type& OCAFSample_Driver_Type_();
+ Standard_EXPORT friend Handle(Standard_Type)& OCAFSample_Driver_Type_();
  Standard_EXPORT const Handle(Standard_Type)& DynamicType() const;
  Standard_EXPORT Standard_Boolean	       IsKind(const Handle(Standard_Type)&) const;
 

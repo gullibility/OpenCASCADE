@@ -17,14 +17,9 @@
 #include <StepShape_ShellBasedSurfaceModel.hxx>
 #include <TCollection_HAsciiString.hxx>
 
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_ShellBasedSurfaceModel,StepGeom_GeometricRepresentationItem)
+
 StepShape_ShellBasedSurfaceModel::StepShape_ShellBasedSurfaceModel ()  {}
-
-void StepShape_ShellBasedSurfaceModel::Init(
-	const Handle(TCollection_HAsciiString)& aName)
-{
-
-	StepRepr_RepresentationItem::Init(aName);
-}
 
 void StepShape_ShellBasedSurfaceModel::Init(
 	const Handle(TCollection_HAsciiString)& aName,
